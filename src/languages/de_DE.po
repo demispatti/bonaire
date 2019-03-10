@@ -1,0 +1,853 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: bonaire 1.0.0\n"
+"POT-Creation-Date: 2018-12-05 03:28+0100\n"
+"PO-Revision-Date: 2018-12-05 03:29+0100\n"
+"Last-Translator: \n"
+"Language-Team: Demis Patti <demispatti@gmail.com>\n"
+"Language: de_DE@formal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: bonaire.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/includes/class-adapter.php:253 admin/includes/class-adapter.php:280
+#, fuzzy
+msgid ""
+"Internal Error: Unable to mark message as spam. Please try again later.(1)"
+msgstr ""
+"Interner Fehler: Keine Nachricht als Spam markieren. Bitte versuchen Sie es "
+"später erneut. (1)"
+
+#: admin/includes/class-adapter.php:256 admin/includes/class-adapter.php:283
+#, fuzzy
+msgid ""
+"Internal Error: Unable to mark message as spam. Please try again later.(2)"
+msgstr ""
+"Interner Fehler: Keine Nachricht als Spam markieren. Bitte versuchen Sie es "
+"später erneut. (2)"
+
+#: admin/includes/class-ajax.php:70
+msgid "That won't do."
+msgstr "Das geht nicht."
+
+#: admin/includes/class-ajax.php:112
+msgid "Message marked as read."
+msgstr "Nachricht als gelesen markiert."
+
+#: admin/includes/class-ajax.php:119
+#, fuzzy
+msgid "Failed to mark message as read. Please try again later."
+msgstr ""
+"Nachricht konnte nicht als gelesen markiert werden. Bitte versuchen Sie es "
+"später erneut."
+
+#: admin/includes/class-ajax.php:147
+msgid "Message marked as spam."
+msgstr "Nachricht wurde als Spam gekennzeichnet."
+
+#: admin/includes/class-ajax.php:158
+#, fuzzy
+msgid "Failed to mark message as spam"
+msgstr "Versäumt, die Nachricht als Spam markieren"
+
+#: admin/includes/class-ajax.php:158 admin/includes/class-ajax.php:196
+#: admin/includes/class-ajax.php:246 admin/includes/class-ajax.php:289
+msgid "Please try again later."
+msgstr "Bitte versuchen Sie es später erneut."
+
+#: admin/includes/class-ajax.php:186
+#, fuzzy
+msgid "Message moved to trash."
+msgstr "Nachricht in den Papierkorb verschoben."
+
+#: admin/includes/class-ajax.php:196
+#, fuzzy
+msgid "Failed to move message to trash"
+msgstr "Fehler beim Verschieben der Nachricht in den Papierkorb"
+
+#: admin/includes/class-ajax.php:256
+msgid "Settings saved!"
+msgstr "Einstellungen gespeichert!"
+
+#: admin/includes/class-ajax.php:298
+#, fuzzy
+msgid "Settings restored to default."
+msgstr "Einstellungen auf die Standardwerte wiederhergestellt."
+
+#: admin/includes/class-ajax.php:416
+#, fuzzy
+msgid "Test message sent successfully!"
+msgstr "Nachricht wurde erfolgreich gesendet."
+
+#: admin/includes/class-ajax.php:454
+#, fuzzy
+msgid ""
+"Please check/update the necessary connection data on this plugin's settings "
+"page."
+msgstr ""
+"Bitte aktualisieren Sie überprüfen/die erforderlichen Verbindungsdaten auf "
+"dieses Plugin Einstellungsseite."
+
+#: admin/includes/class-ajax.php:462
+msgid "Message sent!"
+msgstr "Nachricht gesendet!"
+
+#: admin/includes/class-dashboard-widget.php:53
+msgid "No new messages."
+msgstr "Keine neuen Nachrichten."
+
+#: admin/includes/class-dashboard-widget.php:90
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: admin/includes/class-dashboard-widget.php:168
+msgid "All"
+msgstr "Alle"
+
+#: admin/includes/class-dashboard-widget.php:169
+#: admin/partials/class-item-display.php:79
+msgid "Spam"
+msgstr "Spam"
+
+#: admin/includes/class-dashboard-widget.php:170
+#: admin/partials/class-item-display.php:82
+msgid "Trash"
+msgstr "Papierkorb"
+
+#: admin/includes/class-help-tab.php:44
+msgid "HELP"
+msgstr "HILFE"
+
+#: admin/includes/class-help-tab.php:44
+msgid "Bonaire Help"
+msgstr "Bonaire Hilfe"
+
+#: admin/includes/class-help-tab.php:99
+#, fuzzy
+msgid ""
+"This plugin enables you to have a fullscreen background image with a "
+"parallax effect with any image that meets the minimum dimensional "
+"requirements ( 1920 x 1200px for vertical parallax, wider for horizontal "
+"parallax)."
+msgstr ""
+"Responsives Fullscreen Hintergrundbild, mit oder mit ohne Parallax-Effekt. "
+"Parallax lässt sich ab einer Bildgrösse von mindestens 1920px x 1200px "
+"nutzen,"
+
+#: admin/includes/class-help-tab.php:101
+#, fuzzy
+msgid "You can choose an overlay image and define it's settings."
+msgstr ""
+"Zudem kann ein Überlagerungsbild (ein Overlay) ausgewählt und eingestellt "
+"werden."
+
+#: admin/includes/class-help-tab.php:103
+#, fuzzy
+msgid ""
+"The indicated directions are meant to be met while scrolling down the "
+"content."
+msgstr "DIe Richtungsangaben beziehen sich auf das Herunterscrollen."
+
+#: admin/includes/class-help-tab.php:105
+msgid "Enjoy!"
+msgstr "Viel Spass!"
+
+#: admin/includes/class-imap.php:75
+#: admin/includes/class-settings-evaluator.php:185
+#: admin/includes/class-settings-evaluator.php:245
+#, fuzzy
+msgid "Successfully resolved host name."
+msgstr "Erfolgreich aufgelöste Hostnamen."
+
+#: admin/includes/class-imap.php:85
+#: admin/includes/class-settings-evaluator.php:193
+#: admin/includes/class-settings-evaluator.php:253
+#, fuzzy
+msgid "Successfully pinged host."
+msgstr "Erfolgreich ping Host."
+
+#: admin/includes/class-imap.php:95
+#: admin/includes/class-settings-evaluator.php:201
+#, fuzzy
+msgid "Successfully tested SMTP port."
+msgstr "Erfolgreich getestete SMTP-Port."
+
+#: admin/includes/class-imap.php:107
+#, fuzzy
+msgid "Successfully authenticated to the account."
+msgstr "Auf das Konto authentifiziert erfolgreich."
+
+#: admin/includes/class-imap.php:122
+#: admin/includes/class-settings-evaluator.php:315
+#, fuzzy
+msgid "Failed to resolve SMTP hostname ("
+msgstr "Fehler beim Auflösen SMTP Hostname ("
+
+#: admin/includes/class-imap.php:125
+#, fuzzy
+msgid "Internal Error: Unable to resolve host name."
+msgstr "Interner Fehler: Nicht in der Lage, Hostnamen aufzulösen."
+
+#: admin/includes/class-imap.php:139
+#: admin/includes/class-settings-evaluator.php:337
+#: admin/includes/class-settings-evaluator.php:427
+#, fuzzy
+msgid "Failed to ping host ("
+msgstr "Host (Ping fehlgeschlagen"
+
+#: admin/includes/class-imap.php:142
+#, fuzzy
+msgid "Internal Error: Unable to ping host."
+msgstr "Interner Fehler: Nicht in der Lage, Ping Host."
+
+#: admin/includes/class-imap.php:157
+#: admin/includes/class-settings-evaluator.php:364
+#, fuzzy
+msgid ""
+"The port number is wrong. Please review the port number of your SMTP server. "
+"("
+msgstr ""
+"Die Port-Nummer ist falsch. Bitte überprüfen Sie die Portnummer des SMTP-"
+"Servers. ("
+
+#: admin/includes/class-imap.php:164
+#, fuzzy
+msgid "Internal Error: Unable to check port."
+msgstr "Interner Fehler: Nicht in der Lage, Port zu überprüfen."
+
+#: admin/includes/class-imap.php:174
+#, fuzzy
+msgid ""
+"Failed to authenticate. Please review your username and password for the "
+"email account you want to use."
+msgstr ""
+"Fehler beim authentifizieren. Bitte überprüfen Sie Ihren Benutzernamen und "
+"Kennwort für das e-Mail-Konto, das Sie verwenden möchten."
+
+#: admin/includes/class-imap.php:178
+#, fuzzy
+msgid ""
+"Internal Error: Unable to check SMTP authentication (username / password)."
+msgstr ""
+"Interner Fehler: Die SMTP-Authentifizierung (Benutzername / Kennwort) kann "
+"nicht geprüft werden."
+
+#: admin/includes/class-mail.php:79
+#, fuzzy
+msgid "Bonaire Testmail"
+msgstr "Bonaire Testmail"
+
+#: admin/includes/class-mail.php:80
+#, fuzzy
+msgid ""
+"Howdy. This test message was generated by \"Bonaire\" for WordPress. Thanks "
+"for using this plugin!"
+msgstr ""
+"Hallöchen. Diese Test-Nachricht wurde vom \"Bonaire\" für WordPress "
+"generiert. Danke fuer die Benutzung dieses Plugins!"
+
+#: admin/includes/class-meta-box.php:66
+#: admin/partials/class-item-display.php:76
+msgid "Reply"
+msgstr "Antworten"
+
+#: admin/includes/class-options.php:211
+msgid "Username"
+msgstr "Benutzername"
+
+#: admin/includes/class-options.php:213
+#, fuzzy
+msgid "The username for the email account."
+msgstr "Der Benutzername für das e-Mail-Konto."
+
+#: admin/includes/class-options.php:219
+#, fuzzy
+msgid "Please enter your username."
+msgstr "Gib bitte deinen Benutzernamen ein."
+
+#: admin/includes/class-options.php:221 admin/includes/class-options.php:222
+#: admin/includes/class-options.php:238 admin/includes/class-options.php:239
+#: admin/includes/class-options.php:255 admin/includes/class-options.php:256
+#: admin/includes/class-options.php:272 admin/includes/class-options.php:273
+#: admin/includes/class-options.php:289 admin/includes/class-options.php:290
+#: admin/includes/class-options.php:307 admin/includes/class-options.php:308
+#: admin/includes/class-options.php:324 admin/includes/class-options.php:325
+#: admin/includes/class-options.php:341 admin/includes/class-options.php:342
+#: admin/includes/class-options.php:359 admin/includes/class-options.php:360
+#: admin/includes/class-options.php:377 admin/includes/class-options.php:378
+#: admin/includes/class-options.php:394 admin/includes/class-options.php:395
+#: admin/includes/class-options.php:411 admin/includes/class-options.php:412
+#, fuzzy
+msgid ""
+"general name for the post type, usually plural. The same and overridden by "
+"\"$post_type_object->label\".<br>Default is Posts/Pages"
+msgstr ""
+"allgemeine Bezeichnung für die Post-Typ, in der Regel plural. Die gleichen "
+"und von \"$post_type_object-> Label\" überschriebenen.<br>Standardwert ist "
+"Posts/Pages"
+
+#: admin/includes/class-options.php:228
+msgid "Password"
+msgstr "Passwort"
+
+#: admin/includes/class-options.php:230
+#, fuzzy
+msgid "The password for the email account."
+msgstr "Kennwort für das E-Mail-Konto"
+
+#: admin/includes/class-options.php:236
+#, fuzzy
+msgid "Please enter your password."
+msgstr "Bitte geben Sie Ihr Passwort ein."
+
+#: admin/includes/class-options.php:245
+msgid "SMTP Host"
+msgstr "SMTP Host"
+
+#: admin/includes/class-options.php:247
+#, fuzzy
+msgid "The smtp address for your email account. "
+msgstr "Die SMTP-Adresse für Ihr e-Mail-Konto."
+
+#: admin/includes/class-options.php:253
+#, fuzzy
+msgid "Enter a url in a valid format, e.g.: smtp.gmail.com"
+msgstr "Geben Sie eine URL in einem gültigen Format ein, zB: smtp.gmail.com"
+
+#: admin/includes/class-options.php:262
+msgid "SMTP Port"
+msgstr "SMTP Port"
+
+#: admin/includes/class-options.php:264
+msgid "The SMTP port."
+msgstr "Der SMTP-Port."
+
+#: admin/includes/class-options.php:270 admin/includes/class-options.php:409
+#, fuzzy
+msgid "Enter integers only."
+msgstr "Geben Sie nur ganze Zahlen."
+
+#: admin/includes/class-options.php:279
+msgid "SMTPAuth"
+msgstr "SMTPAuth"
+
+#: admin/includes/class-options.php:281
+#, fuzzy
+msgid ""
+"User name and passwort must be provided in order to send messages (default "
+"setting)."
+msgstr ""
+"Benutzername und Passwort müssen angegeben werden, um Nachrichten "
+"(Standardeinstellung)."
+
+#: admin/includes/class-options.php:296
+#, fuzzy
+msgid "SMTPSecure"
+msgstr "SMTPSecure"
+
+#: admin/includes/class-options.php:298 admin/includes/class-options.php:368
+#, fuzzy
+msgid "The encryption method."
+msgstr "CHIFFRIERMETHODE"
+
+#: admin/includes/class-options.php:305 admin/includes/class-options.php:375
+#, fuzzy
+msgid "Please enter either SSL or TLS"
+msgstr "Bitte geben Sie entweder SSL oder TLS"
+
+#: admin/includes/class-options.php:314
+msgid "From Name"
+msgstr "Name des Absenders"
+
+#: admin/includes/class-options.php:316
+#, fuzzy
+msgid "The senders's name, in most cases this will be your name."
+msgstr ""
+"Name des Absenders, in den meisten Fällen handelt es sich dabei um Ihren "
+"Namen."
+
+#: admin/includes/class-options.php:322
+#, fuzzy
+msgid "Please enter alphanumeric values and spaces only."
+msgstr "Bitte geben Sie alphanumerische Werte und Räume nur."
+
+#: admin/includes/class-options.php:331
+msgid "From"
+msgstr "Von"
+
+#: admin/includes/class-options.php:333
+#, fuzzy
+msgid "The email account's email address."
+msgstr "Das e-Mail-Konto e-Mail-Adresse."
+
+#: admin/includes/class-options.php:339
+#, fuzzy
+msgid "Enter email address."
+msgstr "E-Mail-Adresse eintragen."
+
+#: admin/includes/class-options.php:348
+msgid "Save Reply"
+msgstr "Antwort speichern"
+
+#: admin/includes/class-options.php:350
+#, fuzzy
+msgid ""
+"Enable / disable option to save replies in the \"sent items\" folder of your "
+"email account."
+msgstr ""
+"Aktivieren Sie / deaktivieren Sie der Option zum Antworten im Ordner "
+"\"Gesendete Elemente\" von Ihrem e-Mail-Konto speichern."
+
+#: admin/includes/class-options.php:355
+msgid "No"
+msgstr "Nein"
+
+#: admin/includes/class-options.php:355
+msgid "Yes"
+msgstr "Ja"
+
+#: admin/includes/class-options.php:366
+msgid "IMAPSecure"
+msgstr "IMAPSecure"
+
+#: admin/includes/class-options.php:384
+msgid "IMAP Host"
+msgstr "IMAP-Host"
+
+#: admin/includes/class-options.php:386
+#, fuzzy
+msgid "The imap address for your email account. "
+msgstr "Die IMAP-Adresse für Ihr E-Mail-Konto."
+
+#: admin/includes/class-options.php:392
+#, fuzzy
+msgid "Enter a url in a valid format, e.g.: imap.gmail.com"
+msgstr "Geben Sie eine Url in einem gültigen Format, z. B.: imap.gmail.com"
+
+#: admin/includes/class-options.php:401
+#, fuzzy
+msgid "IMAP Port"
+msgstr "IMAP-Port"
+
+#: admin/includes/class-options.php:403
+#, fuzzy
+msgid "The IMAP port."
+msgstr "Der IMAP-Port"
+
+#: admin/includes/class-options.php:524
+#, fuzzy
+msgid "There's nothing to save."
+msgstr "Es gibt nichts zu retten."
+
+#: admin/includes/class-options.php:527
+#, fuzzy
+msgid "Failed to save settings."
+msgstr "Speichern der Einstellungen fehlgeschlagen"
+
+#: admin/includes/class-options.php:557
+#, fuzzy
+msgid "Failed to reset settings. Please refresh the page and try again."
+msgstr ""
+"Fehler beim Zurücksetzen der Einstellungen. Bitte aktualisieren Sie die "
+"Seite und versuchen Sie es erneut."
+
+#: admin/includes/class-options.php:681
+#, fuzzy
+msgid "Internal Error: Unable to set evaluation state."
+msgstr "Interner Fehler: Kann nicht Auswertungszustand festgelegt."
+
+#: admin/includes/class-options.php:740
+#, fuzzy
+msgid "Internal Error: Unable to store plugin data. (fon update options)"
+msgstr ""
+"Interner Fehler: Keine Plugin-Daten zu speichern. (Fon "
+"Aktualisierungsoptionen)"
+
+#: admin/includes/class-post-views.php:91
+#: admin/includes/class-post-views.php:94
+msgid "Views"
+msgstr "Mal gesehen"
+
+#: admin/includes/class-settings-evaluator.php:88
+#: admin/includes/class-settings-evaluator.php:135
+#, fuzzy
+msgid "Please fill in all details first."
+msgstr "Füllen Sie bitte zunächst alle Details."
+
+#: admin/includes/class-settings-evaluator.php:211
+#, fuzzy
+msgid "Successfully authenticated to the account via SMTP."
+msgstr "Für das Konto per SMTP authentifiziert erfolgreich."
+
+#: admin/includes/class-settings-evaluator.php:214
+#, fuzzy
+msgid "Successfully evaluated SMTP settings!"
+msgstr "SMTP-Einstellungen erfolgreich ausgewertet!"
+
+#: admin/includes/class-settings-evaluator.php:261
+#, fuzzy
+msgid "Successfully tested IMAP port."
+msgstr "Erfolgreich getestete IMAP-Port."
+
+#: admin/includes/class-settings-evaluator.php:269
+#, fuzzy
+msgid "Successfully contacted INBOX.Sent folder."
+msgstr "Erfolgreich kontaktiert Posteingang. Gesendet-Ordner."
+
+#: admin/includes/class-settings-evaluator.php:272
+#, fuzzy
+msgid "Successfully evaluated IMAP settings!"
+msgstr "Erfolgreich evaluiert IMAP Einstellungen!"
+
+#: admin/includes/class-settings-evaluator.php:319
+#, fuzzy
+msgid "Internal Error: Unable to resolve SMTP hostname."
+msgstr "Interner Fehler: SMTP Hostnamen nicht auflösen."
+
+#: admin/includes/class-settings-evaluator.php:341
+#, fuzzy
+msgid "Internal Error: Unable to ping SMTP host."
+msgstr "Interner Fehler: Ping SMTP-Host nicht."
+
+#: admin/includes/class-settings-evaluator.php:369
+#, fuzzy
+msgid "Internal Error: Unable to check SMTP port."
+msgstr "Interner Fehler: Konnte nicht überprüft werden SMTP-Port."
+
+#: admin/includes/class-settings-evaluator.php:384
+#, fuzzy
+msgid "SMTP Error: Could not authenticate."
+msgstr "SMTP-Fehler: Authentifizierung fehlgeschlagen."
+
+#: admin/includes/class-settings-evaluator.php:384
+#, fuzzy
+msgid "Please review your username and password."
+msgstr "Bitte überprüfen Sie Ihren Benutzernamen und Ihr Passwort."
+
+#: admin/includes/class-settings-evaluator.php:402
+#, fuzzy
+msgid "Failed to resolve IMAP hostname ("
+msgstr "Fehler beim Auflösen IMAP Hostname ("
+
+#: admin/includes/class-settings-evaluator.php:406
+#, fuzzy
+msgid "Internal Error: Unable to resolve IMAP hostname."
+msgstr "Interner Fehler: IMAP Hostnamen nicht auflösen."
+
+#: admin/includes/class-settings-evaluator.php:430
+#, fuzzy
+msgid "Internal Error: Unable to ping IMAP host."
+msgstr "Interner Fehler: Nicht in der Lage, Ping-IMAP-Host."
+
+#: admin/includes/class-settings-evaluator.php:451
+#, fuzzy
+msgid ""
+"Failed to evaluate port number. Please review the port number of your IMAP "
+"server. ("
+msgstr ""
+"Fehler beim Port-Nummer zu bewerten. Bitte überprüfen Sie die Port-Nummer "
+"des IMAP-Servers. ("
+
+#: admin/includes/class-settings-evaluator.php:456
+#, fuzzy
+msgid "Internal Error: Unable to check IMAP port."
+msgstr "Interner Fehler: Nicht in der Lage, IMAP-Port zu überprüfen."
+
+#: admin/includes/class-settings-evaluator.php:480
+#, fuzzy
+msgid ""
+"Failed to connect to host (connection timeout). Please review your settings "
+"and run test again."
+msgstr ""
+"Verbindung zum Host konnte nicht hergestellt werden (Verbindungs-Timeout). "
+"Bitte überprüfen Sie Ihre Einstellungen und führen Sie den Test erneut aus."
+
+#: admin/includes/class-settings-evaluator.php:480
+#, fuzzy
+msgid ""
+"Failed. Folder \"INBOX.Sent\" not found. Replies can not be saved on your "
+"mail server."
+msgstr ""
+"Ist fehlgeschlagen. Ordner \"Posteingang. Geschickt\"nicht gefunden. "
+"Antworten können nicht auf Ihrem Mailserver gespeichert werden."
+
+#: admin/includes/class-settings-evaluator.php:486
+#, fuzzy
+msgid "Internal Error: Unable to search for Folder."
+msgstr "Interner Fehler: Kann nicht für Ordner durchsucht werden."
+
+#: admin/includes/class-settings-page.php:63
+#, fuzzy
+msgid "Save Options"
+msgstr "Optionen speichern"
+
+#: admin/includes/class-settings-page.php:64
+#, fuzzy
+msgid "Nothing to save."
+msgstr "Nichts zu speichern."
+
+#: admin/includes/class-settings-page.php:65
+#: admin/includes/class-settings-page.php:85
+#, fuzzy
+msgid "Reset Options"
+msgstr "Optionen zurücksetzen"
+
+#: admin/includes/class-settings-page.php:66
+#, fuzzy
+msgid "Nothing to reset."
+msgstr "Nichts zurückzusetzen"
+
+#: admin/includes/class-settings-page.php:67
+#: admin/includes/class-settings-page.php:68
+#: admin/includes/class-settings-page.php:79
+#, fuzzy
+msgid "Please fill in your details first."
+msgstr "Geben Sie bitte Ihre Daten ein"
+
+#: admin/includes/class-settings-page.php:69
+msgid "working"
+msgstr "arbeite"
+
+#: admin/includes/class-settings-page.php:72
+msgid "ok"
+msgstr "ok"
+
+#: admin/includes/class-settings-page.php:73
+msgid "cancel"
+msgstr "abbrechen"
+
+#: admin/includes/class-settings-page.php:76
+msgid "Please fix following errors:"
+msgstr "Bitte korrigieren Sie folgende Fehler:"
+
+#: admin/includes/class-settings-page.php:80
+msgid "Go to settings page:"
+msgstr "Zur Einstellungsseite:"
+
+#: admin/includes/class-settings-page.php:82
+msgid "Go!"
+msgstr "Los!"
+
+#: admin/includes/class-settings-page.php:86
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+#: admin/includes/class-tooltips.php:103 admin/includes/class-tooltips.php:113
+#, fuzzy
+msgid "See Codex"
+msgstr "Kodex"
+
+#: admin/includes/class-tooltips.php:154
+#: admin/partials/class-settings-page-display.php:103
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: admin/includes/class-tooltips.php:168
+#: admin/partials/class-settings-page-display.php:98
+msgid "Reset Settings"
+msgstr "Einstellungen zurücksetzen"
+
+#: admin/includes/class-tooltips.php:182
+#: admin/partials/class-settings-page-display.php:112
+msgid "Test SMTP Settings"
+msgstr "SMTP-Einstellungen testen"
+
+#: admin/includes/class-tooltips.php:196
+#: admin/partials/class-settings-page-display.php:117
+msgid "Test IMAP Settings"
+msgstr "IMAP-Einstellungen testen"
+
+#: admin/includes/class-tooltips.php:210
+#: admin/partials/class-settings-page-display.php:122
+msgid "Send Testmail"
+msgstr "Testnachricht senden"
+
+#: admin/partials/class-item-display.php:66
+msgid " View Message"
+msgstr "Nachricht ansehen"
+
+#: admin/partials/class-item-display.php:69
+msgid "By"
+msgstr "Von"
+
+#: admin/partials/class-item-display.php:76
+msgid "Reply to this message"
+msgstr "Auf die Nachricht antworten"
+
+#: admin/partials/class-item-display.php:76
+msgid " Reply"
+msgstr "Antworten"
+
+#: admin/partials/class-item-display.php:79
+msgid "Mark as spam"
+msgstr "Als Spam markieren"
+
+#: admin/partials/class-item-display.php:79
+msgid " Spam"
+msgstr "Spam"
+
+#: admin/partials/class-item-display.php:82
+msgid "Move to trash"
+msgstr "In den Papierkorb verschieben"
+
+#: admin/partials/class-item-display.php:82
+msgid " Trash"
+msgstr "Papierkorb"
+
+#: admin/partials/class-item-display.php:85
+msgid "Mark as read"
+msgstr ""
+
+#: admin/partials/class-item-display.php:88
+msgid "View message"
+msgstr "Nachricht anzeigen"
+
+#: admin/partials/class-item-display.php:88
+msgid " View"
+msgstr "Ansehen"
+
+#: admin/partials/class-item-display.php:88
+msgid "View"
+msgstr "Ansehen"
+
+#: admin/partials/class-reply-form-display.php:63
+#, fuzzy
+msgid "Account Settings"
+msgstr "Kontoeinstellungen"
+
+#: admin/partials/class-reply-form-display.php:65
+#, fuzzy
+msgid ""
+"Please register the email account that is related to the following email "
+"account in order to send replies"
+msgstr ""
+"Bitte registrieren Sie das E-Mail-Konto, das sich auf das folgende E-Mail-"
+"Konto bezieht, um Antworten zu senden"
+
+#: admin/partials/class-reply-form-display.php:73
+msgid "Your Name"
+msgstr "Ihr Name"
+
+#: admin/partials/class-reply-form-display.php:77
+msgid "Recipient"
+msgstr "Empfänger"
+
+#: admin/partials/class-reply-form-display.php:81
+msgid "Subject"
+msgstr "Betreff"
+
+#: admin/partials/class-reply-form-display.php:85
+msgid "Message"
+msgstr "Nachricht"
+
+#: admin/partials/class-reply-form-display.php:88
+msgid "Send"
+msgstr "Senden"
+
+#: admin/partials/class-settings-page-display.php:81
+msgid "Bonaire Settings"
+msgstr "Bonaire-Einstellungen"
+
+#: admin/partials/class-settings-page-display.php:82
+msgid "Email Account"
+msgstr "E-Mail-Konto"
+
+#: admin/partials/class-settings-page-display.php:82
+msgid "Information"
+msgstr "Informationen"
+
+#: admin/partials/class-settings-page-display.php:89
+msgid "SMTP Settings"
+msgstr "SMTP-Einstellungen"
+
+#: admin/partials/class-settings-page-display.php:90
+#, fuzzy
+msgid "IMAP Settings"
+msgstr "IMAP-Einstellungen"
+
+#: admin/partials/class-settings-page-display.php:134
+#, fuzzy
+msgid "No complete SMTP settings detected or the settings were not tested yet."
+msgstr ""
+"Es wurden keine vollständigen SMTP-Einstellungen gefunden oder die "
+"Einstellungen wurden noch nicht getestet."
+
+#: admin/partials/class-settings-page-display.php:135
+#, fuzzy
+msgid ""
+"Please review/correct the SMTP settings and check them again by clicking on "
+"\"Test SMTP Settings\"."
+msgstr ""
+"Bitte überprüfen / korrigieren Sie die SMTP-Einstellungen und überprüfen Sie "
+"sie erneut, indem Sie auf \"SMTP-Einstellungen testen\" klicken."
+
+#: admin/partials/class-settings-page-display.php:136
+#, fuzzy
+msgid "You're all set to reply to messages!"
+msgstr "Sie sind bereit, auf Nachrichten zu antworten!"
+
+#: admin/partials/class-settings-page-display.php:139
+#, fuzzy
+msgid "No complete IMAP settings detected or the settings were not tested yet."
+msgstr ""
+"Es wurden keine vollständigen IMAP-Einstellungen gefunden oder die "
+"Einstellungen wurden noch nicht getestet."
+
+#: admin/partials/class-settings-page-display.php:140
+#, fuzzy
+msgid ""
+"Please review/correct the IMAP settings and check them again by clicking on "
+"\"Test SMTP Settings\"."
+msgstr ""
+"Bitte überprüfen / korrigieren Sie die IMAP-Einstellungen und überprüfen Sie "
+"sie erneut, indem Sie auf \"SMTP-Einstellungen testen\" klicken."
+
+#: admin/partials/class-settings-page-display.php:141
+#, fuzzy
+msgid "You're all set to save replies in your \"Sent\" folder!"
+msgstr "Sie können alle Antworten in Ihrem \"Sent\" -Ordner speichern!"
+
+#. Plugin Name of the plugin/theme
+msgid "Bonaire"
+msgstr "Bonaire"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://demispatti.ch"
+msgstr "https://demispatti.ch"
+
+#. Description of the plugin/theme
+#, fuzzy
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
+msgstr ""
+"Dies ist eine kurze Beschreibung, was dieses Plugin macht. Es wird im "
+"WordPress-Adminbereich angezeigt."
+
+#. Author of the plugin/theme
+#, fuzzy
+msgid "Demis Patti"
+msgstr "Demis Patti <demispatti@gmail.com>"
+
+#, fuzzy
+#~ msgid "Du hast keine neuen Nachrichten, Alain."
+#~ msgstr "Du hast Keine Neuen Nachrichten, Alain."
+
+#, fuzzy
+#~ msgid "Mark as red"
+#~ msgstr "Markiere als"
+
+#, fuzzy
+#~ msgid "Mark as read (Local)"
+#~ msgstr "Markieren Sie als gelesen (lokal)"

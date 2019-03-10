@@ -1,0 +1,179 @@
+@import '../mixins';
+
+.contextual-help-tabs-wrap {
+    padding: 8px 0 0 0;
+
+    p, a, span, strong, ul, li {
+        @include font-size(11);
+    }
+
+    #tab-panel-bonaire-help-tab {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+
+    ul.ui-corner-all {
+        border: unset;
+        border-radius: unset;
+        background: unset;
+
+        li {
+            border-color: $light-border-color;
+
+            a {
+                padding-top: 3px;
+
+                &:active,
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    .item-description,
+    .item-images {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .item-description {
+        width: 34%;
+        padding-right: 20px;
+        flex-basis: 40%;
+    }
+
+    .item-images {
+        @include flexbox();
+        flex-direction: row;
+        flex-basis: 60%;
+
+        div {
+            padding-right: 20px;
+            overflow: hidden;
+
+            &:last-of-type {
+                padding-right: 0;
+            }
+
+            div.image-holder {
+                box-sizing: border-box;
+                display: block;
+                width: 100%;
+                height: auto;
+                padding-right: 0;
+                background-size: contain;
+                background-repeat: no-repeat;
+                border: 1px solid #5dc0eb !important;
+                overflow: hidden;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    #bonaire-help-tabs {
+        padding: 0 24px 24px 24px;
+        border: unset;
+        border-radius: unset;
+        background: unset;
+
+        ul.nav {
+            @include flexbox();
+            flex-wrap: wrap;
+            border-bottom: 1px solid $border-color;
+
+            li {
+                list-style: none;
+
+                a {
+                    @include font-size(13);
+                }
+
+                &.ui-state-default {
+                    background: #fafafa;
+
+                    &.ui-state-active {
+                        background: $white;
+                    }
+                }
+            }
+        }
+    }
+
+    .ui-tabs-panel {
+        @include flexbox();
+        min-height: 760px;
+        padding: 24px 30px 30px 30px;
+        border: 1px solid $light-border-color;
+        border-top: unset;
+        background: $white;
+        overflow: hidden;
+    }
+
+    p {
+
+    }
+
+    span.info {
+        background-color: rgba(0, 0, 0, 0.08);
+        border-bottom: rgba(0, 0, 0, 0.6);
+    }
+
+    h5 {
+
+    }
+
+    ul.list {
+        margin-top: 0;
+
+        li {
+            list-style: none;
+        }
+    }
+
+}
+
+@media all and (max-width: 1440px) {
+
+    .contextual-help-tabs-wrap {
+
+        .item-description {
+            width: 100%;
+            padding: 0;
+        }
+
+        .item-images {
+            width: 100%;
+            flex-direction: column;
+
+            div {
+                margin-bottom: 20px;
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 1280px) {
+
+    .contextual-help-tabs-wrap {
+
+        .item-description {
+            margin-bottom: 20px;
+        }
+
+        .item-images {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .ui-tabs-panel {
+            flex-direction: column;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+./bin/install-wp-tests.sh wordpress_test DB_USERNAME DB_PASSWORD 127.0.0.1 latest

@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "../../scss/_settings-page.scss",
+    "../../scss/_mixins.scss",
+    "../../scss/_color-palette.scss",
+    "../../scss/_dashboard-widget.scss",
+    "../../scss/admin/css/bonaire-admin.scss"
+  ],
+  "names": [],
+  "mappings": "AAEA;ECeI;EACA,kBCgBkB;EDflB,oBAJa;EAKb,iBALa;EAOb,eAPa;EAQb,YARa;EASb;EAyGA;EACA;EACA;ED9HA;EACA;EACA;EACA;EACA;;AAMA;ECVA;EACA;EACA;EACA;EACA;;ADUA;EACI;EC6GJ;EACA;EACA;;AD3GA;EACI;ECwGJ;EACA;EACA;AA1EI;AAAA;AAAA;AAAA;AAAA;EAYA;EAEA;;ADzCJ;ECzBA;EACA;EACA;EACA;EACA;;AD4BI;EACI;EACA;EACA;;;AGpCR;EACI;EACA;;ACJR;EACI;;;AAGJ;EH2HI;EACA;EACA",
+  "file": "bonaire-admin.css"
+}
