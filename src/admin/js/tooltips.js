@@ -1,7 +1,7 @@
 /**
  * The javascript for the settings page tooltips.
  *
- * @since      1.0.0
+ * @since      0.9.0
  * @package    Bonaire
  * @subpackage Bonaire/admin
  * @author     Demis Patti <demispatti@gmail.com>

@@ -3,7 +3,7 @@ Contributors: demispatti
 Tags: Reply, Messages, Contact Form 7, Flamingo, Email, Send, Send Reply
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 1.0.0
+Stable tag: 0.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q
@@ -68,5 +68,5 @@ Yes. I have a look at the plugin's support page two or three times a month and I
 
 == Changelog ==
 
-= Version 1.0.0 =
+= Version 0.9.0 =
 1. First commit
