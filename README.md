@@ -1,4 +1,4 @@
-=== Bonaire ===
+=== Bonaire ===  
 Contributors: demispatti  
 Tags: Reply, Messages, Contact Form 7, Flamingo, Email, Send, Send Reply  
 Requires at least: 4.8  
