@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the help sidebar.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,7 +25,7 @@ class Bonaire_Help_Sidebar_Display {
 	 * @param string $domain
 	 * @param \WP_Screen $current_screen
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string $html
 	 */
 	public static function help_sidebar_display( $domain, $current_screen ) {

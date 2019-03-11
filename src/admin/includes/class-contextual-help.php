@@ -24,7 +24,7 @@ if ( ! class_exists( 'AdminPartials\Bonaire_Help_Sidebar_Display' ) ) {
 /**
  * The class responsible for creating and displaying the help tab
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -35,7 +35,7 @@ class Bonaire_Contextual_Help {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $domain;
@@ -45,7 +45,7 @@ class Bonaire_Contextual_Help {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -58,7 +58,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -73,7 +73,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Adds the method to the queue of actions.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function initialize() {
@@ -84,7 +84,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Displays the Help Tab and the Help Sidebar.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_contextual_help() {

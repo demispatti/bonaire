@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-specific stylesheet and JavaScript.
  *
- * @since      1.0.0
+ * @since      0.9.0
  * @package    Bonaire
  * @subpackage Bonaire/public
  * @author     Demis Patti <demispatti@gmail.com>
@@ -24,34 +24,13 @@ class Bonaire_Public {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
 		
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
 		add_action( 'wpcf7_mail_sent', array( $this, 'wpcf7_mail_sent' ), 10 );
 		add_filter( 'wpcf7_posted_data', array( $this, 'filter_wpcf7_posted_data' ), 10, 1 );
-	}
-	
-	/**
-	 * Registers the JavaScript for the admin area.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function enqueue_scripts() {
-		
-		$prefix = /*( defined( 'BONAIRE_SCRIPT_DEBUG' ) && BONAIRE_SCRIPT_DEBUG ) ? '' : '.min'*/ '';
-		
-		// Public
-		wp_enqueue_script(
-			'bonaire-public-js',
-			BONAIRE_ROOT_URL . 'public/js/bonaire-public' . $prefix . '.js',
-			array( 'jquery' ),
-			'all',
-			true
-		);
 	}
 	
 	/**
@@ -64,7 +43,7 @@ class Bonaire_Public {
 	 *
 	 * @param $posted_data
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array $posted_data
 	 */
 	public function filter_wpcf7_posted_data( $posted_data ) {
@@ -87,7 +66,7 @@ class Bonaire_Public {
 	 *
 	 * @param \WPCF7_ContactForm $contact_form
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function wpcf7_mail_sent( $contact_form ) {

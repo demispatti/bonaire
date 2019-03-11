@@ -19,13 +19,13 @@ if ( ! defined( 'WPINC' ) ) {
  * that starts the plugin.
  *
  * @link              https://demispatti.ch
- * @since             1.0.0
+ * @since             0.9.0
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
  * Plugin URI:        https://demispatti.ch
  * Description:       Send Replies to messages received trough 'Contact Form 7' and stored with 'Flamingo'.
- * Version:           1.0.0
+ * Version:           0.9.0
  * Author:            Demis Patti
  * Author URI:        https://demispatti.ch
  * License:           GPL-2.0+
@@ -38,10 +38,10 @@ if ( ! defined( 'WPINC' ) ) {
  * Define plugin constants.
  */
 if ( ! defined( 'BONAIRE_ROOT_DIR' ) ) {
-	define( 'BONAIRE_ROOT_DIR', '/Users/demispatti/Documents/Plugins/bonaire.ext/www/wp-content/plugins/bonaire/src/' /*plugin_dir_path( __FILE__ ) . '/'*/ );
+	define( 'BONAIRE_ROOT_DIR', plugin_dir_path( __FILE__ ) . '/' );
 }
 if ( ! defined( 'BONAIRE_ROOT_URL' ) ) {
-	define( 'BONAIRE_ROOT_URL', site_url() . '/wp-content/plugins/bonaire/src/' /*plugin_dir_url( __FILE__ ) . '/'*/ );
+	define( 'BONAIRE_ROOT_URL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
 /**
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Includes\Bonaire_Deactivator' ) ) {
 /**
  * The class that launches the plugin.
  *
- * @since      1.0.0
+ * @since      0.9.0
  * @package    Bonaire
  * @subpackage
  * @author     Demis Patti <demispatti@gmail.com>
@@ -71,7 +71,7 @@ class Bonaire_Launcher {
 	 * The name of the plugin.
 	 *
 	 * @var      string $name
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $name = 'bonaire';
@@ -80,7 +80,7 @@ class Bonaire_Launcher {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $domain = 'bonaire';
@@ -89,34 +89,28 @@ class Bonaire_Launcher {
 	 * The version of the plugin.
 	 *
 	 * @var      string $version
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
-	public $version = '1.0.0';
+	public $version = '0.9.0';
 	
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
 		
-		register_activation_hook( BONAIRE_ROOT_DIR . 'bonaire.php'/*'/Users/demispatti/Documents/Plugins/bonaire.ext/www/wp-content/plugins/bonaire/bonaire.php'*/, array(
-			$this,
-			'activate_bonaire'
-		) );
-		register_deactivation_hook( BONAIRE_ROOT_DIR . 'bonaire.php' /*'/Users/demispatti/Documents/Plugins/bonaire.ext/www/wp-content/plugins/bonaire/bonaire.php'*/, array(
-			$this,
-			'deactivate_bonaire'
-		) );
+		register_activation_hook( BONAIRE_ROOT_DIR . 'bonaire.php', array( $this, 'activate_bonaire' ) );
+		register_deactivation_hook( BONAIRE_ROOT_DIR . 'bonaire.php' , array( $this, 'deactivate_bonaire' ) );
 	}
 	
 	/**
 	 * Runs during plugin activation.
 	 * This action is documented in includes/class-activator.php
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function activate_bonaire() {
@@ -129,7 +123,7 @@ class Bonaire_Launcher {
 	 * Runs during plugin deactivation.
 	 * This action is documented in includes/class-deactivator.php
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function deactivate_bonaire() {
@@ -141,7 +135,7 @@ class Bonaire_Launcher {
 	/**
 	 * Begins execution of the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function run_bonaire() {

@@ -21,18 +21,18 @@ if ( ! class_exists( 'PHPMailer' ) ) {
 /**
  * The class responsible for email functionality.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
  */
-final class Bonaire_Mail extends PHPMailer {
+class Bonaire_Mail extends PHPMailer {
 	
 	/**
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $domain;
@@ -41,7 +41,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $stored_options;
@@ -51,7 +51,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return PHPMailer $mail
 	 */
 	private function phpmailer( $exceptions = null ) {
@@ -87,7 +87,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Returns test mail data.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object $data
 	 */
 	private function testmail_data() {
@@ -124,7 +124,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param object $data
 	 * @param null $exceptions
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return PHPMailer $mail
 	 */
 	private function setup( $data, $exceptions = null ) {
@@ -148,7 +148,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $url
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|string
 	 */
 	private function url_to_domain( $url ) {
@@ -173,7 +173,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Sends a test mail.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -189,7 +189,7 @@ final class Bonaire_Mail extends PHPMailer {
 		}
 		
 		// If sending the test message failed
-		if(false === $result) {
+		if ( false === $result ) {
 			
 			return new \WP_Error( - 2, __( 'Sending test message failed:', $this->domain ) . ' ' . __( 'Could not reach the mail server.', $this->domain ) . '<br>' . __( 'Please make sure that you are connected to the internet, and that you\'ve tested the SMTP and IMAP settings with the respective buttons on this plugin\'s settings page.', $this->domain ) );
 		}
@@ -202,7 +202,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param object $data
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception If saving the message failed
 	 */
@@ -218,7 +218,7 @@ final class Bonaire_Mail extends PHPMailer {
 		}
 		
 		// If sending the message failed
-		if(false === $result) {
+		if ( false === $result ) {
 			
 			return new \WP_Error( - 2, __( 'Sending test message failed:', $this->domain ) . ' ' . __( 'Could not reach the mail server.', $this->domain ) . '<br>' . __( 'Please make sure that you are connected to the internet, and that you\'ve tested the SMTP and IMAP settings with the respective buttons on this plugin\'s settings page.', $this->domain ) );
 		}
@@ -243,7 +243,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param PHPMailer $mail
 	 * @param null $folderPath
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function save_message( $mail, $folderPath = null ) {
@@ -256,7 +256,7 @@ final class Bonaire_Mail extends PHPMailer {
 		$path = 'INBOX' . ( null !== $folderPath ? '.' . $folderPath : '' );
 		
 		$use_ssl_certification_validation = '';
-		if( 'nocert' === $this->stored_options->use_ssl_certification_validation ) {
+		if ( 'nocert' === $this->stored_options->use_ssl_certification_validation ) {
 			$use_ssl_certification_validation = '/novalidate-cert/norsh/service=imap/user=' . $mail->Username;
 		}
 		
@@ -277,7 +277,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return \PHPMailer
 	 */
 	public function get_phpmailer( $exceptions = null ) {

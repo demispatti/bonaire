@@ -1,13 +1,12 @@
-=== Bonaire ===  
+=== Bonaire ===
 Contributors: demispatti  
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q  
 Tags: Reply, Messages, Contact Form 7, Flamingo, Email, Send, Send Reply  
 Requires at least: 4.8  
 Tested up to: 5.1  
 Stable tag: 1.0.0  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
-
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q  
 Send Replies to messages received trough 'Contact Form 7' and stored with 'Flamingo'.  
 
 == Description ==

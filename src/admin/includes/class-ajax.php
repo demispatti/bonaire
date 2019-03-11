@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for the ajax functionality.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,7 +25,7 @@ class Bonaire_Ajax {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $domain;
@@ -34,7 +34,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $Bonaire_Options;
@@ -43,7 +43,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for keeping track of the message views.
 	 *
 	 * @var AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $Bonaire_Post_Views;
@@ -52,7 +52,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for sending messages.
 	 *
 	 * @var AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $Bonaire_Mail;
@@ -61,7 +61,7 @@ class Bonaire_Ajax {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $stored_options;
@@ -70,7 +70,7 @@ class Bonaire_Ajax {
 	 * Holds the error text for failed nonce checks
 	 *
 	 * @var string $nonce_error_text
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $nonce_error_text;
@@ -79,17 +79,10 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for evaluating the SMTP and IMAP settings.
 	 *
 	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Settings_Evaluator;
-	
-	/**
-	 * Holds the instance of the class responsible for handling the email attachments
-	 *
-	 * @var AdminIncludes\Bonaire_Attachments $Bonaire_Attachments $Bonaire_Attachments
-	 */
-	//private $Bonaire_Attachments;
 	
 	/**
 	 * Bonaire_Ajax constructor.
@@ -100,10 +93,10 @@ class Bonaire_Ajax {
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
 	 * @param AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
-	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator/*, $Bonaire_Attachments*/ ) {
+	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator ) {
 		
 		$this->domain = $domain;
 		$this->Bonaire_Options = $Bonaire_Options;
@@ -111,14 +104,13 @@ class Bonaire_Ajax {
 		$this->Bonaire_Mail = $Bonaire_Mail;
 		$this->stored_options = $Bonaire_Options->get_stored_options( '0' );
 		$this->Bonaire_Settings_Evaluator = $Bonaire_Settings_Evaluator;
-		//$this->Bonaire_Attachments = $Bonaire_Attachments;
 		$this->nonce_error_text = __( 'That won\'t do.', $this->domain );
 	}
 	
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -135,16 +127,13 @@ class Bonaire_Ajax {
 		add_action( 'wp_ajax_bonaire_send_testmail', array( $this, 'bonaire_send_testmail' ) );
 		add_action( 'wp_ajax_bonaire_test_smtp_settings', array( $this, 'bonaire_test_smtp_settings' ) );
 		add_action( 'wp_ajax_bonaire_test_imap_settings', array( $this, 'bonaire_test_imap_settings' ) );
-		// File Handling
-		add_action( 'wp_ajax_bonaire_add_file', array( $this, 'bonaire_add_file' ) );
-		add_action( 'wp_ajax_bonaire_remove_file', array( $this, 'bonaire_remove_file' ) );
 	}
 	
 	/**
 	 * Instanciates \Bonaire_Post_Views and marks the message as read via
 	 * a post view count stored in the post's post meta data
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function bonaire_mark_as_read() {
@@ -182,7 +171,7 @@ class Bonaire_Ajax {
 	/**
 	 * Marks the selected item as 'spam'.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function bonaire_mark_as_spam() {
@@ -228,7 +217,7 @@ class Bonaire_Ajax {
 	/**
 	 * Moves the selected item to 'trash'.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function bonaire_move_to_trash() {
@@ -273,7 +262,7 @@ class Bonaire_Ajax {
 	/**
 	 * Saves the options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function bonaire_save_options() {
@@ -328,8 +317,8 @@ class Bonaire_Ajax {
 			$response = array(
 				'success' => true,
 				'message' => __( 'Settings saved.', $this->domain ),
-				'smtp_state' => isset($result['smtp_state']) ? $result['smtp_state'] : '',
-				'imap_state' => isset($result['imap_state']) ? $result['imap_state'] : ''
+				'smtp_state' => isset( $result['smtp_state'] ) ? $result['smtp_state'] : '',
+				'imap_state' => isset( $result['imap_state'] ) ? $result['imap_state'] : ''
 			);
 			
 			wp_send_json_success( $response );
@@ -339,7 +328,7 @@ class Bonaire_Ajax {
 	/**
 	 * Resets the stored options to the default values.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function bonaire_reset_options() {
@@ -383,7 +372,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the SMTP settings based on the stored user options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -423,7 +412,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the IMAP settings based on the stored user options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -463,7 +452,7 @@ class Bonaire_Ajax {
 	/**
 	 * Sends a test message
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -515,7 +504,7 @@ class Bonaire_Ajax {
 	/**
 	 * Checks the email address, sanitizes the user input, instantiates \Bonaire_Mail and submits the data to said class.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -561,5 +550,5 @@ class Bonaire_Ajax {
 			wp_send_json_success( $response );
 		}
 	}
-
+	
 }

@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating the messages that are being displayed by the dashboard widget.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -23,7 +23,7 @@ class Bonaire_Item_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public static
 	 */
 	public static $domain;
@@ -33,7 +33,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param $domain
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -47,7 +47,7 @@ class Bonaire_Item_Display {
 	 * @param string $message
 	 * @param int $charlength
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string $html
 	 */
 	public static function get_excerpt( $message, $charlength = 54 ) {
@@ -67,7 +67,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param object $post
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string $html
 	 */
 	public static function item_display( $post ) {
@@ -97,7 +97,8 @@ class Bonaire_Item_Display {
                     <cite class="comment-author">
                         <span class="meta"><?php echo __( 'From', self::$domain ) ?>
                             <a target="_blank"
-                                href="/wp-admin/admin.php?page=flamingo&s=<?php echo $email ?>"><?php echo $name ?></a> <?php echo __( 'regarding', self::$domain ) ?> <a
+                                href="/wp-admin/admin.php?page=flamingo&s=<?php echo $email ?>"><?php echo $name ?></a> <?php echo __( 'regarding', self::$domain ) ?>
+                            <a
                                 href="<?php echo $edit_post_link ?>" style="font-style=normal;"><?php echo $subject ?></a>
                         </span>
                     </cite>

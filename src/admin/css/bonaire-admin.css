@@ -5,7 +5,7 @@
  * @package    Bonaire
  * @subpackage Bonaire/admin
  * @author     Demis Patti <demispatti@gmail.com>
- * @compiler   Compass
+ * @compiler   Compass SCSS
  */
 .loader {
   color: #fff;
@@ -163,7 +163,6 @@
   transition: color .2s ease-in-out;
   margin-left: 4px;
   position: relative;
-  top: 7px;
 }
 .bonaire-tooltip-symbol i:hover {
   color: rgba(90, 90, 90, 0.6);
@@ -413,7 +412,7 @@
   line-height: 2rem !important;
   overflow: hidden;
   position: relative;
-  top: -2px;
+  top: -10px;
   left: 0;
 }
 #connection_details .content .wpcf7 .status-indicator.red i,

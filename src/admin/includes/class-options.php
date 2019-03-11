@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for handling the user options.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,7 +25,7 @@ class Bonaire_Options {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $domain;
@@ -34,7 +34,7 @@ class Bonaire_Options {
 	 * Holds the default options.
 	 *
 	 * @var      object $default_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $default_options;
@@ -43,7 +43,7 @@ class Bonaire_Options {
 	 * Holds the stored options.
 	 *
 	 * @var      object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $stored_options;
@@ -52,7 +52,7 @@ class Bonaire_Options {
 	 * Holds the account settings part of the stored options.
 	 *
 	 * @var      object $account_settings
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $account_settings;
@@ -61,7 +61,7 @@ class Bonaire_Options {
 	 * Holds the options meta data.
 	 *
 	 * @var      object $options_meta
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $options_meta;
@@ -71,7 +71,7 @@ class Bonaire_Options {
 	 * the SMTP hash key.
 	 *
 	 * @var      array $smtp_hash_keys
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $smtp_hash_keys = array(
@@ -89,7 +89,7 @@ class Bonaire_Options {
 	 * the IMAP hash key.
 	 *
 	 * @var      array $imap_hash_keys
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $imap_hash_keys = array(
@@ -109,7 +109,7 @@ class Bonaire_Options {
 	/**
 	 * Returns the default options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object $options
 	 */
 	private function default_options() {
@@ -165,7 +165,7 @@ class Bonaire_Options {
 	/**
 	 * Returns the stored options or the default options as a fallback.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object $options
 	 */
 	private function stored_options() {
@@ -191,7 +191,7 @@ class Bonaire_Options {
 	 *
 	 * @param object $stored_options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object
 	 */
 	private function account_settings( $stored_options ) {
@@ -212,7 +212,7 @@ class Bonaire_Options {
 	/**
 	 * Returns the options meta data.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object $options_meta
 	 */
 	private function options_meta() {
@@ -373,7 +373,7 @@ class Bonaire_Options {
 				'group' => 'imap',
 				'default_value' => 'cert',
 				'example' => __( 'cert', $this->domain ),
-				'values' => array( 'nocert' => 'nocert', 'cert' => 'cert'),
+				'values' => array( 'nocert' => 'nocert', 'cert' => 'cert' ),
 				'tt_image' => '',
 				'tt_description' => __( '"nocert" Skips the ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain )
 			),
@@ -387,7 +387,7 @@ class Bonaire_Options {
 	 *
 	 * @param $domain
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -403,7 +403,7 @@ class Bonaire_Options {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -414,7 +414,7 @@ class Bonaire_Options {
 	/**
 	 * Localizes the javascript file for the admin part of the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function localize_script() {
@@ -426,7 +426,7 @@ class Bonaire_Options {
 	 * Assembles the data that needs to be localized to the javascript file again
 	 * in order to be up to date after the user saved settings via ajax.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array $data
 	 */
 	private function get_script_data() {
@@ -447,7 +447,7 @@ class Bonaire_Options {
 	 * This occurs every time the user saves settings on the settings page,
 	 * since that process runs with ajax and the page does not reload after saving the options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	private function update_localized_data() {
@@ -463,7 +463,7 @@ class Bonaire_Options {
 	 *
 	 * @param int $settings_group
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	private function has_empty_field( $settings_group = 0 ) {
@@ -494,7 +494,7 @@ class Bonaire_Options {
 	 *
 	 * @param array $input
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array|\WP_Error
 	 */
 	public function bonaire_save_options( $input ) {
@@ -540,7 +540,7 @@ class Bonaire_Options {
 	 * -2 This error indicates a general problem while saving options
 	 * -3 This error indicates a general problem while resetting options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array|\WP_Error
 	 */
 	public function reset_options() {
@@ -568,7 +568,7 @@ class Bonaire_Options {
 	 *
 	 * @param array $input
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array $output
 	 */
 	public function validate_options( $input ) {
@@ -646,7 +646,7 @@ class Bonaire_Options {
 	 * @param string $string
 	 * @param string $action
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string $output|bool
 	 */
 	private function bonaire_crypt( $string, $action = 'e' ) {
@@ -678,7 +678,7 @@ class Bonaire_Options {
 	 * @param string $protocol
 	 * @param string $state
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	public function bonaire_set_evaluation_state( $protocol, $state ) {
@@ -714,7 +714,7 @@ class Bonaire_Options {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	public function get_settings_state( $protocol = 'smtp' ) {
@@ -729,7 +729,7 @@ class Bonaire_Options {
 	 * - orange, the email account settings are complete but evaluation failed
 	 * - red, the email account settings are incomplete (empty input fields left on the settings page)
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array $states
 	 */
 	private function set_settings_states() {
@@ -774,7 +774,7 @@ class Bonaire_Options {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function store_hash( $protocol = 'smtp' ) {
@@ -803,7 +803,7 @@ class Bonaire_Options {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string
 	 */
 	private function create_settings_hash( $protocol ) {
@@ -823,7 +823,7 @@ class Bonaire_Options {
 	 *
 	 * @param int $settings_group
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object
 	 */
 	public function get_stored_options( $settings_group = 0 ) {
@@ -843,7 +843,7 @@ class Bonaire_Options {
 	 * @param null $attrbute_name
 	 * @param null $attribute
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return object|string
 	 */
 	public function get_options_meta( $attrbute_name = null, $attribute = null ) {
@@ -876,7 +876,7 @@ class Bonaire_Options {
 	 *
 	 * @param int $settings_group
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	public function get_has_empty_field( $settings_group ) {

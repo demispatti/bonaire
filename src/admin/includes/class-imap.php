@@ -24,7 +24,7 @@ if ( ! class_exists( 'JJG\Ping' ) ) {
 /**
  * The class responsible for testing IMAP functionality.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -35,7 +35,7 @@ class Bonaire_Imap {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $domain;
@@ -44,7 +44,7 @@ class Bonaire_Imap {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $stored_options;
@@ -53,7 +53,7 @@ class Bonaire_Imap {
 	 * Holds the mailer instance.
 	 *
 	 * @var PHPMailer $PHPMailer
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $PHPMailer;
@@ -61,7 +61,7 @@ class Bonaire_Imap {
 	/**
 	 * Instantiates a mailer instance and configures it.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function set_phpmailer() {
@@ -84,7 +84,7 @@ class Bonaire_Imap {
 	 * @param string $domain
 	 * @param object $stored_options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain, $stored_options ) {
@@ -98,7 +98,7 @@ class Bonaire_Imap {
 	/**
 	 * Initiates IMAP diagnosis and returns the result.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -110,7 +110,7 @@ class Bonaire_Imap {
 	/**
 	 * Executes several tests to evaluate the IMAP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array|bool
 	 * @throws \Exception
 	 */
@@ -199,7 +199,7 @@ class Bonaire_Imap {
 	 * @param  $imap_host
 	 *
 	 * @uses   JJG\Ping ping()
-	 * @since  1.0.0
+	 * @since  0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -226,7 +226,7 @@ class Bonaire_Imap {
 	 * @param $imap_host
 	 * @param $imap_ports
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -256,7 +256,7 @@ class Bonaire_Imap {
 	 * Tests the user credentials for authenticating to the mail server.
 	 *
 	 * @uses   PHPMailer SmtpConnect()
-	 * @since  1.0.0
+	 * @since  0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */

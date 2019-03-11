@@ -43,12 +43,6 @@ class Bonaire_Public_IntegrationTest extends WP_UnitTestCase {
 		
 		$this->assertSame(
 			10,
-			has_action( 'wp_enqueue_scripts', array( $Instance, 'enqueue_scripts' ) ),
-			'Failed to register method with WordPress.'
-		);
-		
-		$this->assertSame(
-			10,
 			has_action( 'wpcf7_mail_sent', array( $Instance, 'wpcf7_mail_sent' ) ),
 			'Failed to register method with WordPress.'
 		);

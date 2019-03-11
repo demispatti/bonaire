@@ -44,10 +44,8 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Tooltips' ) ) {
 if ( ! class_exists( 'AdminIncludes\Bonaire_Options' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) ) {
-	if ( file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
-		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-adapter.php';
-	}
+if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) && file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-adapter.php';
 }
 
 /**
@@ -55,7 +53,7 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) ) {
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @since      1.0.0
+ * @since      0.9.0
  * @package    Bonaire
  * @subpackage Bonaire/admin
  * @author     Demis Patti <demispatti@gmail.com>
@@ -66,7 +64,7 @@ class Bonaire_Admin {
 	 * The name of the plugin.
 	 *
 	 * @var      string $name
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $name;
@@ -75,7 +73,7 @@ class Bonaire_Admin {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $domain;
@@ -84,7 +82,7 @@ class Bonaire_Admin {
 	 * The version of the plugin.
 	 *
 	 * @var      string $version
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $version;
@@ -95,7 +93,7 @@ class Bonaire_Admin {
 	 * on the requested page.
 	 *
 	 * @var      array $plugin_hook_suffixes
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public static
 	 */
 	public static $plugin_hook_suffixes = array(
@@ -110,7 +108,7 @@ class Bonaire_Admin {
 	 * the plugin will load its related classes (or not).
 	 *
 	 * @var      array $plugin_pages
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public static
 	 */
 	public static $plugin_pages = array(
@@ -123,7 +121,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -132,7 +130,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for keeping track of the message views.
 	 *
 	 * @var AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $Bonaire_Post_Views;
@@ -141,7 +139,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for connecting to Contact Form 7 and Flamingo.
 	 *
 	 * @var AdminIncludes\Bonaire_Adapter Bonaire_Adapter
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public
 	 */
 	public $Bonaire_Adapter;
@@ -150,7 +148,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for sending messages.
 	 *
 	 * @var AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Mail;
@@ -159,15 +157,15 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for evaluating the SMTP and IMAP settings.
 	 *
 	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Settings_Evaluator;
-
+	
 	/**
 	 * Set the options instance.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function set_options_instance() {
@@ -178,7 +176,7 @@ class Bonaire_Admin {
 	/**
 	 * Set the post views instance.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function set_post_views_instance() {
@@ -193,7 +191,7 @@ class Bonaire_Admin {
 	 * @param string $domain
 	 * @param string $version
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $name, $domain, $version ) {
@@ -209,7 +207,7 @@ class Bonaire_Admin {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -223,7 +221,7 @@ class Bonaire_Admin {
 	/**
 	 * Adds the recipient email address as post meta data to the newly recieved message(s).
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function maybe_update_post() {
@@ -247,7 +245,7 @@ class Bonaire_Admin {
 	 * - A Dashboard Widget
 	 * - A Meta Box
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function init_dependencies() {
@@ -284,7 +282,7 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function enqueue_styles( $hook_suffix ) {
@@ -305,19 +303,19 @@ class Bonaire_Admin {
 			
 			// Tooltipster
 			wp_enqueue_style( 'bonaire-inc-tooltipster-core-css',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/css/tooltipster.core' . $prefix . '.css',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.core' . $prefix . '.css',
 				array(),
 				'all',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-bundle-css',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/css/tooltipster.bundle' . $prefix . '.css',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.bundle' . $prefix . '.css',
 				array(),
 				'all',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-theme-shadow-css',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
 				array(),
 				'all',
 				'all'
@@ -325,13 +323,13 @@ class Bonaire_Admin {
 			
 			// Alertify
 			wp_enqueue_style( 'bonaire-inc-alertify-min-css',
-				BONAIRE_ROOT_URL . 'admin/libs/alertify/css/alertify' . $prefix . '.css',
+				BONAIRE_ROOT_URL . 'vendor/alertify/css/alertify' . $prefix . '.css',
 				array(),
 				'all',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-alertify-theme-bootstrap-min-css',
-				BONAIRE_ROOT_URL . 'admin/libs/alertify/css/themes/bootstrap' . $prefix . '.css',
+				BONAIRE_ROOT_URL . 'vendor/alertify/css/themes/bootstrap' . $prefix . '.css',
 				array(),
 				'all',
 				'all'
@@ -352,30 +350,31 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 		
-		$prefix = /*( defined( 'BONAIRE_SCRIPT_DEBUG' ) && BONAIRE_SCRIPT_DEBUG ) ? '' : '.min'*/ '';
+		$prefix = /*( defined( 'BONAIRE_SCRIPT_DEBUG' ) && BONAIRE_SCRIPT_DEBUG ) ? '' : '.min'*/
+			'';
 		
 		if ( in_array( $hook_suffix, self::$plugin_hook_suffixes, true ) ) {
 			
 			// Tooltipster
 			wp_enqueue_script( 'bonaire-inc-tooltipster-core-min-js',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/js/tooltipster.core' . $prefix . '.js',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.core' . $prefix . '.js',
 				array( 'jquery' ),
 				'all',
 				true
 			);
 			wp_enqueue_script( 'bonaire-inc-tooltipster-svg-min-js',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/js/plugins/tooltipster/SVG/tooltipster-SVG' . $prefix . '.js',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/plugins/tooltipster/SVG/tooltipster-SVG' . $prefix . '.js',
 				array( 'jquery', 'bonaire-inc-tooltipster-core-min-js' ),
 				'all',
 				true
 			);
 			wp_enqueue_script( 'bonaire-inc-tooltipster-bundle-min-js',
-				BONAIRE_ROOT_URL . 'admin/libs/tooltipster/js/tooltipster.bundle' . $prefix . '.js',
+				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.bundle' . $prefix . '.js',
 				array( 'jquery', 'bonaire-inc-tooltipster-svg-min-js' ),
 				'all',
 				true
@@ -391,7 +390,7 @@ class Bonaire_Admin {
 			
 			// Alertify
 			wp_enqueue_script( 'bonaire-inc-alertify-min-js',
-				BONAIRE_ROOT_URL . 'admin/libs/alertify/alertify' . $prefix . '.js',
+				BONAIRE_ROOT_URL . 'vendor/alertify/alertify' . $prefix . '.js',
 				array( 'jquery' ),
 				'all',
 				true
@@ -407,7 +406,15 @@ class Bonaire_Admin {
 			// Admin
 			wp_enqueue_script( 'bonaire-admin-js',
 				BONAIRE_ROOT_URL . 'admin/js/bonaire-admin' . $prefix . '.js',
-				array('jquery', 'media-views', 'jquery-ui-core', 'jquery-ui-tabs', 'jquery-ui-widget', 'jquery-effects-core', 'bonaire-inc-alertify-min-js' ),
+				array(
+					'jquery',
+					'media-views',
+					'jquery-ui-core',
+					'jquery-ui-tabs',
+					'jquery-ui-widget',
+					'jquery-effects-core',
+					'bonaire-inc-alertify-min-js'
+				),
 				'all',
 				true
 			);
@@ -417,7 +424,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class that connects to Contact Form 7 and Flamingo.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_required_plugins_adapter() {
@@ -433,7 +440,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the dashboard widget.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_dashboard_widget() {
@@ -449,7 +456,7 @@ class Bonaire_Admin {
 	 * Includes the class responsible for evaluating
 	 * the SMTP and the IMAP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_settings_evaluator() {
@@ -463,7 +470,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the settings page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_settings_page() {
@@ -478,7 +485,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for sending emails.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_bonaire_mail() {
@@ -492,7 +499,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the meta box.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_meta_box() {
@@ -507,7 +514,7 @@ class Bonaire_Admin {
 	/**
 	 * includes the help tab.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_contextual_help() {
@@ -523,7 +530,7 @@ class Bonaire_Admin {
 	 * Tracks the post views in order to
 	 * display or hide the message excerpt in the dashboard widget.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_post_views() {
@@ -537,7 +544,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for handling the stored options.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_options() {
@@ -551,7 +558,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the ajax functionality.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_ajax() {
@@ -566,7 +573,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the tooltips displayed on the settings page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function include_tooltips() {

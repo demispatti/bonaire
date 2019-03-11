@@ -22,7 +22,7 @@ if ( ! class_exists( 'Ping' ) ) {
 /**
  * The class responsible for evaluating / testing the email account settings.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -33,7 +33,7 @@ class Bonaire_Settings_Evaluator {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   public static
 	 */
 	public static $domain;
@@ -42,7 +42,7 @@ class Bonaire_Settings_Evaluator {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $stored_options;
@@ -51,7 +51,7 @@ class Bonaire_Settings_Evaluator {
 	 * Holds the options meta data.
 	 *
 	 * @var object $options_meta
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $options_meta;
@@ -60,7 +60,7 @@ class Bonaire_Settings_Evaluator {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -69,7 +69,7 @@ class Bonaire_Settings_Evaluator {
 	 * Holds the mailer instance.
 	 *
 	 * @var PHPMailer $PHPMailer
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $PHPMailer;
@@ -81,7 +81,7 @@ class Bonaire_Settings_Evaluator {
 	 * @param AdminIncludes\Bonaire_Options $Bonaire_Options
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options, $Bonaire_Mail ) {
@@ -96,7 +96,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -111,7 +111,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -150,7 +150,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Calls the function that evaluates the IMAP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -164,7 +164,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -205,7 +205,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	private function meets_requirements( $protocol ) {
@@ -223,7 +223,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|array
 	 * @throws \Exception
 	 */
@@ -243,7 +243,7 @@ class Bonaire_Settings_Evaluator {
 	 * @param  int $smtp_port
 	 * @param  array $smtp_ports
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -295,7 +295,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Calls the method that evaluates the IMAP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -307,7 +307,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Evaluates the IMAP settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -390,7 +390,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_smtp_hostname( $smtp_host ) {
@@ -415,7 +415,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param $smtp_host
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -442,7 +442,7 @@ class Bonaire_Settings_Evaluator {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function test_smtp_port( $smtp_host, $smtp_ports ) {
@@ -468,7 +468,7 @@ class Bonaire_Settings_Evaluator {
 	/**
 	 * Tests the SMTP user credentials and settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return \WP_Error|bool
 	 */
 	private function test_credentials() {
@@ -488,7 +488,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_imap_hostname( $smtp_host ) {
@@ -513,7 +513,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -540,7 +540,7 @@ class Bonaire_Settings_Evaluator {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since 1.0.0.
+	 * @since 0.9.0.
 	 * @return bool|\WP_Error
 	 */
 	private function test_imap_port( $smtp_host, $smtp_ports ) {
@@ -568,7 +568,7 @@ class Bonaire_Settings_Evaluator {
 	 * Tests wether the inbox is reachable or not and returns true on success or
 	 * it returns an error.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	private function test_inbox() {
@@ -591,8 +591,8 @@ class Bonaire_Settings_Evaluator {
 			imap_close( $imapStream );
 			$imap_errors = imap_errors();
 			
-			if ( false === $imapStream && is_array($imap_errors) ) {
-				$error_message = false !== $imapStream ? __( 'Failed to connect to host (connection timeout). Please review your settings and run test again.', self::$domain ) :  $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.' );
+			if ( false === $imapStream && is_array( $imap_errors ) ) {
+				$error_message = false !== $imapStream ? __( 'Failed to connect to host (connection timeout). Please review your settings and run test again.', self::$domain ) : $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.' );
 				
 				return new \WP_Error( 1, $error_message );
 			}
@@ -615,7 +615,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	public static function settings_md5_match( $protocoll = 'smtp' ) {
@@ -661,7 +661,7 @@ class Bonaire_Settings_Evaluator {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	public static function get_settings_md5_match( $protocoll ) {

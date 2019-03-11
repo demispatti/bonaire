@@ -15,21 +15,17 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
-	if ( file_exists( BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php' ) ) {
-		include BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php';
-	}
+if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php' ) ) {
+	include BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php';
 }
-if ( ! class_exists( 'Flamingo_Inbound_Message' ) ) {
-	if ( file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
-		include BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php';
-	}
+if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
+	include BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php';
 }
 
 /**
  * Gets in touch with Contact Form 7 and Flamingo.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -40,7 +36,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   protected
 	 */
 	protected $domain;
@@ -49,7 +45,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * Holds the stored options.
 	 *
 	 * @var      object $stored_options
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $stored_options;
@@ -58,7 +54,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * Holds the stored messages.
 	 *
 	 * @var      array $posts
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $posts;
@@ -66,7 +62,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	/**
 	 * Sets an array containing Flamingo post objects.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function set_posts() {
@@ -80,7 +76,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param string $domain
 	 * @param object $stored_options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain, $stored_options ) {
@@ -95,7 +91,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	/**
 	 * Initiates the probable postprocessing of newly received messages.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function update_post() {
@@ -107,7 +103,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * Add the recipient email as post meta data to filter messages
 	 * by recipient (aka registered account settings email address).
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function postprocess_messages() {
@@ -162,7 +158,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return Flamingo_Inbound_Message|bool
 	 */
 	private function post( $post_id ) {
@@ -182,7 +178,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $attribute
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	private function post_attribute( $post_id, $attribute ) {
@@ -203,7 +199,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $field_name
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	private function field( $post_id, $field_name ) {
@@ -224,7 +220,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return Flamingo_Inbound_Message|bool
 	 */
 	public function get_post( $post_id ) {
@@ -238,7 +234,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $attribute
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	public function get_post_attribute( $post_id, $attribute ) {
@@ -252,7 +248,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $field_name
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string
 	 */
 	public function get_field( $post_id, $field_name ) {
@@ -266,7 +262,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	private function compare_email_addresses( $post_id ) {
@@ -281,7 +277,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	private function recipient_email_address( $post_id ) {
@@ -318,7 +314,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	private function get_inbound_channel_from_current_message( $post_id ) {
@@ -340,7 +336,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool
 	 */
 	public function meets_requirements( $post_id ) {
@@ -353,7 +349,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string|bool
 	 */
 	public function get_recipient_email_address( $post_id ) {
@@ -366,7 +362,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	public function mark_as_spam( $post_id ) {
@@ -400,7 +396,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	public function move_to_trash( $post_id ) {

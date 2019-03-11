@@ -22,7 +22,7 @@ if ( ! class_exists( 'AdminPartials\Bonaire_Settings_Page_Display' ) ) {
 /**
  * The class responsible for creating and displaying the settings page.
  *
- * @since             1.0.0
+ * @since             0.9.0
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -33,7 +33,7 @@ class Bonaire_Settings_Page {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $domain;
@@ -42,7 +42,7 @@ class Bonaire_Settings_Page {
 	 * The instance that's responsible for displaying the settings page content.
 	 *
 	 * @var AdminPartials\Bonaire_Settings_Page_Display $Bonaire_Settings_Page_Display
-	 * @since    1.0.0
+	 * @since    0.9.0
 	 * @access   private
 	 */
 	private $Bonaire_Settings_Page_Display;
@@ -52,7 +52,7 @@ class Bonaire_Settings_Page {
 	 *
 	 * @param $Bonaire_Options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	private function set_settings_page_display_instance( $Bonaire_Options ) {
@@ -66,7 +66,7 @@ class Bonaire_Settings_Page {
 	 * @param      string $domain The domain of this plugin.
 	 * @param      AdminIncludes\Bonaire_Options $Bonaire_Options
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options ) {
@@ -78,7 +78,7 @@ class Bonaire_Settings_Page {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -90,7 +90,7 @@ class Bonaire_Settings_Page {
 	/**
 	 * Localizes the admin javascript file.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function localize_script() {
@@ -104,7 +104,7 @@ class Bonaire_Settings_Page {
 	 * Returns an array containing the notifications used for interactions in the plugin settings page.
 	 * This array gets sent to the admin javasctipt file.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 */
 	private function get_settings_page_notifications() {
@@ -146,12 +146,12 @@ class Bonaire_Settings_Page {
 	/**
 	 * Registers the settings page with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 */
 	public function add_settings_page() {
 		
-		add_options_page( __('Bonaire Settings Page', $this->domain),
+		add_options_page( __( 'Bonaire Settings Page', $this->domain ),
 			'Bonaire',
 			'manage_options',
 			'bonaire.php',
@@ -162,7 +162,7 @@ class Bonaire_Settings_Page {
 	/**
 	 * Echoes a string containing the settings page content.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @echo string
 	 */
 	public function settings_page_display() {
