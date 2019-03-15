@@ -42,7 +42,7 @@ class Bonaire_Mail_FunctionalTest extends WP_UnitTestCase {
 		$classname = 'Bonaire\Admin\Includes\Bonaire_Mail';
 		
 		$Bonaire_Options = new Bonaire\Admin\Includes\Bonaire_Options( $this->domain );
-		$Class = new $classname( $this->domain, $Bonaire_Options->get_stored_options( 0 ) );
+		$Class = new $classname( $this->domain, $Bonaire_Options );
 		
 		$this->assertObjectHasAttribute( 'domain', $Class, 'Attribute "domain" does not exist.' );
 		$this->assertAttributeEquals( 'bonaire', 'domain', $Class, 'Attribute "domain": value is not as expected.' );

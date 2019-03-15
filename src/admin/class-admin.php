@@ -32,9 +32,6 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Meta_Box' ) ) {
 if ( ! class_exists( 'AdminIncludes\Bonaire_Mail' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Settings_Evaluator' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
-}
 if ( ! class_exists( 'AdminIncludes\Bonaire_Ajax' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
 }
@@ -154,15 +151,6 @@ class Bonaire_Admin {
 	private $Bonaire_Mail;
 	
 	/**
-	 * Holds the instance of the class responsible for evaluating the SMTP and IMAP settings.
-	 *
-	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
-	 * @since    0.9.0
-	 * @access   private
-	 */
-	private $Bonaire_Settings_Evaluator;
-	
-	/**
 	 * Set the options instance.
 	 *
 	 * @since 0.9.0
@@ -256,7 +244,6 @@ class Bonaire_Admin {
 			if ( is_admin() ) {
 				$this->include_options();
 				$this->include_bonaire_mail();
-				$this->include_settings_evaluator();
 				$this->include_ajax();
 				$this->include_contextual_help();
 				$this->include_tooltips();
@@ -453,21 +440,6 @@ class Bonaire_Admin {
 	}
 	
 	/**
-	 * Includes the class responsible for evaluating
-	 * the SMTP and the IMAP settings.
-	 *
-	 * @since 0.9.0
-	 * @return void
-	 */
-	private function include_settings_evaluator() {
-		
-		/**
-		 * The class responsible for evaluating the smtp and imap settings.
-		 */
-		$this->Bonaire_Settings_Evaluator = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $this->Bonaire_Options, $this->Bonaire_Mail );
-	}
-	
-	/**
 	 * Includes the settings page.
 	 *
 	 * @since 0.9.0
@@ -493,7 +465,7 @@ class Bonaire_Admin {
 		/**
 		 * The class responsible for the mailing functionality.
 		 */
-		$this->Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $this->Bonaire_Options->get_stored_options( 0 ) );
+		$this->Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $this->Bonaire_Options );
 	}
 	
 	/**
@@ -566,7 +538,7 @@ class Bonaire_Admin {
 		/**
 		 * The class responsible for this plugin's ajax functionality.
 		 */
-		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail, $this->Bonaire_Settings_Evaluator );
+		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail );
 		$Bonaire_Ajax->add_hooks();
 	}
 	

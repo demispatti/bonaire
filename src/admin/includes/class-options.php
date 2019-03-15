@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
  */
-class Bonaire_Options {
+final class Bonaire_Options {
 	
 	/**
 	 * The domain of the plugin.
@@ -46,7 +46,7 @@ class Bonaire_Options {
 	 * @since    0.9.0
 	 * @access   private
 	 */
-	private $stored_options;
+	public $stored_options;
 	
 	/**
 	 * Holds the account settings part of the stored options.
@@ -176,8 +176,6 @@ class Bonaire_Options {
 			
 			return $this->default_options;
 		}
-		
-		$stored_options[0]['password'] = $this->bonaire_crypt( $stored_options[0]['password'], 'd' );
 		
 		$options = (object) array();
 		$options->{0} = (object) $stored_options[0];
@@ -507,7 +505,7 @@ class Bonaire_Options {
 		// Validate
 		$output = $this->validate_options( $input );
 		if ( '' !== $output['password'] && '*****' !== $output['password'] ) {
-			$output['password'] = $this->bonaire_crypt( $output['password'], 'e' );
+			$output['password'] = $this->crypt( $output['password'], 'e' );
 		}
 		
 		$stored_options = get_option( 'bonaire_options' );
@@ -648,8 +646,10 @@ class Bonaire_Options {
 	 *
 	 * @since 0.9.0
 	 * @return string $output|bool
+	 *
+	 * @see \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
-	private function bonaire_crypt( $string, $action = 'e' ) {
+	private function crypt( $string, $action = 'e' ) {
 		
 		$secret_key = AUTH_KEY;
 		$secret_iv = AUTH_SALT;
@@ -736,24 +736,20 @@ class Bonaire_Options {
 		
 		$states = array();
 		
-		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $this->get_stored_options( 0 ) );
-		/**
-		 * @var Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
-		 */
-		$Bonaire_Settings_Evaluator = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $this, $Bonaire_Mail );
+		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $this );
 		
-		if ( true === $Bonaire_Settings_Evaluator->get_settings_md5_match( 'smtp' ) ) {
+		if ( true === $Bonaire_Mail->get_settings_md5_match( 'smtp' ) ) {
 			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'green' );
 		}
-		if ( true === $Bonaire_Settings_Evaluator->get_settings_md5_match( 'imap' ) ) {
+		if ( true === $Bonaire_Mail->get_settings_md5_match( 'imap' ) ) {
 			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'green' );
 		}
 		
-		if ( false === $Bonaire_Settings_Evaluator->get_settings_md5_match( 'smtp' ) ) {
+		if ( false === $Bonaire_Mail->get_settings_md5_match( 'smtp' ) ) {
 			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'orange' );
 			$states['smtp_state'] = 'orange';
 		}
-		if ( false === $Bonaire_Settings_Evaluator->get_settings_md5_match( 'imap' ) ) {
+		if ( false === $Bonaire_Mail->get_settings_md5_match( 'imap' ) ) {
 			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'orange' );
 			$states['imap_state'] = 'orange';
 		}

@@ -25,7 +25,6 @@ class Bonaire_Ajax_FunctionalTest extends WP_UnitTestCase {
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-post-views.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
-		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
 	}
 	
 	public function tearDown() {
@@ -45,12 +44,11 @@ class Bonaire_Ajax_FunctionalTest extends WP_UnitTestCase {
 		$Bonaire_Options = new Bonaire\Admin\Includes\Bonaire_Options( $this->domain );
 		$stored_options = $Bonaire_Options->get_stored_options( 0 );
 		$Bonaire_Post_Views = new Bonaire\Admin\Includes\Bonaire_Post_Views( $this->domain );
-		$Bonaire_Mail = new Bonaire\Admin\Includes\Bonaire_Mail( $this->domain, $stored_options );
-		$Bonaire_Settings_Evaluator = new Bonaire\Admin\Includes\Bonaire_Settings_Evaluator( $this->domain, $Bonaire_Options, $Bonaire_Mail );
+		$Bonaire_Mail = new Bonaire\Admin\Includes\Bonaire_Mail( $this->domain, $Bonaire_Options );
 		
 		$classname = 'Bonaire\Admin\Includes\Bonaire_Ajax';
 		
-		$Class = new $classname( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator );
+		$Class = new $classname( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail );
 		
 		$this->assertObjectHasAttribute( 'domain', $Class, 'Attribute "domain" does not exist.' );
 		$this->assertAttributeEquals( 'bonaire', 'domain', $Class, 'Attribute "domain": value is not as expected.' );

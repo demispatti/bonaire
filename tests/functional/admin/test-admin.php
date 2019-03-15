@@ -46,7 +46,6 @@ class Bonaire_Admin_FunctionalTest extends WP_UnitTestCase {
 		$this->domain = $domain;
 		$this->version = $version;
 		
-		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-page.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/partials/class-settings-page-display.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-dashboard-widget.php';
@@ -124,20 +123,6 @@ class Bonaire_Admin_FunctionalTest extends WP_UnitTestCase {
 		$this->assertInternalType( 'callable', array( $Instance, $method ), 'Failed to call method.' );
 	}
 	
-	public function test_include_settings_evaluator() {
-		
-		$Bonaire_Options = new AdminIncludes\Bonaire_Options( $this->domain );
-		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $Bonaire_Options->get_stored_options( 0 ) );
-		
-		$file = BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
-		$classname = 'Bonaire\Admin\Includes\Bonaire_Settings_Evaluator';
-		$this->Bonaire_Settings_Evaluator = new $classname( $this->domain, $Bonaire_Options, $Bonaire_Mail );
-		
-		$this->assertFileExists( $file, 'Failed to find file.' );
-		$this->assertFileIsReadable( $file, 'Failed to read file.' );
-		$this->assertInstanceOf( $classname, $this->Bonaire_Settings_Evaluator, 'Falied asserting Instance of.' );
-	}
-	
 	public function test_include_settings_page() {
 		
 		$Bonaire_Options = new AdminIncludes\Bonaire_Options( $this->domain );
@@ -160,7 +145,7 @@ class Bonaire_Admin_FunctionalTest extends WP_UnitTestCase {
 		
 		$file = BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
 		$classname = 'Bonaire\Admin\Includes\Bonaire_Mail';
-		$this->Bonaire_Mail = new $classname( $this->domain, $Bonaire_Options->get_stored_options( 0 ) );
+		$this->Bonaire_Mail = new $classname( $this->domain, $Bonaire_Options );
 		
 		$this->assertFileExists( $file, 'Failed to find file.' );
 		$this->assertFileIsReadable( $file, 'Failed to read file.' );
@@ -225,12 +210,11 @@ class Bonaire_Admin_FunctionalTest extends WP_UnitTestCase {
 		
 		$Bonaire_Options = new AdminIncludes\Bonaire_Options( $this->domain );
 		$Bonaire_Post_Views = new AdminIncludes\Bonaire_Post_Views( $this->domain );
-		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $Bonaire_Options->get_stored_options( 0 ) );
-		$Bonaire_Settings_Evaluator = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $Bonaire_Options, $Bonaire_Mail );
+		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $Bonaire_Options );
 		
 		$file = BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
 		$classname = 'Bonaire\Admin\Includes\Bonaire_Ajax';
-		$Instance = new $classname( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator );
+		$Instance = new $classname( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail );
 		$method = 'add_hooks';
 		
 		$this->assertFileExists( $file, 'Failed to find file.' );

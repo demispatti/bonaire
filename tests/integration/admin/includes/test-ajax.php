@@ -26,7 +26,6 @@ class Bonaire_Ajax_IntegrationTest extends WP_UnitTestCase {
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-post-views.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
-		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
 		require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
 	}
 	
@@ -46,10 +45,9 @@ class Bonaire_Ajax_IntegrationTest extends WP_UnitTestCase {
 		
 		$Bonaire_Options = new AdminIncludes\Bonaire_Options( $this->domain );
 		$Bonaire_Post_Views = new AdminIncludes\Bonaire_Post_Views( $this->domain );
-		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $Bonaire_Options->get_stored_options( 0 ) );
-		$Bonaire_Settings_Evaluator = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $Bonaire_Options, $Bonaire_Mail );
+		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $Bonaire_Options );
 		
-		$Instance = new AdminIncludes\Bonaire_Ajax( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator );
+		$Instance = new AdminIncludes\Bonaire_Ajax( $this->domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail );
 		$Instance->add_hooks();
 		
 		$this->assertSame(

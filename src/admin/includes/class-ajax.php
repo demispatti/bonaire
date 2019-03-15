@@ -76,34 +76,23 @@ class Bonaire_Ajax {
 	protected $nonce_error_text;
 	
 	/**
-	 * Holds the instance responsible for evaluating the SMTP and IMAP settings.
-	 *
-	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
-	 * @since    0.9.0
-	 * @access   private
-	 */
-	private $Bonaire_Settings_Evaluator;
-	
-	/**
 	 * Bonaire_Ajax constructor.
 	 *
 	 * @param string $domain
 	 * @param AdminIncludes\Bonaire_Options $Bonaire_Options
 	 * @param AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @param AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Settings_Evaluator
 	 *
 	 * @since 0.9.0
 	 * @return void
 	 */
-	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Settings_Evaluator ) {
+	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail ) {
 		
 		$this->domain = $domain;
 		$this->Bonaire_Options = $Bonaire_Options;
 		$this->Bonaire_Post_Views = $Bonaire_Post_Views;
 		$this->Bonaire_Mail = $Bonaire_Mail;
 		$this->stored_options = $Bonaire_Options->get_stored_options( '0' );
-		$this->Bonaire_Settings_Evaluator = $Bonaire_Settings_Evaluator;
 		$this->nonce_error_text = __( 'That won\'t do.', $this->domain );
 	}
 	
@@ -389,7 +378,7 @@ class Bonaire_Ajax {
 			wp_send_json_error( $response );
 		}
 		
-		$result = $this->Bonaire_Settings_Evaluator->bonaire_test_smtp_settings();
+		$result = $this->Bonaire_Mail->bonaire_test_smtp_settings();
 		if ( is_wp_error( $result ) ) {
 			
 			$response = array(
@@ -429,7 +418,7 @@ class Bonaire_Ajax {
 			wp_send_json_error( $response );
 		}
 		
-		$result = $this->Bonaire_Settings_Evaluator->bonaire_test_imap_settings();
+		$result = $this->Bonaire_Mail->bonaire_test_imap_settings();
 		if ( is_wp_error( $result ) ) {
 			
 			$response = array(
