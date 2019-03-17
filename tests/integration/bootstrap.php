@@ -8,15 +8,16 @@
 define( 'BONAIRE_TESTS', '1' );
 
 if ( ! defined( 'BONAIRE_ROOT_DIR' ) ) {
-	define( 'BONAIRE_ROOT_DIR', '/Users/demispatti/Documents/Plugins/bonaire.ext/www/wp-content/plugins/bonaire/src/' );
+	define( 'BONAIRE_ROOT_DIR', dirname( __FILE__ ) . '/../../src/' );
 }
 
 if ( ! defined( 'BONAIRE_ROOT_URL' ) ) {
-	define( 'BONAIRE_ROOT_URL', 'http://bonaire.ext/wp-content/plugins/bonaire/src/' );
+	$a = dirname( __FILE__ ) . '/../../src/';
+	define( 'BONAIRE_ROOT_URL', dirname( __FILE__ ) . '/../../src/' );
 }
 
 if ( ! defined( 'WP_ROOT_PATH' ) ) {
-	define( 'WP_ROOT_PATH', '/Users/demispatti/Documents/Plugins/bonaire.ext/www/' );
+	define( 'WP_ROOT_PATH', dirname( __FILE__ ) . '/../../../../../' );
 }
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
