@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for deactivating the plugin.
  *
- * @since      0.9.0
+ * @since     0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes
  * @author     Demis Patti <demispatti@gmail.com>
@@ -22,7 +22,7 @@ class Bonaire_Deactivator {
 	/**
 	 * Deletes corrupted stored data if any on plugin deactivation.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function deactivate() {

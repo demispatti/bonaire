@@ -26,7 +26,7 @@ if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_ROOT_D
 /**
  * The class responsible for creating and displaying the dashboard widget.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -37,7 +37,7 @@ class Bonaire_Dashboard_Widget {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -47,7 +47,7 @@ class Bonaire_Dashboard_Widget {
 	 * when there are no messages to show.
 	 *
 	 * @var      string $no_messages_message
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $no_messages_message;
@@ -57,7 +57,7 @@ class Bonaire_Dashboard_Widget {
 	 * when there is no email account set.
 	 *
 	 * @var      string $configure_account_message
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $configure_account_message;
@@ -66,7 +66,7 @@ class Bonaire_Dashboard_Widget {
 	 * Holds the instance that's responsible for displaying the message excerpts on the dashboard.
 	 *
 	 * @var AdminPartials\Bonaire_Item_Display $Bonaire_Item_Display
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Item_Display;
@@ -75,7 +75,7 @@ class Bonaire_Dashboard_Widget {
 	 * Holds the instance that's responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -90,7 +90,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Sets the string for when there are no messages to display.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	private function set_no_messages_message() {
@@ -101,7 +101,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Sets the string for when there is no propperly configured email account set.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	private function set_configure_account_message() {
@@ -112,7 +112,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Sets the instance responsible for displaying the messages on the dashboard.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	private function set_item_display_instance() {
@@ -126,7 +126,7 @@ class Bonaire_Dashboard_Widget {
 	 * @param      string $domain
 	 * @param      AdminIncludes\Bonaire_Options $Bonaire_Options
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options ) {
@@ -143,7 +143,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -155,7 +155,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Registers the widget with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function add_dashboard_widget() {
@@ -172,7 +172,7 @@ class Bonaire_Dashboard_Widget {
 	 * a message for when there are no messages to display or
 	 * a message to prompt the user to configure the email account.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @echo string
 	 */
 	public function dashboard_widget_display() {
@@ -209,7 +209,7 @@ class Bonaire_Dashboard_Widget {
 	 * Retrieves an array containing the stored 'Flamingo Inbound Messages'.
 	 *
 	 * @uses Flamingo_Inbound_Message::find()
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array
 	 */
 	private function retrieve_flamingo_inbound_messages() {
@@ -224,7 +224,7 @@ class Bonaire_Dashboard_Widget {
 	 *
 	 * @uses get_post_meta( $post->id )
 	 * @uses get_item( $post )
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string
 	 */
 	private function display_widget_content( $posts ) {
@@ -256,7 +256,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Creates the footer for the dashboard widget.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string
 	 */
 	private function get_widget_footer() {
@@ -280,7 +280,7 @@ class Bonaire_Dashboard_Widget {
 	/**
 	 * Localizes the script.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function localize_script() {

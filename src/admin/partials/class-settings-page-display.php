@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the settings page.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -26,7 +26,7 @@ class Bonaire_Settings_Page_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -35,7 +35,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   public
 	 */
 	private $Bonaire_Options;
@@ -44,7 +44,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $stored_options;
@@ -53,7 +53,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the options meta data.
 	 *
 	 * @var object $options_meta
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $options_meta;
@@ -64,7 +64,7 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $domain
 	 * @param AdminIncludes\ $Bonaire_Options
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options ) {
@@ -79,7 +79,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	private function add_hooks() {
@@ -90,7 +90,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns the string containing the settings form.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $string
 	 */
 	public function get_form() {
@@ -154,7 +154,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns the settings page content.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array $html
 	 * @toBeImplemented
 	 */
@@ -242,7 +242,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns the strings that describe the three 'settings states'.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array
 	 */
 	private function get_strings() {
@@ -268,7 +268,7 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string
 	 */
 	private function get_settings_field( $key, $value, $options_meta ) {
@@ -307,7 +307,7 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	private function get_settings_field_for_text( $key, $value, $options_meta ) {
@@ -354,7 +354,7 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	private function get_settings_field_for_dropdown( $key, $value, $options_meta ) {
@@ -406,7 +406,7 @@ class Bonaire_Settings_Page_Display {
 	 * @param $value
 	 * @param $options_meta
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	private function get_settings_field_for_checkbox( $key, $value, $options_meta ) {
@@ -436,7 +436,7 @@ class Bonaire_Settings_Page_Display {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string
 	 */
 	private function get_status_display( $protocol ) {
@@ -457,7 +457,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns a list of 'channels' which represent a Contact Form 7 contact form.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array $list
 	 */
 	private function get_channels_List() {
@@ -482,7 +482,7 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Localizes the javascript file for the admin part of the plugin.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function localize_script() {

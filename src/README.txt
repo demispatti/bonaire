@@ -68,5 +68,5 @@ Yes. I have a look at the plugin's support page two or three times a month and I
 
 == Changelog ==
 
-= Version 0.9.0 =
+= Version 0.9.6 =
 1. First commit

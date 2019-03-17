@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
  * The class responsible for keeping track of the post views
  * in order to show / hide messages on the dashboard widget.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -24,7 +24,7 @@ class Bonaire_Post_Views {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -34,7 +34,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 * @dev_helper
 	 */
@@ -47,7 +47,7 @@ class Bonaire_Post_Views {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -58,7 +58,7 @@ class Bonaire_Post_Views {
 	/**
 	 * Sets the post view count if conditions are met.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function count_message_views() {
@@ -78,7 +78,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string
 	 */
 	public function get_post_views( $post_id ) {
@@ -100,7 +100,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool
 	 */
 	public function update_post_view( $post_id ) {
@@ -114,7 +114,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool
 	 */
 	private function set_post_views( $post_id ) {

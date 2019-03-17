@@ -51,7 +51,7 @@ class Bonaire_FunctionalTest extends WP_UnitTestCase {
 		$this->assertAttributeEquals( 'bonaire', 'domain', $Class, 'Attribute "domain": value is not as expected.' );
 		
 		$this->assertObjectHasAttribute( 'version', $Class, 'Attribute "version" does not exist.' );
-		$this->assertAttributeEquals( '1.0.0', 'version', $Class, 'Attribute "version": value is not as expected.' );
+		$this->assertAttributeEquals( '0.9.6 ', 'version', $Class, 'Attribute "version": value is not as expected.' );
 	}
 	
 	public function test_include_locale() {

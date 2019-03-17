@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating the messages that are being displayed by the dashboard widget.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -23,7 +23,7 @@ class Bonaire_Item_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   public static
 	 */
 	public static $domain;
@@ -33,7 +33,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param $domain
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -47,7 +47,7 @@ class Bonaire_Item_Display {
 	 * @param string $message
 	 * @param int $charlength
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	public static function get_excerpt( $message, $charlength = 54 ) {
@@ -67,7 +67,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param object $post
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	public static function item_display( $post ) {

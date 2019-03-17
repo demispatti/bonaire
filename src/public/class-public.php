@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-specific stylesheet and JavaScript.
  *
- * @since      0.9.0
+ * @since     0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/public
  * @author     Demis Patti <demispatti@gmail.com>
@@ -24,7 +24,7 @@ class Bonaire_Public {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -43,7 +43,7 @@ class Bonaire_Public {
 	 *
 	 * @param $posted_data
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array $posted_data
 	 */
 	public function filter_wpcf7_posted_data( $posted_data ) {
@@ -66,7 +66,7 @@ class Bonaire_Public {
 	 *
 	 * @param \WPCF7_ContactForm $contact_form
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function wpcf7_mail_sent( $contact_form ) {

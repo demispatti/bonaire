@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the metabox containing the reply form.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -23,7 +23,7 @@ class Bonaire_Reply_Form_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   public static
 	 */
 	public static $domain;
@@ -33,7 +33,7 @@ class Bonaire_Reply_Form_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -47,7 +47,7 @@ class Bonaire_Reply_Form_Display {
 	 * @param string $subject_text
 	 * @param object $account_settings
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	public static function reply_form_display( $subject_text, $account_settings ) {

@@ -26,7 +26,7 @@ if ( ! class_exists( 'Ping' ) ) {
 /**
  * The class responsible for email functionality.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -37,7 +37,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $domain;
@@ -46,7 +46,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -55,7 +55,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $stored_options;
@@ -64,7 +64,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the options meta data.
 	 *
 	 * @var object $options_meta
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   private
 	 */
 	private $options_meta;
@@ -74,7 +74,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return PHPMailer $mail
 	 */
 	private function phpmailer( $exceptions = null ) {
@@ -112,9 +112,8 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $string
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $output|bool
-	 *
 	 * @see \Bonaire\Admin\Includes\Bonaire_Options crypt()
 	 */
 	private function decrypt( $string ) {
@@ -138,7 +137,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Returns test mail data.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return object $data
 	 */
 	private function testmail_data() {
@@ -176,7 +175,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param object $data
 	 * @param null $exceptions
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return PHPMailer $mail
 	 */
 	private function setup( $data, $exceptions = null ) {
@@ -200,7 +199,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $url
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|string
 	 */
 	private function url_to_domain( $url ) {
@@ -225,7 +224,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Sends a test mail.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -254,7 +253,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param object $data
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception If saving the message failed
 	 */
@@ -295,7 +294,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param PHPMailer $mail
 	 * @param null $folderPath
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function save_message( $mail, $folderPath = null ) {
@@ -329,7 +328,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return \PHPMailer
 	 */
 	private function get_phpmailer( $exceptions = null ) {
@@ -344,7 +343,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -359,7 +358,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -398,7 +397,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the function that evaluates the IMAP settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -412,7 +411,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -453,7 +452,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool
 	 */
 	private function meets_requirements( $protocol ) {
@@ -471,7 +470,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|array
 	 * @throws \Exception
 	 */
@@ -491,7 +490,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param  int $smtp_port
 	 * @param  array $smtp_ports
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -543,7 +542,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the IMAP settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -555,7 +554,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Evaluates the IMAP settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -638,7 +637,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_smtp_hostname( $smtp_host ) {
@@ -663,7 +662,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param $smtp_host
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -690,7 +689,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_smtp_port( $smtp_host, $smtp_ports ) {
@@ -716,7 +715,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Tests the SMTP user credentials and settings.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_credentials() {
@@ -736,7 +735,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_imap_hostname( $smtp_host ) {
@@ -761,7 +760,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -788,7 +787,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since 0.9.0.
+	 * @since0.9.6 .
 	 * @return bool|\WP_Error
 	 */
 	private function test_imap_port( $smtp_host, $smtp_ports ) {
@@ -816,12 +815,13 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Tests wether the inbox is reachable or not and returns true on success or
 	 * it returns an error.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_inbox() {
 		
-		$mail = $this->get_phpmailer(true)/*new parent()*//*new self($this->domain)*//*$this->PHPMailer*/;
+		$mail = $this->get_phpmailer( true )/*new parent()*//*new self($this->domain)*//*$this->PHPMailer*/
+		;
 		
 		try {
 			$mail->Host = $this->stored_options->imap_host;
@@ -863,7 +863,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool
 	 */
 	public static function settings_md5_match( $protocoll = 'smtp' ) {
@@ -909,7 +909,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return bool
 	 */
 	public static function get_settings_md5_match( $protocoll ) {

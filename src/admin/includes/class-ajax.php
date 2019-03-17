@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for the ajax functionality.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,7 +25,7 @@ class Bonaire_Ajax {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $domain;
@@ -34,7 +34,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $Bonaire_Options;
@@ -43,7 +43,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for keeping track of the message views.
 	 *
 	 * @var AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $Bonaire_Post_Views;
@@ -52,7 +52,7 @@ class Bonaire_Ajax {
 	 * Holds the instance responsible for sending messages.
 	 *
 	 * @var AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $Bonaire_Mail;
@@ -61,7 +61,7 @@ class Bonaire_Ajax {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $stored_options;
@@ -70,7 +70,7 @@ class Bonaire_Ajax {
 	 * Holds the error text for failed nonce checks
 	 *
 	 * @var string $nonce_error_text
-	 * @since    0.9.0
+	 * @since   0.9.6
 	 * @access   protected
 	 */
 	protected $nonce_error_text;
@@ -83,7 +83,7 @@ class Bonaire_Ajax {
 	 * @param AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail ) {
@@ -99,7 +99,7 @@ class Bonaire_Ajax {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -122,7 +122,7 @@ class Bonaire_Ajax {
 	 * Instanciates \Bonaire_Post_Views and marks the message as read via
 	 * a post view count stored in the post's post meta data
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function bonaire_mark_as_read() {
@@ -160,7 +160,7 @@ class Bonaire_Ajax {
 	/**
 	 * Marks the selected item as 'spam'.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function bonaire_mark_as_spam() {
@@ -206,7 +206,7 @@ class Bonaire_Ajax {
 	/**
 	 * Moves the selected item to 'trash'.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function bonaire_move_to_trash() {
@@ -251,7 +251,7 @@ class Bonaire_Ajax {
 	/**
 	 * Saves the options.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function bonaire_save_options() {
@@ -317,7 +317,7 @@ class Bonaire_Ajax {
 	/**
 	 * Resets the stored options to the default values.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 */
 	public function bonaire_reset_options() {
@@ -361,7 +361,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the SMTP settings based on the stored user options.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -401,7 +401,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the IMAP settings based on the stored user options.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -441,7 +441,7 @@ class Bonaire_Ajax {
 	/**
 	 * Sends a test message
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -493,7 +493,7 @@ class Bonaire_Ajax {
 	/**
 	 * Checks the email address, sanitizes the user input, instantiates \Bonaire_Mail and submits the data to said class.
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */

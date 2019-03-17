@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the help sidebar.
  *
- * @since             0.9.0
+ * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,7 +25,7 @@ class Bonaire_Help_Sidebar_Display {
 	 * @param string $domain
 	 * @param \WP_Screen $current_screen
 	 *
-	 * @since 0.9.0
+	 * @since0.9.6
 	 * @return string $html
 	 */
 	public static function help_sidebar_display( $domain, $current_screen ) {
@@ -35,9 +35,10 @@ class Bonaire_Help_Sidebar_Display {
 		ob_start();
 		?>
 
-        <p><?php echo __( 'For more information on SALT-Keys, please', $domain ) ?>
+        <p><?php echo __( 'For more information on SALT-Keys, please read', $domain ) ?>
             <a target="_blank"
-                href="https://www.elegantthemes.com/blog/tips-tricks/what-are-wordpress-salt-keys-and-how-can-you-change-them"><?php echo __( 'read more', $domain ) ?></a>.&nbsp;<?php echo __( '(english)', $domain ) ?>
+                href="https://www.elegantthemes.com/blog/tips-tricks/what-are-wordpress-salt-keys-and-how-can-you-change-them"><?php echo __( 'What are wordpress salt keys and how can you change them', $domain ) ?></a>&nbsp;<?php echo __( '(english)', $domain ) ?>
+            .
         </p>
 		
 		<?php
