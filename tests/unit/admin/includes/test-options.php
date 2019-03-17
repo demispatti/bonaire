@@ -78,47 +78,6 @@ class Bonaire_Options {
 	
 	private function default_options() {
 		
-		/*$options = array(
-			0 => array(
-				'username' => 'bonairetest@demispatti.ch',
-				'password' => $this->bonaire_crypt('ZzURgvKgRemo26646@', 'e'),
-				'smtp_host' => 'mail.cyon.ch',
-				'smtp_port' => 465,
-				'smtpsecure' => 'ssl',
-				'fromname' => 'Demis Patti',
-				'from' => 'bonairetest@demispatti.ch',
-				'save_reply' => 'yes',
-				'imapsecure' => 'ssl',
-				'imap_host' => 'mail.cyon.ch',
-				'imap_port' => 993,
-			),
-			1 => array(
-				'smtp_hash' => md5( serialize( array(
-					'username' => 'bonairetest@demispatti.ch',
-					'password' => 'ZzURgvKgRemo26646@',
-					'smtp_host' => 'mail.cyon.ch',
-					'smtp_port' => 465,
-					'smtpsecure' => 'ssl',
-					'fromname' => 'Demis Patti',
-					'from' => 'bonairetest@demispatti.ch'
-				) ) ),
-				'imap_hash' => md5( serialize( array(
-					'username' => 'bonairetest@demispatti.ch',
-					'password' => 'ZzURgvKgRemo26646@',
-					'smtp_host' => 'mail.cyon.ch',
-					'smtp_port' => 465,
-					'smtpsecure' => 'ssl',
-					'fromname' => 'Demis Patti',
-					'from' => 'bonairetest@demispatti.ch',
-					'imapsecure' => 'ssl',
-					'imap_host' => 'mail.cyon.ch',
-					'imap_port' => 993,
-				) ) ),
-				'smtp_settings_state' => 'red',
-				'imap_settings_state' => 'red'
-			)
-		);*/
-		
 		$options = array(
 			0 => array(
 				'username' => '',
