@@ -61,7 +61,7 @@ class Bonaire_Imap {
 	/**
 	 * Instantiates a mailer instance and configures it.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function set_phpmailer() {
@@ -84,7 +84,7 @@ class Bonaire_Imap {
 	 * @param string $domain
 	 * @param object $stored_options
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $stored_options ) {
@@ -98,7 +98,7 @@ class Bonaire_Imap {
 	/**
 	 * Initiates IMAP diagnosis and returns the result.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -110,7 +110,7 @@ class Bonaire_Imap {
 	/**
 	 * Executes several tests to evaluate the IMAP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array|bool
 	 * @throws \Exception
 	 */
@@ -226,7 +226,7 @@ class Bonaire_Imap {
 	 * @param $imap_host
 	 * @param $imap_ports
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */

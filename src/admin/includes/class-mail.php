@@ -74,7 +74,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return PHPMailer $mail
 	 */
 	private function phpmailer( $exceptions = null ) {
@@ -112,7 +112,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $string
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $output|bool
 	 * @see \Bonaire\Admin\Includes\Bonaire_Options crypt()
 	 */
@@ -137,7 +137,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Returns test mail data.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return object $data
 	 */
 	private function testmail_data() {
@@ -175,7 +175,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param object $data
 	 * @param null $exceptions
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return PHPMailer $mail
 	 */
 	private function setup( $data, $exceptions = null ) {
@@ -199,7 +199,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $url
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|string
 	 */
 	private function url_to_domain( $url ) {
@@ -224,7 +224,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Sends a test mail.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -253,7 +253,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param object $data
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception If saving the message failed
 	 */
@@ -294,7 +294,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param PHPMailer $mail
 	 * @param null $folderPath
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function save_message( $mail, $folderPath = null ) {
@@ -328,7 +328,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return \PHPMailer
 	 */
 	private function get_phpmailer( $exceptions = null ) {
@@ -343,7 +343,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -358,7 +358,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -397,7 +397,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the function that evaluates the IMAP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -411,7 +411,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param bool $internal
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
 	 */
@@ -452,7 +452,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	private function meets_requirements( $protocol ) {
@@ -470,7 +470,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the SMTP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|array
 	 * @throws \Exception
 	 */
@@ -490,7 +490,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param  int $smtp_port
 	 * @param  array $smtp_ports
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -542,7 +542,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Calls the method that evaluates the IMAP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -554,7 +554,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Evaluates the IMAP settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 * @throws \Exception
 	 */
@@ -637,7 +637,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_smtp_hostname( $smtp_host ) {
@@ -662,7 +662,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param $smtp_host
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -689,7 +689,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_smtp_port( $smtp_host, $smtp_ports ) {
@@ -715,7 +715,7 @@ final class Bonaire_Mail extends PHPMailer {
 	/**
 	 * Tests the SMTP user credentials and settings.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_credentials() {
@@ -735,7 +735,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function resolve_imap_hostname( $smtp_host ) {
@@ -760,7 +760,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $smtp_host
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 */
@@ -787,7 +787,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param string $smtp_host
 	 * @param array $smtp_ports
 	 *
-	 * @since0.9.6 .
+	 * @since 0.9.6 .
 	 * @return bool|\WP_Error
 	 */
 	private function test_imap_port( $smtp_host, $smtp_ports ) {
@@ -815,7 +815,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Tests wether the inbox is reachable or not and returns true on success or
 	 * it returns an error.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	private function test_inbox() {
@@ -863,7 +863,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	public static function settings_md5_match( $protocoll = 'smtp' ) {
@@ -909,7 +909,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $protocoll
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	public static function get_settings_md5_match( $protocoll ) {

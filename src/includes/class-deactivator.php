@@ -22,17 +22,23 @@ class Bonaire_Deactivator {
 	/**
 	 * Deletes corrupted stored data if any on plugin deactivation.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function deactivate() {
 		
-		$options = get_option( 'bonaire_options' );
+		// Gets the administrator role.
+		$role = get_role( 'administrator' );
 		
-		// If there are options and it is not an array, the options get deleted.
-		if ( false !== $options && ! is_array( $options ) ) {
+		// If the acting user has admin rights, the capability gets added.
+		if ( ! empty( $role ) ) {
+			$options = get_option( 'bonaire_options' );
 			
-			delete_option( 'bonaire_options' );
+			// If there are options and it is not an array, the options get deleted.
+			if ( false !== $options && ! is_array( $options ) ) {
+				
+				delete_option( 'bonaire_options' );
+			}
 		}
 	}
 	

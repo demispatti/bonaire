@@ -83,7 +83,7 @@ class Bonaire_Ajax {
 	 * @param AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail ) {
@@ -99,7 +99,7 @@ class Bonaire_Ajax {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -122,7 +122,7 @@ class Bonaire_Ajax {
 	 * Instanciates \Bonaire_Post_Views and marks the message as read via
 	 * a post view count stored in the post's post meta data
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function bonaire_mark_as_read() {
@@ -160,7 +160,7 @@ class Bonaire_Ajax {
 	/**
 	 * Marks the selected item as 'spam'.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function bonaire_mark_as_spam() {
@@ -206,7 +206,7 @@ class Bonaire_Ajax {
 	/**
 	 * Moves the selected item to 'trash'.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function bonaire_move_to_trash() {
@@ -251,7 +251,7 @@ class Bonaire_Ajax {
 	/**
 	 * Saves the options.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function bonaire_save_options() {
@@ -317,7 +317,7 @@ class Bonaire_Ajax {
 	/**
 	 * Resets the stored options to the default values.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function bonaire_reset_options() {
@@ -361,7 +361,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the SMTP settings based on the stored user options.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -401,7 +401,7 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the IMAP settings based on the stored user options.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -441,7 +441,7 @@ class Bonaire_Ajax {
 	/**
 	 * Sends a test message
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */
@@ -493,7 +493,7 @@ class Bonaire_Ajax {
 	/**
 	 * Checks the email address, sanitizes the user input, instantiates \Bonaire_Mail and submits the data to said class.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
 	 */

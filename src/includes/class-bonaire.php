@@ -75,7 +75,7 @@ class Bonaire {
 	 * @param string $domain
 	 * @param string $version
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $name, $domain, $version ) {
@@ -88,7 +88,7 @@ class Bonaire {
 	/**
 	 * Runs the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function init() {
@@ -103,7 +103,7 @@ class Bonaire {
 	 * Uses the Bonaire_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function include_locale() {
@@ -118,7 +118,7 @@ class Bonaire {
 	 * Registers all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_admin() {
@@ -140,7 +140,7 @@ class Bonaire {
 	 * Registers all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_public() {

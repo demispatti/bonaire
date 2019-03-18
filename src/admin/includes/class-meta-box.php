@@ -68,7 +68,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Sets the instance responsible for displaying the reply form.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function set_reply_form_display_instance() {
@@ -83,7 +83,7 @@ class Bonaire_Meta_Box {
 	 * @param AdminIncludes\Bonaire_Adapter $Bonaire_Adapter
 	 * @param AdminIncludes\Bonaire_Options $Bonaire_Options
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $Bonaire_Adapter, $Bonaire_Options ) {
@@ -98,7 +98,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -111,7 +111,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function enqueue_styles() {
@@ -123,7 +123,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Registers the JavaScript for the admin area.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function enqueue_scripts() {
@@ -138,7 +138,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Registers the meta box with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_meta_box() {
@@ -154,7 +154,7 @@ class Bonaire_Meta_Box {
 	/**
 	 * Creates and displays the meta box containing the reply form.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @echo string $string
 	 */
 	public function display_reply_form_meta_box() {

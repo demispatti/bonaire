@@ -62,7 +62,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	/**
 	 * Sets an array containing Flamingo post objects.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function set_posts() {
@@ -76,7 +76,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param string $domain
 	 * @param object $stored_options
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $stored_options ) {
@@ -91,7 +91,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	/**
 	 * Initiates the probable postprocessing of newly received messages.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function update_post() {
@@ -103,7 +103,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * Add the recipient email as post meta data to filter messages
 	 * by recipient (aka registered account settings email address).
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function postprocess_messages() {
@@ -158,7 +158,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return Flamingo_Inbound_Message|bool
 	 */
 	private function post( $post_id ) {
@@ -178,7 +178,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $attribute
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	private function post_attribute( $post_id, $attribute ) {
@@ -199,7 +199,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $field_name
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	private function field( $post_id, $field_name ) {
@@ -220,7 +220,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return Flamingo_Inbound_Message|bool
 	 */
 	public function get_post( $post_id ) {
@@ -234,7 +234,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $attribute
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	public function get_post_attribute( $post_id, $attribute ) {
@@ -248,7 +248,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $field_name
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	public function get_field( $post_id, $field_name ) {
@@ -262,7 +262,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	private function compare_email_addresses( $post_id ) {
@@ -277,7 +277,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	private function recipient_email_address( $post_id ) {
@@ -314,7 +314,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	private function get_inbound_channel_from_current_message( $post_id ) {
@@ -336,7 +336,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	public function meets_requirements( $post_id ) {
@@ -349,7 +349,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string|bool
 	 */
 	public function get_recipient_email_address( $post_id ) {
@@ -362,7 +362,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	public function mark_as_spam( $post_id ) {
@@ -396,7 +396,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 */
 	public function move_to_trash( $post_id ) {

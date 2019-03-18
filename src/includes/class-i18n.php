@@ -33,7 +33,7 @@ class Bonaire_i18n {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -44,7 +44,7 @@ class Bonaire_i18n {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -55,7 +55,7 @@ class Bonaire_i18n {
 	/**
 	 * Loads the plugin text domain for translation.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function load_plugin_textdomain() {

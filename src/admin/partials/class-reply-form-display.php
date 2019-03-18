@@ -33,7 +33,7 @@ class Bonaire_Reply_Form_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -47,7 +47,7 @@ class Bonaire_Reply_Form_Display {
 	 * @param string $subject_text
 	 * @param object $account_settings
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function reply_form_display( $subject_text, $account_settings ) {

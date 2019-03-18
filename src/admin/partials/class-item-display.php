@@ -33,7 +33,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -47,7 +47,7 @@ class Bonaire_Item_Display {
 	 * @param string $message
 	 * @param int $charlength
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function get_excerpt( $message, $charlength = 54 ) {
@@ -67,7 +67,7 @@ class Bonaire_Item_Display {
 	 *
 	 * @param object $post
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function item_display( $post ) {

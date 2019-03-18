@@ -97,20 +97,20 @@ class Bonaire_Launcher {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
 		
-		register_activation_hook( BONAIRE_ROOT_DIR . 'bonaire.php', array( $this, 'activate_bonaire' ) );
-		register_deactivation_hook( BONAIRE_ROOT_DIR . 'bonaire.php', array( $this, 'deactivate_bonaire' ) );
+		register_activation_hook( __FILE__, array( $this, 'activate_bonaire' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate_bonaire' ) );
 	}
 	
 	/**
 	 * Runs during plugin activation.
 	 * This action is documented in includes/class-activator.php
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function activate_bonaire() {
@@ -123,7 +123,7 @@ class Bonaire_Launcher {
 	 * Runs during plugin deactivation.
 	 * This action is documented in includes/class-deactivator.php
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function deactivate_bonaire() {
@@ -135,7 +135,7 @@ class Bonaire_Launcher {
 	/**
 	 * Begins execution of the plugin.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function run_bonaire() {

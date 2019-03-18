@@ -25,7 +25,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function help_tab_display( $domain ) {
@@ -62,7 +62,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_prerequisites( $domain ) {
@@ -116,7 +116,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_plugin_settings( $domain ) {
@@ -154,7 +154,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_contact_form_7_settings( $domain ) {
@@ -193,7 +193,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_dashboard_widget( $domain ) {
@@ -226,7 +226,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_reply_form( $domain ) {
@@ -259,7 +259,7 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function tab_content_plugin_information_and_privacy_notices( $domain ) {

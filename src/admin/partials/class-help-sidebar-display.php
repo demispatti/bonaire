@@ -25,7 +25,7 @@ class Bonaire_Help_Sidebar_Display {
 	 * @param string $domain
 	 * @param \WP_Screen $current_screen
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	public static function help_sidebar_display( $domain, $current_screen ) {

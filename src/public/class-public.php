@@ -24,7 +24,7 @@ class Bonaire_Public {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -43,7 +43,7 @@ class Bonaire_Public {
 	 *
 	 * @param $posted_data
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array $posted_data
 	 */
 	public function filter_wpcf7_posted_data( $posted_data ) {
@@ -66,7 +66,7 @@ class Bonaire_Public {
 	 *
 	 * @param \WPCF7_ContactForm $contact_form
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function wpcf7_mail_sent( $contact_form ) {

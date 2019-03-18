@@ -73,7 +73,7 @@ class Bonaire_Tooltips {
 	 * @param string $domain
 	 * @param object $options_meta
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain, $options_meta ) {
@@ -85,7 +85,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -98,7 +98,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param string $option_key
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array $args
 	 */
 	private function get_setting_args( $option_key ) {
@@ -116,7 +116,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns an array containing the option keys.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array $list
 	 */
 	private function get_option_keys() {
@@ -134,7 +134,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param array $args
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	private function get_image_output( $args ) {
@@ -154,7 +154,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param array $args
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	private function get_example_output( $args ) {
@@ -172,7 +172,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param array $args
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	private function get_heading_output( $args ) {
@@ -190,7 +190,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param array $args
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	private function get_description_output( $args ) {
@@ -206,7 +206,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns the argumants the 'save options' button consists of.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 */
 	private function save_options_button_args() {
@@ -224,7 +224,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns the argumants the 'reset options' button consists of.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 */
 	private function reset_options_button_args() {
@@ -242,7 +242,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns the argumants the 'test SMTP settings' button consists of.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 */
 	private function test_smtp_settings_button_args() {
@@ -260,7 +260,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns the argumants the 'test IMAP settings' button consists of.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 */
 	private function test_imap_settings_button_args() {
@@ -278,7 +278,7 @@ class Bonaire_Tooltips {
 	/**
 	 * Returns the argumants the 'send testmail' button consists of.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array
 	 */
 	private function send_testmail_button_args() {
@@ -298,7 +298,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param array $args
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string $html
 	 */
 	private function compose_tooltip( $args ) {
@@ -322,7 +322,7 @@ class Bonaire_Tooltips {
 	 * Assembles and returns the contents for the tooltips
 	 * that are available on the settings page.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return array $tooltips
 	 */
 	private function assemble_tooltip_content() {
@@ -347,7 +347,7 @@ class Bonaire_Tooltips {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function localize_script( $hook_suffix ) {

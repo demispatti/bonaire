@@ -45,7 +45,7 @@ class Bonaire_Contextual_Help {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $domain ) {
@@ -58,7 +58,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -73,7 +73,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Adds the method to the queue of actions.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function initialize() {
@@ -84,7 +84,7 @@ class Bonaire_Contextual_Help {
 	/**
 	 * Displays the Help Tab and the Help Sidebar.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_contextual_help() {

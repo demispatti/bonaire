@@ -34,7 +34,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param string $domain
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 * @dev_helper
 	 */
@@ -47,7 +47,7 @@ class Bonaire_Post_Views {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -58,7 +58,7 @@ class Bonaire_Post_Views {
 	/**
 	 * Sets the post view count if conditions are met.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function count_message_views() {
@@ -78,7 +78,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return string
 	 */
 	public function get_post_views( $post_id ) {
@@ -100,7 +100,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	public function update_post_view( $post_id ) {
@@ -114,7 +114,7 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return bool
 	 */
 	private function set_post_views( $post_id ) {

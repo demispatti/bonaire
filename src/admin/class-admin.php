@@ -153,7 +153,7 @@ class Bonaire_Admin {
 	/**
 	 * Set the options instance.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function set_options_instance() {
@@ -164,7 +164,7 @@ class Bonaire_Admin {
 	/**
 	 * Set the post views instance.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function set_post_views_instance() {
@@ -179,7 +179,7 @@ class Bonaire_Admin {
 	 * @param string $domain
 	 * @param string $version
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function __construct( $name, $domain, $version ) {
@@ -195,7 +195,7 @@ class Bonaire_Admin {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function add_hooks() {
@@ -209,7 +209,7 @@ class Bonaire_Admin {
 	/**
 	 * Adds the recipient email address as post meta data to the newly recieved message(s).
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function maybe_update_post() {
@@ -233,7 +233,7 @@ class Bonaire_Admin {
 	 * - A Dashboard Widget
 	 * - A Meta Box
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function init_dependencies() {
@@ -269,7 +269,7 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function enqueue_styles( $hook_suffix ) {
@@ -337,7 +337,7 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
@@ -411,7 +411,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class that connects to Contact Form 7 and Flamingo.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_required_plugins_adapter() {
@@ -427,7 +427,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the dashboard widget.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_dashboard_widget() {
@@ -442,7 +442,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the settings page.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_settings_page() {
@@ -457,7 +457,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for sending emails.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_bonaire_mail() {
@@ -471,7 +471,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the meta box.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_meta_box() {
@@ -486,7 +486,7 @@ class Bonaire_Admin {
 	/**
 	 * includes the help tab.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_contextual_help() {
@@ -502,7 +502,7 @@ class Bonaire_Admin {
 	 * Tracks the post views in order to
 	 * display or hide the message excerpt in the dashboard widget.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_post_views() {
@@ -516,7 +516,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for handling the stored options.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_options() {
@@ -530,7 +530,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the ajax functionality.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_ajax() {
@@ -545,7 +545,7 @@ class Bonaire_Admin {
 	/**
 	 * Includes the tooltips displayed on the settings page.
 	 *
-	 * @since0.9.6
+	 * @since 0.9.6
 	 * @return void
 	 */
 	private function include_tooltips() {
