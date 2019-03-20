@@ -1,5 +1,5 @@
 === Bonaire (beta) ===  
-Contributors: demispatti  
+Contributors: Demis Patti  
 Tags: Reply, Messages, Contact Form 7, Flamingo, Email, Send, Send Reply  
 Requires at least: 4.8  
 Tested up to: 5.1  
