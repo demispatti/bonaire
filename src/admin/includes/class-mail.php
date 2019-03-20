@@ -29,7 +29,7 @@ if ( ! class_exists( 'Ping' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
- * @author            Demis Patti <demis@demispatti.ch>
+ * @author            Demis Patti <demispatti@gmail.com>
  */
 final class Bonaire_Mail extends PHPMailer {
 	

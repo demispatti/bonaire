@@ -39,7 +39,7 @@ tests_add_filter( 'muplugins_loaded', '_load_plugin_prerequisites', 30 );
 function _load_plugin_prerequisites() {
 	
 	if ( ! class_exists( 'WP_Error' ) ) {
-		include '/Users/demispatti/wordpress-develop/src/wp-includes/class-wp-error.php';
+		include WP_ROOT_PATH . 'wp-includes/class-wp-error.php';
 	}
 	
 	if ( ( include BONAIRE_ROOT_DIR . '../../contact-form-7/wp-contact-form-7.php' ) === false ) {

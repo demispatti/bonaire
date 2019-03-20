@@ -7,16 +7,16 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://demispatti.ch
+ * @link
  * @since             1.0.0
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
- * Plugin URI:        https://demispatti.ch
+ * Plugin URI:
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
  * Author:            Demis Patti
- * Author URI:        https://demispatti.ch
+ * Author URI:
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bonaire

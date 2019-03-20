@@ -38,8 +38,18 @@ include $_tests_dir . '/includes/functions.php';
 tests_add_filter( 'muplugins_loaded', '_load_plugin_prerequisites', 20 );
 function _load_plugin_prerequisites() {
 	
-	include BONAIRE_ROOT_DIR . '../../contact-form-7/wp-contact-form-7.php';
-	include BONAIRE_ROOT_DIR . '../../flamingo/flamingo.php';
+	if ( ! class_exists( 'WP_Error' ) ) {
+		include WP_ROOT_PATH . 'wp-includes/class-wp-error.php';
+	}
+	
+	if ( ( include BONAIRE_ROOT_DIR . '../../contact-form-7/wp-contact-form-7.php' ) === false ) {
+		$e = new WP_Error( '-1', 'Contact Form 7 plugin is missing or deactivated. Please install / activate it to run the tests.' );
+		echo $e->get_error_message();
+	}
+	if ( ( include BONAIRE_ROOT_DIR . '../../flamingo/flamingo.php' ) === false ) {
+		$e = new WP_Error( '-1', 'Flamingo plugin for Contact Form 7 is missing or deactivated. Please install / activate it to run the tests.' );
+		echo $e->get_error_message();
+	}
 }
 
 // Manually load the plugin.

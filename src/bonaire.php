@@ -18,16 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://demispatti.ch
+ * @link
  * @since             0.9.6
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
- * Plugin URI:        https://demispatti.ch
+ * Plugin URI:
  * Description:       Send Replies to messages received trough 'Contact Form 7' and stored with 'Flamingo'.
  * Version:           0.9.6
  * Author:            Demis Patti
- * Author URI:        https://demispatti.ch
+ * Author URI:
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bonaire

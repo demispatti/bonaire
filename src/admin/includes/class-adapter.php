@@ -28,7 +28,7 @@ if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_ROOT_D
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
- * @author            Demis Patti <demis@demispatti.ch>
+ * @author            Demis Patti <demispatti@gmail.com>
  */
 class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	

@@ -25,7 +25,7 @@ if ( ! class_exists( 'AdminPartials\Bonaire_Settings_Page_Display' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
- * @author            Demis Patti <demis@demispatti.ch>
+ * @author            Demis Patti <demispatti@gmail.com>
  */
 class Bonaire_Settings_Page {
 	

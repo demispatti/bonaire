@@ -27,7 +27,7 @@ if ( ! class_exists( 'JJG\Ping' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
- * @author            Demis Patti <demis@demispatti.ch>
+ * @author            Demis Patti <demispatti@gmail.com>
  */
 class Bonaire_Imap {
 	

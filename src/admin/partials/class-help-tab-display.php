@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
- * @author            Demis Patti <demis@demispatti.ch>
+ * @author            Demis Patti <demispatti@gmail.com>
  * @todo              Hilfe-Texte
  */
 class Bonaire_Help_Tab_Display {
