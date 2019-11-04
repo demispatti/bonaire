@@ -1,8 +1,8 @@
 === Bonaire (beta) ===  
 Contributors: Demis Patti  
 Tags: Reply, Messages, Contact Form 7, Flamingo, Email, Send, Send Reply  
-Requires at least: 4.8  
-Tested up to: 5.1  
+Requires at least: 5.1  
+Tested up to: 5.3  
 Stable tag: 0.9.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
