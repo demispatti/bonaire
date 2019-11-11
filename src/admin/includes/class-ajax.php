@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
- * @author            Demis Patti <demispatti@gmail.com>
+ * @author            Demis Patti <demis@demispatti.ch>
  */
 class Bonaire_Ajax {
 	

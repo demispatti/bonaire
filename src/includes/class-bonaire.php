@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link
+ * @link       https://demispatti.ch
  * @since     0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes

@@ -18,14 +18,13 @@ if ( ! defined( 'WPINC' ) ) {
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link
- * @since             0.9.6
+ * @since             1.0.0
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
  * Plugin URI:
- * Description:       Send Replies to messages received trough 'Contact Form 7' and stored with 'Flamingo'.
- * Version:           0.9.6
+ * Description:       Send Replies to messages you receive trough a 'Contact Form 7' contact form and stored with 'Flamingo'.
+ * Version:           1.0.0
  * Author:            Demis Patti
  * Author URI:
  * License:           GPL-2.0+
@@ -92,7 +91,7 @@ class Bonaire_Launcher {
 	 * @since   0.9.6
 	 * @access   public
 	 */
-	public $version = '0.9.6';
+	public $version = '1.0.0';
 	
 	/**
 	 * Registers the methods that need to be hooked with WordPress.

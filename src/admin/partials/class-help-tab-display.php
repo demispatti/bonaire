@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since            0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
- * @author            Demis Patti <demispatti@gmail.com>
+ * @author            Demis Patti <demis@demispatti.ch>
  * @todo              Hilfe-Texte
  */
 class Bonaire_Help_Tab_Display {
@@ -92,13 +92,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-naming-conventions-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-naming-conventions-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -130,13 +130,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-default-web.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-default-web.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-gmail-web.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-gmail-web.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -169,13 +169,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-1-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-1-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -208,7 +208,7 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-dashboard-widget-demo-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-dashboard-widget-demo-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -241,7 +241,7 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-reply-form-demo-small.jpg' ?>);"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-reply-form-demo-small.jpg'?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
