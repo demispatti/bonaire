@@ -113,7 +113,7 @@ class Bonaire_Settings_Page_Display {
 			$string .= 'username' === $key ? '<div class="smtp"><h5>' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
 			$string .= 'save_reply' === $key ? '<div class="imap"><h5>' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
 			$string .= $this->get_settings_field( $key, $value, $this->options_meta );
-			$string .= 'channel' === $key || 'from' === $key || 'use_ssl_certification_validation' === $key ? '</div>' : '';
+			$string .= 'channel' === $key || 'from' === $key || 'ssl_certification_validation' === $key ? '</div>' : '';
 		}
 		$string .= '<div class="buttons-container"><div class="buttons">
 					    <!-- Reset Button -->
@@ -184,7 +184,7 @@ class Bonaire_Settings_Page_Display {
 						$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
 						$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
 						$string .= $this->get_settings_field( $key, $value, $this->options_meta );
-						$string .= 'channel' === $key || 'from' === $key || 'use_ssl_certification_validation' === $key ? '</div>' : '';
+						$string .= 'channel' === $key || 'from' === $key || 'ssl_certification_validation' === $key ? '</div>' : '';
 					}
 					echo $string;
 					?>
@@ -208,26 +208,30 @@ class Bonaire_Settings_Page_Display {
                 </div>
             </form>
             <div class="footer">
-                <!-- Test SMTP Settings Button -->
-                <div class="button-container test-smtp-settings-button-container">
-                    <label for="bonaire_options[test_smtp_settings]"></label>
-                    <input class="button button-secondary bonaire-test-smtp-settings-button" type="submit"
-                        value="<?php echo __( 'Test SMTP Settings', $this->domain ) ?>" name="bonaire_options[test_smtp_settings]"
-                        data-nonce="<?php echo $test_smtp_settings_nonce ?>"/>
-                </div>
-                <!-- Test IMAP Settings Button -->
-                <div class="button-container test-imap-settings-button-container">
-                    <label for="bonaire_options[test_imap_settings]"></label>
-                    <input id="bonaire_options[test_imap_settings]" class="button button-secondary bonaire-test-imap-settings-button" type="submit"
-                        value="<?php echo __( 'Test IMAP Settings', $this->domain ) ?>" name="bonaire_options[test_imap_settings]"
-                        data-nonce="<?php echo $test_imap_settings_nonce ?>"/>
-                </div>
-                <!-- Send Testmail Button -->
-                <div class="button-container send-testmail-button-container">
-                    <label for="bonaire_options[send_testmail]"></label>
-                    <input id="bonaire_options[send_testmail]" class="button button-secondary bonaire-send-testmail-button" type="submit"
-                        value="<?php echo __( 'Send Testmail', $this->domain ) ?>" name="bonaire_options[send_testmail]"
-                        data-nonce="<?php echo $send_test_message_nonce ?>"/>
+                <h5 class="content-section-title"><?php echo __('Test Settings', $this->domain ) ?></h5>
+                <div>
+                    <!-- Test SMTP Settings Button -->
+                    <div class="button-container test-smtp-settings-button-container">
+                        <label for="bonaire_options[test_smtp_settings]"></label>
+                        <input class="button button-secondary bonaire-test-smtp-settings-button" type="submit"
+                            value="<?php echo __( 'Test SMTP Settings', $this->domain ) ?>" name="bonaire_options[test_smtp_settings]"
+                            data-nonce="<?php echo $test_smtp_settings_nonce ?>"/>
+                    </div>
+                    <!-- Test IMAP Settings Button -->
+                    <div class="button-container test-imap-settings-button-container">
+                        <label for="bonaire_options[test_imap_settings]"></label>
+                        <input id="bonaire_options[test_imap_settings]" class="button button-secondary bonaire-test-imap-settings-button"
+                            type="submit"
+                            value="<?php echo __( 'Test IMAP Settings', $this->domain ) ?>" name="bonaire_options[test_imap_settings]"
+                            data-nonce="<?php echo $test_imap_settings_nonce ?>"/>
+                    </div>
+                    <!-- Send Testmail Button -->
+                    <div class="button-container send-testmail-button-container">
+                        <label for="bonaire_options[send_testmail]"></label>
+                        <input id="bonaire_options[send_testmail]" class="button button-secondary bonaire-send-testmail-button" type="submit"
+                            value="<?php echo __( 'Send Testmail', $this->domain ) ?>" name="bonaire_options[send_testmail]"
+                            data-nonce="<?php echo $send_test_message_nonce ?>"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,7 +244,7 @@ class Bonaire_Settings_Page_Display {
 	}
 	
 	/**
-	 * Returns the strings that describe the three 'settings states'.
+	 * Returns the strings that describe the three 'settings statuss'.
 	 *
 	 * @since 0.9.6
 	 * @return array
@@ -249,14 +253,14 @@ class Bonaire_Settings_Page_Display {
 		
 		return array(
 			'smtp' => array(
-				'red' => __( 'The settings seem to be incomplete or they were not tested yet.', $this->domain ),
-				'orange' => __( 'Settings check not successful (since last changes).', $this->domain ),
-				'green' => __( 'Settings check successful (since last changes).', $this->domain )
+				'orange' => __( 'Settings check not successful.', $this->domain ),
+				'green' => __( 'Settings check successful (since last changes).', $this->domain ),
+				'inactive' => __( 'Inactive.', $this->domain )
 			),
 			'imap' => array(
-				'red' => __( 'The settings seem to be incomplete or they were not tested yet.', $this->domain ),
 				'orange' => __( 'Settings check not successful (since last changes).', $this->domain ),
-				'green' => __( 'Settings check successful (since last changes).', $this->domain )
+				'green' => __( 'Settings check successful.', $this->domain ),
+				'inactive' => __( 'Inactive.', $this->domain )
 			)
 		);
 	}
@@ -380,7 +384,7 @@ class Bonaire_Settings_Page_Display {
 					if ( $value === $attribute ) {
 						$selected = 'selected';
 					}*/
-					if ( 'channel' !== $key /*|| 'use_ssl_certification_validation' !== $key*/ ) {
+					if ( 'channel' !== $key /*|| 'ssl_certification_validation' !== $key*/ ) {
 						$select_value = translate( $select_value, $this->domain );
 					}
 					?>
@@ -432,7 +436,7 @@ class Bonaire_Settings_Page_Display {
 	}
 	
 	/**
-	 * Returns a string containing the element that indicates the email account 'settings state'.
+	 * Returns a string containing the element that indicates the email account 'settings status'.
 	 *
 	 * @param string $protocol
 	 *
@@ -444,14 +448,13 @@ class Bonaire_Settings_Page_Display {
 		$strings = $this->get_strings();
 		$plugin_options = $this->Bonaire_Options->get_stored_options( 1 );
 		$account_settings = $this->Bonaire_Options->get_stored_options( 0 );
-		$settings_state = $plugin_options->{$protocol . '_settings_state'};
+		$settings_status = isset($plugin_options->{$protocol . '_status'}) ? $plugin_options->{$protocol . '_status'} : 'orange';
 		
-		$visibility = '';
-		if ( 'imap' === $protocol && 'no' === $account_settings->save_reply || 'red' === $settings_state ) {
-			$visibility = 'hidden';
+		if ( 'imap' === $protocol && 'no' === $account_settings->save_reply ) {
+			$settings_status = 'inactive';
 		}
 		
-		return '<span class="status-indicator ' . $settings_state . ' ' . $visibility . '"><i title="' . $strings[ $protocol ][ $settings_state ] . '"></i></span>';
+		return '<span class="status-indicator ' . $settings_status . '"><i title="' . $strings[ $protocol ][ $settings_status ] . '"></i></span>';
 	}
 	
 	/**

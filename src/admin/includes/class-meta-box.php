@@ -160,21 +160,29 @@ class Bonaire_Meta_Box {
 	public function display_reply_form_meta_box() {
 		
 		$post_id = (int) $_REQUEST['post'];
+		$stored_options = $this->Bonaire_Options->get_stored_options();
 		
-		if ( true !== $this->Bonaire_Options->get_settings_state( 'smtp' ) ) {
-			$recipient_email_address = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
-			$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
-			$link = '<a href="' . $url . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		$Bonaire_Account_Settings_Status = new Bonaire_Account_Settings_Status( $this->domain );
+		$smtp_status = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
+		$imap_status = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
+		$save_reply = isset($stored_options->save_reply) ? $stored_options->save_reply : 'no';
+		$username = isset( $stored_options->username ) ? $stored_options->username : false;
+		$recipient_email_address = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
+
+		if ( $recipient_email_address === $username &&'yes' === $save_reply && true === $imap_status ||
+		     $recipient_email_address === $username &&'no' === $save_reply && true === $smtp_status) {
 			
-			echo __( 'Please register the email account that is related to the following email account in order to send replies' ) . ': (' . $recipient_email_address . '). ' . $link;
+			$your_subject = $this->Bonaire_Adapter->get_field( $post_id, 'your-subject' );
+			$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $this->Bonaire_Options->get_stored_options( 0 ) );
+			
+			echo $string;
 			
 			return;
 		}
+		$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
+		$link = '<a href="' . $url . '">' . __( 'Account Settings', $this->domain ) . '</a>';
 		
-		$your_subject = $this->Bonaire_Adapter->get_field( $post_id, 'your-subject' );
-		$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $this->Bonaire_Options->get_stored_options( 0 ) );
-		
-		echo $string;
+		echo __( 'Please register the email account that is related to the following email account in order to send replies' ) . ': (' . $recipient_email_address . '). ' . $link;
 	}
 	
 }

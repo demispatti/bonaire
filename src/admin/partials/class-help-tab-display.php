@@ -40,14 +40,16 @@ class Bonaire_Help_Tab_Display {
                 <li><a href="#tabs-3"><?php echo __( 'Contact Form 7 Settings', $domain ) ?></a></li>
                 <li><a href="#tabs-4"><?php echo __( 'Dashboard Widget', $domain ) ?></a></li>
                 <li><a href="#tabs-5"><?php echo __( 'Reply Form', $domain ) ?></a></li>
-                <li><a href="#tabs-6"><?php echo __( 'Plugin Information and Privacy Notices', $domain ) ?></a></li>
+                <li><a href="#tabs-6"><?php echo __( 'Tooltips', $domain ) ?></a></li>
+                <li><a href="#tabs-7"><?php echo __( 'Plugin Information and Privacy Notices', $domain ) ?></a></li>
             </ul>
             <div id="tabs-1"><?php echo self::tab_content_prerequisites( $domain ) ?></div>
             <div id="tabs-2"><?php echo self::tab_content_plugin_settings( $domain ) ?></div>
             <div id="tabs-3"><?php echo self::tab_content_contact_form_7_settings( $domain ) ?></div>
             <div id="tabs-4"><?php echo self::tab_content_dashboard_widget( $domain ) ?></div>
             <div id="tabs-5"><?php echo self::tab_content_reply_form( $domain ) ?></div>
-            <div id="tabs-6"><?php echo self::tab_content_plugin_information_and_privacy_notices( $domain ) ?></div>
+            <div id="tabs-6"><?php echo self::tab_content_tooltips( $domain ) ?></div>
+            <div id="tabs-7"><?php echo self::tab_content_plugin_information_and_privacy_notices( $domain ) ?></div>
         </div>
 		
 		<?php
@@ -242,6 +244,39 @@ class Bonaire_Help_Tab_Display {
             <div>
                 <div class="image-holder">
                     <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-reply-form-demo-small.jpg'?>"
+                        alt="Contextual Help Image"/>
+                </div>
+            </div>
+        </div>
+		
+		<?php
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		return $html;
+	}
+	
+	/**
+	 * Returns a string containing the content of this 'Help Tab' tab.
+	 *
+	 * @param string $domain
+	 *
+	 * @return string $html
+	 * @since 0.9.6
+	 */
+	public static function tab_content_tooltips( $domain ) {
+		
+		ob_start();
+		?>
+
+        <div class="item-description">
+            <?php echo __('Make sure to read trough the included tooltips!', $domain) ?>
+        </div>
+
+        <div class="item-images">
+            <div>
+                <div class="image-holder">
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-read-tooltips.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>

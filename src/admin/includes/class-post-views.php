@@ -63,13 +63,12 @@ class Bonaire_Post_Views {
 	 */
 	public function count_message_views() {
 		
-		$page = isset( $_REQUEST['page'] ) ? $_REQUEST['page'] : false;
-		$post_id = isset( $_REQUEST['post'] ) ? $_REQUEST['post'] : false;
-		$action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : false;
+		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field($_REQUEST['page']) : false;
+		$post_id = isset( $_REQUEST['post'] ) ? sanitize_text_field($_REQUEST['post']) : false;
+		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field($_REQUEST['action']) : false;
 		
-		if ( 'flamingo_inbound' === $page && false !== $action ) {
-			
-			$this->set_post_views( $post_id );
+		if ( 'flamingo_inbound' === $page && false !== $action && (int) $post_id ) {
+			$this->set_post_views( (int) $post_id );
 		}
 	}
 	

@@ -32,6 +32,12 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Meta_Box' ) ) {
 if ( ! class_exists( 'AdminIncludes\Bonaire_Mail' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
 }
+if ( ! class_exists( 'AdminIncludes\Bonaire_Account_Evaluator' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-account-settings-evaluator.php';
+}
+if ( ! class_exists( 'AdminIncludes\Bonaire_Account_Settings_Status' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-account-settings-status.php';
+}
 if ( ! class_exists( 'AdminIncludes\Bonaire_Ajax' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
 }
@@ -151,6 +157,24 @@ class Bonaire_Admin {
 	private $Bonaire_Mail;
 	
 	/**
+	 * Holds the instance of the class responsible for evaluating the email account settings.
+	 *
+	 * @var AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Evaluator
+	 * @since   1.0.0
+	 * @access   private
+	 */
+	private $Bonaire_Account_Evaluator;
+	
+	/**
+	 * Holds the instance of the class responsible for handling the email account settings status.
+	 *
+	 * @var AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
+	 * @since   1.0.0
+	 * @access   private
+	 */
+	private $Bonaire_Account_Settings_Status;
+	
+	/**
 	 * Set the options instance.
 	 *
 	 * @since 0.9.6
@@ -222,16 +246,7 @@ class Bonaire_Admin {
 	}
 	
 	/**
-	 * Loads the dependencies this plugin relies on:
-	 * - One Settings Page
-	 * - A Help Tab
-	 * - Post View Count
-	 * - Ajax Functionality
-	 * - The Options
-	 * - Basic Email Functionality
-	 * - A Few Tooltips
-	 * - A Dashboard Widget
-	 * - A Meta Box
+	 * Loads the dependencies this plugin relies on.
 	 *
 	 * @since 0.9.6
 	 * @return void
@@ -244,6 +259,8 @@ class Bonaire_Admin {
 			if ( is_admin() ) {
 				$this->include_options();
 				$this->include_bonaire_mail();
+				$this->include_account_evaluator();
+				$this->include_account_settings_status();
 				$this->include_ajax();
 				$this->include_contextual_help();
 				$this->include_tooltips();
@@ -257,7 +274,7 @@ class Bonaire_Admin {
 			}
 			
 			// Flamingo Inbound
-			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'edit' && self::$plugin_pages['flamingo_inbound'] === $_REQUEST['page'] ) {
+			if ( (isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'edit') && (isset( $_REQUEST['page'] ) &&self::$plugin_pages['flamingo_inbound'] === $_REQUEST['page']) ) {
 				$this->include_required_plugins_adapter();
 				$this->include_meta_box();
 			}
@@ -282,7 +299,7 @@ class Bonaire_Admin {
 			
 			global $wp_scripts;
 			wp_enqueue_style( 'jquery-ui-smoothness',
-				"https://ajax.googleapis.com/ajax/libs/jqueryui/{$wp_scripts->query( 'jquery-ui-core' )->ver}/themes/smoothness/jquery-ui.min.css",
+				BONAIRE_ROOT_URL . "vendor/jquery-ui/jquery-ui.min.css",
 				array(),
 				'all',
 				'all'
@@ -469,6 +486,31 @@ class Bonaire_Admin {
 	}
 	
 	/**
+	 * Includes the class responsible for sending emails.
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	private function include_account_evaluator() {
+		
+		/**
+		 * The class responsible for the mailing functionality.
+		 */
+		$this->Bonaire_Account_Evaluator = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this->Bonaire_Options );
+	}
+	
+	/**
+	 * The class responsible for handling the email account settings status.
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	private function include_account_settings_status() {
+
+		$this->Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+	}
+	
+	/**
 	 * Includes the meta box.
 	 *
 	 * @since 0.9.6
@@ -538,7 +580,7 @@ class Bonaire_Admin {
 		/**
 		 * The class responsible for this plugin's ajax functionality.
 		 */
-		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail );
+		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail, $this->Bonaire_Account_Evaluator, $this->Bonaire_Account_Settings_Status );
 		$Bonaire_Ajax->add_hooks();
 	}
 	

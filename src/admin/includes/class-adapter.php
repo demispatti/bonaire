@@ -4,6 +4,7 @@ namespace Bonaire\Admin\Includes;
 
 use Flamingo_Inbound_Message, WPCF7_ContactForm;
 use Bonaire\Admin\Includes as AdminIncludes;
+use WP_Error;
 
 /**
  * If this file is called directly, abort.
@@ -67,7 +68,17 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 */
 	private function set_posts() {
 		
-		$this->posts = self::find();
+		$args = array(
+			'posts_per_page' => -1,
+			'offset' => 0,
+			'orderby' => 'ID',
+			'order' => 'ASC',
+			'meta_key' => '',
+			'meta_value' => '',
+			'post_status' => 'any',
+		);
+		
+		$this->posts = self::find( $args );
 	}
 	
 	/**
@@ -109,8 +120,8 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	private function postprocess_messages() {
 		
 		// Bail if there are no positively evaluated SMTP settings.
-		$Bonaire_Options = new AdminIncludes\Bonaire_Options( $this->domain );
-		if ( true !== $Bonaire_Options->get_settings_state( 'smtp' ) ) {
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		if ( true !== $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) ) {
 			return;
 		}
 		
@@ -380,12 +391,12 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 			$result = Flamingo_Inbound_Message::add( $args );
 		} catch( Exception $e ) {
 			
-			return new \WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
 		}
 		
 		if ( false === $result ) {
 			
-			return new \WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
 		}
 		
 		return true;
@@ -415,12 +426,12 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 			$result = Flamingo_Inbound_Message::add( $args );
 		} catch( Exception $e ) {
 			
-			return new \WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
 		}
 		
 		if ( false === $result ) {
 			
-			return new \WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
 		}
 		
 		return true;

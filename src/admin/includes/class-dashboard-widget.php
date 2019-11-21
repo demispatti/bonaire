@@ -190,13 +190,14 @@ class Bonaire_Dashboard_Widget {
 			}
 		}
 		
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
 		// If there are no posts to show
 		if ( empty( $posts ) ) {
 			
 			echo '<p class="message no-message">' . $this->no_messages_message . '</p>';
 			echo $this->get_widget_footer();
 		} // if there is no propperly configured account
-		elseif ( true !== $this->Bonaire_Options->get_settings_state( 'smtp' ) ) {
+		elseif ( true !== $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) ) {
 			
 			echo '<p class="message no-account">' . $this->configure_account_message . '</p>';
 		} else {

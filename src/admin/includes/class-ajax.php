@@ -26,54 +26,72 @@ class Bonaire_Ajax {
 	 *
 	 * @var      string $domain
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $domain;
+	private $domain;
 	
 	/**
 	 * Holds the instance responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $Bonaire_Options;
+	private $Bonaire_Options;
 	
 	/**
 	 * Holds the instance responsible for keeping track of the message views.
 	 *
 	 * @var AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $Bonaire_Post_Views;
+	private $Bonaire_Post_Views;
 	
 	/**
 	 * Holds the instance responsible for sending messages.
 	 *
 	 * @var AdminIncludes\Bonaire_Mail $Bonaire_Mail
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $Bonaire_Mail;
+	private $Bonaire_Mail;
+	
+	/**
+	 * Holds the instance responsible for evaluating the email account settings.
+	 *
+	 * @var AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Settings_Evaluator
+	 * @since   1.0.0
+	 * @access   private
+	 */
+	private $Bonaire_Account_Settings_Evaluator;
+	
+	/**
+	 * Holds the instance responsible for evaluating the email account settings.
+	 *
+	 * @var AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
+	 * @since   1.0.0
+	 * @access   private
+	 */
+	private $Bonaire_Account_Settings_Status;
 	
 	/**
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $stored_options;
+	private $stored_options;
 	
 	/**
 	 * Holds the error text for failed nonce checks
 	 *
 	 * @var string $nonce_error_text
 	 * @since   0.9.6
-	 * @access   protected
+	 * @access   private
 	 */
-	protected $nonce_error_text;
+	private $nonce_error_text;
 	
 	/**
 	 * Bonaire_Ajax constructor.
@@ -82,16 +100,20 @@ class Bonaire_Ajax {
 	 * @param AdminIncludes\Bonaire_Options $Bonaire_Options
 	 * @param AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
+	 * @param AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Evaluator
+	 * @param AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
-	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail ) {
+	public function __construct( $domain, $Bonaire_Options, $Bonaire_Post_Views, $Bonaire_Mail, $Bonaire_Account_Evaluator, $Bonaire_Account_Settings_Status ) {
 		
 		$this->domain = $domain;
 		$this->Bonaire_Options = $Bonaire_Options;
 		$this->Bonaire_Post_Views = $Bonaire_Post_Views;
 		$this->Bonaire_Mail = $Bonaire_Mail;
+		$this->Bonaire_Account_Settings_Evaluator = $Bonaire_Account_Evaluator;
+		$this->Bonaire_Account_Settings_Status = $Bonaire_Account_Settings_Status;
 		$this->stored_options = $Bonaire_Options->get_stored_options( '0' );
 		$this->nonce_error_text = __( 'That won\'t do.', $this->domain );
 	}
@@ -99,8 +121,8 @@ class Bonaire_Ajax {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function add_hooks() {
 		
@@ -116,22 +138,20 @@ class Bonaire_Ajax {
 		add_action( 'wp_ajax_bonaire_send_testmail', array( $this, 'bonaire_send_testmail' ) );
 		add_action( 'wp_ajax_bonaire_test_smtp_settings', array( $this, 'bonaire_test_smtp_settings' ) );
 		add_action( 'wp_ajax_bonaire_test_imap_settings', array( $this, 'bonaire_test_imap_settings' ) );
+		add_action( 'wp_ajax_bonaire_get_settings_status', array( $this, 'bonaire_get_settings_status' ) );
 	}
 	
 	/**
 	 * Instanciates \Bonaire_Post_Views and marks the message as read via
 	 * a post view count stored in the post's post meta data
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function bonaire_mark_as_read() {
 		
-		$post_id = $_REQUEST['post_id'];
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_mark_as_read_nonce_' . $post_id ) ) {
-			
+		$post_id = isset( $_REQUEST['post_id'] ) && (int) $_REQUEST['post_id'] ? (int) $_REQUEST['post_id'] : false;
+		if ( false === $post_id || false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_mark_as_read_nonce_' . $post_id ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
@@ -160,16 +180,13 @@ class Bonaire_Ajax {
 	/**
 	 * Marks the selected item as 'spam'.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function bonaire_mark_as_spam() {
 		
 		$post_id = $_REQUEST['post_id'];
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_mark_as_spam_nonce_' . $post_id ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_mark_as_spam_nonce_' . $post_id ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
@@ -206,16 +223,13 @@ class Bonaire_Ajax {
 	/**
 	 * Moves the selected item to 'trash'.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function bonaire_move_to_trash() {
 		
 		$post_id = $_REQUEST['post_id'];
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_move_to_trash_nonce_' . $post_id ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_move_to_trash_nonce_' . $post_id ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
@@ -227,7 +241,7 @@ class Bonaire_Ajax {
 		$result = $Bonaire_Adapter->move_to_trash( $post_id );
 		if ( ! is_wp_error( $result ) ) {
 			
-			// Mark as read (internally)
+			// Mark as read (in backend, not for mail server)
 			$this->Bonaire_Post_Views->update_post_view( $post_id );
 			
 			$response = array(
@@ -251,28 +265,36 @@ class Bonaire_Ajax {
 	/**
 	 * Saves the options.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_save_options() {
 		
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_save_options_nonce' ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_save_options_nonce' ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
 			);
-			
 			wp_send_json_error( $response );
 		}
 		
-		$data = array();
 		// retrieve the options
+		$data = array();
 		foreach ( (array) $this->Bonaire_Options->get_options_meta() as $key => $list ) {
 			if ( isset( $_POST[ $key ] ) ) {
-				$data[ $key ] = $_POST[ $key ];
+				$postedData = $_POST[ $key ];
+				if ( in_array( $key, array( "from", "username" ) ) ) {
+					if ( $key === "username" && strpos( "@", $postedData ) === false ) {
+						$postedData = sanitize_text_field( $postedData );
+					} else {
+						$postedData = sanitize_email( $postedData );
+					}
+				} else {
+					$postedData = sanitize_text_field( $postedData );
+				}
+				
+				$data[ $key ] = $postedData;
 			}
 		}
 		
@@ -280,36 +302,30 @@ class Bonaire_Ajax {
 		$result = $this->Bonaire_Options->bonaire_save_options( $data );
 		if ( is_wp_error( $result ) ) {
 			
-			$code = $result->get_error_code();
-			$msg = $result->get_error_message();
+			$error_code = $result->get_error_code();
+			$message = $result->get_error_message();
 			
-			if ( - 1 === $code ) {
+			if ( - 1 === $error_code ) {
 				
 				$response = array(
 					'success' => true,
-					'message' => $msg
+					'message' => $message
 				);
-				
 				wp_send_json_success( $response );
 			}
 			
 			$response = array(
-				'success' => false,
-				'message' => $msg . ' ' . __( 'Please try again later.', $this->domain ) . ' (' . $code . ')'
+				'success' => true,
+				'message' => $result->get_error_message()
 			);
-			
-			wp_send_json_error( $response );
+			wp_send_json_success( $response );
 		} else {
-			/**
-			 * @var array $result
-			 */
 			$response = array(
 				'success' => true,
 				'message' => __( 'Settings saved.', $this->domain ),
-				'smtp_state' => isset( $result['smtp_state'] ) ? $result['smtp_state'] : '',
-				'imap_state' => isset( $result['imap_state'] ) ? $result['imap_state'] : ''
+				'smtp_status' => isset( $result['smtp_status'] ) ? $result['smtp_status'] : '',
+				'imap_status' => isset( $result['imap_status'] ) ? $result['imap_status'] : ''
 			);
-			
 			wp_send_json_success( $response );
 		}
 	}
@@ -317,15 +333,13 @@ class Bonaire_Ajax {
 	/**
 	 * Resets the stored options to the default values.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_reset_options() {
 		
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_reset_options_nonce' ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_reset_options_nonce' ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
@@ -335,24 +349,20 @@ class Bonaire_Ajax {
 		
 		$result = $this->Bonaire_Options->reset_options();
 		if ( is_wp_error( $result ) ) {
-			
-			$code = $result->get_error_code();
-			$msg = $result->get_error_message();
+			$error_code = $result->get_error_code();
+			$message = $result->get_error_message();
 			
 			$response = array(
 				'success' => false,
-				'message' => $msg . ' ' . __( 'Please try again later.', $this->domain ) . '(' . $code . ')'
+				'message' => $message . ' ' . __( 'Please try again later.', $this->domain ) . '(' . $error_code . ')'
 			);
 			wp_send_json_error( $response );
 		} else {
-			/**
-			 * @var array $result
-			 */
 			$response = array(
 				'success' => true,
 				'message' => __( 'Settings restored to default.', $this->domain ),
-				'smtp_state' => $result['smtp_state'],
-				'imap_state' => $result['imap_state']
+				'smtp_status' => $result['smtp_status'],
+				'imap_status' => $result['imap_status']
 			);
 			wp_send_json_success( $response );
 		}
@@ -361,15 +371,13 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the SMTP settings based on the stored user options.
 	 *
-	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_test_smtp_settings() {
 		
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( true === wp_verify_nonce( $nonce, 'bonaire_test_smtp_settings_nonce' ) ) {
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_test_smtp_settings_nonce' ) ) {
 			
 			$response = array(
 				'success' => false,
@@ -378,13 +386,13 @@ class Bonaire_Ajax {
 			wp_send_json_error( $response );
 		}
 		
-		$result = $this->Bonaire_Mail->bonaire_test_smtp_settings();
+		$result = $this->Bonaire_Account_Settings_Evaluator->bonaire_test_smtp_settings();
 		if ( is_wp_error( $result ) ) {
 			
 			$response = array(
 				'success' => false,
 				'message' => $result->get_error_message(),
-				'state' => 'red'
+				'status' => 'orange'
 			);
 			wp_send_json_error( $response );
 		} else {
@@ -392,7 +400,7 @@ class Bonaire_Ajax {
 			$response = array(
 				'success' => true,
 				'message' => $result['message'],
-				'state' => $result['state']
+				'status' => $result['status']
 			);
 			wp_send_json_success( $response );
 		}
@@ -401,15 +409,13 @@ class Bonaire_Ajax {
 	/**
 	 * Tests the IMAP settings based on the stored user options.
 	 *
-	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_test_imap_settings() {
 		
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( true === wp_verify_nonce( $nonce, 'bonaire_test_imap_settings_nonce' ) ) {
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_test_imap_settings_nonce' ) ) {
 			
 			$response = array(
 				'success' => false,
@@ -418,13 +424,13 @@ class Bonaire_Ajax {
 			wp_send_json_error( $response );
 		}
 		
-		$result = $this->Bonaire_Mail->bonaire_test_imap_settings();
+		$result = $this->Bonaire_Account_Settings_Evaluator->bonaire_test_imap_settings();
 		if ( is_wp_error( $result ) ) {
 			
 			$response = array(
 				'success' => false,
 				'message' => $result->get_error_message(),
-				'state' => 'red'
+				'status' => 'orange'
 			);
 			wp_send_json_error( $response );
 		} else {
@@ -432,36 +438,58 @@ class Bonaire_Ajax {
 			$response = array(
 				'success' => true,
 				'message' => $result['message'],
-				'state' => $result['state']
+				'status' => $result['status']
 			);
 			wp_send_json_success( $response );
 		}
 	}
 	
 	/**
+	 * Retrieves the email account settings status for smtp and imap functionality.
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function bonaire_get_settings_status() {
+		
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_save_options_nonce' ) ) {
+			
+			$response = array(
+				'success' => false
+			);
+			wp_send_json_error( $response );
+		}
+		
+		$result = $this->Bonaire_Account_Settings_Status->get_settings_status();
+		$response = array(
+			'success' => true,
+			'smtp_status' => isset( $result['smtp'] ) ? $result['smtp'] : 'inactive',
+			'imap_status' => isset( $result['imap'] ) ? $result['imap'] : 'inactive'
+		);
+		wp_send_json_success( $response );
+	}
+	
+	/**
 	 * Sends a test message
 	 *
-	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_send_testmail() {
 		
-		$nonce = $_REQUEST['nonce'];
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_send_testmail_nonce' ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_send_testmail_nonce' ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
 			);
-			
 			wp_send_json_error( $response );
 		}
 		
 		/**
 		 * @var object AdminIncludes\Bonaire_Mail
 		 */
-		$result = $this->Bonaire_Mail->send_testmail();
+		$result = $this->Bonaire_Account_Settings_Evaluator->send_testmail();
 		if ( is_wp_error( $result ) ) {
 			
 			$debug = $GLOBALS['debug'];
@@ -477,7 +505,6 @@ class Bonaire_Ajax {
 				'success' => false,
 				'message' => $msg . ' (' . __( 'Error code', $this->domain ) . ': ' . $code . ')'
 			);
-			
 			wp_send_json_error( $response );
 		} else {
 			
@@ -485,7 +512,6 @@ class Bonaire_Ajax {
 				'success' => true,
 				'message' => __( 'Test message sent successfully!', $this->domain )
 			);
-			
 			wp_send_json_success( $response );
 		}
 	}
@@ -493,29 +519,25 @@ class Bonaire_Ajax {
 	/**
 	 * Checks the email address, sanitizes the user input, instantiates \Bonaire_Mail and submits the data to said class.
 	 *
-	 * @since 0.9.6
 	 * @return void
 	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_submit_reply() {
 		
-		$nonce = $_REQUEST['nonce'];
-		
-		if ( false === wp_verify_nonce( $nonce, 'bonaire_reply_form_nonce' ) ) {
-			
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_reply_form_nonce' ) ) {
 			$response = array(
 				'success' => false,
 				'message' => $this->nonce_error_text
 			);
-			
 			wp_send_json_error( $response );
 		}
 		
 		$data = (object) array();
-		$data->fromname = strip_tags( stripslashes( $_REQUEST['name'] ) );
+		$data->fromname = strip_tags( stripslashes( sanitize_text_field($_REQUEST['name']) ) );
 		$data->to = filter_var( strip_tags( stripslashes( $_REQUEST['email'] ) ), FILTER_VALIDATE_EMAIL );
-		$data->subject = strip_tags( stripslashes( $_REQUEST['subject'] ) );
-		$data->message = strip_tags( stripslashes( $_REQUEST['message'] ) );
+		$data->subject = strip_tags( stripslashes( sanitize_text_field($_REQUEST['subject']) ) );
+		$data->message = strip_tags( stripslashes( sanitize_text_field($_REQUEST['message']) ) );
 		
 		$result = $this->Bonaire_Mail->send_mail( $data );
 		if ( is_wp_error( $result ) ) {

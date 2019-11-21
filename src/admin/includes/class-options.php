@@ -3,6 +3,7 @@
 namespace Bonaire\Admin\Includes;
 
 use Bonaire\Admin\Includes as AdminIncludes;
+use WP_Error;
 
 /**
  * If this file is called directly, abort.
@@ -103,7 +104,9 @@ final class Bonaire_Options {
 		'imapsecure' => '',
 		'imap_host' => '',
 		'imap_port' => '',
-		'use_ssl_certification_validation' => '',
+		'inbox_folder_name' => '',
+		'inbox_folder_path' => '',
+		'ssl_certification_validation' => '',
 	);
 	
 	/**
@@ -128,35 +131,13 @@ final class Bonaire_Options {
 			'imapsecure' => 'ssl',
 			'imap_host' => '',
 			'imap_port' => 993,
-			'use_ssl_certification_validation' => 'cert',
+			'inbox_folder_name' => 'Sent',
+			'inbox_folder_path' => '',
+			'ssl_certification_validation' => 'cert',
 		);
 		$options->{1} = (object) array(
-			'smtp_hash' => md5( serialize( array(
-				'channel' => '',
-				'username' => '',
-				'password' => '',
-				'smtp_host' => '',
-				'smtp_port' => 465,
-				'smtpsecure' => 'ssl',
-				'fromname' => '',
-				'from' => ''
-			) ) ),
-			'imap_hash' => md5( serialize( array(
-				'channel' => '',
-				'username' => '',
-				'password' => '',
-				'smtp_host' => '',
-				'smtp_port' => 465,
-				'smtpsecure' => 'ssl',
-				'fromname' => '',
-				'from' => '',
-				'imapsecure' => 'ssl',
-				'imap_host' => '',
-				'imap_port' => 993,
-				'use_ssl_certification_validation' => 'cert',
-			) ) ),
-			'smtp_settings_state' => 'red',
-			'imap_settings_state' => 'red'
+			'smtp_status' => 'orange',
+			'imap_status' => 'inactive'
 		);
 		
 		return $options;
@@ -172,14 +153,14 @@ final class Bonaire_Options {
 		
 		$stored_options = get_option( 'bonaire_options' );
 		
-		if ( false === $stored_options ) {
+		if ( false === $stored_options || ! isset( $stored_options[1]) ) {
 			
 			return $this->default_options;
 		}
 		
-		$options = (object) array();
-		$options->{0} = (object) $stored_options[0];
-		$options->{1} = (object) $stored_options[1];
+		$options = (object)array();
+		$options->{0} = (object)$stored_options[0];
+		$options->{1} = (object)$stored_options[1];
 		
 		return $options;
 	}
@@ -194,7 +175,7 @@ final class Bonaire_Options {
 	 */
 	private function account_settings( $stored_options ) {
 		
-		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new \stdClass();
+		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new stdClass();
 		
 		/**
 		 * @var object $account_settings
@@ -363,8 +344,30 @@ final class Bonaire_Options {
 				'tt_image' => '',
 				'tt_description' => __( 'The IMAP port number.', $this->domain )
 			),
-			'use_ssl_certification_validation' => array(
-				'id' => 'use_ssl_certification_validation',
+			'inbox_folder_name' => array(
+				'id' => 'inbox_folder_name',
+				'name' => __( 'Sent Items Folder Name (if Gmail)', $this->domain ),
+				'type' => 'text',
+				'setting' => true,
+				'group' => 'imap',
+				'default_value' => 'Sent',
+				'example' => 'Sent' . ' ' .  __('Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain),
+				'tt_image' => '',
+				'tt_description' => __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+			),
+			'inbox_folder_path' => array(
+				'id' => 'inbox_folder_path',
+				'name' => __( 'Sent Items Folder Path (if Gmail - optional or blank)', $this->domain ),
+				'type' => 'text',
+				'setting' => true,
+				'group' => 'imap',
+				'default_value' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
+				'example' => '"{imap.gmail.com}[Gmail]/' . __('Sent', $this->domain ) . '"<br>' . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ),
+				'tt_image' => '',
+				'tt_description' => __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
+			),
+			'ssl_certification_validation' => array(
+				'id' => 'ssl_certification_validation',
 				'name' => __( 'Use SSL Certification Validation', $this->domain ),
 				'type' => 'dropdown',
 				'setting' => true,
@@ -373,8 +376,10 @@ final class Bonaire_Options {
 				'example' => __( 'cert', $this->domain ),
 				'values' => array( 'nocert' => 'nocert', 'cert' => 'cert' ),
 				'tt_image' => '',
-				'tt_description' => __( '"nocert" Skips the ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain )
-			),
+				'tt_description' => __( '"nocert" Skips the ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ). " " .
+				                    __('Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ). " " .
+									"(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>". __("Read more", $this->domain) ."</a>)."
+			)
 		);
 		
 		return $options_meta;
@@ -492,22 +497,28 @@ final class Bonaire_Options {
 	 *
 	 * @param array $input
 	 *
-	 * @since 0.9.6
 	 * @return array|\WP_Error
+	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function bonaire_save_options( $input ) {
-		
-		// Re-add stored password if there was one and there are no changes
-		if ( '' !== $this->account_settings->password && ( '*****' === $input['password'] || '' === $input['password'] ) ) {
-			$input['password'] = $this->account_settings->password;
-		}
-		
+
 		// Validate
 		$output = $this->validate_options( $input );
-		if ( '' !== $output['password'] && '*****' !== $output['password'] ) {
-			$output['password'] = $this->crypt( $output['password'], 'e' );
+		
+		// Re-add the stored password if there were no changes and there is one stored already
+		if ( ( '*****' === $input['password'] ) ) {
+			$output['password'] = $this->account_settings->password;
+		} else {
+			$output['password'] = sanitize_text_field($input['password']);
 		}
 		
+		// Crypt password if needed
+		if ( '' !== $input['password'] && '*****' !== $input['password'] ) {
+			$output['password'] = $this->crypt( $input['password'], 'e' );
+		}
+		
+		$old_stored_options = get_option( 'bonaire_options' );
 		$stored_options = get_option( 'bonaire_options' );
 		$stored_options[0] = $output;
 		
@@ -515,20 +526,131 @@ final class Bonaire_Options {
 		$result = update_option( 'bonaire_options', $stored_options, true );
 		
 		if ( false === $result ) {
-			
-			$diff = array_diff( $input, (array) $this->account_settings );
-			
-			if ( empty( $diff ) ) {
+
+			if ( false === $this->have_settings_changed( $output, $old_stored_options ) ) {
 				
-				return new \WP_Error( - 1, __( 'There\'s nothing new to save.', $this->domain ) );
+				return new WP_Error( - 1, __( 'There\'s nothing to save.', $this->domain ) );
 			}
 			
-			return new \WP_Error( - 2, __( 'Failed to save settings.', $this->domain ) );
+			return new WP_Error( - 2, __( 'Can\'t save settings right now.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . ' (-2)' );
 		}
 		
 		$this->update_localized_data();
 		
-		return $this->set_settings_states();
+		return $this->evaluate_account_settings( $output, $old_stored_options );
+	}
+	
+	/**
+	 * @param $output
+	 * @param $old_stored_options
+	 *
+	 * @return array|WP_Error
+	 * @throws \Exception
+	 */
+	private function evaluate_account_settings($output, $old_stored_options) {
+		
+		// Test SMTP and / or IMAP settings
+		$Bonaire_Account_Evaluator = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		
+		$imap_result = null;
+		$imap_status = $Bonaire_Account_Settings_Status->get_settings_status('imap');
+		$have_imap_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'imap' );
+		if ( $have_imap_settings_changed || false === $have_imap_settings_changed && 'green' !== $imap_status ) {
+			if( 'no' === $output['save_reply'] ){
+				$status = 'inactive';
+				$Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+			} else {
+				$imap_result = $Bonaire_Account_Evaluator->bonaire_test_imap_settings();
+			}
+			
+		}
+		$smtp_result = null;
+		$smtp_status = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp' );
+		$have_smtp_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'smtp' );
+		if ( $have_smtp_settings_changed || false === $have_smtp_settings_changed && 'green' !== $smtp_status) {
+			$smtp_result = $Bonaire_Account_Evaluator->bonaire_test_smtp_settings();
+		}
+		
+		if(!is_wp_error( $smtp_result) && !is_wp_error( $imap_result)){
+
+			return array(
+				'success' => true,
+				'smtp_status' => $smtp_result['status'],
+				'imap_status' => $imap_result['status'],
+				'message' => false,
+				'messages' => false,
+				'error_code' => 0
+			);
+		}
+		
+		return new WP_Error(
+			21,
+			__('Settings Saved.', $this->domain),
+			array(
+				'success' => false,
+				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : 'green',
+				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : 'green',
+				'message' => false,
+				'messages' => false,
+				'error_code' => 0
+			)
+		);
+	}
+	
+	/**
+	 * Checks for changed email accound settings per protocol.
+	 *
+	 * @param array $input
+	 * @param array $old_stored_options
+	 * @param bool $protocol
+	 *
+	 * @return bool
+	 */
+	private function have_settings_changed( $input, $old_stored_options, $protocol = false ){
+		
+		switch ( $protocol ){
+			
+			case "smtp":
+				
+				return $this->check_for_changed_settings( $this->smtp_hash_keys, $input, $old_stored_options );
+
+			default:
+				
+				return $this->check_for_changed_settings( $this->imap_hash_keys, $input, $old_stored_options );
+		}
+	}
+	
+	/**
+	 * Checks for changes in the email account settings.
+	 *
+	 * @param $keys
+	 * @param $input
+	 * @param $old_stored_options
+	 *
+	 * @return bool
+	 */
+	private function check_for_changed_settings($keys, $input, $old_stored_options) {
+		
+		// Extract the relevant values for comparison
+		$input_array_to_check = array();
+		$stored_options_array_to_check = array();
+		foreach ( $keys as $key => $value ) {
+			$input_array_to_check[ $key ] = $input[ $key ];
+			$stored_options_array_to_check[ $key ] = $old_stored_options[0][$key];
+		}
+		
+		// Decrypt the password for the check, if it got changed
+		if ( '*****' !== $input['password'] && $input['password'] !== $old_stored_options[0]['password'] ) {
+			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'], $action = 'd' );
+		}
+		
+		$result = array_diff( $input_array_to_check, $stored_options_array_to_check );
+		unset( $old_stored_options );
+		unset( $input_array_to_check );
+		unset( $stored_options_array_to_check );
+		
+		return ! empty( $result );
 	}
 	
 	/**
@@ -538,27 +660,49 @@ final class Bonaire_Options {
 	 * -2 This error indicates a general problem while saving options
 	 * -3 This error indicates a general problem while resetting options
 	 *
-	 * @since 0.9.6
 	 * @return array|\WP_Error
+	 * @throws \Exception
+	 * @since 0.9.6
 	 */
 	public function reset_options() {
 		
-		delete_option( 'bonaire_options' );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
 		
+		delete_option( 'bonaire_options' );
 		$default_settings = $this->default_options();
-		$result = update_option( 'bonaire_options', $default_settings, true );
+		$settings[0] = (array)$default_settings->{0};
+		$settings[1] = (array) $default_settings->{1};
+		$result = update_option( 'bonaire_options', $settings, true );
 		
 		if ( false !== $result ) {
 			
-			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'red' );
-			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'red' );
+			$Bonaire_Account_Settings_Status->set_settings_status( $protocol = 'smtp', 'orange' );
+			$Bonaire_Account_Settings_Status->set_settings_status( $protocol = 'imap', 'orange' );
 			
 			$this->update_localized_data();
 			
-			return $this->set_settings_states();
+			return array(
+				'success' => true,
+				'smtp_status' => 'orange',
+				'imap_status' => 'orange',
+				'message' => false,
+				'messages' => false,
+				'error_code' => 0
+			);
 		}
 		
-		return new \WP_Error( - 3, __( 'Failed to reset settings. Please refresh the page and try again.', $this->domain ) );
+		return new WP_Error(
+			21,
+			__( 'Failed to reset settings. Please refresh the page and try again.', $this->domain ),
+			array(
+				'success' => false,
+				'smtp_status' => 'orange',
+				'imap_status' => 'orange',
+				'message' => false,
+				'messages' => false,
+				'error_code' => 0
+			)
+		);
 	}
 	
 	/**
@@ -581,14 +725,12 @@ final class Bonaire_Options {
 				$result = preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			}
-			if ( 'smtpauth' === $key ) {
+			else if ( 'smtpauth' === $key ) {
 				$output[ $key ] = true;
-			}
-			if ( 'smtp_port' === $key || 'imap_port' === $key ) {
+			} elseif ( 'smtp_port' === $key || 'imap_port' === $key ) {
 				$result = filter_var( $value, FILTER_VALIDATE_INT );
 				$output[ $key ] = is_int( $result ) && 0 !== $result && 1 !== $result ? (int) $value : '';
-			}
-			if ( 'username' === $key ) {
+			} elseif ( 'username' === $key ) {
 				if ( strpos( $value, '@' ) !== false && strpos( $value, '.' ) !== false ) {
 					$result = filter_var( $value, FILTER_VALIDATE_EMAIL );
 					$output[ $key ] = false !== $result ? $value : '';
@@ -596,40 +738,34 @@ final class Bonaire_Options {
 					$result = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 					$output[ $key ] = 1 === $result ? $value : '';
 				}
-			}
-			if ( 'password' === $key ) {
+			} elseif ( 'password' === $key ) {
 				$output[ $key ] = $value;
-			}
-			if ( 'channel' === $key ) {
+			} elseif ( 'channel' === $key ) {
 				$output[ $key ] = (string) $value;
-			}
-			if ( 'smtpsecure' === $key || 'imapsecure' === $key ) {
+			} elseif ( 'smtpsecure' === $key || 'imapsecure' === $key ) {
 				if ( 'ssl' !== $value && 'tls' !== $value ) {
 					$output[ $key ] = 'ssl';
 				} else {
 					$output[ $key ] = $value;
 				}
-			}
-			if ( 'save_reply' === $key ) {
+			} elseif ( 'save_reply' === $key ) {
 				if ( 'no' !== $value ) {
 					$output[ $key ] = 'yes';
 				} else {
 					$output[ $key ] = 'no';
 				}
-			}
-			if ( 'use_ssl_certification_validation' === $key ) {
+			} elseif ( 'inbox_folder_name' === $key || 'inbox_folder_path' === $key ) {
+				$output[ $key ] = $value;
+			} elseif ( 'ssl_certification_validation' === $key ) {
 				if ( 'nocert' !== $value ) {
 					$output[ $key ] = 'cert';
 				} else {
 					$output[ $key ] = 'nocert';
 				}
-			}
-			
-			if ( 'from' === $key ) {
+			} elseif ( 'from' === $key ) {
 				$result = filter_var( $value, FILTER_VALIDATE_EMAIL );
 				$output[ $key ] = false !== $result ? $value : '';
-			}
-			if ( 'fromname' === $key ) {
+			} elseif ( 'fromname' === $key ) {
 				$result = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			}
@@ -670,148 +806,7 @@ final class Bonaire_Options {
 		
 		return $output;
 	}
-	
-	/**
-	 * Stores the result of the settings evaluation for either SMTP or IMAP to the database.
-	 *
-	 * @param string $protocol
-	 * @param string $state
-	 *
-	 * @since 0.9.6
-	 * @return bool|\WP_Error
-	 */
-	public function bonaire_set_evaluation_state( $protocol, $state ) {
-		
-		$stored_options = get_option( 'bonaire_options' );
-		$stored_options[1][ $protocol . '_settings_state' ] = $state;
-		
-		try {
-			update_option( 'bonaire_options', $stored_options, true );
-			
-			switch ( $state ) {
-				case 'green':
-					
-					return $this->store_hash( $protocol );
-					break;
-				case 'orange':
-				
-				case 'red':
-					
-					break;
-			}
-		} catch( Exception $e ) {
-			
-			return new \WP_Error( 1, __( 'Internal Error: Unable to set evaluation state.', $this->domain ) );
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * Returns true if positively evaluated email account settings were found,
-	 * otherwise it returns false.
-	 *
-	 * @param string $protocol
-	 *
-	 * @since 0.9.6
-	 * @return bool
-	 */
-	public function get_settings_state( $protocol = 'smtp' ) {
-		
-		return 'green' === $this->get_stored_options( 1 )->{$protocol . '_settings_state'};
-	}
-	
-	/**
-	 * Sets the state of the evaluated email account settings.
-	 * The settings are:
-	 * - green, the settings were successfully evaluated. Replies to messages can be sent / stored in 'INBOX.Sent' (if IMAP is configuerd)
-	 * - orange, the email account settings are complete but evaluation failed
-	 * - red, the email account settings are incomplete (empty input fields left on the settings page)
-	 *
-	 * @since 0.9.6
-	 * @return array $states
-	 */
-	private function set_settings_states() {
-		
-		$states = array();
-		
-		$Bonaire_Mail = new AdminIncludes\Bonaire_Mail( $this->domain, $this );
-		
-		if ( true === $Bonaire_Mail->get_settings_md5_match( 'smtp' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'green' );
-		}
-		if ( true === $Bonaire_Mail->get_settings_md5_match( 'imap' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'green' );
-		}
-		
-		if ( false === $Bonaire_Mail->get_settings_md5_match( 'smtp' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'orange' );
-			$states['smtp_state'] = 'orange';
-		}
-		if ( false === $Bonaire_Mail->get_settings_md5_match( 'imap' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'orange' );
-			$states['imap_state'] = 'orange';
-		}
-		if ( true === $this->has_empty_field( 'smtp' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'smtp', 'red' );
-			$states['smtp_state'] = 'red';
-		}
-		if ( true === $this->has_empty_field( 'imap' ) ) {
-			$this->bonaire_set_evaluation_state( $protocol = 'imap', 'red' );
-			$states['imap_state'] = 'red';
-		}
-		
-		return $states;
-	}
-	
-	/**
-	 * Stores the created hash value.
-	 *
-	 * @param string $protocol
-	 *
-	 * @since 0.9.6
-	 * @return bool|\WP_Error
-	 */
-	private function store_hash( $protocol = 'smtp' ) {
-		
-		$current_settings_hash = $this->create_settings_hash( $protocol );
-		$stored_settings_hash = $this->stored_options->{1}->{$protocol . '_hash'};
-		if ( $stored_settings_hash === $current_settings_hash ) {
-			
-			return true;
-		}
-		
-		try {
-			$stored_options = get_option( 'bonaire_options' );
-			$stored_options[1][ $protocol . '_hash' ] = $current_settings_hash;
-			
-			return update_option( 'bonaire_options', $stored_options, true );
-		} catch( Exception $e ) {
-			
-			return new \WP_Error( 1, __( 'Internal Error: Unable to store plugin data.', $this->domain ) );
-		}
-	}
-	
-	/**
-	 * Creates a hash value based on either the SMTP settings for SMTP
-	 * or the IMAP AND SMTP settings for IMAP.
-	 *
-	 * @param string $protocol
-	 *
-	 * @since 0.9.6
-	 * @return string
-	 */
-	private function create_settings_hash( $protocol ) {
-		
-		$array = array();
-		$option_keys = $this->{$protocol . '_hash_keys'};
-		foreach ( $option_keys as $key => $value ) {
-			$array[ $key ] = $this->account_settings->{$key};
-		}
-		
-		return md5( serialize( $array ) );
-	}
-	
+
 	/**
 	 * Returns the stored options per default or
 	 * internal data such as the settings hashes.
@@ -823,12 +818,14 @@ final class Bonaire_Options {
 	 */
 	public function get_stored_options( $settings_group = 0 ) {
 		
-		if ( 1 === $settings_group ) {
-			
-			return (object) $this->stored_options->{1};
-		}
+		$stored_options = get_option( 'bonaire_options' );
 		
-		return (object) $this->stored_options->{0};
+		if ( 1 === $settings_group ) {
+
+			return (object) $stored_options[1];
+		}
+
+		return (object) $stored_options[0];
 	}
 	
 	/**
@@ -865,18 +862,5 @@ final class Bonaire_Options {
 		
 		return $this->options_meta;
 	}
-	
-	/**
-	 * Returns a bool indicating wether the account settings are complete or not.
-	 *
-	 * @param int $settings_group
-	 *
-	 * @since 0.9.6
-	 * @return bool
-	 */
-	public function get_has_empty_field( $settings_group ) {
-		
-		return $this->has_empty_field( $settings_group );
-	}
-	
+
 }

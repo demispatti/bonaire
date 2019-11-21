@@ -314,6 +314,10 @@
   max-width: 84.0rem;
   margin: 0 20px 0 0;
   display: block;
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #fff;
 }
 #connection_details .header {
   display: block;
@@ -339,37 +343,40 @@
   padding: 4px 0 4px 0;
   float: right;
 }
-#connection_details .content {
-  display: block;
+#connection_details .content-section-title {
+  display: inline-block;
+  width: auto;
   box-sizing: border-box;
-  overflow: hidden;
-  background-color: #fff;
-}
-#connection_details .content .content-section-title {
   font-size: 16px !important;
   line-height: 3rem !important;
   margin-top: 0;
   margin-bottom: 8px;
 }
-#connection_details .content > div {
+#connection_details .content-section-title {
+  font-size: 16px !important;
+  line-height: 3rem !important;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+#connection_details > div {
   margin-top: 0;
   margin-bottom: 0;
 }
-#connection_details .content .wpcf7,
-#connection_details .content .smtp,
-#connection_details .content .imap {
+#connection_details .wpcf7,
+#connection_details .smtp,
+#connection_details .imap {
   display: block;
   box-sizing: border-box;
   margin: 2.0rem 1.6rem 3.0rem 1.6rem;
 }
-#connection_details .content .wpcf7 h5,
-#connection_details .content .smtp h5,
-#connection_details .content .imap h5 {
+#connection_details .wpcf7 h5,
+#connection_details .smtp h5,
+#connection_details .imap h5 {
   display: inline-block;
 }
-#connection_details .content .wpcf7 > div,
-#connection_details .content .smtp > div,
-#connection_details .content .imap > div {
+#connection_details .wpcf7 > div,
+#connection_details .smtp > div,
+#connection_details .imap > div {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -377,18 +384,18 @@
   display: flex;
   margin-bottom: 1.2rem;
 }
-#connection_details .content .wpcf7 .status-indicator,
-#connection_details .content .smtp .status-indicator,
-#connection_details .content .imap .status-indicator {
+#connection_details .wpcf7 .status-indicator,
+#connection_details .smtp .status-indicator,
+#connection_details .imap .status-indicator {
   box-sizing: border-box;
   display: inline-block;
   margin-left: 6px;
   position: relative;
   top: 2px;
 }
-#connection_details .content .wpcf7 .status-indicator i,
-#connection_details .content .smtp .status-indicator i,
-#connection_details .content .imap .status-indicator i {
+#connection_details .wpcf7 .status-indicator i,
+#connection_details .smtp .status-indicator i,
+#connection_details .imap .status-indicator i {
   font-family: 'dashicons';
   font-size: 14px !important;
   line-height: 3rem !important;
@@ -401,9 +408,9 @@
   border-radius: 50%;
   border: 1px solid #eee;
 }
-#connection_details .content .wpcf7 .status-indicator i:before,
-#connection_details .content .smtp .status-indicator i:before,
-#connection_details .content .imap .status-indicator i:before {
+#connection_details .wpcf7 .status-indicator i:before,
+#connection_details .smtp .status-indicator i:before,
+#connection_details .imap .status-indicator i:before {
   width: 16px;
   height: auto;
   color: #fff;
@@ -415,48 +422,53 @@
   top: -10px;
   left: 0;
 }
-#connection_details .content .wpcf7 .status-indicator.red i,
-#connection_details .content .smtp .status-indicator.red i,
-#connection_details .content .imap .status-indicator.red i {
+#connection_details .wpcf7 .status-indicator.red i,
+#connection_details .smtp .status-indicator.red i,
+#connection_details .imap .status-indicator.red i {
   background-color: #F03434;
 }
-#connection_details .content .wpcf7 .status-indicator.red i:before,
-#connection_details .content .smtp .status-indicator.red i:before,
-#connection_details .content .imap .status-indicator.red i:before {
+#connection_details .wpcf7 .status-indicator.red i:before,
+#connection_details .smtp .status-indicator.red i:before,
+#connection_details .imap .status-indicator.red i:before {
   content: "\f335";
 }
-#connection_details .content .wpcf7 .status-indicator.orange i,
-#connection_details .content .smtp .status-indicator.orange i,
-#connection_details .content .imap .status-indicator.orange i {
+#connection_details .wpcf7 .status-indicator.orange i,
+#connection_details .smtp .status-indicator.orange i,
+#connection_details .imap .status-indicator.orange i {
   background-color: #FFCB05;
 }
-#connection_details .content .wpcf7 .status-indicator.orange i:before,
-#connection_details .content .smtp .status-indicator.orange i:before,
-#connection_details .content .imap .status-indicator.orange i:before {
+#connection_details .wpcf7 .status-indicator.orange i:before,
+#connection_details .smtp .status-indicator.orange i:before,
+#connection_details .imap .status-indicator.orange i:before {
   content: "\f460";
 }
-#connection_details .content .wpcf7 .status-indicator.green i,
-#connection_details .content .smtp .status-indicator.green i,
-#connection_details .content .imap .status-indicator.green i {
+#connection_details .wpcf7 .status-indicator.green i,
+#connection_details .smtp .status-indicator.green i,
+#connection_details .imap .status-indicator.green i {
   background-color: #26C281;
 }
-#connection_details .content .wpcf7 .status-indicator.green i:before,
-#connection_details .content .smtp .status-indicator.green i:before,
-#connection_details .content .imap .status-indicator.green i:before {
+#connection_details .wpcf7 .status-indicator.green i:before,
+#connection_details .smtp .status-indicator.green i:before,
+#connection_details .imap .status-indicator.green i:before {
   content: "\f147";
 }
-#connection_details .content .wpcf7 .status-indicator.hidden i,
-#connection_details .content .smtp .status-indicator.hidden i,
-#connection_details .content .imap .status-indicator.hidden i {
-  display: none;
+#connection_details .wpcf7 .status-indicator.inactive i,
+#connection_details .smtp .status-indicator.inactive i,
+#connection_details .imap .status-indicator.inactive i {
+  background-color: #bfbfbf;
 }
-#connection_details .content .smtp {
+#connection_details .wpcf7 .status-indicator.inactive i:before,
+#connection_details .smtp .status-indicator.inactive i:before,
+#connection_details .imap .status-indicator.inactive i:before {
+  content: "\f460";
+}
+#connection_details .smtp {
   box-sizing: border-box;
   border-top: 1px solid #eee;
   padding-top: 2.0rem;
   background-color: #fff;
 }
-#connection_details .content .imap {
+#connection_details .imap {
   border-top: 1px solid #eee;
   background-color: #fff;
   display: block;
@@ -466,13 +478,16 @@
   box-sizing: border-box;
   margin: 2.0rem 1.6rem 3.0rem 1.6rem;*/
 }
-#connection_details .content .buttons-container {
+#connection_details .button-container {
   box-sizing: border-box;
-  width: 100%;
+  width: auto;
   padding: 0 1.6rem;
-  overflow: hidden;
 }
-#connection_details .content .buttons {
+#connection_details .button-container .button {
+  width: auto;
+  height: 39px;
+}
+#connection_details .buttons {
   border-top: 1px solid #eee;
   box-sizing: border-box;
   display: block;
@@ -481,17 +496,25 @@
   overflow: hidden;
   padding: 3.2rem 0 2.0rem 0;
 }
-#connection_details .content .buttons .reset-button-container {
+#connection_details .buttons .reset-button-container {
   display: inline-block;
   box-sizing: border-box;
   padding-right: 160px;
 }
-#connection_details .content .buttons .submit-button-container {
+#connection_details .buttons .submit-button-container {
   display: inline-block;
   box-sizing: border-box;
 }
 #connection_details .footer {
   border-top: 1px solid #eee;
+  margin: 6.0rem auto 1.0rem auto;
+  padding-top: 20px;
+}
+#connection_details .footer h5 {
+  padding-left: 16px;
+  margin-top: 20px;
+}
+#connection_details .footer > div {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -501,16 +524,16 @@
   box-sizing: border-box;
   overflow: hidden;
   background-color: #fff;
-  padding: 3.2rem 1.6rem 2.0rem 1.6rem;
-  margin: 6.0rem auto 1.0rem auto;
+  padding: 3.2rem 0 2.0rem 0;
 }
-#connection_details .footer .button-container {
+#connection_details .footer > div .button-container {
   padding-right: 48px;
 }
-#connection_details .footer .button-container:last-of-type {
+#connection_details .footer > div .button-container:last-of-type {
   padding-right: 0;
 }
 #connection_details label {
+  line-height: 20px;
   flex-basis: 16rem;
   pointer-events: none;
   padding-top: 6px;
@@ -520,10 +543,11 @@
   line-height: 3rem !important;
   padding-top: 0;
   position: relative;
+  top: 6px;
   left: -3px;
 }
 #connection_details .bonaire-tooltip-symbol i:before {
-  color: #ebebeb;
+  color: #aaeef4;
 }
 #connection_details .bonaire-tooltip-symbol i:hover:before {
   color: #0b66fa;
@@ -536,6 +560,7 @@
   padding: 6px 5px 3px 5px;
   margin: 1px 1px 1px 1px;
   border-radius: 5px;
+  height: 39px;
 }
 #connection_details input:not([type="submit"]).active, #connection_details input:not([type="submit"]).has-content,
 #connection_details select.active,

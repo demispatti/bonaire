@@ -54,6 +54,7 @@
         this.testSmtpSettingsAction = 'bonaire_test_smtp_settings';
         this.testImapSettingsAction = 'bonaire_test_imap_settings';
         this.sendTestMailAction = 'bonaire_send_testmail';
+        this.bonaireUpdateSettingsStatusAction = 'bonaire_get_settings_status';
 
         // Helper
         this.loaderSpinner = null;
@@ -97,7 +98,7 @@
                 // notifier defaults
                 notifier: {
                     // auto-dismiss wait time (in seconds)
-                    delay: 15,
+                    delay: 5,
                     // default position
                     position: 'bottom-right'
                 },
@@ -257,10 +258,8 @@
             output = $this.bonairePreValidateOptions(input);
 
             if (false !== output){
-
                 $this.bonaireSubmitOptions(output);
             } else{
-
                 alertify.alert($this.optionsPageNotifications.save_options_notice);
             }
 
@@ -275,37 +274,81 @@
             };
             $.extend(data, input);
 
-            $this.showLoaderSpinner();
+            this.showLoaderSpinner();
 
             $.post(ajaxurl, data, function ( response ){
 
                 $this.hideLoaderSpinner();
 
+                // @todo fix
+                if (undefined === response.data){
+                    response = $.parseJSON(response);
+                }
                 if (response.success === true){
 
-                    alertify.success(response.data.message);
+                    $this.bonaireUpdateSettingsStatus();
+                    
                     var password = $('input[name="bonaire_options[password]"]');
                     if ('' !== password.val() && '*****' !== password.val()){
                         password.val('*****');
                     }
+                    alertify.success(response.data.message);
                 } else{
-                    alertify.alert(response.data.message);
+                    alertify.success(response.data.message);
+                }
+            });
+        },
+        bonaireUpdateSettingsStatus: function(){
+            var $this = this;
+
+            var data = {
+                action: this.bonaireUpdateSettingsStatusAction,
+                nonce: this.bonaireOptionsForm.data("nonce")
+            };
+
+            $.post(ajaxurl, data, function ( response ){
+
+                if (undefined === response.data){
+                    response = $.parseJSON(response);
+                }
+                if (response.success === true){
+
+                    var smtp_status = response.data.smtp_status;
+                    if (undefined !== smtp_status){
+                        $this.updateSettingsStatus('smtp', smtp_status);
+                    }
+                    var imap_status = response.data.imap_status;
+                    if (undefined !== imap_status){
+                        $this.updateSettingsStatus('imap', imap_status);
+                    }
+                }
+            });
+        },
+        getSettingsStatus: function(protocol){
+
+            var data = {
+                action: this.bonaireUpdateSettingsStatusAction,
+                nonce: this.bonaireOptionsForm.data("nonce")
+            };
+
+            var result = null;
+            $.post(ajaxurl, data, function ( response ){
+
+                if (undefined === response.data){
+                    response = $.parseJSON(response);
+                }
+                if (response.success === true){
+
+                    if('smtp' === protocol){
+                        result = response.data.smtp_status;
+                    } else {
+                        result = response.data.imap_status;
+                    }
+
+                    return result;
                 }
 
-                var smtp_state = response.data.smtp_state;
-                if (null !== smtp_state){
-                    var el = $('.smtp').find('.status-indicator');
-                    el.removeClass('red orenge green').addClass(smtp_state);
-                    el.find('i').prop('title', $this.settingsPageDisplayStrings.smtp[smtp_state]);
-                    $this.updateSettingsStatus('smtp', smtp_state);
-                }
-                var imap_state = response.data.imap_state;
-                if (null !== imap_state){
-                    var el = $('.imap').find('.status-indicator');
-                    el.removeClass('red orenge green').addClass(imap_state);
-                    el.find('i').prop('title', $this.settingsPageDisplayStrings.imap[imap_state]);
-                    $this.updateSettingsStatus('imap', imap_state);
-                }
+                return false;
             });
         },
         bonaireResetOptions: function ( event ){
@@ -326,25 +369,16 @@
 
                     $this.hideLoaderSpinner();
 
+                    // @todo fix
+                    if (undefined === response.data){
+                        response = $.parseJSON(response);
+                    }
                     if (response.success === true){
-
+                        $this.bonaireUpdateSettingsStatus();
                         alertify.success(response.data.message);
                         $this.resetOptionsPageInputFields();
                     } else{
                         alertify.alert(response.data.message);
-                    }
-
-                    var smtp_state = response.data.smtp_state;
-                    if (undefined !== smtp_state){
-                        var el = $('.smtp').find('.status-indicator');
-                        el.removeClass('red orenge green').addClass(smtp_state);
-                        el.find('i').prop('title', $this.settingsPageDisplayStrings.smtp[smtp_state]);
-                    }
-                    var imap_state = response.data.imap_state;
-                    if (undefined !== imap_state){
-                        var el = $('.imap').find('.status-indicator');
-                        el.removeClass('red orenge green').addClass(imap_state);
-                        el.find('i').prop('title', $this.settingsPageDisplayStrings.imap[imap_state]);
                     }
                 });
             });
@@ -373,45 +407,26 @@
 
                 $this.hideLoaderSpinner();
 
-                // In honor of the unfound bug - @todo
+                // @todo fix
                 if (undefined === response.data){
                     response = $.parseJSON(response);
                 }
 
                 if (response.success === true){
-
                     alertify.alert(response.data.message);
                 } else{
                     alertify.alert(response.data.message);
                 }
 
-                var state = response.data.state;
-                if (undefined !== state){
-                    $this.updateSettingsStatus(protocol, state);
-                }
+                $this.bonaireUpdateSettingsStatus();
             });
-        },
-        updateSettingsStatus: function ( protocol, state ){
-            var el = $('.' + protocol).find('.status-indicator');
-
-            el.removeClass('red orange green').addClass(state);
-            el.find('i').prop('title', this.settingsPageDisplayStrings[protocol][state]);
-
-            var saveReplyButton = $('[name="bonaire_options[save_reply]"]');
-            if ('red' === state || ('imap' === protocol && 'no' === saveReplyButton.val())){
-                el.addClass('hidden');
-            } else if (('smtp' === protocol && 'red' !== state)){
-                el.removeClass('hidden');
-            } else if (('imap' === protocol && 'red' !== state && 'yes' === saveReplyButton.val())){
-                el.removeClass('hidden');
-            }
         },
         bonaireSendTestMail: function ( event ){
             event.preventDefault();
             var $this = event.data.context;
 
             // Checks for empty input fields
-            if (false === $this.hasNoEmptyValues('all')){
+            if (false === $this.hasAppropriateSettingsStatus()){
 
                 alertify.notify($this.optionsPageNotifications.send_test_mail_notice);
             } else{
@@ -426,6 +441,10 @@
 
                     $this.hideLoaderSpinner();
 
+                    // @todo fix
+                    if (undefined === response.data){
+                        response = $.parseJSON(response);
+                    }
                     if (response.success === true){
 
                         alertify.success(response.data.message);
@@ -435,23 +454,20 @@
                 });
             }
         },
-        hasNoEmptyValues: function ( flag ){
-            // Check for values
-            var empty_values = 0;
-            $.each($(this.bonaireOptionsFormInputFields), function (){
-                if ('bonaire' === $(this).data('form-input') && '' === $(this).val()){
-                    empty_values++;
-                }
-            });
+        // Helper Functions
+        updateSettingsStatus: function ( protocol, status ){
+            var el = $('.' + protocol).find('.status-indicator');
+            $(el).removeClass('red orange green inactive').addClass(status);
+            $(el).find('i').prop('title', this.settingsPageDisplayStrings[protocol][status]);
+        },
+        hasAppropriateSettingsStatus: function (){
 
-            if ('none' === flag){
+            // Check for account settings status
+            var smtpStatus = this.getSettingsStatus('smtp');
+            var imapStatus = this.getSettingsStatus('imap');
+            var saveReply = BonaireOptions.save_reply;
 
-                return 0 !== empty_values;
-            }
-            if ('all' === flag){
-
-                return 0 === empty_values;
-            }
+            return 'yes' === saveReply && 'green' === imapStatus || 'no' === saveReply && 'green' === smtpStatus
         },
         resetOptionsPageInputFields: function (){
 
@@ -498,12 +514,9 @@
                 if ('smtpauth' === key){
                     result = true;
                 }
-                if ('save_reply' === key || 'password' === key || 'channel' === key || 'use_ssl_certification_validation' === key){
+                if ('save_reply' === key || 'password' === key || 'channel' === key || 'ssl_certification_validation' === key || 'inbox_folder_name' === key || 'inbox_folder_path' === key){
                     result = this;
                 }
-                /*if ('channel' === key){
-                    result = this;
-                }*/
                 if ('smtp_port' === key || 'imap_port' === key){
                     result = $.isNumeric(parseInt(this)) ? parseInt(this) : '';
                     if (false !== result){
@@ -614,7 +627,6 @@
             } else{
 
                 var inputFields = $this.bonaireReplyForm.find('input:not(.bonaire-submit-reply-button), textarea');
-
                 var input = {};
                 $.each($(inputFields), function (){
                     if ('bonaire' === $(this).data('form-input')){
@@ -635,16 +647,22 @@
             };
             $.extend(data, input);
 
-            $this.showLoaderSpinner();
+            this.showLoaderSpinner();
 
             $.post(ajaxurl, data, function ( response ){
 
                 $this.hideLoaderSpinner();
 
+                // @todo fix
+                if (undefined === response.data){
+                    response = $.parseJSON(response);
+                }
                 if (response.success === true){
 
                     alertify.success(response.data.message);
-                    $this.bonaireReplyForm.find("textarea").val('');
+                    $this.bonaireReplyForm.find("input[data-key='name']").val(BonaireOptions.from_name);
+                    $this.bonaireReplyForm.find("textarea, input[type='subject']").val('RE: ');
+                    $this.bonaireReplyForm.find("textarea, input[type='text']").val('');
                 } else{
                     alertify.alert(response.data.message);
                 }
