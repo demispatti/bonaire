@@ -21,10 +21,6 @@ if ( ! class_exists( 'PHPMailer' ) ) {
 	include ABSPATH . 'wp-includes/class-phpmailer.php';
 }
 
-if ( ! class_exists( 'Ping' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ping.php';
-}
-
 /**
  * The class responsible for email functionality.
  *

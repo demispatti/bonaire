@@ -324,7 +324,7 @@
                 }
             });
         },
-        getSettingsStatus: function(protocol){
+        getSettingsStatus: /*async */function(protocol){
 
             var data = {
                 action: this.bonaireUpdateSettingsStatusAction,
@@ -463,8 +463,8 @@
         hasAppropriateSettingsStatus: function (){
 
             // Check for account settings status
-            var smtpStatus = this.getSettingsStatus('smtp');
-            var imapStatus = this.getSettingsStatus('imap');
+            var smtpStatus = /*await */this.getSettingsStatus('smtp');
+            var imapStatus = /*await */this.getSettingsStatus('imap');
             var saveReply = BonaireOptions.save_reply;
 
             return 'yes' === saveReply && 'green' === imapStatus || 'no' === saveReply && 'green' === smtpStatus

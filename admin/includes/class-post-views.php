@@ -41,7 +41,6 @@ class Bonaire_Post_Views {
 	public function __construct( $domain ) {
 		
 		$this->domain = $domain;
-		//$this->kill_post_views();
 	}
 	
 	/**
@@ -130,23 +129,6 @@ class Bonaire_Post_Views {
 		
 		return update_post_meta( $post_id, $count_key, $count );
 		//delete_post_meta( $post_id, $count_key );
-	}
-	
-	/**
-	 * @dev_helper
-	 * dev helper function
-	 */
-	private function kill_post_views() {
-		
-		$count_key = 'post_views_count';
-		//$count = get_post_meta( $post_id, $count_key, true );
-		$messages = Flamingo_Inbound_Message::find();
-		/**
-		 * @var \Flamingo_Inbound_Message $message
-		 */
-		foreach ( $messages as $i => $message ) {
-			delete_post_meta( $message->id, $count_key );
-		}
 	}
 	
 }

@@ -3,7 +3,6 @@
 namespace Bonaire\Admin\Includes;
 
 use Flamingo_Inbound_Message, WPCF7_ContactForm;
-use Bonaire\Admin\Includes as AdminIncludes;
 use WP_Error;
 
 /**

@@ -3,7 +3,7 @@
 namespace Bonaire\Admin\Includes;
 
 use Exception;
-use PHPMailer, JJG;
+use PHPMailer;
 use Bonaire\Admin\Includes as AdminIncludes;
 use WP_Error;
 
@@ -19,10 +19,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 if ( ! class_exists( 'PHPMailer' ) ) {
 	include ABSPATH . 'wp-includes/class-phpmailer.php';
-}
-
-if ( ! class_exists( 'Ping' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ping.php';
 }
 
 /**
@@ -468,7 +464,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[0] = __( 'Successfully checked internet connection.', $this->domain );
+		$messages[] = __( 'Successfully checked internet connection.', $this->domain );
 		
 		//Resolve SMTP hostname
 		$resolve_result = $this->resolve_smtp_hostname( $smtp_host );
@@ -484,24 +480,8 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[1] = __( 'Successfully resolved host name.', $this->domain );
-		
-		// Ping SMTP host
-		$ping_result = $this->ping_smtp_host( $smtp_host );
-		if ( is_wp_error( $ping_result ) ) {
-			$error_code = $ping_result->get_error_code();
-			$error_code = isset( $error_code ) ? $error_code : false;
-			$result = array(
-				'success' => false,
-				'message' => $ping_result->get_error_message(),
-				'messages' => $messages,
-				'error_code' => $error_code
-			);
-			
-			return $this->create_response( $result, 'orange' );
-		}
-		$messages[2] = __( 'Successfully pinged host.', $this->domain );
-		
+		$messages[] = __( 'Successfully resolved host name.', $this->domain );
+
 		// Test SMTP port
 		$port_result = $this->test_smtp_port( $smtp_host, $smtp_ports );
 		if ( is_wp_error( $port_result ) ) {
@@ -516,7 +496,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[3] = __( 'Successfully tested SMTP port.', $this->domain );
+		$messages[] = __( 'Successfully tested SMTP port.', $this->domain );
 		
 		// Test SMTP user credentials
 		$socket = fsockopen( $smtp_host, $smtp_port, $errno, $errstr, 2 );
@@ -534,10 +514,10 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[4] = __( 'Successfully authenticated to the email account via SMTP.', $this->domain );
+		$messages[] = __( 'Successfully authenticated to the email account via SMTP.', $this->domain );
 		
 		// Add final success message.
-		$messages[5] = __( '<strong>Your SMTP settings are valid.</strong>', $this->domain );
+		$messages[] = __( '<strong>Your SMTP settings are valid.</strong>', $this->domain );
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
@@ -586,7 +566,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[0] = __( 'Successfully checked internet connection.', $this->domain );
+		$messages[] = __( 'Successfully checked internet connection.', $this->domain );
 		
 		//Check for IMAP extension
 		$extension_result = $this->is_imap_extension_loaded();
@@ -602,7 +582,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[1] = __( 'Successfully checked for IMAP extension.', $this->domain );
+		$messages[] = __( 'Successfully checked for IMAP extension.', $this->domain );
 		
 		//Resolve IMAP hostname
 		$resolve_result = $this->resolve_imap_hostname( $imap_host );
@@ -618,24 +598,8 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[2] = __( 'Successfully resolved host name.', $this->domain );
-		
-		// Ping IMAP host
-		$ping_result = $this->ping_imap_host( $imap_host );
-		if ( is_wp_error( $ping_result ) ) {
-			$error_code = $ping_result->get_error_code();
-			$error_code = isset( $error_code ) ? $error_code : false;
-			$result = array(
-				'success' => false,
-				'message' => $ping_result->get_error_message(),
-				'messages' => $messages,
-				'error_code' => $error_code
-			);
-			
-			return $this->create_response( $result, 'orange' );
-		}
-		$messages[3] = __( 'Successfully pinged host.', $this->domain );
-		
+		$messages[] = __( 'Successfully resolved host name.', $this->domain );
+
 		// Test IMAP port
 		$port_result = $this->test_imap_port( $imap_host, $imap_ports );
 		if ( is_wp_error( $port_result ) ) {
@@ -650,7 +614,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[4] = __( 'Successfully tested IMAP port.', $this->domain );
+		$messages[] = __( 'Successfully tested IMAP port.', $this->domain );
 		
 		// Test SSL
 		if ( 'yes' === $this->stored_options->save_reply && 'cert' === $this->stored_options->ssl_certification_validation ) {
@@ -669,7 +633,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				return $this->create_response( $result, 'orange' );
 			}
 		}
-		$messages[5] = __( 'Successfully tested IMAP port.', $this->domain );
+		$messages[] = __( 'Successfully tested IMAP port.', $this->domain );
 		
 		// Test INBOX.Sent folder
 		$folder_result = $this->test_inbox();
@@ -685,10 +649,10 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[6] = __( 'Successfully contacted inbox folder on the mail server.', $this->domain );
+		$messages[] = __( 'Successfully contacted inbox folder on the mail server.', $this->domain );
 		
 		// Add final success message.
-		$messages[7] = __( '<strong>Your IMAP settings are valid.</strong>', $this->domain );
+		$messages[] = __( '<strong>Your IMAP settings are valid.</strong>', $this->domain );
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
@@ -765,32 +729,6 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		} catch( Exception $e ) {
 			
 			return new WP_Error( 2, __( 'Internal Error: Unable to resolve SMTP hostname.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * Pings the SMTP host.
-	 *
-	 * @param $smtp_host
-	 *
-	 * @return bool|\WP_Error
-	 * @throws \Exception
-	 * @since 0.9.6
-	 */
-	private function ping_smtp_host( $smtp_host ) {
-		
-		try {
-			$ping = new JJG\Ping( $smtp_host );
-			$latency = $ping->ping();
-			if ( $latency === false ) {
-				
-				return new WP_Error( 1, __( '<strong>Failed to ping host (' . $smtp_host . ').</strong><br>Please review the setting for your SMTP host.', $this->domain ) );
-			}
-		} catch( Exception $e ) {
-			
-			return new WP_Error( 2, __( 'Internal Error: Unable to ping SMTP host.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
 		}
 		
 		return true;
@@ -900,32 +838,6 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		}
 		
 		return true;
-	}
-	
-	/**
-	 * Pings the SMTP host.
-	 *
-	 * @param string $smtp_host
-	 *
-	 * @return bool|\WP_Error
-	 * @throws \Exception
-	 * @since 0.9.6
-	 */
-	private function ping_imap_host( $smtp_host ) {
-		
-		try {
-			$ping = new JJG\Ping( $smtp_host );
-			$latency = $ping->ping();
-			if ( $latency !== false ) {
-				
-				return true;
-			}
-			
-			return new WP_Error( 1, __( '<strong>Failed to ping host (' . $smtp_host . ').</strong><br>Please review your settings for the IMAP host.', $this->domain ) );
-		} catch( Exception $e ) {
-			
-			return new WP_Error( 2, __( 'Internal Error: Unable to ping IMAP host.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
-		}
 	}
 	
 	/**
