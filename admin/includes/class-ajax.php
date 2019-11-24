@@ -114,7 +114,7 @@ class Bonaire_Ajax {
 		$this->Bonaire_Mail = $Bonaire_Mail;
 		$this->Bonaire_Account_Settings_Evaluator = $Bonaire_Account_Evaluator;
 		$this->Bonaire_Account_Settings_Status = $Bonaire_Account_Settings_Status;
-		$this->stored_options = $Bonaire_Options->get_stored_options( '0' );
+		$this->stored_options = $Bonaire_Options->get_stored_options( 0 );
 		$this->nonce_error_text = __( 'That won\'t do.', $this->domain );
 	}
 	

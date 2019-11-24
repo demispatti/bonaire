@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Include dependencies.
  */
 if ( ! class_exists( 'AdminPartials\Bonaire_Reply_Form_Display' ) ) {
-	require_once BONAIRE_ROOT_DIR . '/admin/partials/class-reply-form-display.php';
+	require_once BONAIRE_ROOT_DIR . 'admin/partials/class-reply-form-display.php';
 }
 
 /**
@@ -104,7 +104,6 @@ class Bonaire_Meta_Box {
 	public function add_hooks() {
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_meta_box' ) );
 	}
 	
@@ -118,21 +117,6 @@ class Bonaire_Meta_Box {
 		
 		// Media Frame.
 		wp_enqueue_script( 'dashicons' );
-	}
-	
-	/**
-	 * Registers the JavaScript for the admin area.
-	 *
-	 * @since 0.9.6
-	 * @return void
-	 */
-	public function enqueue_scripts() {
-		
-		// Media Frame.
-		wp_enqueue_script( 'media-views' );
-		
-		// Media upload engine.
-		wp_enqueue_media();
 	}
 	
 	/**
@@ -161,28 +145,53 @@ class Bonaire_Meta_Box {
 		
 		$post_id = (int) $_REQUEST['post'];
 		$stored_options = $this->Bonaire_Options->get_stored_options();
-		
 		$Bonaire_Account_Settings_Status = new Bonaire_Account_Settings_Status( $this->domain );
 		$smtp_status = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
 		$imap_status = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
-		$save_reply = isset($stored_options->save_reply) ? $stored_options->save_reply : 'no';
-		$username = isset( $stored_options->username ) ? $stored_options->username : false;
+		$save_reply = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
 		$recipient_email_address = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
-
-		if ( $recipient_email_address === $username &&'yes' === $save_reply && true === $imap_status ||
-		     $recipient_email_address === $username &&'no' === $save_reply && true === $smtp_status) {
+		$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
+		$link = '<a href="' . $url . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		
+		/**
+		 * Check if the message was preprocessed.
+		 * If not, a reply is not possible since we don't know the sender's email address.
+		 */
+		$uniqid = $this->Bonaire_Adapter->get_field( $post_id, 'posted_data_uniqid' );
+		if(false === $uniqid || false === $recipient_email_address){
+			echo __( 'Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire with the respective contact form.', $this->domain );
 			
-			$your_subject = $this->Bonaire_Adapter->get_field( $post_id, 'your-subject' );
-			$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $this->Bonaire_Options->get_stored_options( 0 ) );
+			return;
+		}
+		
+		/**
+		 * Check if the username and recipient email adresses match.
+		 * If so, it's the one associated with the message. Else we bail.
+		 */
+		if(false === $this->Bonaire_Adapter->is_same_email_address( $post_id )){
+			echo __( 'In order to send replies, please register the email account the contact form is related to', $this->domain ) . ' ' . ' (' . $recipient_email_address . '): ' . $link;
 			
+			return;
+		}
+		
+		/**
+		 * Check if the necessary account settings are marked as valid.
+		 */
+		if ('yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status) {
+			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $recipient_email_address );
 			echo $string;
 			
 			return;
 		}
-		$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
-		$link = '<a href="' . $url . '">' . __( 'Account Settings', $this->domain ) . '</a>';
 		
-		echo __( 'Please register the email account that is related to the following email account in order to send replies' ) . ': (' . $recipient_email_address . '). ' . $link;
+		/**
+		 * Display reply form.
+		 */
+		$your_subject = $this->Bonaire_Adapter->get_field( $post_id, 'your-subject' );
+		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $this->Bonaire_Options->get_stored_options( 0 ) );
+		echo $string;
+		
+		return;
 	}
 	
 }

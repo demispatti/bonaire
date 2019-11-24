@@ -820,11 +820,17 @@ final class Bonaire_Options {
 		
 		$stored_options = get_option( 'bonaire_options' );
 		
+		if ( false === $stored_options && $settings_group === 0 ) {
+			return $this->default_options()->{0};
+		} elseif ( false === $stored_options && $settings_group === 1 ) {
+			return $this->default_options()->{1};
+		}
+		
 		if ( 1 === $settings_group ) {
-
+			
 			return (object) $stored_options[1];
 		}
-
+		
 		return (object) $stored_options[0];
 	}
 	

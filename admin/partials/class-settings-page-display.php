@@ -450,7 +450,7 @@ class Bonaire_Settings_Page_Display {
 		$account_settings = $this->Bonaire_Options->get_stored_options( 0 );
 		$settings_status = isset($plugin_options->{$protocol . '_status'}) ? $plugin_options->{$protocol . '_status'} : 'orange';
 		
-		if ( 'imap' === $protocol && 'no' === $account_settings->save_reply ) {
+		if ( isset( $protocol ) && 'imap' === $protocol && 'no' === $account_settings->save_reply ) {
 			$settings_status = 'inactive';
 		}
 		

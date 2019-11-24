@@ -47,7 +47,7 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Tooltips' ) ) {
 if ( ! class_exists( 'AdminIncludes\Bonaire_Options' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) && file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
+if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-adapter.php';
 }
 
@@ -226,8 +226,8 @@ class Bonaire_Admin {
 		
 		add_action( 'init', array( $this, 'init_dependencies' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_update_post' ), 10 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 11 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_update_post' ), 11 );
 	}
 	
 	/**
@@ -238,8 +238,7 @@ class Bonaire_Admin {
 	 */
 	public function maybe_update_post() {
 		
-		$transient = get_transient( 'bonaire_after_mail_sent' );
-		if ( false !== $transient ) {
+		if ( false !== get_transient( 'bonaire_wpcf7_has_mail' ) ) {
 			$Bonaire_Adapter = new AdminIncludes\Bonaire_Adapter( $this->domain, $this->Bonaire_Options->get_stored_options( 1 ) );
 			$Bonaire_Adapter->update_post();
 		}
@@ -433,7 +432,7 @@ class Bonaire_Admin {
 	 */
 	private function include_required_plugins_adapter() {
 		
-		if ( file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
+		if ( file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
 			/**
 			 * The class responsible for interacting with 'Contact Form 7' and 'Flamingo'.
 			 */

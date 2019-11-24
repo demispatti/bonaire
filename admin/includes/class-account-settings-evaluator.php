@@ -653,7 +653,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		$messages[4] = __( 'Successfully tested IMAP port.', $this->domain );
 		
 		// Test SSL
-		if ( true === $this->stored_options->save_reply && true === $this->stored_options->ssl_certification_validation ) {
+		if ( 'yes' === $this->stored_options->save_reply && 'cert' === $this->stored_options->ssl_certification_validation ) {
 			
 			$ssl_result = $this->is_ssl();
 			if ( is_wp_error( $ssl_result ) ) {

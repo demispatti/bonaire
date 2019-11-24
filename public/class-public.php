@@ -29,7 +29,7 @@ class Bonaire_Public {
 	 */
 	public function add_hooks() {
 		
-		add_action( 'wpcf7_mail_sent', array( $this, 'wpcf7_mail_sent' ), 10 );
+		add_action( 'wpcf7_mail_sent', array( $this, 'wpcf7_after_mail_sent' ), 10 );
 		add_filter( 'wpcf7_posted_data', array( $this, 'filter_wpcf7_posted_data' ), 10, 1 );
 	}
 	
@@ -53,6 +53,7 @@ class Bonaire_Public {
 		$current_mails = get_transient( 'bonaire_wpcf7_has_mail' );
 		$data = array( 'form_id' => $posted_data['_wpcf7'], 'posted_data_uniqid' => $uniqid );
 		$current_mails[] = $data;
+		// Store the data temporarily for usage by 'wpcf7_after_mail_sent()'
 		set_transient( 'bonaire_wpcf7_has_mail', $current_mails );
 		
 		$posted_data['posted_data_uniqid'] = $uniqid;
@@ -69,18 +70,26 @@ class Bonaire_Public {
 	 * @since 0.9.6
 	 * @return void
 	 */
-	public function wpcf7_mail_sent( $contact_form ) {
+	public function wpcf7_after_mail_sent( $contact_form ) {
 		
 		$current_mails = get_transient( 'bonaire_wpcf7_has_mail' );
+		if(false === $current_mails || ! is_array($current_mails)){
+			return;
+		}
+		
 		foreach ( $current_mails as $i => $current_mail ) {
-			if ( ! isset( $current_mail['channel'] ) ) {
+			
+			if ( ! isset( $current_mail['recipient'] ) ) {
 				$current_mails[ $i ]['channel'] = $contact_form->name();
+				$current_mails[ $i ]['form_id'] = $contact_form->id();
 				$properties = $contact_form->get_properties();
 				$recipient = $properties['mail']['recipient'];
 				$current_mails[ $i ]['recipient'] = $recipient;
 			}
 		}
-		set_transient( 'bonaire_wpcf7_has_mail', $current_mails );
+		
+		// Add the updated data to a transient for postprocessing by class '$Bonaire_Adapter'
+		set_transient( 'bonaire_wpcf7_mail_meta', $current_mails );
 	}
 	
 }

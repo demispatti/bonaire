@@ -16,11 +16,11 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php' ) ) {
-	include BONAIRE_ROOT_DIR . '../../contact-form-7/includes/contact-form.php';
+if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php' ) ) {
+	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php';
 }
-if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
-	include BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php';
+if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
+	include BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php';
 }
 
 /**
@@ -118,50 +118,39 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @return void
 	 */
 	private function postprocess_messages() {
-		
-		// Bail if there are no positively evaluated SMTP settings.
-		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
-		if ( true !== $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) ) {
+
+		$bonaire_wpcf7_has_mail = get_transient( 'bonaire_wpcf7_mail_meta' );
+		if(false === is_array($bonaire_wpcf7_has_mail) || empty($bonaire_wpcf7_has_mail)){
+			
 			return;
 		}
 		
-		$bonaire_wpcf7_has_mail = get_transient( 'bonaire_wpcf7_has_mail' );
-		
-		$count = 0;
 		// If there are new messages to extend the data
-		if ( false !== $bonaire_wpcf7_has_mail ) {
+		foreach ( $bonaire_wpcf7_has_mail as $index => $message ) {
 			
-			foreach ( $bonaire_wpcf7_has_mail as $index => $message ) {
+			foreach ( $this->posts as $i => $flamingo_post ) {
 				
-				foreach ( $this->posts as $i => $flamingo_post ) {
-					
-					$fields = $flamingo_post->fields;
-					
-					if ( isset( $fields['posted_data_uniqid'] ) && $message['posted_data_uniqid'] === $fields['posted_data_uniqid'] ) {
-						
-						// Extend the meta data
-						$meta = $flamingo_post->meta;
-						$meta['channel'] = $message['channel'];
-						$meta['form_id'] = $message['form_id'];
-						$meta['posted_data_uniqid'] = $message['posted_data_uniqid'];
-						$meta['recipient'] = $message['recipient'];
-						
-						// remove the uniqid from the fields data,
-						// since it has done it's job
-						unset( $fields['posted_data_uniqid'] );
-						
-						// update post meta
-						$post = get_post( $flamingo_post->id );
-						update_post_meta( $post->ID, '_fields', $fields );
-						update_post_meta( $post->ID, '_meta', $meta );
-					}
+				$fields = $flamingo_post->fields;
+				if ( isset( $fields['posted_data_uniqid'] ) && $message['posted_data_uniqid'] === $fields['posted_data_uniqid'] ) {
+					// Extend the meta data
+					$meta                       = $flamingo_post->meta;
+					$meta['channel']            = $message['channel'];
+					$meta['form_id']            = $message['form_id'];
+					$meta['posted_data_uniqid'] = $message['posted_data_uniqid'];
+					$meta['recipient']          = $message['recipient'];
+					// remove the uniqid from the fields data,
+					// since it has done it's job
+					unset( $fields['posted_data_uniqid'] );
+					// update post meta
+					$post = get_post( $flamingo_post->id );
+					update_post_meta( $post->ID, '_fields', $fields );
+					update_post_meta( $post->ID, '_meta', $meta );
 				}
 			}
 		}
 		
-		if ( $count === 0 ) {
-			delete_transient( 'bonaire_wpcf7_has_mail' );
-		}
+		delete_transient( 'bonaire_wpcf7_has_mail' );
+		delete_transient( 'bonaire_wpcf7_mail_meta' );
 	}
 	
 	/**
@@ -216,7 +205,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	private function field( $post_id, $field_name ) {
 		
 		foreach ( $this->posts as $i => $post ) {
-			foreach ( $post->fields as $field => $value ) {
+			foreach ( $post->meta as $field => $value ) {
 				if ( $post_id === $post->id && $field_name === $field ) {
 					return $value;
 				}
@@ -276,7 +265,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 * @return bool
 	 */
-	private function compare_email_addresses( $post_id ) {
+	private function check_same_email_address( $post_id ) {
 		
 		$account_from_address = $this->stored_options->from;
 		
@@ -311,7 +300,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		$contact_form = $contact_form_by_channel[0];
 		$properties = $contact_form->get_properties();
 		$contact_form = $contact_form->name() === $channel ? $contact_form : false;
-		if ( false !== $contact_form ) {
+		if ( is_a( $contact_form, 'WPCF7_ContactForm') ) {
 			
 			return isset( $properties['mail']['recipient'] ) && '' !== $properties['mail']['recipient'] ? $properties['mail']['recipient'] : false;
 		}
@@ -333,7 +322,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		foreach ( $this->posts as $i => $post ) {
 			if ( (int) $post->id === (int) $post_id ) {
 				
-				return isset( $post->meta['channel'] ) ? $post->meta['channel'] : false;
+				return isset( $post->channel ) ? $post->channel : false;
 			}
 		}
 		
@@ -350,9 +339,9 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 * @return bool
 	 */
-	public function meets_requirements( $post_id ) {
+	public function is_same_email_address( $post_id ) {
 		
-		return $this->compare_email_addresses( $post_id );
+		return $this->check_same_email_address( $post_id );
 	}
 	
 	/**

@@ -17,10 +17,10 @@ if ( ! defined( 'WPINC' ) ) {
  * Include dependencies.
  */
 if ( ! class_exists( 'AdminPartials\Bonaire_Item_Display' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/partials/class-Item-display.php';
+	require_once BONAIRE_ROOT_DIR . 'admin/partials/class-item-display.php';
 }
-if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php' ) ) {
-	include BONAIRE_ROOT_DIR . '../../flamingo/includes/class-inbound-message.php';
+if ( ! class_exists( 'Flamingo_Inbound_Message' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
+	include BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php';
 }
 
 /**

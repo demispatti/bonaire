@@ -18,15 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
+ * @link              https://demispatti.ch
  * @since             1.0.0
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
- * Plugin URI:
- * Description:       Send Replies to messages you receive trough a 'Contact Form 7' contact form and stored with 'Flamingo'.
+ * Plugin URI:        https://demispatti.ch
+ * Description:       Bonaire.
  * Version:           1.0.0
  * Author:            Demis Patti
- * Author URI:
+ * Author URI:        https://demispatti.ch
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bonaire
@@ -37,10 +38,13 @@ if ( ! defined( 'WPINC' ) ) {
  * Define plugin constants.
  */
 if ( ! defined( 'BONAIRE_ROOT_DIR' ) ) {
-	define( 'BONAIRE_ROOT_DIR', plugin_dir_path( __FILE__ ) . '/' );
+	define( 'BONAIRE_ROOT_DIR', plugin_dir_path( __FILE__ ) /*. '/'*/ );
 }
 if ( ! defined( 'BONAIRE_ROOT_URL' ) ) {
-	define( 'BONAIRE_ROOT_URL', plugin_dir_url( __FILE__ ) . '/' );
+	define( 'BONAIRE_ROOT_URL', plugin_dir_url( __FILE__ ) /*. '/'*/ );
+}
+if ( ! defined( 'BONAIRE_PLUGINS_ROOT_DIR' ) ) {
+	define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../' /*. '/'*/ );
 }
 
 /**
