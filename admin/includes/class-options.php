@@ -434,13 +434,17 @@ final class Bonaire_Options {
 	 */
 	private function get_script_data() {
 		
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		
 		$options_meta = array( 'options_meta' => $this->options_meta() );
 		$default_options = array( 'default_options' => $this->default_options() );
 		$has_empty_fields = array( 'has_empty_field' => $this->has_empty_field() );
 		$save_reply = array( 'save_reply' => $this->stored_options->{0}->save_reply );
+		$smtp_status = array( 'smtp_status' => $Bonaire_Account_Settings_Status->get_settings_status('smtp', true) );
+		$imap_status = array( 'imap_status' => $Bonaire_Account_Settings_Status->get_settings_status('imap', true) );
 		$ajaxurl = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
 		
-		$data = array_merge( $options_meta, $default_options, $has_empty_fields, $save_reply, $ajaxurl );
+		$data = array_merge( $options_meta, $default_options, $has_empty_fields, $save_reply, $ajaxurl, $smtp_status, $imap_status );
 		
 		return $data;
 	}
