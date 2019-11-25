@@ -116,11 +116,17 @@ class Bonaire_Settings_Page_Display {
 					$string = '';
 					foreach ( (array) $this->options_meta as $key => $args ) {
 						$value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
+						// Settings Section Titles
 						$string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
 						$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
 						$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
+						
+						// Settings
 						$string .= $this->get_settings_field( $key, $value, $this->options_meta );
-						$string .= 'channel' === $key || 'from' === $key || 'ssl_certification_validation' === $key ? '</div>' : '';
+						// Close title div
+						$string .= 'channel' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
+						
+						$string .= 'ssl_certification_validation' === $key ? '<div class="contactform"><h5 class="content-section-title">' . __( 'Contact Form Field Names', $this->domain ) . '</h5>' : '';
 					}
 					echo $string;
 					?>

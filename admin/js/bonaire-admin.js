@@ -573,6 +573,14 @@
                         result = '';
                     }
                 }
+                if ('your_name' === key || 'your_email' === key || 'your_subject' === key || 'your_message' === key){
+                    result = alphaNumRegex.test(this);
+                    if (true === result){
+                        result = this;
+                    } else{
+                        result = '';
+                    }
+                }
 
                 output[key] = result;
             });

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
 "POT-Creation-Date: 2019-11-25 04:17+0100\n"
-"PO-Revision-Date: 2019-11-25 04:55+0100\n"
+"PO-Revision-Date: 2019-11-25 08:03+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -57,10 +57,8 @@ msgstr "Geben Sie zuerst Ihre E-Mail-Konto-Daten ein."
 
 #: admin/includes/class-account-settings-evaluator.php:472
 #: admin/includes/class-account-settings-evaluator.php:574
-#, fuzzy
-#| msgid "Successfully authenticated to the account."
 msgid "Successfully checked internet connection."
-msgstr "Erfolgreiche Anmeldung am E-Mail-Konto."
+msgstr "Internetverbindung erfolgreich überprüft."
 
 #: admin/includes/class-account-settings-evaluator.php:488
 #: admin/includes/class-account-settings-evaluator.php:606
@@ -72,20 +70,16 @@ msgid "Successfully tested SMTP port."
 msgstr "Der STMP-Port ist erreichbar."
 
 #: admin/includes/class-account-settings-evaluator.php:522
-#, fuzzy
-#| msgid "Successfully authenticated to the account via SMTP."
 msgid "Successfully authenticated to the email account via SMTP."
-msgstr "Erfolgreich via SMTP am Konto angemeldet."
+msgstr "Erfolgreich via SMTP am E-Mail-Konto angemeldet."
 
 #: admin/includes/class-account-settings-evaluator.php:525
 msgid "<strong>Your SMTP settings are valid.</strong>"
-msgstr ""
+msgstr "<strong>Ihre SMTP-Einstellungen sind gültig.</strong>"
 
 #: admin/includes/class-account-settings-evaluator.php:590
-#, fuzzy
-#| msgid "Successfully tested IMAP port."
 msgid "Successfully checked for IMAP extension."
-msgstr "IMAP-Port erfolgreich getestet."
+msgstr "Erfolgreich auf IMAP-Erweiterung geprüft."
 
 #: admin/includes/class-account-settings-evaluator.php:622
 #: admin/includes/class-account-settings-evaluator.php:641
@@ -93,14 +87,13 @@ msgid "Successfully tested IMAP port."
 msgstr "IMAP-Port erfolgreich getestet."
 
 #: admin/includes/class-account-settings-evaluator.php:657
-#, fuzzy
-#| msgid "Successfully contacted INBOX.Sent folder."
 msgid "Successfully contacted inbox folder on the mail server."
-msgstr "Der Ordner \"INBOX.Sent\" wurde gefunden."
+msgstr ""
+"Der Posteingangsordner auf dem Mailserver wurde erfolgreich kontaktiert."
 
 #: admin/includes/class-account-settings-evaluator.php:660
 msgid "<strong>Your IMAP settings are valid.</strong>"
-msgstr ""
+msgstr "<strong>Ihre IMAP-Einstellungen sind gültig.</strong>"
 
 #: admin/includes/class-account-settings-evaluator.php:706
 msgid ""
@@ -108,11 +101,12 @@ msgid ""
 "is blocking access to it.</strong><br>Please make sure that you are "
 "connected to the internet."
 msgstr ""
+"<strong>Sie scheinen nicht mit dem Internet verbunden zu sein, oder eine "
+"Firewall blockiert den Zugriff darauf.</strong> <br> Bitte stellen Sie "
+"sicher, dass Sie mit dem Internet verbunden sind."
 
 #: admin/includes/class-account-settings-evaluator.php:713
 #: admin/includes/class-account-settings-evaluator.php:765
-#, fuzzy
-#| msgid "Internal Error: Unable to check SMTP port."
 msgid "Internal Error: Unable to check the SMTP port."
 msgstr "Interner Fehler: Der SMTP-Port konnte nicht überprüft werden."
 
@@ -131,10 +125,8 @@ msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
 #: admin/includes/class-account-settings-evaluator.php:732
-#, fuzzy
-#| msgid "Failed to resolve SMTP hostname ("
 msgid "<strong>Failed to resolve SMTP host name ("
-msgstr "Fehler beim Auflösen des Hostnamens ("
+msgstr "<strong>Fehler beim Auflösen des SMTP-Hostnamens ("
 
 #: admin/includes/class-account-settings-evaluator.php:736
 msgid "Internal Error: Unable to resolve SMTP hostname."
@@ -145,12 +137,12 @@ msgid ""
 "<strong>The SMTP port number seems to be wrong.</strong><br>Please review "
 "your setting."
 msgstr ""
+"<strong>Die SMTP-Portnummer scheint falsch zu sein.</strong> <br> Bitte "
+"überprüfen Sie Ihre Einstellungen."
 
 #: admin/includes/class-account-settings-evaluator.php:784
-#, fuzzy
-#| msgid "SMTP Error: Could not authenticate."
 msgid "<strong>SMTP Error: Could not authenticate.</strong>"
-msgstr "SMTP-Fehler: Authentifizierung fehlgeschlagen."
+msgstr "<strong>SMTP-Fehler: Authentifizierung fehlgeschlagen.</strong>"
 
 #: admin/includes/class-account-settings-evaluator.php:784
 msgid "Please review your username and password."
@@ -178,10 +170,8 @@ msgid ""
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:838
-#, fuzzy
-#| msgid "Failed to resolve IMAP hostname ("
 msgid "<strong>Failed to resolve IMAP host name ("
-msgstr "Fehler beim Auflösen des IMAP-Hostnamens ("
+msgstr "<strong>Fehler beim Auflösen des IMAP-Hostnamens ("
 
 #: admin/includes/class-account-settings-evaluator.php:842
 msgid "Internal Error: Unable to resolve IMAP hostname."
@@ -218,6 +208,11 @@ msgid ""
 "middle attacks (<a href='https://stackoverflow.com/questions/7891729/"
 "certificate-error-using-imap-in-php' target='_blank'>"
 msgstr ""
+"Fehler: Auf dieser Website ist kein SSL-Zertifikat installiert. Verwenden "
+"Sie während der Entwicklung der lokalen Website die Option 'nocert'. Wenn "
+"Sie sich auf einer Live-Website befinden, sollten Sie ein SSL-Zertifikat "
+"installieren und anschließend die Option \"cert\" verwenden. Andernfalls "
+"sind Sie ein potenzielles Ziel von Man-In-The-Middle-Attacken ("
 
 #: admin/includes/class-account-settings-evaluator.php:910
 #: admin/includes/class-account-settings-evaluator.php:918
@@ -252,8 +247,6 @@ msgid "Internal Error: Unable to search for Folder."
 msgstr "Interner Fehler: Nach dem Ordner konnte nicht gesucht werden."
 
 #: admin/includes/class-account-settings-status.php:101
-#, fuzzy
-#| msgid "Internal Error: Unable to set settings state."
 msgid "Internal Error: Unable to set settings status."
 msgstr "Interner Fehler: Der Einstellungsstatus kann nicht festgelegt werden."
 
@@ -291,13 +284,8 @@ msgid "Settings restored to default."
 msgstr "Auf Standardeinstellungen zurückgesetzt."
 
 #: admin/includes/class-ajax.php:494
-#, fuzzy
-#| msgid "Please review your username and password."
 msgid "Please review the email address you entered."
-msgstr ""
-"Fehler bei der Anmeldung am E-Mail-Konto. Überprüfen Sie bitte Ihren "
-"Nutzernamen und das Kennwort für das E-Mail-Konto, welches Sie verwenden "
-"möchten."
+msgstr "Bitte überprüfen Sie die eingegebene E-Mail-Adresse."
 
 #: admin/includes/class-ajax.php:517 admin/includes/class-ajax.php:561
 msgid "Error code"
@@ -350,10 +338,8 @@ msgid "Trash"
 msgstr "Papierkorb"
 
 #: admin/includes/class-mail.php:186
-#, fuzzy
-#| msgid "Sending test message failed:"
 msgid "Sending message failed."
-msgstr "Die Test-Nachricht konnte nicht gesendet werden:"
+msgstr "Senden der Nachricht fehlgeschlagen."
 
 #: admin/includes/class-mail.php:226 admin/includes/class-mail.php:237
 msgid "Failed to connect to host. Please review your settings and try again."
@@ -395,10 +381,9 @@ msgid ""
 msgstr ""
 
 #: admin/includes/class-meta-box.php:181
-#, fuzzy, php-format
-#| msgid "The email address from the email account."
+#, php-format
 msgid "There seems to be a problem with the email account (%d)."
-msgstr "Die E-Mail-Adresse des E-Mail-Kontos."
+msgstr "Es scheint ein Problem mit dem E-Mail-Konto (%d) zu geben."
 
 #: admin/includes/class-options.php:202
 msgid "Contact Form Title"
@@ -600,20 +585,17 @@ msgstr ""
 #: admin/includes/class-options.php:380
 msgid "Otherwise, you're a possible subject of man in the middle attacks"
 msgstr ""
+"Andernfalls sind Sie ein potenzielles Ziel von Man-In-The-Middle-Attacken"
 
 #: admin/includes/class-options.php:536
 msgid "There's nothing to save."
 msgstr "Nichts zu speichern."
 
 #: admin/includes/class-options.php:539
-#, fuzzy
-#| msgid "Failed to save settings."
 msgid "Can't save settings right now."
-msgstr "Fehler beim Speichern der Einstellungen."
+msgstr "Die Einstellungen können derzeit nicht gespeichert werden."
 
 #: admin/includes/class-options.php:593
-#, fuzzy
-#| msgid "Settings saved."
 msgid "Settings Saved."
 msgstr "Einstellungen gespeichert."
 
@@ -652,16 +634,14 @@ msgid "Please fill in your email account details first."
 msgstr "Geben Sie bitte zuerst Ihre E-Mail-Konto-Daten ein."
 
 #: admin/includes/class-settings-page.php:120
-#, fuzzy
-#| msgid "The email address of the email account."
 msgid "Enter the email address the test mail will be sent to:"
-msgstr "Die E-Mail-Adresse des E-Mail-Kontos."
+msgstr ""
+"Geben Sie die E-Mail-Adresse ein, an welche die Test-Nachricht gesendet "
+"werden soll:"
 
 #: admin/includes/class-settings-page.php:121
-#, fuzzy
-#| msgid "The email address."
 msgid "Please correct the email address:"
-msgstr "Die E-Mail-Adresse."
+msgstr "Bitte korrigieren Sie die E-Mail-Adresse:"
 
 #: admin/includes/class-settings-page.php:122
 msgid "working"
@@ -760,7 +740,7 @@ msgstr "Für weitere Informationen zu SALT-Keys, lesen Sie bitte"
 
 #: admin/partials/class-help-sidebar-display.php:40
 msgid "What are wordpress salt keys and how can you change them"
-msgstr ""
+msgstr "Was sind WordPress Salt Keys und wie können Sie sie ändern?"
 
 #: admin/partials/class-help-sidebar-display.php:40
 msgid "(english)"
@@ -975,18 +955,16 @@ msgid "Your Name"
 msgstr "Ihr Name"
 
 #: admin/partials/class-reply-form-display.php:68
-#, fuzzy
 msgid "Name"
-msgstr "Name des Absenders"
+msgstr "Name"
 
 #: admin/partials/class-reply-form-display.php:72
 msgid "Recipient"
 msgstr "Empfänger"
 
 #: admin/partials/class-reply-form-display.php:73
-#, fuzzy
 msgid "Email"
-msgstr "E-Mail-Konto konfigurieren"
+msgstr "E-Mail Adresse"
 
 #: admin/partials/class-reply-form-display.php:77
 #: admin/partials/class-reply-form-display.php:79
@@ -1024,14 +1002,11 @@ msgstr "IMAP-Einstellungen"
 
 #: admin/partials/class-settings-page-display.php:147
 msgid "Test Settings"
-msgstr ""
+msgstr "Einstellungen überprüfen"
 
 #: admin/partials/class-settings-page-display.php:192
-#, fuzzy
-#| msgid "Settings check not successful (since last changes)."
 msgid "Settings check not successful."
-msgstr ""
-"Einstellungen nicht erfolgreich überprüft (seit der letzten Änderungen)."
+msgstr "Einstellungen nicht erfolgreich überprüft."
 
 #: admin/partials/class-settings-page-display.php:193
 msgid "Settings check successful (since last changes)."
@@ -1040,7 +1015,7 @@ msgstr "Einstellungen erfolgreich überprüft (seit der letzten Änderungen)."
 #: admin/partials/class-settings-page-display.php:194
 #: admin/partials/class-settings-page-display.php:199
 msgid "Inactive."
-msgstr ""
+msgstr "Inaktiv."
 
 #: admin/partials/class-settings-page-display.php:197
 msgid "Settings check not successful (since last changes)."
@@ -1048,10 +1023,8 @@ msgstr ""
 "Einstellungen nicht erfolgreich überprüft (seit der letzten Änderungen)."
 
 #: admin/partials/class-settings-page-display.php:198
-#, fuzzy
-#| msgid "Settings check successful (since last changes)."
 msgid "Settings check successful."
-msgstr "Einstellungen erfolgreich überprüft (seit der letzten Änderungen)."
+msgstr "Einstellungen erfolgreich überprüft."
 
 #. Plugin Name of the plugin/theme
 msgid "Bonaire"

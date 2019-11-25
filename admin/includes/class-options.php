@@ -377,8 +377,52 @@ final class Bonaire_Options {
 				'values' => array( 'nocert' => 'nocert', 'cert' => 'cert' ),
 				'tt_image' => '',
 				'tt_description' => __( '"nocert" Skips the ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ). " " .
-				                    __('Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ). " " .
+				                    __('Otherwise, you\'re a potential subject of man in the middle attacks', $this->domain ). " " .
 									"(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>". __("Read more", $this->domain) ."</a>)."
+			),
+			'your_name' => array(
+				'id' => 'your_name',
+				'name' => 'your-name',
+				'type' => 'text',
+				'setting' => false,
+				'group' => 'contactform',
+				'default_value' => 'your-name',
+				'example' => 'your-name',
+				'tt_image' => '',
+				'tt_description' => __( 'If you use a different name for the contact form field, enter it here.', $this->domain )
+			),
+			'your_email' => array(
+				'id' => 'your_email',
+				'name' => 'your-email',
+				'type' => 'text',
+				'setting' => false,
+				'group' => 'contactform',
+				'default_value' => 'your-email',
+				'example' => 'your-email',
+				'tt_image' => '',
+				'tt_description' => __( 'If you use a different name for the contact form field, enter it here.', $this->domain )
+			),
+			'your_subject' => array(
+				'id' => 'your_subject',
+				'name' => 'your-subject',
+				'type' => 'text',
+				'setting' => false,
+				'group' => 'contactform',
+				'default_value' => 'your-subject',
+				'example' => 'your-subject',
+				'tt_image' => '',
+				'tt_description' => __( 'If you use a different name for the contact form field, enter it here.', $this->domain )
+			),
+			'your_message' => array(
+				'id' => 'your_message',
+				'name' => 'your-message',
+				'type' => 'text',
+				'setting' => false,
+				'group' => 'contactform',
+				'default_value' => 'your-message',
+				'example' => 'your-message',
+				'tt_image' => '',
+				'tt_description' => __( 'If you use a different name for the contact form field, enter it here.', $this->domain )
 			)
 		);
 		
@@ -771,6 +815,9 @@ final class Bonaire_Options {
 				$output[ $key ] = false !== $result ? $value : '';
 			} elseif ( 'fromname' === $key ) {
 				$result = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
+				$output[ $key ] = 1 === $result ? $value : '';
+			} elseif ( 'your_name' === $key || 'your_email' === $key || 'your_subject' === $key || 'your_message' === $key ) {
+				$result         = preg_match( '/^[A-Za-z0-9_-]+$/', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			}
 		}
