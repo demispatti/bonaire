@@ -117,6 +117,8 @@ class Bonaire_Settings_Page {
 				'reset_options_notice' => __( 'Nothing to reset.', $this->domain ),
 				'send_test_mail_title' => __( 'Please fill in your email account details first.', $this->domain ),
 				'send_test_mail_notice' => __( 'Please fill in your email account details first.', $this->domain ),
+				'send_test_mail_prompt_title' => __( 'Enter the email address the test mail will be sent to:', $this->domain ),
+				'send_test_mail_prompt_review_email_title' => __( 'Please correct the email address:', $this->domain ),
 				'working' => __( 'working', $this->domain ),
 			),
 			'alertify_notifications' => array(

@@ -136,7 +136,7 @@
             // Options Page
             this.bonaireSaveOptionsButton.bind('click', {context: this}, this.bonaireSaveOptions);
             this.bonaireResetOptionsButton.bind('click', {context: this}, this.bonaireResetOptions);
-            this.bonaireSendTestMailButton.bind('click', {context: this}, this.bonaireSendTestMail);
+            this.bonaireSendTestMailButton.bind('click', {context: this}, this.promptForEmailAddress);
             this.bonaireTestSmtpSettingsButton.bind('click', {context: this, protocol: 'smtp'}, this.bonaireEvaluateSettings);
             this.bonaireTestImapSettingsButton.bind('click', {context: this, protocol: 'imap'}, this.bonaireEvaluateSettings);
             this.bonaireOptionsFormInputFields.bind('focus', {context: this}, this.unsetInvalidInputFieldIndicator);
@@ -421,38 +421,50 @@
                 $this.bonaireUpdateSettingsStatus();
             });
         },
-        bonaireSendTestMail: function ( event ){
+        promptForEmailAddress: function ( event, error ){
             event.preventDefault();
             var $this = event.data.context;
 
-            // Checks for empty input fields
             if (false === $this.hasAppropriateSettingsStatus()){
-
                 alertify.notify($this.optionsPageNotifications.send_test_mail_notice);
             } else{
-                var data = {
-                    action: $this.sendTestMailAction,
-                    nonce: $(this).data('nonce')
-                };
 
-                $this.showLoaderSpinner();
-
-                $.post(ajaxurl, data, function ( response ){
-
-                    $this.hideLoaderSpinner();
-
-                    // @todo fix
-                    if (undefined === response.data){
-                        response = $.parseJSON(response);
+                var promptTitle = true === error ? $this.optionsPageNotifications.send_test_mail_prompt_review_email_title : $this.optionsPageNotifications.send_test_mail_prompt_title;
+                alertify.prompt(promptTitle, 'Prompt Message', 'Prompt Value',
+                    function ( evt, value ){
+                        var data = {
+                            action: $this.sendTestMailAction,
+                            nonce: $('.bonaire-send-testmail-button').data('nonce'),
+                            value: value
+                        };
+                        $this.bonaireSendTestMail(event, data);
+                    },
+                    function (){
+                        alertify.error('Sending test message canceled.')
                     }
-                    if (response.success === true){
-
-                        alertify.success(response.data.message);
-                    } else{
-                        alertify.alert(response.data.message);
-                    }
-                });
+                );
             }
+        },
+        bonaireSendTestMail: function ( event, data ){
+            event.preventDefault();
+            var $this = event.data.context;
+
+            $.post(ajaxurl, data, function ( response ){
+
+                $this.hideLoaderSpinner();
+
+                // @todo fix
+                if (undefined === response.data){
+                    response = $.parseJSON(response);
+                }
+                if (response.success === true){
+                    alertify.success(response.data.message);
+                } else if (response.success === false && 'email_not_valid' === response.data.error){
+                    $this.promptForEmailAddress(event, true);
+                } else{
+                    alertify.alert(response.data.message);
+                }
+            });
         },
         // Helper Functions
         updateSettingsStatus: function ( protocol, status ){

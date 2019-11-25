@@ -486,10 +486,21 @@ class Bonaire_Ajax {
 			wp_send_json_error( $response );
 		}
 		
+		$recipient_email_address = filter_var($_REQUEST['value'], FILTER_VALIDATE_EMAIL);
+		
+		if(false === $recipient_email_address) {
+			$response = array(
+				'success' => false,
+				'message' => __('Please review the email address you entered.', $this->domain),
+				'error' => 'email_not_valid'
+			);
+			wp_send_json_error( $response );
+		}
+		
 		/**
 		 * @var object AdminIncludes\Bonaire_Mail
 		 */
-		$result = $this->Bonaire_Account_Settings_Evaluator->send_testmail();
+		$result = $this->Bonaire_Account_Settings_Evaluator->send_testmail( $recipient_email_address );
 		if ( is_wp_error( $result ) ) {
 			
 			$debug = $GLOBALS['debug'];

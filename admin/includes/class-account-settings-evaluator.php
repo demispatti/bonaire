@@ -240,15 +240,20 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	/**
 	 * Sends a test mail.
 	 *
+	 * @param string $recipient_email_address
+	 *
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 * @since 0.9.6
 	 */
-	public function send_testmail() {
+	public function send_testmail( $recipient_email_address ) {
 		
 		$mail = $this->setup( $this->testmail_data(), true );
 		
 		try {
+			// Add the recipient for the test message
+			$mail->all_recipients = array( $recipient_email_address => true );
+			$mail->to[0] = array($recipient_email_address);
 			$result = $mail->Send();
 		} catch( Exception $e ) {
 			
