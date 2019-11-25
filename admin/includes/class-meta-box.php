@@ -151,15 +151,15 @@ class Bonaire_Meta_Box {
 		$save_reply = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
 		$recipient_email_address = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
 		$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
-		$link = '<a href="' . $url . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		$link = '<a href="' . esc_url($url) . '">' . __( 'Account Settings', $this->domain ) . '</a>';
 		
 		/**
 		 * Check if the message was preprocessed.
 		 * If not, a reply is not possible since we don't know the sender's email address.
 		 */
-		$uniqid = $this->Bonaire_Adapter->get_field( $post_id, 'posted_data_uniqid' );
+		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		if(false === $uniqid || false === $recipient_email_address){
-			echo __( 'Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire with the respective contact form.', $this->domain );
+			esc_html_e( 'Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire with the respective contact form.', $this->domain );
 			
 			return;
 		}
@@ -169,7 +169,7 @@ class Bonaire_Meta_Box {
 		 * If so, it's the one associated with the message. Else we bail.
 		 */
 		if(false === $this->Bonaire_Adapter->is_same_email_address( $post_id )){
-			echo __( 'In order to send replies, please register the email account the contact form is related to', $this->domain ) . ' ' . ' (' . $recipient_email_address . '): ' . $link;
+			esc_html_e( 'In order to send replies, please register the email account the contact form is related to', $this->domain ) . ' ' . ' (' . $recipient_email_address . '): ' . $link;
 			
 			return;
 		}
@@ -180,15 +180,15 @@ class Bonaire_Meta_Box {
 		if ('yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status) {
 			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $recipient_email_address );
 			echo $string;
-			
 			return;
 		}
 		
 		/**
 		 * Display reply form.
 		 */
-		$your_subject = $this->Bonaire_Adapter->get_field( $post_id, 'your-subject' );
-		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $this->Bonaire_Options->get_stored_options( 0 ) );
+		$your_subject = $this->Bonaire_Adapter->get_post_field( $post_id, 'your-subject' );
+		$your_email = $this->Bonaire_Adapter->get_meta_field( $post_id, 'post_author_email' );
+		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $this->Bonaire_Options->get_stored_options( 0 ) );
 		echo $string;
 		
 		return;

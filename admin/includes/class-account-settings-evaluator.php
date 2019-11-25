@@ -640,7 +640,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		if ( is_wp_error( $folder_result ) ) {
 			$error_code = $folder_result->get_error_code();
 			$error_code = isset( $error_code ) ? $error_code : false;
-			$result = array(
+			$result     = array(
 				'success' => false,
 				'message' => $folder_result->get_error_message(),
 				'messages' => $messages,
@@ -927,7 +927,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation );
 				
 				// Check IMAP connection
-				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to Gmail: ' . imap_last_error() );
+				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to the mail server: ' . imap_last_error() );
 				// Retrieve folder list
 				$list = imap_list( $imapStream, '{' . $this->stored_options->imap_host . '}', '*' );
 				// Close connection

@@ -35,13 +35,13 @@ class Bonaire_Help_Tab_Display {
 
         <div id="bonaire-help-tabs">
             <ul class="nav">
-                <li><a href="#tabs-1"><?php echo __( 'Prerequisites', $domain ) ?></a></li>
-                <li><a href="#tabs-2"><?php echo __( 'Plugin Settings', $domain ) ?></a></li>
-                <li><a href="#tabs-3"><?php echo __( 'Contact Form 7 Settings', $domain ) ?></a></li>
-                <li><a href="#tabs-4"><?php echo __( 'Dashboard Widget', $domain ) ?></a></li>
-                <li><a href="#tabs-5"><?php echo __( 'Reply Form', $domain ) ?></a></li>
-                <li><a href="#tabs-6"><?php echo __( 'Tooltips', $domain ) ?></a></li>
-                <li><a href="#tabs-7"><?php echo __( 'Plugin Information and Privacy Notices', $domain ) ?></a></li>
+                <li><a href="#tabs-1"><?php esc_html_e( 'Prerequisites', $domain ) ?></a></li>
+                <li><a href="#tabs-2"><?php esc_html_e( 'Plugin Settings', $domain ) ?></a></li>
+                <li><a href="#tabs-3"><?php esc_html_e( 'Contact Form 7 Settings', $domain ) ?></a></li>
+                <li><a href="#tabs-4"><?php esc_html_e( 'Dashboard Widget', $domain ) ?></a></li>
+                <li><a href="#tabs-5"><?php esc_html_e( 'Reply Form', $domain ) ?></a></li>
+                <li><a href="#tabs-6"><?php esc_html_e( 'Tooltips', $domain ) ?></a></li>
+                <li><a href="#tabs-7"><?php esc_html_e( 'Plugin Information and Privacy Notices', $domain ) ?></a></li>
             </ul>
             <div id="tabs-1"><?php echo self::tab_content_prerequisites( $domain ) ?></div>
             <div id="tabs-2"><?php echo self::tab_content_plugin_settings( $domain ) ?></div>
@@ -73,22 +73,22 @@ class Bonaire_Help_Tab_Display {
 		?>
 
         <div class="item-description">
-            <h5><?php echo __( 'Prerequisites', $domain ) ?></h5>
+            <h5><?php esc_html_e( 'Prerequisites', $domain ) ?></h5>
             <ul class="list">
                 <li>1. <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Cotact Form
-                        7</a> <?php echo __( 'needs to be installed and activated.', $domain ) ?></li>
+                        7</a> <?php esc_html_e( 'needs to be installed and activated.', $domain ) ?></li>
                 <li>2. <a href="https://wordpress.org/plugins/flamingo/"
-                        target="_blank">Flamingo</a> <?php echo __( 'needs to be installed and activated.', $domain ) ?></li>
+                        target="_blank">Flamingo</a> <?php esc_html_e( 'needs to be installed and activated.', $domain ) ?></li>
                 <li>
-                    3. <?php echo __( 'For full functionality, you need to have received some messages via Flamingo since plugin installation.', $domain ) ?></li>
+                    3. <?php esc_html_e( 'For full functionality, you need to have received some messages via Flamingo since plugin installation.', $domain ) ?></li>
             </ul>
-            <h5><?php echo __( 'Naming conventions', $domain ) ?></h5>
-            <span><?php echo __( 'In order to function propperly, please make sure that you do not use "Mail 2" option in Contact Form 7, and that the default input fields keep their default names:', $domain ) ?></span>
+            <h5><?php esc_html_e( 'Naming conventions', $domain ) ?></h5>
+            <span><?php esc_html_e( 'In order to function propperly, please make sure that you do not use "Mail 2" option in Contact Form 7, and that the default input fields keep their default names:', $domain ) ?></span>
             <ul class="list">
-                <li>1. <?php echo __( 'your-name', $domain ) ?></li>
-                <li>2. <?php echo __( 'your-email', $domain ) ?></li>
-                <li>3. <?php echo __( 'your-subject', $domain ) ?></li>
-                <li>4. <?php echo __( 'your-message', $domain ) ?></li>
+                <li>1. <?php esc_html_e( 'your-name', $domain ) ?></li>
+                <li>2. <?php esc_html_e( 'your-email', $domain ) ?></li>
+                <li>3. <?php esc_html_e( 'your-subject', $domain ) ?></li>
+                <li>4. <?php esc_html_e( 'your-message', $domain ) ?></li>
             </ul>
         </div>
         <div class="item-images">
@@ -270,7 +270,7 @@ class Bonaire_Help_Tab_Display {
 		?>
 
         <div class="item-description">
-            <?php echo __('Make sure to read trough the included tooltips!', $domain) ?>
+            <?php esc_html_e('Make sure to read trough the included tooltips!', $domain) ?>
         </div>
 
         <div class="item-images">
@@ -303,28 +303,28 @@ class Bonaire_Help_Tab_Display {
 		?>
 
         <div class="item-description">
-            <p><?php echo __( 'Send replies to messages you recieve trough a ', $domain ) ?> <a href="https://wordpress.org/plugins/contact-form-7/"
-                    target="_blank">Cotact Form 7</a> <?php echo __( 'contact form and store with', $domain ) ?>
+            <p><?php esc_html_e( 'Send replies to messages you recieve trough a ', $domain ) ?> <a href="https://wordpress.org/plugins/contact-form-7/"
+                    target="_blank">Cotact Form 7</a> <?php esc_html_e( 'contact form and store with', $domain ) ?>
                 <a href="https://wordpress.org/plugins/flamingo/"
-                    target="_blank">Flamingo</a>. <?php echo __( 'Just register the email account that is related to the contct form in order to send replies and to save your reply in your mailserver\'s "Sent Items" folder.', $domain ) ?>
+                    target="_blank">Flamingo</a>. <?php esc_html_e( 'Just register the email account that is related to the contct form in order to send replies and to save your reply in your mailserver\'s "Sent Items" folder.', $domain ) ?>
             </p>
 
-            <h5><?php echo __( 'What this plugin does:', $domain ) ?></h5>
+            <h5><?php esc_html_e( 'What this plugin does:', $domain ) ?></h5>
             <ul class="list">
-                <li>3. <?php echo __( 'Adds a settings page.', $domain ) ?></li>
-                <li>1. <?php echo __( 'Adds a reply form at the bottom of a single message.', $domain ) ?></li>
-                <li>2. <?php echo __( 'Adds a widget to the dashboard.', $domain ) ?></li>
+                <li>3. <?php esc_html_e( 'Adds a settings page.', $domain ) ?></li>
+                <li>1. <?php esc_html_e( 'Adds a reply form at the bottom of a single message.', $domain ) ?></li>
+                <li>2. <?php esc_html_e( 'Adds a widget to the dashboard.', $domain ) ?></li>
             </ul>
             <span class="info">
             </span>
-            <h5><?php echo __( 'This plugin does not:', $domain ) ?></h5>
+            <h5><?php esc_html_e( 'This plugin does not:', $domain ) ?></h5>
             <ul class="list">
-                <li>1. <?php echo __( 'Track users', $domain ) ?></li>
+                <li>1. <?php esc_html_e( 'Track users', $domain ) ?></li>
                 <li>
-                    2. <?php echo __( 'Write personal user data to the database other than the necessary email account settings, and attaching the senders email address to the messages meta data, which is necessary to link the message to the email account in use.', $domain ) ?></li>
+                    2. <?php esc_html_e( 'Write personal user data to the database other than the necessary email account settings, and attaching the senders email address to the messages meta data, which is necessary to link the message to the email account in use.', $domain ) ?></li>
                 <li>
-                    3. <?php echo __( 'Send any data to external servers other than your reply and/or the data necessary to reach, connect and authenticate to the mail server. Once while sending it to it\'s recipient, and once to store it in your mail server\'s "sent items" folder if you choose to do so. The original message will not be attached and sent by this plugin, in both cases not.', $domain ) ?></li>
-                <li>4. <?php echo __( 'Use cookies', $domain ) ?></li>
+                    3. <?php esc_html_e( 'Send any data to external servers other than your reply and/or the data necessary to reach, connect and authenticate to the mail server. Once while sending it to it\'s recipient, and once to store it in your mail server\'s "sent items" folder if you choose to do so. The original message will not be attached and sent by this plugin, in both cases not.', $domain ) ?></li>
+                <li>4. <?php esc_html_e( 'Use cookies', $domain ) ?></li>
             </ul>
         </div>
 		

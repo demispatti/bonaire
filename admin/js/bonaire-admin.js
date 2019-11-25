@@ -467,7 +467,7 @@
             var imapStatus = BonaireOptions.imap_status;
             var saveReply = BonaireOptions.save_reply;
 
-            return 'yes' === saveReply && 'green' === imapStatus || 'no' === saveReply && 'green' === smtpStatus
+            return 'yes' === saveReply ? '1' === imapStatus : '1' === smtpStatus;
         },
         resetOptionsPageInputFields: function (){
 

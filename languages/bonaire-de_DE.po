@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
-"POT-Creation-Date: 2019-11-24 14:13+0100\n"
-"PO-Revision-Date: 2019-11-24 14:13+0100\n"
+"POT-Creation-Date: 2019-11-25 01:55+0100\n"
+"PO-Revision-Date: 2019-11-25 01:55+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -33,17 +33,14 @@ msgstr ""
 "generiert. Danke für die Benutzung dieses Plugins!"
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid "Sending test message failed:"
 msgstr "Die Test-Nachricht konnte nicht gesendet werden:"
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid "Could not reach the mail server."
 msgstr "Der Mail-Server konnte nicht erreicht werden."
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid ""
 "Please make sure that you are connected to the internet, and that you've "
 "tested the SMTP and IMAP settings with the respective buttons on this "
@@ -126,8 +123,8 @@ msgstr "Interner Fehler: Der SMTP-Port konnte nicht überprüft werden."
 #: admin/includes/class-account-settings-evaluator.php:867
 #: admin/includes/class-account-settings-evaluator.php:919
 #: admin/includes/class-account-settings-evaluator.php:953
-#: admin/includes/class-adapter.php:382 admin/includes/class-adapter.php:387
-#: admin/includes/class-adapter.php:417 admin/includes/class-adapter.php:422
+#: admin/includes/class-adapter.php:409 admin/includes/class-adapter.php:414
+#: admin/includes/class-adapter.php:444 admin/includes/class-adapter.php:449
 #: admin/includes/class-ajax.php:174 admin/includes/class-ajax.php:357
 #: admin/includes/class-options.php:539
 msgid "Please try again later."
@@ -260,8 +257,8 @@ msgstr "Interner Fehler: Nach dem Ordner konnte nicht gesucht werden."
 msgid "Internal Error: Unable to set settings status."
 msgstr "Interner Fehler: Der Einstellungsstatus kann nicht festgelegt werden."
 
-#: admin/includes/class-adapter.php:382 admin/includes/class-adapter.php:387
-#: admin/includes/class-adapter.php:417 admin/includes/class-adapter.php:422
+#: admin/includes/class-adapter.php:409 admin/includes/class-adapter.php:414
+#: admin/includes/class-adapter.php:444 admin/includes/class-adapter.php:449
 msgid "Internal Error: Unable to mark message as spam."
 msgstr "Interner Fehler: Die Nachricht konnte nicht als Spam markiert werden."
 
@@ -343,8 +340,25 @@ msgstr "Spam"
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: admin/includes/class-mail.php:228 admin/includes/class-mail.php:235
+#: admin/includes/class-mail.php:186
+#, fuzzy
+#| msgid "Sending test message failed:"
+msgid "Sending message failed."
+msgstr "Die Test-Nachricht konnte nicht gesendet werden:"
+
+#: admin/includes/class-mail.php:226 admin/includes/class-mail.php:237
 msgid "Failed to connect to host. Please review your settings and try again."
+msgstr ""
+"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
+"Einstellungen und versuchen Sie es erneut."
+
+#: admin/includes/class-mail.php:230
+#, fuzzy
+#| msgid ""
+#| "Failed to connect to host. Please review your settings and try again."
+msgid ""
+"Message sent, but failed to save it in your mail server's default folder for "
+"sent items. Please review your settings and try again."
 msgstr ""
 "Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
 "Einstellungen und versuchen Sie es erneut."

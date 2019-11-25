@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-11-24 14:13+0100\n"
+"POT-Creation-Date: 2019-11-25 01:55+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -31,17 +31,14 @@ msgid ""
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid "Sending test message failed:"
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid "Could not reach the mail server."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:261
-#: admin/includes/class-mail.php:188
 msgid ""
 "Please make sure that you are connected to the internet, and that you've "
 "tested the SMTP and IMAP settings with the respective buttons on this "
@@ -111,8 +108,8 @@ msgstr ""
 #: admin/includes/class-account-settings-evaluator.php:867
 #: admin/includes/class-account-settings-evaluator.php:919
 #: admin/includes/class-account-settings-evaluator.php:953
-#: admin/includes/class-adapter.php:382 admin/includes/class-adapter.php:387
-#: admin/includes/class-adapter.php:417 admin/includes/class-adapter.php:422
+#: admin/includes/class-adapter.php:409 admin/includes/class-adapter.php:414
+#: admin/includes/class-adapter.php:444 admin/includes/class-adapter.php:449
 #: admin/includes/class-ajax.php:174 admin/includes/class-ajax.php:357
 #: admin/includes/class-options.php:539
 msgid "Please try again later."
@@ -220,8 +217,8 @@ msgstr ""
 msgid "Internal Error: Unable to set settings status."
 msgstr ""
 
-#: admin/includes/class-adapter.php:382 admin/includes/class-adapter.php:387
-#: admin/includes/class-adapter.php:417 admin/includes/class-adapter.php:422
+#: admin/includes/class-adapter.php:409 admin/includes/class-adapter.php:414
+#: admin/includes/class-adapter.php:444 admin/includes/class-adapter.php:449
 msgid "Internal Error: Unable to mark message as spam."
 msgstr ""
 
@@ -303,8 +300,18 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: admin/includes/class-mail.php:228 admin/includes/class-mail.php:235
+#: admin/includes/class-mail.php:186
+msgid "Sending message failed."
+msgstr ""
+
+#: admin/includes/class-mail.php:226 admin/includes/class-mail.php:237
 msgid "Failed to connect to host. Please review your settings and try again."
+msgstr ""
+
+#: admin/includes/class-mail.php:230
+msgid ""
+"Message sent, but failed to save it in your mail server's default folder "
+"for sent items. Please review your settings and try again."
 msgstr ""
 
 #: admin/includes/class-meta-box.php:132

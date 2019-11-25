@@ -185,7 +185,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		foreach ( $this->posts as $i => $post ) {
 			
 			if ( $post_id === $post->id ) {
-				return $post[ $attribute ];
+				return isset($post[ $attribute ]) ? sanitize_text_field($post[ $attribute ]) : false;
 			}
 		}
 		
@@ -201,10 +201,23 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 * @return string|bool
 	 */
-	private function field( $post_id, $field_name ) {
+	private function meta_field( $post_id, $field_name ) {
 		
 		foreach ( $this->posts as $i => $post ) {
 			foreach ( $post->meta as $field => $value ) {
+				if ( $post_id === $post->id && $field_name === $field ) {
+					return $value;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private function post_field( $post_id, $field_name ) {
+		
+		foreach ( $this->posts as $i => $post ) {
+			foreach ( $post->fields as $field => $value ) {
 				if ( $post_id === $post->id && $field_name === $field ) {
 					return $value;
 				}
@@ -242,7 +255,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	}
 	
 	/**
-	 * Returns a string containing a message's field value.
+	 * Returns a string containing a message's meta value.
 	 *
 	 * @param int $post_id
 	 * @param string $field_name
@@ -250,9 +263,23 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 * @return string
 	 */
-	public function get_field( $post_id, $field_name ) {
+	public function get_meta_field( $post_id, $field_name ) {
 		
-		return $this->field( $post_id, $field_name );
+		return $this->meta_field( $post_id, $field_name );
+	}
+	
+	/**
+	 * Returns a string containing a message's field value.
+	 *
+	 * @param int $post_id
+	 * @param string $field_name
+	 *
+	 * @return string
+	 * @since 0.9.6
+	 */
+	public function get_post_field( $post_id, $field_name ) {
+		
+		return $this->post_field( $post_id, $field_name );
 	}
 	
 	/**

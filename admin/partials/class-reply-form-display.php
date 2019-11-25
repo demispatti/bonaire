@@ -44,17 +44,17 @@ class Bonaire_Reply_Form_Display {
 	/**
 	 * Returns a string containing the reply form.
 	 *
-	 * @param string $subject_text
+	 * @param string $your_subject
+     * @param string $your_subject
 	 * @param object $account_settings
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 *@since 0.9.6
 	 */
-	public static function reply_form_display( $subject_text, $account_settings ) {
+	public static function reply_form_display( $your_subject, $your_email, $account_settings ) {
 		
 		$name = $account_settings->fromname;
-		$email = $account_settings->from;
-		$subject = 'RE: ' . $subject_text;
+		$subject = 'RE: ' . $your_subject;
 		$nonce = wp_create_nonce( 'bonaire_reply_form_nonce' );
 		
 		ob_start();
@@ -64,32 +64,32 @@ class Bonaire_Reply_Form_Display {
         <div class="bonaire-reply-form-container">
             <form id="bonaire_reply_form" method="post" data-nonce="<?php echo $nonce ?>">
                 <div>
-                    <label for="name"><?php echo __( 'Your Name', self::$domain ) ?></label>
-                    <input type="text" name="name" data-key="name" data-form-input="bonaire" title="<?php echo __( 'Name', self::$domain ) ?>"
+                    <label for="name"><?php esc_html_e( 'Your Name', self::$domain ) ?></label>
+                    <input type="text" name="name" data-key="name" data-form-input="bonaire" title="<?php esc_html_e( 'Name', self::$domain ) ?>"
                         value="<?php echo $name ?>">
                 </div>
                 <div>
-                    <label for="email"><?php echo __( 'Recipient', self::$domain ) ?></label>
-                    <input type="email" name="email" data-key="email" data-form-input="bonaire" title="<?php echo __( 'Email', self::$domain ) ?>"
-                        value="<?php echo $email ?>" disabled>
+                    <label for="email"><?php esc_html_e( 'Recipient', self::$domain ) ?></label>
+                    <input type="email" name="email" data-key="email" data-form-input="bonaire" title="<?php esc_html_e( 'Email', self::$domain ) ?>"
+                        value="<?php echo sanitize_email($your_email) ?>" disabled>
                 </div>
                 <div>
-                    <label for="subject"><?php echo __( 'Subject', self::$domain ) ?></label>
+                    <label for="subject"><?php esc_html_e( 'Subject', self::$domain ) ?></label>
                     <input type="text" name="subject" data-key="subject" data-form-input="bonaire"
-                        title="<?php echo __( 'Subject', self::$domain ) ?>" value="<?php echo $subject ?>">
+                        title="<?php esc_html_e( 'Subject', self::$domain ) ?>" value="<?php echo $subject ?>">
                 </div>
                 <div>
                     <input id="cb_parallax_options[attachments]" type="hidden" name="cb_parallax_options[attachments]" data-value=""/>
                     <ul class="attachment-list"></ul>
                 </div>
                 <div>
-                    <label for="textarea"><?php echo __( 'Message', self::$domain ) ?></label>
-                    <textarea name="textarea" id="" data-key="message" data-form-input="bonaire" title="<?php echo __( 'Message', self::$domain ) ?>"
+                    <label for="textarea"><?php esc_html_e( 'Message', self::$domain ) ?></label>
+                    <textarea name="textarea" id="" data-key="message" data-form-input="bonaire" title="<?php esc_html_e( 'Message', self::$domain ) ?>"
                         cols="30" rows="10"></textarea>
                 </div>
 
                 <input class="button button-primary button-large bonaire-submit-reply-button" type="submit"
-                    value="<?php echo __( 'Submit', self::$domain ) ?>">
+                    value="<?php esc_html_e( 'Submit', self::$domain ) ?>">
             </form>
         </div>
 		

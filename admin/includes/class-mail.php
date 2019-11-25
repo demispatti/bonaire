@@ -147,11 +147,9 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @return PHPMailer $mail
 	 */
 	private function setup( $data, $exceptions = null ) {
-		
-		$to = null !== $data->to ? (string) $data->to : $this->stored_options->from;
-		
+
 		$mail = $this->phpmailer( $exceptions );
-		$mail->AddAddress( $to );
+		$mail->AddAddress( $data->to );
 		$mail->AddReplyTo( $this->stored_options->from );
 		$mail->Subject = strip_tags( $data->subject );
 		$mail->Body = strip_tags( $data->message );
@@ -185,11 +183,11 @@ final class Bonaire_Mail extends PHPMailer {
 		// If sending the message failed
 		if ( false === $result ) {
 			
-			return new WP_Error( - 2, __( 'Sending test message failed:', $this->domain ) . ' ' . __( 'Could not reach the mail server.', $this->domain ) . '<br>' . __( 'Please make sure that you are connected to the internet, and that you\'ve tested the SMTP and IMAP settings with the respective buttons on this plugin\'s settings page.', $this->domain ) );
+			return new WP_Error( - 2, __( 'Sending message failed.', $this->domain ) );
 		}
 		
 		// Maybe save message in "Sent" folder
-		if ( $result && 'yes' === $this->stored_options->save_reply ) {
+		if ( 'yes' === $this->stored_options->save_reply ) {
 			
 			try {
 				$result = $this->save_message( $mail );
@@ -213,19 +211,23 @@ final class Bonaire_Mail extends PHPMailer {
 	private function save_message( $mail ) {
 		
 		try {
-
-			$novalidate = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
-			$mailbox = $this->get_mailbox( $mail, $novalidate );
-			$sent_items_folder = $this->get_sent_items_folder_for_send_mail( $mailbox );
+			
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+			$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation );
+			$sent_items_folder = $this->get_sent_items_folder_for_send_mail( $mail );
 			
 			$message = $mail->MIMEHeader . $mail->MIMEBody;
 			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to web server: ' . imap_last_error() );
-			imap_append( $imapStream, $sent_items_folder, $message );
+			$result = imap_append( $imapStream, $sent_items_folder, $message );
 			imap_close( $imapStream );
 			
 			if ( false === $imapStream ) {
 				
 				return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', $this->domain ) );
+			}
+			if ( false === $result ) {
+				
+				return new WP_Error( 0, __( 'Message sent, but failed to save it in your mail server\'s default folder for sent items. Please review your settings and try again.', $this->domain ) );
 			}
 			
 			return true;
@@ -262,17 +264,17 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Returns the path to the mailbox on the mail server.
 	 *
 	 * @param $mail
-	 * @param $novalidate
+	 * @param $ssl_certification_validation
 	 *
 	 * @return string
 	 */
-	private function get_mailbox($mail, $novalidate) {
+	private function get_mailbox($mail, $ssl_certification_validation) {
 		
 		$mail->Host = $this->stored_options->imap_host;
 		$mail->Port = $this->stored_options->imap_port;
 		$mail->SMTPSecure = $this->stored_options->imapsecure;
 
-		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . '/' . $novalidate . '}';
+		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . '/' . $ssl_certification_validation . '}';
 		$mailbox = $mailserver_path . 'INBOX';
 		
 		return $mailbox;
@@ -287,11 +289,16 @@ final class Bonaire_Mail extends PHPMailer {
 	 */
 	private function get_sent_items_folder_for_send_mail($mail) {
 		
-		$inbox = "imap.gmail.com" === $this->stored_options->imap_host ? "[Gmail]/" : "INBOX.";
-		
-		$inbox_folder_name = '' !== $this->stored_options->inbox_folder_name ? $this->stored_options->inbox_folder_name : 'Sent';
+		$is_gmail = $this->is_gmail();
+		$inbox = $is_gmail ? "[Gmail]/" : "INBOX";
+		$inbox_folder_name = $is_gmail && '' !== $this->stored_options->inbox_folder_name ? $this->stored_options->inbox_folder_name : '.Sent';
 		
 		return '{' . $mail->Host . '}' . $inbox . $inbox_folder_name;
+	}
+	
+	private function is_gmail() {
+		
+		return "smtp.gmail.com" === $this->stored_options->smtp_host;
 	}
 
 }

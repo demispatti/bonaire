@@ -89,17 +89,17 @@ class Bonaire_Item_Display {
 
         <li id="message_<?php echo $post_id ?>" class="message comment-item">
 
-            <a class="message-icon" href="<?php echo $edit_post_link ?>" style="font-style=normal;"
-                title="<?php echo __( ' View Message', self::$domain ) ?>"><span class="dashicons dashicons-email"></span></a>
+            <a class="message-icon" href="<?php echo esc_url($edit_post_link) ?>" style="font-style=normal;"
+                title="<?php esc_html_e( ' View Message', self::$domain ) ?>"><span class="dashicons dashicons-email"></span></a>
 
             <div class="dashboard-message-wrap has-row-actions">
                 <p class="comment-meta">
                     <cite class="comment-author">
-                        <span class="meta"><?php echo __( 'From', self::$domain ) ?>
+                        <span class="meta"><?php esc_html_e( 'From', self::$domain ) ?>
                             <a target="_blank"
-                                href="/wp-admin/admin.php?page=flamingo&s=<?php echo $email ?>"><?php echo $name ?></a> <?php echo __( 'regarding', self::$domain ) ?>
+                                href="/wp-admin/admin.php?page=flamingo&s=<?php echo $email ?>"><?php echo $name ?></a> <?php esc_html_e( 'regarding', self::$domain ) ?>
                             <a
-                                href="<?php echo $edit_post_link ?>" style="font-style=normal;"><?php echo $subject ?></a>
+                                href="<?php echo esc_url( $edit_post_link ) ?>" style="font-style=normal;"><?php echo $subject ?></a>
                         </span>
                     </cite>
                 </p>
@@ -107,31 +107,31 @@ class Bonaire_Item_Display {
                 <p class="row-actions">
 					<span class="reply">
 						<a class="bonaire-dashboard-reply-button vim-r hide-if-no-js"
-                            aria-label="<?php echo __( 'Reply to this message', self::$domain ) ?>"
+                            aria-label="<?php esc_html_e( 'Reply to this message', self::$domain ) ?>"
                             href="<?php echo $edit_post_link ?>#bonaire-form-meta-box"
-                            title="<?php echo __( ' Reply', self::$domain ) ?>"><?php echo __( 'Reply', self::$domain ) ?></a>
+                            title="<?php esc_html_e( ' Reply', self::$domain ) ?>"><?php esc_html_e( 'Reply', self::$domain ) ?></a>
 					</span>
                     <span class="spam"> |
 					<a onclick="return false;" data-nonce="<?php echo $spam_nonce ?>" class="bonaire-mark-as-spam-button vim-r hide-if-no-js"
-                        aria-label="<?php echo __( 'Mark as spam', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
-                        title="<?php echo __( ' Spam', self::$domain ) ?>"><?php echo __( 'Spam', self::$domain ) ?></a>
+                        aria-label="<?php esc_html_e( 'Mark as spam', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
+                        title="<?php esc_html_e( ' Spam', self::$domain ) ?>"><?php esc_html_e( 'Spam', self::$domain ) ?></a>
 					</span>
                     <span class="trash"> |
 						<a onclick="return false;" data-nonce="<?php echo $trash_nonce ?>" class="bonaire-move-to-trash-button vim-r hide-if-no-js"
-                            aria-label="<?php echo __( 'Move to trash', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
-                            title="<?php echo __( ' Trash', self::$domain ) ?>"><?php echo __( 'Trash', self::$domain ) ?></a>
+                            aria-label="<?php esc_html_e( 'Move to trash', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
+                            title="<?php esc_html_e( ' Trash', self::$domain ) ?>"><?php esc_html_e( 'Trash', self::$domain ) ?></a>
 					</span>
                     <span class="mark-as-read-local"> |
 						<a onclick="return false;" data-nonce="<?php echo $read_nonce ?>" data-postid="<?php echo $post->id ?>"
-                            class="bonaire-mark-as-read-button vim-r hide-if-no-js" aria-label="<?php echo __( 'Mark as read', self::$domain ) ?>"
+                            class="bonaire-mark-as-read-button vim-r hide-if-no-js" aria-label="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"
                             href="#"
-                            title="<?php echo __( 'Mark as read', self::$domain ) ?>"><?php echo __( 'Mark as read', self::$domain ) ?></a>
+                            title="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"><?php esc_html_e( 'Mark as read', self::$domain ) ?></a>
 					</span>
                     <span class="view"> |
 						<a class="bonaire-view-button vim-r hide-if-no-js"
-                            aria-label="<?php echo __( 'View message', self::$domain ) ?>"
+                            aria-label="<?php esc_html_e( 'View message', self::$domain ) ?>"
                             href="<?php echo $edit_post_link ?>"
-                            title="<?php echo __( ' View', self::$domain ) ?>"><?php echo __( 'View', self::$domain ) ?></a>
+                            title="<?php esc_html_e( ' View', self::$domain ) ?>"><?php esc_html_e( 'View', self::$domain ) ?></a>
 					</span>
                 </p>
             </div>

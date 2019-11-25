@@ -168,10 +168,10 @@ class Bonaire_Settings_Page_Display {
 		ob_start();
 		?>
 
-        <h2 class="settings-page-title"><?php echo __( 'Bonaire Settings', $this->domain ) ?></h2>
+        <h2 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h2>
         <div id="connection_details">
-            <div class="header settings-form-title"><h3><?php echo __( 'Email Account', $this->domain ) ?></h3><a class="information show-settings"
-                    href="#"><?php echo __( 'Information', $this->domain ) ?></a></div>
+            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account', $this->domain ) ?></h3><a class="information show-settings"
+                    href="#"><?php esc_html_e( 'Information', $this->domain ) ?></a></div>
             <!-- Options Form -->
             <form id="bonaire_settings_form" data-nonce="<?php echo $form_nonce ?>" method="post">
                 <div class="content">
@@ -194,27 +194,27 @@ class Bonaire_Settings_Page_Display {
                             <div class="button-container reset-button-container">
                                 <label for="bonaire_options[reset_options]"></label>
                                 <input class="button button-secondary bonaire-reset-options-button" type="submit"
-                                    value="<?php echo __( 'Reset Settings', $this->domain ) ?>" name="bonaire_options[reset_options]"
+                                    value="<?php esc_html_e( 'Reset Settings', $this->domain ) ?>" name="bonaire_options[reset_options]"
                                     data-nonce="<?php echo $reset_options_nonce ?>"/>
                             </div>
                             <!-- Submit Button -->
                             <div class="button-container submit-button-container">
                                 <label for="bonaire_options[save_options]"></label>
                                 <input class="button button-primary bonaire-save-options-button" type="submit"
-                                    value="<?php echo __( 'Save Settings', $this->domain ) ?>" name="bonaire_options[save_options]"/>
+                                    value="<?php esc_html_e( 'Save Settings', $this->domain ) ?>" name="bonaire_options[save_options]"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="footer">
-                <h5 class="content-section-title"><?php echo __('Test Settings', $this->domain ) ?></h5>
+                <h5 class="content-section-title"><?php esc_html_e('Test Settings', $this->domain ) ?></h5>
                 <div>
                     <!-- Test SMTP Settings Button -->
                     <div class="button-container test-smtp-settings-button-container">
                         <label for="bonaire_options[test_smtp_settings]"></label>
                         <input class="button button-secondary bonaire-test-smtp-settings-button" type="submit"
-                            value="<?php echo __( 'Test SMTP Settings', $this->domain ) ?>" name="bonaire_options[test_smtp_settings]"
+                            value="<?php esc_html_e( 'Test SMTP Settings', $this->domain ) ?>" name="bonaire_options[test_smtp_settings]"
                             data-nonce="<?php echo $test_smtp_settings_nonce ?>"/>
                     </div>
                     <!-- Test IMAP Settings Button -->
@@ -222,14 +222,14 @@ class Bonaire_Settings_Page_Display {
                         <label for="bonaire_options[test_imap_settings]"></label>
                         <input id="bonaire_options[test_imap_settings]" class="button button-secondary bonaire-test-imap-settings-button"
                             type="submit"
-                            value="<?php echo __( 'Test IMAP Settings', $this->domain ) ?>" name="bonaire_options[test_imap_settings]"
+                            value="<?php esc_html_e( 'Test IMAP Settings', $this->domain ) ?>" name="bonaire_options[test_imap_settings]"
                             data-nonce="<?php echo $test_imap_settings_nonce ?>"/>
                     </div>
                     <!-- Send Testmail Button -->
                     <div class="button-container send-testmail-button-container">
                         <label for="bonaire_options[send_testmail]"></label>
                         <input id="bonaire_options[send_testmail]" class="button button-secondary bonaire-send-testmail-button" type="submit"
-                            value="<?php echo __( 'Send Testmail', $this->domain ) ?>" name="bonaire_options[send_testmail]"
+                            value="<?php esc_html_e( 'Send Testmail', $this->domain ) ?>" name="bonaire_options[send_testmail]"
                             data-nonce="<?php echo $send_test_message_nonce ?>"/>
                     </div>
                 </div>
