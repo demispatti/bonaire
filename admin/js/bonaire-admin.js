@@ -440,7 +440,7 @@
                         $this.bonaireSendTestMail(event, data);
                     },
                     function (){
-                        alertify.error('Sending test message canceled.')
+                        alertify.notify('Sending test message canceled.')
                     }
                 );
             }

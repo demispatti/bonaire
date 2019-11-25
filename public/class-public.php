@@ -29,8 +29,8 @@ class Bonaire_Public {
 	 */
 	public function add_hooks() {
 		
-		add_action( 'wpcf7_mail_sent', array( $this, 'wpcf7_after_mail_sent' ), 10 );
 		add_filter( 'wpcf7_posted_data', array( $this, 'filter_wpcf7_posted_data' ), 10, 1 );
+		add_action( 'wpcf7_mail_sent', array( $this, 'wpcf7_after_mail_sent' ), 10 );
 	}
 	
 	/**
@@ -50,11 +50,11 @@ class Bonaire_Public {
 		
 		$uniqid = uniqid();
 		
-		$current_mails = get_transient( 'bonaire_wpcf7_has_mail' );
+		$current_mails = get_transient( 'bonaire_wpcf7_incoming' );
 		$data = array( 'form_id' => $posted_data['_wpcf7'], 'posted_data_uniqid' => $uniqid );
 		$current_mails[] = $data;
 		// Store the data temporarily for usage by 'wpcf7_after_mail_sent()'
-		set_transient( 'bonaire_wpcf7_has_mail', $current_mails );
+		set_transient( 'bonaire_wpcf7_incoming', $current_mails );
 		
 		$posted_data['posted_data_uniqid'] = $uniqid;
 		
@@ -72,7 +72,7 @@ class Bonaire_Public {
 	 */
 	public function wpcf7_after_mail_sent( $contact_form ) {
 		
-		$current_mails = get_transient( 'bonaire_wpcf7_has_mail' );
+		$current_mails = get_transient( 'bonaire_wpcf7_incoming' );
 		if(false === $current_mails || ! is_array($current_mails)){
 			return;
 		}
@@ -80,16 +80,48 @@ class Bonaire_Public {
 		foreach ( $current_mails as $i => $current_mail ) {
 			
 			if ( ! isset( $current_mail['recipient'] ) ) {
-				$current_mails[ $i ]['channel'] = $contact_form->name();
-				$current_mails[ $i ]['form_id'] = $contact_form->id();
+				$current_mails[ $i ]['channel'] = sanitize_text_field($contact_form->name());
+				$current_mails[ $i ]['form_id'] = (int)$contact_form->id();
 				$properties = $contact_form->get_properties();
-				$recipient = $properties['mail']['recipient'];
-				$current_mails[ $i ]['recipient'] = $recipient;
+				$current_mails[ $i ]['recipient'] = $this->crypt(sanitize_email( $properties['mail']['recipient'] ));
 			}
 		}
 		
 		// Add the updated data to a transient for postprocessing by class '$Bonaire_Adapter'
-		set_transient( 'bonaire_wpcf7_mail_meta', $current_mails );
+		set_transient( 'bonaire_wpcf7_queue', $current_mails );
+	}
+	
+	/**
+	 * Encrypts and decrypts the password for the email account stored for replies.
+	 *
+	 * @param string $string
+	 * @param string $action
+	 *
+	 * @return string $output|bool
+	 * @since 0.9.6
+	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
+	 */
+	private function crypt( $string, $action = 'e' ) {
+		
+		$secret_key = AUTH_KEY;
+		$secret_iv  = AUTH_SALT;
+		
+		if ( '' === $secret_key || '' === $secret_iv ) {
+			return $string;
+		}
+		
+		$output         = false;
+		$encrypt_method = 'AES-256-CBC';
+		$key            = hash( 'sha256', $secret_key );
+		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+		
+		if ( $action === 'e' ) {
+			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+		} elseif ( $action === 'd' ) {
+			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+		}
+		
+		return $output;
 	}
 	
 }

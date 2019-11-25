@@ -238,7 +238,7 @@ class Bonaire_Admin {
 	 */
 	public function maybe_update_post() {
 		
-		if ( false !== get_transient( 'bonaire_wpcf7_has_mail' ) ) {
+		if ( false !== get_transient( 'bonaire_wpcf7_queue' ) ) {
 			$Bonaire_Adapter = new AdminIncludes\Bonaire_Adapter( $this->domain, $this->Bonaire_Options->get_stored_options( 1 ) );
 			$Bonaire_Adapter->update_post();
 		}

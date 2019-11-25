@@ -118,14 +118,14 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 */
 	private function postprocess_messages() {
 
-		$bonaire_wpcf7_has_mail = get_transient( 'bonaire_wpcf7_mail_meta' );
-		if(false === is_array($bonaire_wpcf7_has_mail) || empty($bonaire_wpcf7_has_mail)){
+		$bonaire_wpcf7_queue = get_transient( 'bonaire_wpcf7_queue' );
+		if(false === is_array($bonaire_wpcf7_queue) || empty($bonaire_wpcf7_queue)){
 			
 			return;
 		}
 		
 		// If there are new messages to extend the data
-		foreach ( $bonaire_wpcf7_has_mail as $index => $message ) {
+		foreach ( $bonaire_wpcf7_queue as $index => $message ) {
 			
 			foreach ( $this->posts as $i => $flamingo_post ) {
 				
@@ -136,7 +136,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 					$meta['channel']            = $message['channel'];
 					$meta['form_id']            = $message['form_id'];
 					$meta['posted_data_uniqid'] = $message['posted_data_uniqid'];
-					$meta['recipient']          = $message['recipient'];
+					$meta['recipient']          = $this->crypt($message['recipient'], 'd');
 					// remove the uniqid from the fields data,
 					// since it has done it's job
 					unset( $fields['posted_data_uniqid'] );
@@ -144,12 +144,13 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 					$post = get_post( $flamingo_post->id );
 					update_post_meta( $post->ID, '_fields', $fields );
 					update_post_meta( $post->ID, '_meta', $meta );
+					unset($fields, $meta);
 				}
 			}
 		}
 		
-		delete_transient( 'bonaire_wpcf7_has_mail' );
-		delete_transient( 'bonaire_wpcf7_mail_meta' );
+		delete_transient( 'bonaire_wpcf7_incoming' );
+		delete_transient( 'bonaire_wpcf7_queue' );
 	}
 	
 	/**
@@ -450,6 +451,39 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Encrypts and decrypts the password for the email account stored for replies.
+	 *
+	 * @param string $string
+	 * @param string $action
+	 *
+	 * @return string $output|bool
+	 * @since 0.9.6
+	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
+	 */
+	private function crypt( $string, $action = 'd' ) {
+		
+		$secret_key = AUTH_KEY;
+		$secret_iv  = AUTH_SALT;
+		
+		if ( '' === $secret_key || '' === $secret_iv ) {
+			return $string;
+		}
+		
+		$output         = false;
+		$encrypt_method = 'AES-256-CBC';
+		$key            = hash( 'sha256', $secret_key );
+		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+		
+		if ( $action === 'e' ) {
+			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+		} elseif ( $action === 'd' ) {
+			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+		}
+		
+		return $output;
 	}
 	
 }
