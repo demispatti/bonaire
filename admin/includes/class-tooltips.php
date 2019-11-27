@@ -123,7 +123,10 @@ class Bonaire_Tooltips {
 		
 		$list = array();
 		foreach ( (array) $this->options_meta as $option => $attributes ) {
-			$list[ $attributes['id'] ] = $attributes['id'];
+			// Exclude hidden field
+			if('form_id' !== $option){
+				$list[ $attributes['id'] ] = $attributes['id'];
+			}
 		}
 		
 		return $list;

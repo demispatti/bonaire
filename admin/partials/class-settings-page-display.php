@@ -101,12 +101,11 @@ class Bonaire_Settings_Page_Display {
 		$send_test_message_nonce = wp_create_nonce( 'bonaire_send_testmail_nonce' );
 		$test_smtp_settings_nonce = wp_create_nonce( 'bonaire_test_smtp_settings_nonce' );
 		$test_imap_settings_nonce = wp_create_nonce( 'bonaire_test_imap_settings_nonce' );
-		
 		ob_start();
 		?>
         <h2 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h2>
         <div id="connection_details">
-            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account', $this->domain ) ?></h3><a class="information show-settings"
+            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account and further Settings', $this->domain ) ?></h3><a class="information show-settings"
                     href="#"><?php esc_html_e( 'Information', $this->domain ) ?></a></div>
             <!-- Options Form -->
             <form id="bonaire_settings_form" data-nonce="<?php echo $form_nonce ?>" method="post">
@@ -115,8 +114,11 @@ class Bonaire_Settings_Page_Display {
 					<?php
 					$string = '';
 					foreach ( (array) $this->options_meta as $key => $args ) {
-					    if('form_id' !== $key){
-						    $value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
+						$value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
+						
+					    if('form_id' === $key){
+						    $string .= '<input type="hidden" value="'. esc_html($value) . '" data-form-input="bonaire" data-key="form_id" name="bonaire_options[form_id]"/>';
+                        } else {
 						    // Settings Section Titles
 						    $string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
 						    $string .= 'number_posts' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';

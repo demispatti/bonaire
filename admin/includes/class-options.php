@@ -230,7 +230,7 @@ final class Bonaire_Options {
 				'example' => __( '5', $this->domain ),
 				'values' => array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ),
 				'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg'*/,
-				'tt_description' => __( 'Max. number of messages to display inside the dashboard widget.', $this->domain )
+				'tt_description' => __( 'Max. number of unread messages to display on the dashboard widget.', $this->domain )
 			),
 			'username' => array(
 				'id' => 'username',

@@ -515,7 +515,10 @@
             $.each(data, function ( key ){
                 var result = null;
 
-                if ('form_id' === key || 'number_posts' === key){
+                if ('form_id' === key ){
+                    result = '' !== data.channel ? data.channel.replace('_', '') : '';
+                }
+                if ('number_posts' === key){
                     result = $.isNumeric(parseInt(this)) ? this.toString() : false;
                     if (false !== result){
                         result = this;
