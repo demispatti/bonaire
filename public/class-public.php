@@ -80,8 +80,8 @@ class Bonaire_Public {
 		foreach ( $current_mails as $i => $current_mail ) {
 			
 			if ( ! isset( $current_mail['recipient'] ) ) {
-				$current_mails[ $i ]['channel'] = sanitize_text_field($contact_form->name());
-				$current_mails[ $i ]['form_id'] = (int)$contact_form->id();
+				$current_mails[ $i ]['channel'] = $contact_form->name();
+				$current_mails[ $i ]['form_id'] = $contact_form->id();
 				$properties = $contact_form->get_properties();
 				$current_mails[ $i ]['recipient'] = $this->crypt(sanitize_email( $properties['mail']['recipient'] ));
 			}

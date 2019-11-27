@@ -188,7 +188,7 @@ class Bonaire_Meta_Box {
 		 */
 		$your_subject = $this->Bonaire_Adapter->get_post_field( $post_id, 'your-subject' );
 		$your_email = $this->Bonaire_Adapter->get_meta_field( $post_id, 'post_author_email' );
-		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $this->Bonaire_Options->get_stored_options( 0 ) );
+		$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $this->Bonaire_Options->get_stored_options( 0 ) );
 		echo $string;
 		
 		return;

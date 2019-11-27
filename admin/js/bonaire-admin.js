@@ -515,6 +515,14 @@
             $.each(data, function ( key ){
                 var result = null;
 
+                if ('form_id' === key || 'number_posts' === key){
+                    result = $.isNumeric(parseInt(this)) ? this.toString() : false;
+                    if (false !== result){
+                        result = this;
+                    } else{
+                        result = '';
+                    }
+                }
                 if ('smtp_host' === key || 'imap_host' === key){
                     result = urlRegex.test(this);
                     if (true === result){
@@ -530,7 +538,7 @@
                     result = this;
                 }
                 if ('smtp_port' === key || 'imap_port' === key){
-                    result = $.isNumeric(parseInt(this)) ? parseInt(this) : '';
+                    result = $.isNumeric(parseInt(this)) ? parseInt(this) : false;
                     if (false !== result){
                         result = this;
                     } else{

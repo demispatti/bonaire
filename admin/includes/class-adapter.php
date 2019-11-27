@@ -67,6 +67,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 */
 	private function set_posts() {
 		
+		// @todo: form_id anfügen
 		$args = array(
 			'posts_per_page' => -1,
 			'offset' => 0,

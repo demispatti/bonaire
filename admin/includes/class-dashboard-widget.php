@@ -232,14 +232,14 @@ class Bonaire_Dashboard_Widget {
 		
 		if ( false !== $posts && ! empty( $posts ) ) {
 			
-			$max_count = 8;
+			$number_posts = $this->Bonaire_Options->get_stored_options(0)->number_posts;
 			$count = 1;
 			
 			$string = '<ul>';
 			foreach ( $posts as $i => $post ) {
 				$post_meta = get_post_meta( $post->id );
 				$post_views = isset( $post_meta['post_views_count'] ) ? $post_meta['post_views_count'][0] : '';
-				if ( '' === $post_views && $count <= $max_count ) {
+				if ( '' === $post_views && $count <= $number_posts ) {
 					$string .= AdminPartials\Bonaire_Item_Display::item_display( $post );
 				}
 				$count ++;

@@ -45,7 +45,7 @@ class Bonaire_Reply_Form_Display {
 	 * Returns a string containing the reply form.
 	 *
 	 * @param string $your_subject
-     * @param string $your_subject
+     * @param string $your_email
 	 * @param object $account_settings
 	 *
 	 * @return string $html

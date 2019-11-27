@@ -101,9 +101,9 @@ class Bonaire_Settings_Page_Display {
 		$send_test_message_nonce = wp_create_nonce( 'bonaire_send_testmail_nonce' );
 		$test_smtp_settings_nonce = wp_create_nonce( 'bonaire_test_smtp_settings_nonce' );
 		$test_imap_settings_nonce = wp_create_nonce( 'bonaire_test_imap_settings_nonce' );
+		
 		ob_start();
 		?>
-
         <h2 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h2>
         <div id="connection_details">
             <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account', $this->domain ) ?></h3><a class="information show-settings"
@@ -115,18 +115,19 @@ class Bonaire_Settings_Page_Display {
 					<?php
 					$string = '';
 					foreach ( (array) $this->options_meta as $key => $args ) {
-						$value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
-						// Settings Section Titles
-						$string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
-						$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
-						$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
+					    if('form_id' !== $key){
+						    $value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
+						    // Settings Section Titles
+						    $string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
+						    $string .= 'number_posts' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
+						    $string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
+						    $string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
 						
-						// Settings
-						$string .= $this->get_settings_field( $key, $value, $this->options_meta );
-						// Close title div
-						$string .= 'channel' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
-						
-						$string .= 'ssl_certification_validation' === $key ? '<div class="contactform"><h5 class="content-section-title">' . __( 'Contact Form Field Names', $this->domain ) . '</h5>' : '';
+						    // Settings
+						    $string .= $this->get_settings_field( $key, $value, $this->options_meta );
+						    // Close title div
+						    $string .= 'channel' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
+                        }
 					}
 					echo $string;
 					?>
@@ -305,14 +306,17 @@ class Bonaire_Settings_Page_Display {
 	 */
 	private function get_settings_field_for_dropdown( $key, $value, $options_meta ) {
 		
+	 
 		$label = translate( $options_meta->{$key}['name'], $this->domain );
 		$name = 'bonaire_options[' . $key . ']';
 		$default_value = $options_meta->{$key}['default_value'];
 		
 		if ( 'channel' === $key ) {
-			$options_meta->{$key}['values'] = array_merge( $options_meta->{$key}['values'], $this->get_channels_list() );
-		}
-		$select_values = $options_meta->{$key}['values'];
+			$select_values = array_merge( $this->get_contact_form_titles_List(), $options_meta->{$key}['values'] );
+			$key = preg_match( '/_/', $key ) ? str_replace( '_', '', $key ) : $key;
+		} else {
+			$select_values = $options_meta->{$key}['values'];
+        }
 		
 		ob_start();
 		?>
@@ -322,20 +326,12 @@ class Bonaire_Settings_Page_Display {
                 data-key="<?php echo $key ?>" data-default-value="<?php echo $default_value ?>">
 				<?php
 				foreach ( $select_values as $key => $select_value ) {
-					/*$selected = '';
-					if ( $value === $attribute ) {
-						$selected = 'selected';
-					}*/
-					if ( 'channel' !== $key /*|| 'ssl_certification_validation' !== $key*/ ) {
-						$select_value = translate( $select_value, $this->domain );
-					}
-					?>
-                    <!--<option <?php /*echo selected( $value, $key, false ) */ ?> value="<?php /*echo $select_value */ ?>"><?php /*echo $select_value */ ?></option>-->
-                    <option
-                        value="<?php echo $key ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo translate( $select_value, $this->domain ); ?></option>
-					<?php
-				}
-				?>
+					$key = (string) $key;
+					$value = (string) $value;
+                    ?>
+                    <option value="<?php echo $key ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo translate( $select_value, $this->domain ); ?></option>
+                    <?php
+				} ?>
             </select>
         </div>
 		<?php
@@ -405,7 +401,7 @@ class Bonaire_Settings_Page_Display {
 	 * @since 0.9.6
 	 * @return array $list
 	 */
-	private function get_channels_List() {
+	private function get_contact_form_titles_List() {
 		
 		$contactforms = WPCF7_ContactForm::find();
 		
@@ -422,6 +418,20 @@ class Bonaire_Settings_Page_Display {
 		}
 		
 		return $list;
+	}
+	
+	private function get_contact_form_attribute_value($form_id, $recipient, $attribute) {
+		
+		$contactforms = WPCF7_ContactForm::find();
+		foreach( (array)$contactforms as $i => $contact_form){
+		    if($form_id === $contact_form->id && $recipient === $contact_form->properties['mail']['recipient']){
+			    $a = (array)$contact_form.$attribute;
+			    
+			    return $a;
+            }
+        }
+		
+		return false;
 	}
 	
 	/**
