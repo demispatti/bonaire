@@ -967,9 +967,8 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			$mail->SMTPSecure = $this->stored_options->imapsecure;
 			
 			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . $ssl_certification_validation . '}';
-			$mailbox = $mailserver_path . 'INBOX';
 			
-			return $mailbox;
+			return $mailserver_path . 'INBOX';
 		}
 		
 		$mail->Host = $this->stored_options->imap_host;
@@ -977,9 +976,8 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		$mail->SMTPSecure = $this->stored_options->imapsecure;
 		
 		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . $ssl_certification_validation . '}';
-		$mailbox = $mailserver_path . 'INBOX';
 		
-		return $mailbox;
+		return $mailserver_path . 'INBOX';
 	}
 	
 	/**

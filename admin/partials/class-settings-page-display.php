@@ -91,7 +91,7 @@ class Bonaire_Settings_Page_Display {
 	 * Returns the settings page content.
 	 *
 	 * @since 0.9.6
-	 * @return array $html
+	 * @return string $html
 	 * @toBeImplemented
 	 */
 	public function settings_page_display() {
@@ -420,20 +420,6 @@ class Bonaire_Settings_Page_Display {
 		}
 		
 		return $list;
-	}
-	
-	private function get_contact_form_attribute_value($form_id, $recipient, $attribute) {
-		
-		$contactforms = WPCF7_ContactForm::find();
-		foreach( (array)$contactforms as $i => $contact_form){
-		    if($form_id === $contact_form->id && $recipient === $contact_form->properties['mail']['recipient']){
-			    $a = (array)$contact_form.$attribute;
-			    
-			    return $a;
-            }
-        }
-		
-		return false;
 	}
 	
 	/**
