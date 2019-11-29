@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-11-29 16:42+0100\n"
+"POT-Creation-Date: 2019-11-29 18:06+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -135,13 +135,15 @@ msgid "Internal Error: Unable to resolve SMTP host name."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:727
-msgid ""
-"<strong>The SMTP port number seems to be wrong.</strong><br>Please review "
-"your setting."
+msgid "The SMTP port number seems to be wrong."
+msgstr ""
+
+#: admin/includes/class-account-settings-evaluator.php:727
+msgid "Please review your setting."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:752
-msgid "<strong>SMTP Error: Could not authenticate.</strong>"
+msgid "SMTP Error: Could not authenticate."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:752
@@ -216,11 +218,11 @@ msgid "You may want to disable certification validation temporarily."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:905
-#: admin/includes/class-account-settings-evaluator.php:931
-#: admin/includes/class-account-settings-evaluator.php:939
-msgid ""
-"<strong>Failed to connect to host (connection timeout).</strong><br>Please "
-"review your settings and run test again."
+msgid "Failed to connect to host (connection timeout)."
+msgstr ""
+
+#: admin/includes/class-account-settings-evaluator.php:905
+msgid "Please review your settings and run test again."
 msgstr ""
 
 #: admin/includes/class-account-settings-evaluator.php:905
@@ -231,6 +233,13 @@ msgstr ""
 #: admin/includes/class-account-settings-evaluator.php:911
 #: admin/includes/class-account-settings-evaluator.php:945
 msgid "Internal Error: Unable to search for Folder."
+msgstr ""
+
+#: admin/includes/class-account-settings-evaluator.php:931
+#: admin/includes/class-account-settings-evaluator.php:939
+msgid ""
+"<strong>Failed to connect to host (connection timeout).</strong><br>Please "
+"review your settings and run test again."
 msgstr ""
 
 #: admin/includes/class-account-settings-status.php:101

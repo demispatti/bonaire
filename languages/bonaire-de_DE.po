@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
-"POT-Creation-Date: 2019-11-29 16:42+0100\n"
-"PO-Revision-Date: 2019-11-29 16:42+0100\n"
+"POT-Creation-Date: 2019-11-29 18:06+0100\n"
+"PO-Revision-Date: 2019-11-29 18:06+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -163,16 +163,21 @@ msgid "Internal Error: Unable to resolve SMTP host name."
 msgstr "Interner Fehler: Der SMTP-Hostname konnte nicht aufgelöst werden."
 
 #: admin/includes/class-account-settings-evaluator.php:727
-msgid ""
-"<strong>The SMTP port number seems to be wrong.</strong><br>Please review "
-"your setting."
-msgstr ""
-"<strong>Die SMTP-Portnummer scheint falsch zu sein.</strong> <br> Bitte "
-"überprüfen Sie Ihre Einstellungen."
+#, fuzzy
+#| msgid "The SMTP port number."
+msgid "The SMTP port number seems to be wrong."
+msgstr "Die Port-Nummer des SMTP-Hosts."
+
+#: admin/includes/class-account-settings-evaluator.php:727
+#, fuzzy
+msgid "Please review your setting."
+msgstr "Gib bitte deinen Benutzernamen ein."
 
 #: admin/includes/class-account-settings-evaluator.php:752
-msgid "<strong>SMTP Error: Could not authenticate.</strong>"
-msgstr "<strong>SMTP-Fehler: Authentifizierung fehlgeschlagen.</strong>"
+#, fuzzy
+#| msgid "<strong>SMTP Error: Could not authenticate.</strong>"
+msgid "SMTP Error: Could not authenticate."
+msgstr "SMTP-Fehler: Authentifizierung fehlgeschlagen."
 
 #: admin/includes/class-account-settings-evaluator.php:752
 msgid "Please review your username and password."
@@ -271,6 +276,33 @@ msgstr ""
 "deaktivieren."
 
 #: admin/includes/class-account-settings-evaluator.php:905
+#, fuzzy
+#| msgid ""
+#| "Failed to connect to host. Please review your settings and try again."
+msgid "Failed to connect to host (connection timeout)."
+msgstr ""
+"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
+"Einstellungen und versuchen Sie es erneut."
+
+#: admin/includes/class-account-settings-evaluator.php:905
+#, fuzzy
+#| msgid ""
+#| "Failed to connect to host. Please review your settings and try again."
+msgid "Please review your settings and run test again."
+msgstr ""
+"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
+"Einstellungen und versuchen Sie es erneut."
+
+#: admin/includes/class-account-settings-evaluator.php:905
+#: admin/includes/class-account-settings-evaluator.php:939
+msgid "Failed to find folder \""
+msgstr "Ordner konnte nicht gefunden werden \""
+
+#: admin/includes/class-account-settings-evaluator.php:911
+#: admin/includes/class-account-settings-evaluator.php:945
+msgid "Internal Error: Unable to search for Folder."
+msgstr "Interner Fehler: Nach dem Ordner konnte nicht gesucht werden."
+
 #: admin/includes/class-account-settings-evaluator.php:931
 #: admin/includes/class-account-settings-evaluator.php:939
 #, fuzzy
@@ -283,16 +315,6 @@ msgid ""
 msgstr ""
 "Verbindung zum Host konnte nicht hergestellt werden (Verbindungs-Timeout). "
 "Bitte überprüfen Sie Ihre Einstellungen und führen Sie den Test erneut aus."
-
-#: admin/includes/class-account-settings-evaluator.php:905
-#: admin/includes/class-account-settings-evaluator.php:939
-msgid "Failed to find folder \""
-msgstr "Ordner konnte nicht gefunden werden \""
-
-#: admin/includes/class-account-settings-evaluator.php:911
-#: admin/includes/class-account-settings-evaluator.php:945
-msgid "Internal Error: Unable to search for Folder."
-msgstr "Interner Fehler: Nach dem Ordner konnte nicht gesucht werden."
 
 #: admin/includes/class-account-settings-status.php:101
 msgid "Internal Error: Unable to set settings status."
@@ -1115,6 +1137,13 @@ msgstr "Bonaire"
 msgid "Demis Patti"
 msgstr "Demis Patti"
 
+#~ msgid ""
+#~ "<strong>The SMTP port number seems to be wrong.</strong><br>Please review "
+#~ "your setting."
+#~ msgstr ""
+#~ "<strong>Die SMTP-Portnummer scheint falsch zu sein.</strong> <br> Bitte "
+#~ "überprüfen Sie Ihre Einstellungen."
+
 #, fuzzy
 #~| msgid ""
 #~| "Failed to evaluate port number. Please review the port number of your "
@@ -1377,10 +1406,6 @@ msgstr "Demis Patti"
 #~ msgstr ""
 #~ "Ist fehlgeschlagen. Ordner \"Posteingang. Geschickt\"nicht gefunden. "
 #~ "Antworten können nicht auf Ihrem Mailserver gespeichert werden."
-
-#, fuzzy
-#~ msgid "Please enter your username."
-#~ msgstr "Gib bitte deinen Benutzernamen ein."
 
 #, fuzzy
 #~ msgid ""

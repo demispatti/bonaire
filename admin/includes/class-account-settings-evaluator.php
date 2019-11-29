@@ -724,7 +724,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				$result = true;
 			} else {
 				flush();
-				$error_message = __( '<strong>The SMTP port number seems to be wrong.</strong><br>Please review your setting.', $this->domain );
+				$error_message = '<strong>' . __( 'The SMTP port number seems to be wrong.', $this->domain) . '</strong><br>' . __('Please review your setting.', $this->domain );
 				$result = new WP_Error( 1, $error_message );
 			}
 			unset( $socket );
@@ -749,7 +749,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		try {
 			parent::SmtpConnect();
 		} catch( Exception $error ) {
-			$error_message = __( '<strong>SMTP Error: Could not authenticate.</strong>', $this->domain ) . '<br>' . __( 'Please review your username and password.', $this->domain );
+			$error_message = '<strong>' . __( 'SMTP Error: Could not authenticate.', $this->domain ) . '</strong><br>' . __( 'Please review your username and password.', $this->domain );
 			
 			return new WP_Error( 1, $error_message );
 		}
@@ -902,7 +902,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				// Check Sent Items Folder Path
 				$path = $this->get_sent_items_folder_path_for_testing( $mail );
 				if ( ! in_array( $path, $list, true ) ) {
-					$error_message = false === $imapStream ? __( '<strong>Failed to connect to host (connection timeout).</strong><br>Please review your settings and run test again.', $this->domain ) : __( 'Failed to find folder "' . $path . '" (INBOX.Sent). Replies can not be saved on your mail server (Error BON1704-0001).', $this->domain );
+					$error_message = false === $imapStream ? '<strong>' . __( 'Failed to connect to host (connection timeout).', $this->domain) . '</strong><br>' . __('Please review your settings and run test again.', $this->domain ) : __( 'Failed to find folder "' . $path . '" (INBOX.Sent). Replies can not be saved on your mail server (Error BON1704-0001).', $this->domain );
 					
 					return new WP_Error( 1, $error_message );
 				}
