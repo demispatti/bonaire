@@ -430,7 +430,7 @@
             } else{
 
                 var promptTitle = true === error ? $this.optionsPageNotifications.send_test_mail_prompt_review_email_title : $this.optionsPageNotifications.send_test_mail_prompt_title;
-                alertify.prompt(promptTitle, 'Prompt Message', 'Prompt Value',
+                alertify.prompt(promptTitle, 'Please enter Email', 'Enter Email',
                     function ( evt, value ){
                         var data = {
                             action: $this.sendTestMailAction,
@@ -448,6 +448,8 @@
         bonaireSendTestMail: function ( event, data ){
             event.preventDefault();
             var $this = event.data.context;
+
+            $this.showLoaderSpinner();
 
             $.post(ajaxurl, data, function ( response ){
 
