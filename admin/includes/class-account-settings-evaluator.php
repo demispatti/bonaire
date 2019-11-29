@@ -136,9 +136,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		$key = hash( 'sha256', $secret_key );
 		$iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
 		
-		$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		
-		return $output;
+		return openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
 	}
 	
 	/**
@@ -227,8 +225,8 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		
 		// If sending the test message failed
 		if ( false === $result ) {
-			
-			return new WP_Error( - 2, __( 'Sending test message failed:', $this->domain ) . ' ' . __( 'Could not reach the mail server.', $this->domain ) . '<br>' . __( 'Please make sure that you are connected to the internet, and that you\'ve tested the SMTP and IMAP settings with the respective buttons on this plugin\'s settings page.', $this->domain ) );
+			$error_message = __( 'Sending test message failed:', $this->domain ) . ' ' . __( 'Could not reach the mail server.', $this->domain ) . '<br>' . __( 'Please make sure that you are connected to the internet, and that you\'ve tested the SMTP and IMAP settings with the respective buttons on this plugin\'s settings page.', $this->domain );
+			return new WP_Error( - 2, $error_message);
 		}
 		
 		return $result;
@@ -487,7 +485,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		$messages[] = __( 'Successfully authenticated to the email account via SMTP.', $this->domain );
 		
 		// Add final success message.
-		$messages[] = __( '<strong>Your SMTP settings are valid.</strong>', $this->domain );
+		$messages[] = '<strong>' . __( 'Your SMTP settings are valid.', $this->domain ) . '</strong>';
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
@@ -619,10 +617,10 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			
 			return $this->create_response( $result, 'orange' );
 		}
-		$messages[] = __( 'Successfully contacted inbox folder on the mail server.', $this->domain );
+		$messages[] = __( 'Successfully contacted the inbox folder on the mail server.', $this->domain );
 		
 		// Add final success message.
-		$messages[] = __( '<strong>Your IMAP settings are valid.</strong>', $this->domain );
+		$messages[] = '<strong>' . __( 'Your IMAP settings are valid.', $this->domain ) . '</strong>';
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
@@ -668,14 +666,16 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				flush();
 			} else {
 				flush();
-				$result = new WP_Error( 1, __( '<strong>It seems that you are not connected to the internet, or a firewall is blocking access to it.</strong><br>Please make sure that you are connected to the internet.', $this->domain ) );
+				$error_message = '<strong>' . __( 'It seems that you are not connected to the internet, or a firewall is blocking access to it.', $this->domain ) . '</strong><br>' . __( 'Please make sure that you are connected to the internet.', $this->domain );
+				$result = new WP_Error( 1, $error_message );
 			}
 			unset( $connection );
 			
 			return $result;
 		} catch( Exception $error ) {
+			$error_message = '<strong>' . __( 'Internal Error: Unable to check the SMTP port.', $this->domain ) . '</strong><br>' . __( 'Please try again later.', $this->domain );
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to check the SMTP port.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, $error_message );
 		}
 	}
 	
@@ -693,12 +693,14 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			$test_dns = gethostbyname( $smtp_host . '.' );
 			
 			if ( ! preg_match( '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $test_dns ) ) {
+				$error_message = '<strong>' . printf( __( 'Failed to resolve SMTP host name (%d).', $this->domain ), $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 				
-				return new WP_Error( 1, __( '<strong>Failed to resolve SMTP host name (' . $smtp_host . ')</strong><br>Please review your setting.', $this->domain ) );
+				return new WP_Error( 1, $error_message );
 			}
 		} catch( Exception $e ) {
+			$error_message = '<strong>' . printf( __( 'Internal Error: Unable to resolve SMTP host name.', $this->domain ), $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to resolve SMTP hostname.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, $error_message );
 		}
 		
 		return true;
@@ -722,12 +724,14 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				$result = true;
 			} else {
 				flush();
-				$result = new WP_Error( 1, __( '<strong>The SMTP port number seems to be wrong.</strong><br>Please review your setting.', $this->domain ) );
+				$error_message = __( '<strong>The SMTP port number seems to be wrong.</strong><br>Please review your setting.', $this->domain );
+				$result = new WP_Error( 1, $error_message );
 			}
 			unset( $socket );
 		} catch( Exception $error ) {
+			$error_message = __( 'Internal Error: Unable to check the SMTP port.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain );
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to check the SMTP port.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, $error_message );
 		}
 		
 		return $result;
@@ -745,8 +749,9 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		try {
 			parent::SmtpConnect();
 		} catch( Exception $error ) {
+			$error_message = __( '<strong>SMTP Error: Could not authenticate.</strong>', $this->domain ) . '<br>' . __( 'Please review your username and password.', $this->domain );
 			
-			return new WP_Error( 1, __( '<strong>SMTP Error: Could not authenticate.</strong>', $this->domain ) . '<br>' . __( 'Please review your username and password.', $this->domain ) );
+			return new WP_Error( 1, $error_message );
 		}
 		
 		return true;
@@ -760,7 +765,12 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	 */
 	private function is_imap_extension_loaded() {
 		
-		return extension_loaded( "imap" ) ? true : new WP_Error( 2, __( '<strong>PHP IMAP extension is missing.</strong><br>Bonaire needs this extension to be installed and loaded in order to handle IMAP events. For local development, see for example: <a href="https://stackoverflow.com/questions/9654453/fatal-error-call-to-undefined-function-imap-open-in-php" target="_blank">Fatal error: Call to undefined function imap_open() in PHP</a>.<br>For live websites, contact your admin or host in order to include this PHP extension.', $this->domain ) );
+		$error_message = '<strong>' . __( 'PHP IMAP extension is missing.', $this->domain ) . '</strong><br>' . __( 'Bonaire needs this extension to be installed and loaded in order to handle IMAP events. For local development, see for example: ', $this->domain );
+		$read_more_link = '<a href="https://stackoverflow.com/questions/9654453/fatal-error-call-to-undefined-function-imap-open-in-php" target="_blank">Fatal error: Call to undefined function imap_open() in PHP</a>';
+		
+		$error_string = $error_message . ' ' . $read_more_link . '<br>' . __('For live websites, contact your admin or host in order to include this PHP extension.', $this->domain );
+		
+		return extension_loaded( "imap" ) ? true : new WP_Error( 2, $error_string );
 	}
 	
 	/**
@@ -799,12 +809,14 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			$test_dns = gethostbyname( $imap_host . '.' );
 			
 			if ( ! preg_match( '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $test_dns ) ) {
+				$error_message = '<strong>' . printf( __( 'Failed to resolve IMAP host (%d).', $this->domain ), $imap_host) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 				
-				return new WP_Error( 1, __( '<strong>Failed to resolve IMAP host name (' . $imap_host . ')</strong><br>Please review your setting.', $this->domain ) );
+				return new WP_Error( 1, $error_message );
 			}
 		} catch( Exception $e ) {
+			$error_message = '<strong>' . printf( __( 'Internal Error: Unable to resolve IMAP hostname.', $this->domain ), $imap_host ) . '</strong><br>' . __( 'Please try again later.', $this->domain );
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to resolve IMAP hostname.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, $error_message );
 		}
 		
 		return true;
@@ -829,12 +841,14 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				$result = true;
 			} else {
 				flush();
-				$result = new WP_Error( 1, __( '<strong>Failed to evaluate port number.</strong><br>Please review the port number of your IMAP server. (' . $errstr . ')', $this->domain ) );
+				$error_message = '<strong>' . __( 'Failed to evaluate port number.', $this->domain ) . '</strong><br>' . printf( esc_html__( 'Please review the port number of your IMAP server (%d).', $this->domain ), $errstr);
+				$result = new WP_Error( 1, $error_message );
 			}
 			unset( $socket );
 		} catch( Exception $error ) {
+			$error_message = __( 'Internal Error: Unable to check IMAP port.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain );
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to check IMAP port.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, $error_message );
 		}
 		
 		return $result;
@@ -851,8 +865,12 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		
 		// Check for SSL
 		if ( 'cert' === $this->stored_options->ssl_certification_validation && false === $this->is_ssl() ) {
+			$error_message = __( 'Error: No SSL Certificate installed on this website.\nDuring local website development, use the \'nocert\' option.\n\nIf you are on a live website, consider installing a SSL certificate and then use the \'cert\' option. Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain) . '<br>' . __( 'Please review your settings and run the test again.', $this->domain );
+			$read_morelink = printf('<a href="https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php" target="_blank">%d</a>)', __( 'Read more', $this->domain ));
 			
-			return new WP_Error( 1, __( "Error: No SSL Certificate installed on this website.\nDuring local website development, use the 'nocert' option.\n\nIf you are on a live website, consider installing a SSL certificate and then use the 'cert' option. Otherwise, you're a possible subject of man in the middle attacks (<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", $this->domain ) . "</a>).", $this->domain ) );
+			$error_string = $error_message . '(' . $read_morelink . ')';
+			
+			return new WP_Error( 1, $error_string);
 		}
 		
 		$mail = $this->get_phpmailer( true );
@@ -872,7 +890,11 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 				$imap_errors = imap_errors();
 				//
 				if ( false === $imapStream && is_array( $imap_errors ) ) {
-					$error_message = false !== $imapStream ? __( '<strong>Failed to connect to host (connection timeout).</strong><br>Please review your settings and run test again.', $this->domain ) : $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.' );
+					$error_message = '<strong>' . __( 'Failed to connect to IMAP host (connection timeout).') . '</strong><br>' . __('Please review your settings and run the test again.', $this->domain);
+
+					return new WP_Error( 1, $error_message );
+				} else if ( false !== $imapStream && is_array( $imap_errors )){
+					$error_message = $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.', $this->domain );
 					
 					return new WP_Error( 1, $error_message );
 				}
