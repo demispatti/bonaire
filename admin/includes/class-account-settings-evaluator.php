@@ -636,7 +636,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	private function create_response( $result, $status ) {
 		
 		$string = '';
-		if ( false !== $result['messages'] ) {
+		if ( isset( $result['messages'] ) && false !== $result['messages'] ) {
 			foreach ( $result['messages'] as $i => $message ) {
 				$string .= $message . '<br>';
 			}
@@ -966,7 +966,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			$mail->Port = $this->stored_options->imap_port;
 			$mail->SMTPSecure = $this->stored_options->imapsecure;
 			
-			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . $ssl_certification_validation . '}';
+			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . '/' . $ssl_certification_validation . '}';
 			
 			return $mailserver_path . 'INBOX';
 		}
@@ -1013,7 +1013,7 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	
 	private function is_gmail(){
 		
-		return "smtp.gmail.com" === $this->stored_options->smtp_host;
+		return preg_match('/smtp.gmail.com/', $this->stored_options->smtp_host);
 	}
 
 }

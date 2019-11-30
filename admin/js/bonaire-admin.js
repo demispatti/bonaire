@@ -69,7 +69,7 @@
             this.addEvents();
         },
         setLoaderSpinner: function (){
-            $('#wpwrap').prepend('<div class="loader loader-default" data-text="' + this.optionsPageNotifications.working + '"></div>');
+            $('#wpbody').prepend('<div class="loader loader-default" data-text="' + this.optionsPageNotifications.working + '"></div>');
             this.loaderSpinner = $('.loader.loader-default');
             $(this.loaderSpinner).hide();
         },
@@ -405,8 +405,6 @@
 
             $.post(ajaxurl, data, function ( response ){
 
-                $this.hideLoaderSpinner();
-
                 // @todo fix
                 if (undefined === response.data){
                     response = $.parseJSON(response);
@@ -417,6 +415,8 @@
                 } else{
                     alertify.alert(response.data.message);
                 }
+
+                $this.hideLoaderSpinner();
 
                 $this.bonaireUpdateSettingsStatus();
             });

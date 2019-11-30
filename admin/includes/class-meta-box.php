@@ -15,6 +15,9 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
+if ( ! class_exists( 'AdminPartials\Bonaire_Message_Display' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'admin/partials/class-message-display.php';
+}
 if ( ! class_exists( 'AdminPartials\Bonaire_Reply_Form_Display' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/partials/class-reply-form-display.php';
 }
@@ -104,7 +107,8 @@ class Bonaire_Meta_Box {
 	public function add_hooks() {
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_meta_box' ) );
+		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_message_meta_box' ), 10 );
+		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_reply_form_meta_box' ), 11 );
 	}
 	
 	/**
@@ -119,13 +123,23 @@ class Bonaire_Meta_Box {
 		wp_enqueue_script( 'dashicons' );
 	}
 	
+	public function add_message_meta_box() {
+		
+		add_meta_box(
+			'bonaire-message-meta-box',
+			__( 'Message', $this->domain ),
+			array( $this, 'display_message_meta_box' ),
+			'flamingo_page_flamingo_inbound'
+		);
+	}
+	
 	/**
 	 * Registers the meta box with WordPress.
 	 *
 	 * @since 0.9.6
 	 * @return void
 	 */
-	public function add_meta_box() {
+	public function add_reply_form_meta_box() {
 		
 		add_meta_box(
 			'bonaire-form-meta-box',
@@ -141,7 +155,7 @@ class Bonaire_Meta_Box {
 	 * @since 0.9.6
 	 * @echo string $string
 	 */
-	public function display_reply_form_meta_box() {
+	public function display_message_meta_box() {
 		
 		$post_id = (int) $_REQUEST['post'];
 		$stored_options = $this->Bonaire_Options->get_stored_options();
@@ -152,6 +166,118 @@ class Bonaire_Meta_Box {
 		$recipient_email_address = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
 		$url = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
 		$link = '<a href="' . esc_url($url) . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		
+		$_post = get_post($post_id);
+		//$post_meta = get_post_meta($_post->ID);
+		//$message = $post_meta->fields['_field_your-message'];
+		
+		// @todo: form_id anfügen
+		$args = array(
+			'posts_per_page' => 1,
+			'offset' => 0,
+			'orderby' => 'ID',
+			'order' => 'ASC',
+			'meta_key' => '',
+			'meta_value' => '',
+			'post_status' => 'any',
+			'post_id' => $_post->ID
+		);
+		
+		$inbound_message = \Flamingo_Inbound_Message::find( $args );
+		$your_message = $inbound_message[0]->fields['your-message'];
+		
+		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
+		if ( (false === $uniqid || false === $recipient_email_address) ||
+		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
+		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ){
+			
+			return;
+		}
+		
+		
+		$a = 2;
+		
+		/**
+		 * Check if the message was preprocessed.
+		 * If not, a reply is not possible since we don't know the sender's email address.
+		 */
+		/*$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
+		if(false === $uniqid || false === $recipient_email_address){
+			esc_html_e( 'Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire with the respective contact form.', $this->domain );
+			
+			return;
+		}*/
+		
+		/**
+		 * Check if the username and recipient email adresses match.
+		 * If so, it's the one associated with the message. Else we bail.
+		 */
+		/*if(false === $this->Bonaire_Adapter->is_same_email_address( $post_id )){
+			esc_html_e( 'In order to send replies, please enter the email account details the contact form is related to', $this->domain ) . ' ' . '(' . $recipient_email_address . '): ' . $link;
+			
+			return;
+		}*/
+		
+		/**
+		 * Check if the necessary account settings are marked as valid.
+		 */
+		/*if ('yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status) {
+			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $recipient_email_address );
+			echo $string;
+			return;
+		}*/
+		
+		/**
+		 * Display reply form.
+		 */
+		//$your_subject = $this->Bonaire_Adapter->get_post_field( $post_id, 'your-subject' );
+		//$your_email = $this->Bonaire_Adapter->get_meta_field( $post_id, 'post_author_email' );
+		$string = AdminPartials\Bonaire_Message_Display::message_display( $your_message );
+		echo $string;
+		
+		return;
+	}
+	
+	public function display_reply_form_meta_box() {
+		
+		$post_id                         = (int) $_REQUEST['post'];
+		$stored_options                  = $this->Bonaire_Options->get_stored_options();
+		$Bonaire_Account_Settings_Status = new Bonaire_Account_Settings_Status( $this->domain );
+		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
+		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
+		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
+		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
+		$url                             = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
+		$link                            = '<a href="' . esc_url( $url ) . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		
+		/*$_post = get_post( $post_id );
+		//$post_meta = get_post_meta($_post->ID);
+		//$message = $post_meta->fields['_field_your-message'];
+		
+		// @todo: form_id anfügen
+		$args = array(
+			'posts_per_page' => 1,
+			'offset' => 0,
+			'orderby' => 'ID',
+			'order' => 'ASC',
+			'meta_key' => '',
+			'meta_value' => '',
+			'post_status' => 'any',
+			'post_id' => $_post->ID
+		);*/
+		
+		//$inbound_message = \Flamingo_Inbound_Message::find( $args );
+		//$your_message    = $inbound_message[0]->fields['your-message'];
+		
+		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
+		if ( ( false === $uniqid || false === $recipient_email_address ) ||
+		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
+		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ) {
+			
+			return;
+		}
+		
+		//$a = 2;
 		
 		/**
 		 * Check if the message was preprocessed.
@@ -169,7 +295,7 @@ class Bonaire_Meta_Box {
 		 * If so, it's the one associated with the message. Else we bail.
 		 */
 		if(false === $this->Bonaire_Adapter->is_same_email_address( $post_id )){
-			esc_html_e( 'In order to send replies, please register the email account the contact form is related to', $this->domain ) . ' ' . ' (' . $recipient_email_address . '): ' . $link;
+			esc_html_e( 'In order to send replies, please enter the email account details the contact form is related to', $this->domain ) . ' ' . '(' . $recipient_email_address . '): ' . $link;
 			
 			return;
 		}
@@ -188,7 +314,7 @@ class Bonaire_Meta_Box {
 		 */
 		$your_subject = $this->Bonaire_Adapter->get_post_field( $post_id, 'your-subject' );
 		$your_email = $this->Bonaire_Adapter->get_meta_field( $post_id, 'post_author_email' );
-		$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $this->Bonaire_Options->get_stored_options( 0 ) );
+		$string = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $stored_options );
 		echo $string;
 		
 		return;
