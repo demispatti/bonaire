@@ -59,29 +59,28 @@ class Bonaire_Reply_Form_Display {
 		
 		ob_start();
 		?>
-        <!-- a fix, maybe @todo if not wp-related... -->
+        <!-- a fix, maybe an @todo if not wp-related... -->
         <form></form>
         <div class="bonaire-reply-form-container">
             <form id="bonaire_reply_form" method="post" data-nonce="<?php echo $nonce ?>">
                 <div>
                     <label for="name"><?php esc_html_e( 'Your Name', self::$domain ) ?></label>
-                    <input type="text" name="name" data-key="name" data-form-input="bonaire" title="<?php esc_html_e( 'Name', self::$domain ) ?>"
+                    <input type="text" name="name" data-key="name" data-form-input="bonaire"
                         value="<?php echo $name ?>">
                 </div>
                 <div>
                     <label for="email"><?php esc_html_e( 'Recipient', self::$domain ) ?></label>
-                    <input type="email" name="email" data-key="email" data-form-input="bonaire" title="<?php esc_html_e( 'Email', self::$domain ) ?>"
+                    <input type="email" name="email" data-key="email" data-form-input="bonaire"
                         value="<?php echo sanitize_email( $your_email ) ?>" disabled>
                 </div>
                 <div>
                     <label for="subject"><?php esc_html_e( 'Subject', self::$domain ) ?></label>
                     <input type="text" name="subject" data-key="subject" data-form-input="bonaire"
-                        title="<?php esc_html_e( 'Subject', self::$domain ) ?>" value="<?php echo $subject ?>">
+                        value="<?php echo $subject ?>">
                 </div>
                 <div>
                     <label for="textarea"><?php esc_html_e( 'Message', self::$domain ) ?></label>
                     <textarea name="textarea" id="" data-key="message" data-form-input="bonaire"
-                        title="<?php esc_html_e( 'Message', self::$domain ) ?>"
                         cols="30" rows="10"></textarea>
                 </div>
 

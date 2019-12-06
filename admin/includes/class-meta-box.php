@@ -109,6 +109,7 @@ class Bonaire_Meta_Box {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_message_meta_box' ), 10 );
 		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_reply_form_meta_box' ), 11 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'localize_script' ), 20 );
 	}
 	
 	/**
@@ -149,6 +150,11 @@ class Bonaire_Meta_Box {
 		);
 	}
 	
+	public function localize_script() {
+		
+		wp_localize_script( 'bonaire-admin-js', 'BonaireOptions', array( 'manage_handle_divs' => '1' ) );
+	}
+	
 	/**
 	 * Creates and displays the meta box containing the reply form.
 	 *
@@ -167,11 +173,6 @@ class Bonaire_Meta_Box {
 		
 		$_post          = get_post( $post_id );
 		$post_meta      = get_post_meta( $_post->ID );
-		$your_email     = $post_meta['_field_your-email'][0];
-		$your_name      = $post_meta['_field_your-name'][0];
-		$contact_page   = 'link-to-contact-page';
-		$your_name_link = $contact_page . $your_name;
-		$your_subject   = $post_meta['_field_your-subject'][0];
 		$your_message   = $post_meta['_field_your-message'][0];
 		
 		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
@@ -185,12 +186,18 @@ class Bonaire_Meta_Box {
 		/**
 		 * Display reply form.
 		 */
-		$string = AdminPartials\Bonaire_Message_Display::message_display( $your_name, $your_email, $your_subject, $your_message );
+		$string = AdminPartials\Bonaire_Message_Display::message_display( $your_message );
 		echo $string;
 		
 		return;
 	}
 	
+	/**
+	 * Creates and displays the meta box containing the message text.
+	 *
+	 * @since 1.0.0
+	 * @echo  string $string
+	 */
 	public function display_reply_form_meta_box() {
 		
 		$post_id                         = (int) $_REQUEST['post'];

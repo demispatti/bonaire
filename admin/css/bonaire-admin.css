@@ -260,6 +260,8 @@
 
 .bonaire-message-container {
   background-color: #FFFFFF;
+  padding: 0 0 0 0;
+  border: none;
 }
 
 #bonaire_reply_form > div,
@@ -296,6 +298,10 @@
 #bonaire_message input.bonaire-submit-reply-button {
   margin-top: 12px;
   float: right;
+}
+
+#bonaire_message textarea {
+  color: inherit;
 }
 
 .bonaire-settings {

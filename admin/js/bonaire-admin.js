@@ -132,6 +132,9 @@
             this.moveToTrashButton.bind('click', {context: this}, this.bonaireMoveToTrash);
             this.handleDiv.bind('click', this.bonaireToggleWidgetContent);
             // Meta Box
+            if ('1' === BonaireOptions.manage_handle_divs){
+                this.manageHandleDivs();
+            }
             this.bonaireReplyButton.bind('click', {context: this}, this.bonaireReply);
             // Options Page
             this.bonaireSaveOptionsButton.bind('click', {context: this}, this.bonaireSaveOptions);
@@ -709,6 +712,10 @@
         hideLoaderSpinner: function (){
             this.loaderSpinner.fadeOut(162);
             this.loaderSpinner.removeClass('is-active');
+        },
+        manageHandleDivs: function(){
+            $('#inboundfieldsdiv, #inboundmetadiv').addClass('closed');
+            $('#bonaire-message-meta-box, #bonaire-reply-meta-box').removeClass('closed');
         }
 
     };
