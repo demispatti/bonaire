@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the settings page.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -26,7 +26,7 @@ class Bonaire_Settings_Page_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -35,7 +35,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	private $Bonaire_Options;
@@ -44,7 +44,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $stored_options;
@@ -53,7 +53,7 @@ class Bonaire_Settings_Page_Display {
 	 * Holds the options meta data.
 	 *
 	 * @var object $options_meta
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $options_meta;
@@ -64,23 +64,23 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $domain
 	 * @param AdminIncludes\ $Bonaire_Options
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain, $Bonaire_Options ) {
 		
-		$this->domain = $domain;
+		$this->domain          = $domain;
 		$this->Bonaire_Options = $Bonaire_Options;
-		$this->stored_options = $this->Bonaire_Options->get_stored_options( 0 );
-		$this->options_meta = $this->Bonaire_Options->get_options_meta();
+		$this->stored_options  = $this->Bonaire_Options->get_stored_options( 0 );
+		$this->options_meta    = $this->Bonaire_Options->get_options_meta();
 		$this->add_hooks();
 	}
 	
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function add_hooks() {
 		
@@ -90,22 +90,23 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns the settings page content.
 	 *
-	 * @since 0.9.6
 	 * @return string $html
 	 * @toBeImplemented
+	 * @since 0.9.6
 	 */
 	public function settings_page_display() {
 		
-		$form_nonce = wp_create_nonce( 'bonaire_save_options_nonce' );
-		$reset_options_nonce = wp_create_nonce( 'bonaire_reset_options_nonce' );
-		$send_test_message_nonce = wp_create_nonce( 'bonaire_send_testmail_nonce' );
+		$form_nonce               = wp_create_nonce( 'bonaire_save_options_nonce' );
+		$reset_options_nonce      = wp_create_nonce( 'bonaire_reset_options_nonce' );
+		$send_test_message_nonce  = wp_create_nonce( 'bonaire_send_testmail_nonce' );
 		$test_smtp_settings_nonce = wp_create_nonce( 'bonaire_test_smtp_settings_nonce' );
 		$test_imap_settings_nonce = wp_create_nonce( 'bonaire_test_imap_settings_nonce' );
 		ob_start();
 		?>
         <h2 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h2>
         <div id="connection_details">
-            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account and further Settings', $this->domain ) ?></h3><a class="information show-settings"
+            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account and further Settings', $this->domain ) ?></h3><a
+                    class="information show-settings"
                     href="#"><?php esc_html_e( 'Information', $this->domain ) ?></a></div>
             <!-- Options Form -->
             <form id="bonaire_settings_form" data-nonce="<?php echo $form_nonce ?>" method="post">
@@ -116,20 +117,20 @@ class Bonaire_Settings_Page_Display {
 					foreach ( (array) $this->options_meta as $key => $args ) {
 						$value = isset( $this->stored_options->{$key} ) ? $this->stored_options->{$key} : '';
 						
-					    if('form_id' === $key){
-						    $string .= '<input type="hidden" value="'. esc_html($value) . '" data-form-input="bonaire" data-key="form_id" name="bonaire_options[form_id]"/>';
-                        } else {
-						    // Settings Section Titles
-						    $string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
-						    $string .= 'number_posts' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
-						    $string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
-						    $string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
-						
-						    // Settings
-						    $string .= $this->get_settings_field( $key, $value, $this->options_meta );
-						    // Close title div
-						    $string .= 'channel' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
-                        }
+						if ( 'form_id' === $key ) {
+							$string .= '<input type="hidden" value="' . esc_html( $value ) . '" data-form-input="bonaire" data-key="form_id" name="bonaire_options[form_id]"/>';
+						} else {
+							// Settings Section Titles
+							$string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
+							$string .= 'number_posts' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
+							$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
+							$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
+							
+							// Settings
+							$string .= $this->get_settings_field( $key, $value, $this->options_meta );
+							// Close title div
+							$string .= 'channel' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
+						}
 					}
 					echo $string;
 					?>
@@ -153,7 +154,7 @@ class Bonaire_Settings_Page_Display {
                 </div>
             </form>
             <div class="footer">
-                <h5 class="content-section-title"><?php esc_html_e('Test Settings', $this->domain ) ?></h5>
+                <h5 class="content-section-title"><?php esc_html_e( 'Test Settings', $this->domain ) ?></h5>
                 <div>
                     <!-- Test SMTP Settings Button -->
                     <div class="button-container test-smtp-settings-button-container">
@@ -191,8 +192,8 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns the strings that describe the three 'settings statuss'.
 	 *
-	 * @since 0.9.6
 	 * @return array
+	 * @since 0.9.6
 	 */
 	private function get_strings() {
 		
@@ -217,8 +218,8 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.6
 	 * @return string
+	 * @since 0.9.6
 	 */
 	private function get_settings_field( $key, $value, $options_meta ) {
 		
@@ -256,8 +257,8 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	private function get_settings_field_for_text( $key, $value, $options_meta ) {
 		
@@ -269,7 +270,7 @@ class Bonaire_Settings_Page_Display {
 		
 		$disabled = '';
 		if ( 'smtpauth' === $key ) {
-			$value = 'true';
+			$value    = 'true';
 			$disabled = 'disabled';
 		}
 		
@@ -277,8 +278,8 @@ class Bonaire_Settings_Page_Display {
 			$data_form_input = '';
 		}
 		
-		$label = translate( $options_meta->{$key}['name'], $this->domain );
-		$name = 'bonaire_options[' . $key . ']';
+		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$name          = 'bonaire_options[' . $key . ']';
 		$default_value = translate( $options_meta->{$key}['default_value'], $this->domain );
 		
 		ob_start();
@@ -303,22 +304,22 @@ class Bonaire_Settings_Page_Display {
 	 * @param string $value
 	 * @param object $options_meta
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	private function get_settings_field_for_dropdown( $key, $value, $options_meta ) {
 		
-	 
-		$label = translate( $options_meta->{$key}['name'], $this->domain );
-		$name = 'bonaire_options[' . $key . ']';
+		
+		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$name          = 'bonaire_options[' . $key . ']';
 		$default_value = $options_meta->{$key}['default_value'];
 		
 		if ( 'channel' === $key ) {
 			$select_values = array_merge( $this->get_contact_form_titles_List(), $options_meta->{$key}['values'] );
-			$key = preg_match( '/_/', $key ) ? str_replace( '_', '', $key ) : $key;
+			$key           = preg_match( '/_/', $key ) ? str_replace( '_', '', $key ) : $key;
 		} else {
 			$select_values = $options_meta->{$key}['values'];
-        }
+		}
 		
 		ob_start();
 		?>
@@ -328,11 +329,12 @@ class Bonaire_Settings_Page_Display {
                 data-key="<?php echo $key ?>" data-default-value="<?php echo $default_value ?>">
 				<?php
 				foreach ( $select_values as $key => $select_value ) {
-					$key = (string) $key;
+					$key   = (string) $key;
 					$value = (string) $value;
-                    ?>
-                    <option value="<?php echo $key ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo translate( $select_value, $this->domain ); ?></option>
-                    <?php
+					?>
+                    <option
+                        value="<?php echo $key ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo translate( $select_value, $this->domain ); ?></option>
+					<?php
 				} ?>
             </select>
         </div>
@@ -350,13 +352,13 @@ class Bonaire_Settings_Page_Display {
 	 * @param $value
 	 * @param $options_meta
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	private function get_settings_field_for_checkbox( $key, $value, $options_meta ) {
 		
-		$label = translate( $options_meta->{$key}['name'], $this->domain );
-		$name = 'bonaire_options[' . $key . ']';
+		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$name          = 'bonaire_options[' . $key . ']';
 		$default_value = translate( $options_meta->{$key}['default_value'], $this->domain );
 		
 		$data_form_input = 'bonaire';
@@ -380,15 +382,15 @@ class Bonaire_Settings_Page_Display {
 	 *
 	 * @param string $protocol
 	 *
-	 * @since 0.9.6
 	 * @return string
+	 * @since 0.9.6
 	 */
 	private function get_status_display( $protocol ) {
 		
-		$strings = $this->get_strings();
-		$plugin_options = $this->Bonaire_Options->get_stored_options( 1 );
+		$strings          = $this->get_strings();
+		$plugin_options   = $this->Bonaire_Options->get_stored_options( 1 );
 		$account_settings = $this->Bonaire_Options->get_stored_options( 0 );
-		$settings_status = isset($plugin_options->{$protocol . '_status'}) ? $plugin_options->{$protocol . '_status'} : 'orange';
+		$settings_status  = isset( $plugin_options->{$protocol . '_status'} ) ? $plugin_options->{$protocol . '_status'} : 'orange';
 		
 		if ( isset( $protocol ) && 'imap' === $protocol && 'no' === $account_settings->save_reply ) {
 			$settings_status = 'inactive';
@@ -400,8 +402,8 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Returns a list of 'channels' which represent a Contact Form 7 contact form.
 	 *
-	 * @since 0.9.6
 	 * @return array $list
+	 * @since 0.9.6
 	 */
 	private function get_contact_form_titles_List() {
 		
@@ -425,8 +427,8 @@ class Bonaire_Settings_Page_Display {
 	/**
 	 * Localizes the javascript file for the admin part of the plugin.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function localize_script() {
 		

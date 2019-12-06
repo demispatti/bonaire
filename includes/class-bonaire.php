@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
  * public-facing side of the site and the admin area.
  *
  * @link       https://demispatti.ch
- * @since     0.9.6
+ * @since      0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes
  */
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since     0.9.6
+ * @since      0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes
  * @author     Demis Patti <demispatti@gmail.com>
@@ -41,7 +41,7 @@ class Bonaire {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   protected
 	 * @var      string $name The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +51,7 @@ class Bonaire {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -59,7 +59,7 @@ class Bonaire {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   protected
 	 * @var      string $version The current version of the plugin.
 	 */
@@ -75,21 +75,21 @@ class Bonaire {
 	 * @param string $domain
 	 * @param string $version
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $name, $domain, $version ) {
 		
-		$this->name = $name;
-		$this->domain = $domain;
+		$this->name    = $name;
+		$this->domain  = $domain;
 		$this->version = $version;
 	}
 	
 	/**
 	 * Runs the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function init() {
 		
@@ -103,8 +103,8 @@ class Bonaire {
 	 * Uses the Bonaire_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function include_locale() {
 		
@@ -118,8 +118,8 @@ class Bonaire {
 	 * Registers all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_admin() {
 		
@@ -140,8 +140,8 @@ class Bonaire {
 	 * Registers all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_public() {
 		

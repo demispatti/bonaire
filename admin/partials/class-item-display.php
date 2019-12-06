@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating the messages that are being displayed by the dashboard widget.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -23,7 +23,7 @@ class Bonaire_Item_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public static
 	 */
 	public static $domain;
@@ -33,8 +33,8 @@ class Bonaire_Item_Display {
 	 *
 	 * @param $domain
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain ) {
 		
@@ -47,8 +47,8 @@ class Bonaire_Item_Display {
 	 * @param string $message
 	 * @param int $charlength
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function get_excerpt( $message, $charlength = 54 ) {
 		
@@ -67,21 +67,21 @@ class Bonaire_Item_Display {
 	 *
 	 * @param object $post
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function item_display( $post ) {
 		
-		$post_id = $post->id;
-		$email = $post->fields['your-email'];
-		$name = $post->fields['your-name'];
-		$subject = $post->fields['your-subject'];
-		$message = $post->fields['your-message'];
-		$excerpt = self::get_excerpt( $message );
+		$post_id        = $post->id;
+		$email          = $post->fields['your-email'];
+		$name           = $post->fields['your-name'];
+		$subject        = $post->fields['your-subject'];
+		$message        = $post->fields['your-message'];
+		$excerpt        = self::get_excerpt( $message );
 		$edit_post_link = site_url() . '/wp-admin/admin.php?page=flamingo_inbound&post=' . $post_id . '&action=edit';
 		
-		$read_nonce = wp_create_nonce( 'bonaire_mark_as_read_nonce_' . $post_id );
-		$spam_nonce = wp_create_nonce( 'bonaire_mark_as_spam_nonce_' . $post_id );
+		$read_nonce  = wp_create_nonce( 'bonaire_mark_as_read_nonce_' . $post_id );
+		$spam_nonce  = wp_create_nonce( 'bonaire_mark_as_spam_nonce_' . $post_id );
 		$trash_nonce = wp_create_nonce( 'bonaire_move_to_trash_nonce_' . $post_id );
 		
 		ob_start();
@@ -89,7 +89,7 @@ class Bonaire_Item_Display {
 
         <li id="message_<?php echo $post_id ?>" class="message comment-item">
 
-            <a class="message-icon" href="<?php echo esc_url($edit_post_link) ?>" style="font-style=normal;"
+            <a class="message-icon" href="<?php echo esc_url( $edit_post_link ) ?>" style="font-style=normal;"
                 title="<?php esc_html_e( ' View Message', self::$domain ) ?>"><span class="dashicons dashicons-email"></span></a>
 
             <div class="dashboard-message-wrap has-row-actions">

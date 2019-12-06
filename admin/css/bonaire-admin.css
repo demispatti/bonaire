@@ -242,13 +242,15 @@
   margin: 0 0 0 0;
 }
 
-#poststuff .bonaire-form-meta-box h2 span.lighter {
+#poststuff .bonaire-reply-form-meta-box h2 span.lighter,
+#poststuff .bonaire-message-meta-box h2 span.lighter {
   font-size: 12px !important;
   line-height: 2rem !important;
   font-weight: 300 !important;
 }
 
-.bonaire-reply-form-container {
+.bonaire-reply-form-container,
+.bonaire-message-container {
   display: block;
   overflow: hidden;
   background-color: #f9f9f9;
@@ -256,33 +258,42 @@
   padding: 12px;
 }
 
-#bonaire_reply_form > div {
+.bonaire-message-container {
+  background-color: #FFFFFF;
+}
+
+#bonaire_reply_form > div,
+#bonaire_message > div {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
 }
-#bonaire_reply_form label {
+#bonaire_reply_form label,
+#bonaire_message label {
   height: 32px;
   flex-basis: 100px;
   flex-shrink: 0;
   flex-grow: 0;
   padding: 10px 5px 3px 5px;
 }
-#bonaire_reply_form input:not(.bonaire-submit-reply-button) {
+#bonaire_reply_form input:not(.bonaire-submit-reply-button),
+#bonaire_message input:not(.bonaire-submit-reply-button) {
   height: 32px;
   flex-shrink: 1;
   flex-grow: 1;
   padding: 6px 5px 3px 5px;
   margin-bottom: 12px;
 }
-#bonaire_reply_form textarea {
+#bonaire_reply_form textarea,
+#bonaire_message textarea {
   display: block;
   width: 100%;
   max-width: 100%;
 }
-#bonaire_reply_form input.bonaire-submit-reply-button {
+#bonaire_reply_form input.bonaire-submit-reply-button,
+#bonaire_message input.bonaire-submit-reply-button {
   margin-top: 12px;
   float: right;
 }

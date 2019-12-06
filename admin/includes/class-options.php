@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for handling the user options.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -26,7 +26,7 @@ final class Bonaire_Options {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -35,7 +35,7 @@ final class Bonaire_Options {
 	 * Holds the default options.
 	 *
 	 * @var      object $default_options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $default_options;
@@ -44,7 +44,7 @@ final class Bonaire_Options {
 	 * Holds the stored options.
 	 *
 	 * @var      object $stored_options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	public $stored_options;
@@ -53,7 +53,7 @@ final class Bonaire_Options {
 	 * Holds the account settings part of the stored options.
 	 *
 	 * @var      object $account_settings
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $account_settings;
@@ -62,7 +62,7 @@ final class Bonaire_Options {
 	 * Holds the options meta data.
 	 *
 	 * @var      object $options_meta
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $options_meta;
@@ -72,7 +72,7 @@ final class Bonaire_Options {
 	 * the SMTP hash key.
 	 *
 	 * @var      array $smtp_hash_keys
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $smtp_hash_keys = array(
@@ -90,7 +90,7 @@ final class Bonaire_Options {
 	 * the IMAP hash key.
 	 *
 	 * @var      array $imap_hash_keys
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $imap_hash_keys = array(
@@ -117,7 +117,7 @@ final class Bonaire_Options {
 	 */
 	private function default_options() {
 		
-		$options = (object) array();
+		$options      = (object) array();
 		$options->{0} = (object) array(
 			'channel' => '',
 			'username' => '',
@@ -158,7 +158,7 @@ final class Bonaire_Options {
 			return $this->default_options;
 		}
 		
-		$options = (object) array();
+		$options      = (object) array();
 		$options->{0} = (object) $stored_options[0];
 		$options->{1} = (object) $stored_options[1];
 		
@@ -418,12 +418,12 @@ final class Bonaire_Options {
 	 */
 	public function __construct( $domain ) {
 		
-		$this->domain = $domain;
-		$this->default_options = $this->default_options();
-		$stored_options = $this->stored_options();
-		$this->stored_options = $stored_options;
+		$this->domain           = $domain;
+		$this->default_options  = $this->default_options();
+		$stored_options         = $this->stored_options();
+		$this->stored_options   = $stored_options;
 		$this->account_settings = $this->account_settings( $stored_options );
-		$this->options_meta = $this->options_meta();
+		$this->options_meta     = $this->options_meta();
 	}
 	
 	/**
@@ -459,13 +459,13 @@ final class Bonaire_Options {
 		
 		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
 		
-		$options_meta = array( 'options_meta' => $this->options_meta() );
-		$default_options = array( 'default_options' => $this->default_options() );
+		$options_meta     = array( 'options_meta' => $this->options_meta() );
+		$default_options  = array( 'default_options' => $this->default_options() );
 		$has_empty_fields = array( 'has_empty_field' => $this->has_empty_field() );
-		$save_reply = array( 'save_reply' => $this->stored_options->{0}->save_reply );
-		$smtp_status = array( 'smtp_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) );
-		$imap_status = array( 'imap_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true ) );
-		$ajaxurl = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
+		$save_reply       = array( 'save_reply' => $this->stored_options->{0}->save_reply );
+		$smtp_status      = array( 'smtp_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) );
+		$imap_status      = array( 'imap_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true ) );
+		$ajaxurl          = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
 		
 		$data = array_merge( $options_meta, $default_options, $has_empty_fields, $save_reply, $ajaxurl, $smtp_status, $imap_status );
 		
@@ -504,7 +504,7 @@ final class Bonaire_Options {
 			$keys = $this->imap_hash_keys;
 		}
 		
-		$stored_options = $this->stored_options();
+		$stored_options   = $this->stored_options();
 		$account_settings = $stored_options->{0};
 		
 		$empty_values = 0;
@@ -546,8 +546,8 @@ final class Bonaire_Options {
 		}
 		
 		$old_stored_options = get_option( 'bonaire_options' );
-		$stored_options = get_option( 'bonaire_options' );
-		$stored_options[0] = $output;
+		$stored_options     = get_option( 'bonaire_options' );
+		$stored_options[0]  = $output;
 		
 		// Update options
 		$result = update_option( 'bonaire_options', $stored_options, true );
@@ -577,11 +577,11 @@ final class Bonaire_Options {
 	private function evaluate_account_settings( $output, $old_stored_options ) {
 		
 		// Test SMTP and / or IMAP settings
-		$Bonaire_Account_Evaluator = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this );
+		$Bonaire_Account_Evaluator       = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this );
 		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
 		
-		$imap_result = null;
-		$imap_status = $Bonaire_Account_Settings_Status->get_settings_status( 'imap' );
+		$imap_result                = null;
+		$imap_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'imap' );
 		$have_imap_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'imap' );
 		if ( $have_imap_settings_changed || false === $have_imap_settings_changed && 'green' !== $imap_status ) {
 			if ( 'no' === $output['save_reply'] ) {
@@ -591,8 +591,8 @@ final class Bonaire_Options {
 				$imap_result = $Bonaire_Account_Evaluator->bonaire_test_imap_settings();
 			}
 		}
-		$smtp_result = null;
-		$smtp_status = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp' );
+		$smtp_result                = null;
+		$smtp_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp' );
 		$have_smtp_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'smtp' );
 		if ( $have_smtp_settings_changed || false === $have_smtp_settings_changed && 'green' !== $smtp_status ) {
 			$smtp_result = $Bonaire_Account_Evaluator->bonaire_test_smtp_settings();
@@ -659,10 +659,10 @@ final class Bonaire_Options {
 	private function check_for_changed_settings( $keys, $input, $old_stored_options ) {
 		
 		// Extract the relevant values for comparison
-		$input_array_to_check = array();
+		$input_array_to_check          = array();
 		$stored_options_array_to_check = array();
 		foreach ( $keys as $key => $value ) {
-			$input_array_to_check[ $key ] = $input[ $key ];
+			$input_array_to_check[ $key ]          = $input[ $key ];
 			$stored_options_array_to_check[ $key ] = $old_stored_options[0][ $key ];
 		}
 		
@@ -696,9 +696,9 @@ final class Bonaire_Options {
 		
 		delete_option( 'bonaire_options' );
 		$default_settings = $this->default_options();
-		$settings[0] = (array) $default_settings->{0};
-		$settings[1] = (array) $default_settings->{1};
-		$result = update_option( 'bonaire_options', $settings, true );
+		$settings[0]      = (array) $default_settings->{0};
+		$settings[1]      = (array) $default_settings->{1};
+		$result           = update_option( 'bonaire_options', $settings, true );
 		
 		if ( false !== $result ) {
 			
@@ -748,21 +748,21 @@ final class Bonaire_Options {
 			$value = strip_tags( stripslashes( $value ) );
 			
 			if ( 'form_id' === $key || 'number_posts' === $key ) {
-				$output[ $key ] = is_int((int)$value) ? (string)$value : '';
+				$output[ $key ] = is_int( (int) $value ) ? (string) $value : '';
 			} elseif ( 'smtp_host' === $key || 'imap_host' === $key ) {
-				$result = preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i', $value );
+				$result         = preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			} elseif ( 'smtpauth' === $key ) {
 				$output[ $key ] = true;
 			} elseif ( 'smtp_port' === $key || 'imap_port' === $key ) {
-				$result = filter_var( $value, FILTER_VALIDATE_INT );
+				$result         = filter_var( $value, FILTER_VALIDATE_INT );
 				$output[ $key ] = is_int( $result ) && 0 !== $result && 1 !== $result ? (int) $value : '';
 			} elseif ( 'username' === $key ) {
 				if ( strpos( $value, '@' ) !== false && strpos( $value, '.' ) !== false ) {
-					$result = filter_var( $value, FILTER_VALIDATE_EMAIL );
+					$result         = filter_var( $value, FILTER_VALIDATE_EMAIL );
 					$output[ $key ] = false !== $result ? $value : '';
 				} else {
-					$result = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
+					$result         = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 					$output[ $key ] = 1 === $result ? $value : '';
 				}
 			} elseif ( 'password' === $key ) {
@@ -790,13 +790,13 @@ final class Bonaire_Options {
 					$output[ $key ] = 'nocert';
 				}
 			} elseif ( 'from' === $key ) {
-				$result = filter_var( $value, FILTER_VALIDATE_EMAIL );
+				$result         = filter_var( $value, FILTER_VALIDATE_EMAIL );
 				$output[ $key ] = false !== $result ? $value : '';
 			} elseif ( 'fromname' === $key ) {
-				$result = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
+				$result         = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			} elseif ( 'your_name' === $key || 'your_email' === $key || 'your_subject' === $key || 'your_message' === $key ) {
-				$result = preg_match( '/^[A-Za-z0-9_-]+$/', $value );
+				$result         = preg_match( '/^[A-Za-z0-9_-]+$/', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			}
 		}
@@ -812,21 +812,21 @@ final class Bonaire_Options {
 	 *
 	 * @return string $output|bool
 	 * @since 0.9.6
-	 * @see \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
+	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
 	private function crypt( $string, $action = 'e' ) {
 		
 		$secret_key = AUTH_KEY;
-		$secret_iv = AUTH_SALT;
+		$secret_iv  = AUTH_SALT;
 		
 		if ( '' === $secret_key || '' === $secret_iv ) {
 			return $string;
 		}
 		
-		$output = false;
+		$output         = false;
 		$encrypt_method = 'AES-256-CBC';
-		$key = hash( 'sha256', $secret_key );
-		$iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+		$key            = hash( 'sha256', $secret_key );
+		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
 		
 		if ( $action === 'e' ) {
 			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );

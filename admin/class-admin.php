@@ -56,7 +56,7 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) && file_exists( BONAIRE_P
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @since     0.9.6
+ * @since      0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/admin
  * @author     Demis Patti <demispatti@gmail.com>
@@ -67,7 +67,7 @@ class Bonaire_Admin {
 	 * The name of the plugin.
 	 *
 	 * @var      string $name
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $name;
@@ -76,7 +76,7 @@ class Bonaire_Admin {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $domain;
@@ -85,7 +85,7 @@ class Bonaire_Admin {
 	 * The version of the plugin.
 	 *
 	 * @var      string $version
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $version;
@@ -96,7 +96,7 @@ class Bonaire_Admin {
 	 * on the requested page.
 	 *
 	 * @var      array $plugin_hook_suffixes
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public static
 	 */
 	public static $plugin_hook_suffixes = array(
@@ -111,7 +111,7 @@ class Bonaire_Admin {
 	 * the plugin will load its related classes (or not).
 	 *
 	 * @var      array $plugin_pages
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public static
 	 */
 	public static $plugin_pages = array(
@@ -124,7 +124,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -133,7 +133,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for keeping track of the message views.
 	 *
 	 * @var AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $Bonaire_Post_Views;
@@ -142,7 +142,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for connecting to Contact Form 7 and Flamingo.
 	 *
 	 * @var AdminIncludes\Bonaire_Adapter Bonaire_Adapter
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public
 	 */
 	public $Bonaire_Adapter;
@@ -151,7 +151,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for sending messages.
 	 *
 	 * @var AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Mail;
@@ -160,7 +160,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for evaluating the email account settings.
 	 *
 	 * @var AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Evaluator
-	 * @since   1.0.0
+	 * @since    1.0.0
 	 * @access   private
 	 */
 	private $Bonaire_Account_Evaluator;
@@ -169,7 +169,7 @@ class Bonaire_Admin {
 	 * Holds the instance of the class responsible for handling the email account settings status.
 	 *
 	 * @var AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
-	 * @since   1.0.0
+	 * @since    1.0.0
 	 * @access   private
 	 */
 	private $Bonaire_Account_Settings_Status;
@@ -177,8 +177,8 @@ class Bonaire_Admin {
 	/**
 	 * Set the options instance.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function set_options_instance() {
 		
@@ -188,8 +188,8 @@ class Bonaire_Admin {
 	/**
 	 * Set the post views instance.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function set_post_views_instance() {
 		
@@ -203,13 +203,13 @@ class Bonaire_Admin {
 	 * @param string $domain
 	 * @param string $version
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $name, $domain, $version ) {
 		
-		$this->name = $name;
-		$this->domain = $domain;
+		$this->name    = $name;
+		$this->domain  = $domain;
 		$this->version = $version;
 		
 		$this->set_options_instance();
@@ -219,8 +219,8 @@ class Bonaire_Admin {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function add_hooks() {
 		
@@ -233,8 +233,8 @@ class Bonaire_Admin {
 	/**
 	 * Adds the recipient email address as post meta data to the newly recieved message(s).
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function maybe_update_post() {
 		
@@ -247,8 +247,8 @@ class Bonaire_Admin {
 	/**
 	 * Loads the dependencies this plugin relies on.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function init_dependencies() {
 		
@@ -273,7 +273,7 @@ class Bonaire_Admin {
 			}
 			
 			// Flamingo Inbound
-			if ( (isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'edit') && (isset( $_REQUEST['page'] ) &&self::$plugin_pages['flamingo_inbound'] === $_REQUEST['page']) ) {
+			if ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'edit' ) && ( isset( $_REQUEST['page'] ) && self::$plugin_pages['flamingo_inbound'] === $_REQUEST['page'] ) ) {
 				$this->include_required_plugins_adapter();
 				$this->include_meta_box();
 			}
@@ -285,8 +285,8 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function enqueue_styles( $hook_suffix ) {
 		
@@ -353,8 +353,8 @@ class Bonaire_Admin {
 	 *
 	 * @param string $hook_suffix
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 		
@@ -427,8 +427,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class that connects to Contact Form 7 and Flamingo.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_required_plugins_adapter() {
 		
@@ -443,8 +443,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the dashboard widget.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_dashboard_widget() {
 		
@@ -458,8 +458,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the settings page.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_settings_page() {
 		
@@ -473,8 +473,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for sending emails.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_bonaire_mail() {
 		
@@ -505,15 +505,15 @@ class Bonaire_Admin {
 	 * @since 1.0.0
 	 */
 	private function include_account_settings_status() {
-
+		
 		$this->Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
 	}
 	
 	/**
 	 * Includes the meta box.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_meta_box() {
 		
@@ -527,8 +527,8 @@ class Bonaire_Admin {
 	/**
 	 * includes the help tab.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_contextual_help() {
 		
@@ -543,8 +543,8 @@ class Bonaire_Admin {
 	 * Tracks the post views in order to
 	 * display or hide the message excerpt in the dashboard widget.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_post_views() {
 		
@@ -557,8 +557,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the class responsible for handling the stored options.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_options() {
 		
@@ -571,8 +571,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the ajax functionality.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_ajax() {
 		
@@ -586,8 +586,8 @@ class Bonaire_Admin {
 	/**
 	 * Includes the tooltips displayed on the settings page.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	private function include_tooltips() {
 		

@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for internationalizing functionality.
  *
- * @since     0.9.6
+ * @since      0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes
  * @author     Demis Patti <demispatti@gmail.com>
@@ -23,7 +23,7 @@ class Bonaire_i18n {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -33,8 +33,8 @@ class Bonaire_i18n {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain ) {
 		
@@ -44,8 +44,8 @@ class Bonaire_i18n {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function add_hooks() {
 		
@@ -55,8 +55,8 @@ class Bonaire_i18n {
 	/**
 	 * Loads the plugin text domain for translation.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function load_plugin_textdomain() {
 		

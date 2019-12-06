@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-11-29 18:06+0100\n"
+"POT-Creation-Date: 2019-11-30 19:23+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -347,29 +347,37 @@ msgid ""
 "for sent items. Please review your settings and try again."
 msgstr ""
 
-#: admin/includes/class-meta-box.php:132
+#: admin/includes/class-meta-box.php:130
+#: admin/partials/class-message-display.php:82
+#: admin/partials/class-message-display.php:84
+#: admin/partials/class-reply-form-display.php:82
+#: admin/partials/class-reply-form-display.php:83
+msgid "Message"
+msgstr ""
+
+#: admin/includes/class-meta-box.php:146
 #: admin/partials/class-item-display.php:112
 msgid "Reply"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:154
+#: admin/includes/class-meta-box.php:204
 msgid "Account Settings"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:162
+#: admin/includes/class-meta-box.php:220
 msgid ""
 "Note: This function is available to you for messages you received <i>after</"
 "i> installation and configuration of Bonaire with the respective contact "
 "form."
 msgstr ""
 
-#: admin/includes/class-meta-box.php:172
+#: admin/includes/class-meta-box.php:230
 msgid ""
-"In order to send replies, please register the email account the contact "
-"form is related to"
+"In order to send replies, please enter the email account details the "
+"contact form is related to"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:181
+#: admin/includes/class-meta-box.php:239
 #, php-format
 msgid "There seems to be a problem with the email account (%d)."
 msgstr ""
@@ -617,11 +625,11 @@ msgid "Please fill in your email account details first."
 msgstr ""
 
 #: admin/includes/class-settings-page.php:120
-msgid "Enter the email address the test mail will be sent to:"
+msgid "Send Test Message"
 msgstr ""
 
 #: admin/includes/class-settings-page.php:121
-msgid "Please correct the email address:"
+msgid "Please correct the email address"
 msgstr ""
 
 #: admin/includes/class-settings-page.php:122
@@ -862,6 +870,7 @@ msgid " View Message"
 msgstr ""
 
 #: admin/partials/class-item-display.php:98
+#: admin/partials/class-message-display.php:67
 msgid "From"
 msgstr ""
 
@@ -910,33 +919,33 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: admin/partials/class-reply-form-display.php:67
-msgid "Your Name"
-msgstr ""
-
+#: admin/partials/class-message-display.php:68
 #: admin/partials/class-reply-form-display.php:68
 msgid "Name"
+msgstr ""
+
+#: admin/partials/class-message-display.php:72
+#: admin/partials/class-message-display.php:73
+#: admin/partials/class-reply-form-display.php:73
+msgid "Email"
+msgstr ""
+
+#: admin/partials/class-message-display.php:77
+#: admin/partials/class-message-display.php:79
+#: admin/partials/class-reply-form-display.php:77
+#: admin/partials/class-reply-form-display.php:79
+msgid "Subject"
+msgstr ""
+
+#: admin/partials/class-reply-form-display.php:67
+msgid "Your Name"
 msgstr ""
 
 #: admin/partials/class-reply-form-display.php:72
 msgid "Recipient"
 msgstr ""
 
-#: admin/partials/class-reply-form-display.php:73
-msgid "Email"
-msgstr ""
-
-#: admin/partials/class-reply-form-display.php:77
-#: admin/partials/class-reply-form-display.php:79
-msgid "Subject"
-msgstr ""
-
-#: admin/partials/class-reply-form-display.php:86
-#: admin/partials/class-reply-form-display.php:87
-msgid "Message"
-msgstr ""
-
-#: admin/partials/class-reply-form-display.php:92
+#: admin/partials/class-reply-form-display.php:88
 msgid "Submit"
 msgstr ""
 

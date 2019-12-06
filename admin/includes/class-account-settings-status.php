@@ -25,18 +25,18 @@ final class Bonaire_Account_Settings_Status {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
-
+	
 	/**
 	 * Bonaire_Options constructor.
 	 *
 	 * @param $domain
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain ) {
 		
@@ -51,15 +51,15 @@ final class Bonaire_Account_Settings_Status {
 	 * @param bool $bool
 	 *
 	 * @return bool|array
-	 *@since 0.9.6
+	 * @since 0.9.6
 	 */
 	public function get_settings_status( $protocol = false, $bool = false ) {
 		
 		$stored_options = get_option( 'bonaire_options' );
 		
-		if(false !== $protocol){
+		if ( false !== $protocol ) {
 			
-			if($bool){
+			if ( $bool ) {
 				
 				return 'green' === $stored_options[1][ $protocol . '_status' ];
 			} else {
@@ -69,8 +69,8 @@ final class Bonaire_Account_Settings_Status {
 		} else {
 			
 			return array(
-				'smtp' => isset( $stored_options[1][ 'smtp_status' ] ) ? $stored_options[1][ 'smtp_status' ] : 'orange',
-				'imap' => isset( $stored_options[1][ 'imap_status' ] ) ? $stored_options[1][ 'imap_status' ] : 'orange'
+				'smtp' => isset( $stored_options[1]['smtp_status'] ) ? $stored_options[1]['smtp_status'] : 'orange',
+				'imap' => isset( $stored_options[1]['imap_status'] ) ? $stored_options[1]['imap_status'] : 'orange'
 			);
 		}
 	}
@@ -84,18 +84,18 @@ final class Bonaire_Account_Settings_Status {
 	 *
 	 * @param string $protocol
 	 * @param string $status
+	 *
 	 * @return bool|\WP_Error
 	 * @throws \Exception
 	 * @since 0.9.6
 	 */
 	public function set_settings_status( $protocol, $status ) {
 		
-		$stored_options = get_option( 'bonaire_options' );
+		$stored_options                             = get_option( 'bonaire_options' );
 		$stored_options[1][ $protocol . '_status' ] = $status;
 		
 		try {
 			update_option( 'bonaire_options', $stored_options, true );
-
 		} catch( Exception $e ) {
 			
 			return new WP_Error( 1, __( 'Internal Error: Unable to set settings status.', $this->domain ) );

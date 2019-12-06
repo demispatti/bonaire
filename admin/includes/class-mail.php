@@ -24,7 +24,7 @@ if ( ! class_exists( 'PHPMailer' ) ) {
 /**
  * The class responsible for email functionality.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -35,7 +35,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   protected
 	 */
 	protected $domain;
@@ -44,7 +44,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the instance of the class responsible for handling the user options.
 	 *
 	 * @var AdminIncludes\Bonaire_Options $Bonaire_Options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $Bonaire_Options;
@@ -53,7 +53,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * Holds the stored options.
 	 *
 	 * @var object $stored_options
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $stored_options;
@@ -63,33 +63,34 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param null $exceptions
 	 *
-	 * @since 0.9.6
 	 * @return PHPMailer $mail
+	 * @since 0.9.6
 	 */
 	private function phpmailer( $exceptions = null ) {
+		
 		// Create Instance
 		$mail = new parent;
 		// Setup
-		$mail->Host = $this->stored_options->smtp_host;
-		$mail->CharSet = 'utf-8';
-		$mail->SMTPAuth = true;
-		$mail->Port = $this->stored_options->smtp_port;
-		$mail->From = $this->stored_options->from;
-		$mail->FromName = $this->stored_options->fromname;
-		$mail->Username = $this->stored_options->username;
-		$mail->Password = $this->decrypt( $this->stored_options->password );
+		$mail->Host       = $this->stored_options->smtp_host;
+		$mail->CharSet    = 'utf-8';
+		$mail->SMTPAuth   = true;
+		$mail->Port       = $this->stored_options->smtp_port;
+		$mail->From       = $this->stored_options->from;
+		$mail->FromName   = $this->stored_options->fromname;
+		$mail->Username   = $this->stored_options->username;
+		$mail->Password   = $this->decrypt( $this->stored_options->password );
 		$mail->SMTPSecure = $this->stored_options->smtpsecure;
 		$mail->isSMTP();
 		
 		// Debug
 		if ( null !== $exceptions ) {
-			$mail->SMTPDebug = 2;
+			$mail->SMTPDebug   = 2;
 			$mail->Debugoutput = function ( $str, $level ) {
 				
 				global $debug;
 				$debug[] .= "$level: $str\n";
 			};
-			$mail->Timeout = 5;
+			$mail->Timeout     = 5;
 		}
 		
 		return $mail;
@@ -100,22 +101,22 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param string $string
 	 *
-	 * @since 0.9.6
 	 * @return string $output|bool
-	 * @see \Bonaire\Admin\Includes\Bonaire_Options crypt()
+	 * @since 0.9.6
+	 * @see   \Bonaire\Admin\Includes\Bonaire_Options crypt()
 	 */
 	private function decrypt( $string ) {
 		
 		$secret_key = AUTH_KEY;
-		$secret_iv = AUTH_SALT;
+		$secret_iv  = AUTH_SALT;
 		
 		if ( '' === $secret_key || '' === $secret_iv ) {
 			return $string;
 		}
 		
 		$encrypt_method = 'AES-256-CBC';
-		$key = hash( 'sha256', $secret_key );
-		$iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+		$key            = hash( 'sha256', $secret_key );
+		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
 		
 		$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
 		
@@ -132,9 +133,9 @@ final class Bonaire_Mail extends PHPMailer {
 		
 		parent::__construct();
 		
-		$this->domain = $domain;
+		$this->domain          = $domain;
 		$this->Bonaire_Options = $Bonaire_Options;
-		$this->stored_options = $Bonaire_Options->get_stored_options();
+		$this->stored_options  = $Bonaire_Options->get_stored_options();
 	}
 	
 	/**
@@ -143,31 +144,31 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @param object $data
 	 * @param null $exceptions
 	 *
-	 * @since 0.9.6
 	 * @return PHPMailer $mail
+	 * @since 0.9.6
 	 */
 	private function setup( $data, $exceptions = null ) {
-
+		
 		$mail = $this->phpmailer( $exceptions );
 		$mail->AddAddress( $data->to );
 		$mail->AddReplyTo( $this->stored_options->from );
-		$mail->Subject = strip_tags( $data->subject );
-		$mail->Body = strip_tags( $data->message );
-		$mail->From = $this->stored_options->from;
+		$mail->Subject  = strip_tags( $data->subject );
+		$mail->Body     = strip_tags( $data->message );
+		$mail->From     = $this->stored_options->from;
 		$mail->FromName = $data->fromname;
 		$mail->isSMTP();
 		
 		return $mail;
 	}
-
+	
 	/**
 	 * Sends mail trough PHPMailer.
 	 *
 	 * @param object $data
 	 *
-	 * @since 0.9.6
 	 * @return bool|\WP_Error
 	 * @throws \Exception If saving the message failed
+	 * @since 0.9.6
 	 */
 	public function send_mail( $data ) {
 		
@@ -205,16 +206,16 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @param PHPMailer $mail
 	 *
-	 * @since 0.9.6
 	 * @return bool|\WP_Error
+	 * @since 0.9.6
 	 */
 	private function save_message( $mail ) {
 		
 		try {
 			
 			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
-			$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation );
-			$sent_items_folder = $this->get_sent_items_folder_for_send_mail( $mail );
+			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
+			$sent_items_folder            = $this->get_sent_items_folder_for_send_mail( $mail );
 			
 			$message = $mail->MIMEHeader . $mail->MIMEBody;
 			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to web server: ' . imap_last_error() );
@@ -231,13 +232,12 @@ final class Bonaire_Mail extends PHPMailer {
 			}
 			
 			return true;
-			
-		} catch( Exception $ex) {
+		} catch( Exception $ex ) {
 			
 			return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', $this->domain ) );
 		}
 	}
-
+	
 	/**
 	 * Checks if SSL is enabled.
 	 *
@@ -259,7 +259,7 @@ final class Bonaire_Mail extends PHPMailer {
 		
 		return false;
 	}
-
+	
 	/**
 	 * Returns the path to the mailbox on the mail server.
 	 *
@@ -268,14 +268,14 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @return string
 	 */
-	private function get_mailbox($mail, $ssl_certification_validation) {
+	private function get_mailbox( $mail, $ssl_certification_validation ) {
 		
-		$mail->Host = $this->stored_options->imap_host;
-		$mail->Port = $this->stored_options->imap_port;
+		$mail->Host       = $this->stored_options->imap_host;
+		$mail->Port       = $this->stored_options->imap_port;
 		$mail->SMTPSecure = $this->stored_options->imapsecure;
-
+		
 		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . '/' . $ssl_certification_validation . '}';
-		$mailbox = $mailserver_path . 'INBOX';
+		$mailbox         = $mailserver_path . 'INBOX';
 		
 		return $mailbox;
 	}
@@ -287,10 +287,10 @@ final class Bonaire_Mail extends PHPMailer {
 	 *
 	 * @return string
 	 */
-	private function get_sent_items_folder_for_send_mail($mail) {
+	private function get_sent_items_folder_for_send_mail( $mail ) {
 		
-		$is_gmail = $this->is_gmail();
-		$inbox = $is_gmail ? "[Gmail]/" : "INBOX";
+		$is_gmail          = $this->is_gmail();
+		$inbox             = $is_gmail ? "[Gmail]/" : "INBOX";
 		$inbox_folder_name = $is_gmail && '' !== $this->stored_options->inbox_folder_name ? $this->stored_options->inbox_folder_name : '.Sent';
 		
 		return '{' . $mail->Host . '}' . $inbox . $inbox_folder_name;
@@ -300,5 +300,5 @@ final class Bonaire_Mail extends PHPMailer {
 		
 		return "smtp.gmail.com" === $this->stored_options->smtp_host;
 	}
-
+	
 }

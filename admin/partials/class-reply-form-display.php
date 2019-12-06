@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the metabox containing the reply form.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -23,7 +23,7 @@ class Bonaire_Reply_Form_Display {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   public static
 	 */
 	public static $domain;
@@ -33,8 +33,8 @@ class Bonaire_Reply_Form_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain ) {
 		
@@ -45,17 +45,17 @@ class Bonaire_Reply_Form_Display {
 	 * Returns a string containing the reply form.
 	 *
 	 * @param string $your_subject
-     * @param string $your_email
+	 * @param string $your_email
 	 * @param object $account_settings
 	 *
 	 * @return string $html
-	 *@since 0.9.6
+	 * @since 0.9.6
 	 */
 	public static function reply_form_display( $your_subject, $your_email, $account_settings ) {
 		
-		$name = $account_settings->fromname;
+		$name    = $account_settings->fromname;
 		$subject = 'RE: ' . $your_subject;
-		$nonce = wp_create_nonce( 'bonaire_reply_form_nonce' );
+		$nonce   = wp_create_nonce( 'bonaire_reply_form_nonce' );
 		
 		ob_start();
 		?>
@@ -71,7 +71,7 @@ class Bonaire_Reply_Form_Display {
                 <div>
                     <label for="email"><?php esc_html_e( 'Recipient', self::$domain ) ?></label>
                     <input type="email" name="email" data-key="email" data-form-input="bonaire" title="<?php esc_html_e( 'Email', self::$domain ) ?>"
-                        value="<?php echo sanitize_email($your_email) ?>" disabled>
+                        value="<?php echo sanitize_email( $your_email ) ?>" disabled>
                 </div>
                 <div>
                     <label for="subject"><?php esc_html_e( 'Subject', self::$domain ) ?></label>
@@ -79,12 +79,9 @@ class Bonaire_Reply_Form_Display {
                         title="<?php esc_html_e( 'Subject', self::$domain ) ?>" value="<?php echo $subject ?>">
                 </div>
                 <div>
-                    <input id="cb_parallax_options[attachments]" type="hidden" name="cb_parallax_options[attachments]" data-value=""/>
-                    <ul class="attachment-list"></ul>
-                </div>
-                <div>
                     <label for="textarea"><?php esc_html_e( 'Message', self::$domain ) ?></label>
-                    <textarea name="textarea" id="" data-key="message" data-form-input="bonaire" title="<?php esc_html_e( 'Message', self::$domain ) ?>"
+                    <textarea name="textarea" id="" data-key="message" data-form-input="bonaire"
+                        title="<?php esc_html_e( 'Message', self::$domain ) ?>"
                         cols="30" rows="10"></textarea>
                 </div>
 

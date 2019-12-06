@@ -21,7 +21,7 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Options' ) ) {
 /**
  * The class responsible for activating the plugin.
  *
- * @since     0.9.6
+ * @since      0.9.6
  * @package    Bonaire
  * @subpackage Bonaire/includes
  * @author     Demis Patti <demispatti@gmail.com>
@@ -31,8 +31,8 @@ class Bonaire_Activator {
 	/**
 	 * Instantiates the class responsible for activating the plugin.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function activate() {
 		

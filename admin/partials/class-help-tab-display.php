@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The class responsible for creating and displaying the help tab.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/partials
  * @author            Demis Patti <demis@demispatti.ch>
@@ -25,8 +25,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function help_tab_display( $domain ) {
 		
@@ -64,8 +64,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_prerequisites( $domain ) {
 		
@@ -94,13 +94,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-naming-conventions-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-naming-conventions-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -118,8 +118,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_plugin_settings( $domain ) {
 		
@@ -132,13 +132,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-default-web.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-default-web.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-gmail-web.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-plugin-settings-gmail-web.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -156,8 +156,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_contact_form_7_settings( $domain ) {
 		
@@ -171,13 +171,13 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-1-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-1-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-wpcf7-config-mail-2-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -195,8 +195,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_dashboard_widget( $domain ) {
 		
@@ -210,7 +210,7 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-dashboard-widget-demo-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-dashboard-widget-demo-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -228,8 +228,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_reply_form( $domain ) {
 		
@@ -243,7 +243,7 @@ class Bonaire_Help_Tab_Display {
         <div class="item-images">
             <div>
                 <div class="image-holder">
-                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-reply-form-demo-small.jpg'?>"
+                    <img src="<?php echo BONAIRE_ROOT_URL . 'admin/images/contextual-help/ch-reply-form-demo-small.jpg' ?>"
                         alt="Contextual Help Image"/>
                 </div>
             </div>
@@ -270,7 +270,7 @@ class Bonaire_Help_Tab_Display {
 		?>
 
         <div class="item-description">
-            <?php esc_html_e('Make sure to read trough the included tooltips!', $domain) ?>
+			<?php esc_html_e( 'Make sure to read trough the included tooltips!', $domain ) ?>
         </div>
 
         <div class="item-images">
@@ -294,8 +294,8 @@ class Bonaire_Help_Tab_Display {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return string $html
+	 * @since 0.9.6
 	 */
 	public static function tab_content_plugin_information_and_privacy_notices( $domain ) {
 		
@@ -303,7 +303,8 @@ class Bonaire_Help_Tab_Display {
 		?>
 
         <div class="item-description">
-            <p><?php esc_html_e( 'Send replies to messages you recieve trough a ', $domain ) ?> <a href="https://wordpress.org/plugins/contact-form-7/"
+            <p><?php esc_html_e( 'Send replies to messages you recieve trough a ', $domain ) ?> <a
+                    href="https://wordpress.org/plugins/contact-form-7/"
                     target="_blank">Cotact Form 7</a> <?php esc_html_e( 'contact form and store with', $domain ) ?>
                 <a href="https://wordpress.org/plugins/flamingo/"
                     target="_blank">Flamingo</a>. <?php esc_html_e( 'Just register the email account that is related to the contct form in order to send replies and to save your reply in your mailserver\'s "Sent Items" folder.', $domain ) ?>

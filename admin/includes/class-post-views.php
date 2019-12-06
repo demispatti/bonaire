@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
  * The class responsible for keeping track of the post views
  * in order to show / hide messages on the dashboard widget.
  *
- * @since            0.9.6
+ * @since             0.9.6
  * @package           bonaire
  * @subpackage        bonaire/admin/includes
  * @author            Demis Patti <demis@demispatti.ch>
@@ -24,7 +24,7 @@ class Bonaire_Post_Views {
 	 * The domain of the plugin.
 	 *
 	 * @var      string $domain
-	 * @since   0.9.6
+	 * @since    0.9.6
 	 * @access   private
 	 */
 	private $domain;
@@ -34,9 +34,9 @@ class Bonaire_Post_Views {
 	 *
 	 * @param string $domain
 	 *
-	 * @since 0.9.6
 	 * @return void
 	 * @dev_helper
+	 * @since 0.9.6
 	 */
 	public function __construct( $domain ) {
 		
@@ -46,8 +46,8 @@ class Bonaire_Post_Views {
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function add_hooks() {
 		
@@ -57,14 +57,14 @@ class Bonaire_Post_Views {
 	/**
 	 * Sets the post view count if conditions are met.
 	 *
-	 * @since 0.9.6
 	 * @return void
+	 * @since 0.9.6
 	 */
 	public function count_message_views() {
 		
-		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field($_REQUEST['page']) : false;
-		$post_id = isset( $_REQUEST['post'] ) ? sanitize_text_field($_REQUEST['post']) : false;
-		$action = isset( $_REQUEST['action'] ) ? sanitize_text_field($_REQUEST['action']) : false;
+		$page    = isset( $_REQUEST['page'] ) ? sanitize_text_field( $_REQUEST['page'] ) : false;
+		$post_id = isset( $_REQUEST['post'] ) ? sanitize_text_field( $_REQUEST['post'] ) : false;
+		$action  = isset( $_REQUEST['action'] ) ? sanitize_text_field( $_REQUEST['action'] ) : false;
 		
 		if ( 'flamingo_inbound' === $page && false !== $action && (int) $post_id ) {
 			$this->set_post_views( (int) $post_id );
@@ -76,13 +76,13 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.6
 	 * @return string
+	 * @since 0.9.6
 	 */
 	public function get_post_views( $post_id ) {
 		
 		$count_key = 'post_views_count';
-		$count = get_post_meta( $post_id, $count_key, true );
+		$count     = get_post_meta( $post_id, $count_key, true );
 		if ( $count === '' ) {
 			delete_post_meta( $post_id, $count_key );
 			add_post_meta( $post_id, $count_key, 0 );
@@ -98,8 +98,8 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.6
 	 * @return bool
+	 * @since 0.9.6
 	 */
 	public function update_post_view( $post_id ) {
 		
@@ -112,13 +112,13 @@ class Bonaire_Post_Views {
 	 *
 	 * @param int $post_id
 	 *
-	 * @since 0.9.6
 	 * @return bool
+	 * @since 0.9.6
 	 */
 	private function set_post_views( $post_id ) {
 		
 		$count_key = 'post_views_count';
-		$count = get_post_meta( $post_id, $count_key, true );
+		$count     = get_post_meta( $post_id, $count_key, true );
 		if ( $count === '' ) {
 			delete_post_meta( $post_id, $count_key );
 			

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
-"POT-Creation-Date: 2019-11-29 18:06+0100\n"
-"PO-Revision-Date: 2019-11-29 18:06+0100\n"
+"POT-Creation-Date: 2019-11-30 19:23+0100\n"
+"PO-Revision-Date: 2019-11-30 19:23+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -428,29 +428,37 @@ msgstr ""
 "Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
 "Einstellungen und versuchen Sie es erneut."
 
-#: admin/includes/class-meta-box.php:132
+#: admin/includes/class-meta-box.php:130
+#: admin/partials/class-message-display.php:82
+#: admin/partials/class-message-display.php:84
+#: admin/partials/class-reply-form-display.php:82
+#: admin/partials/class-reply-form-display.php:83
+msgid "Message"
+msgstr "Nachricht"
+
+#: admin/includes/class-meta-box.php:146
 #: admin/partials/class-item-display.php:112
 msgid "Reply"
 msgstr "Antworten"
 
-#: admin/includes/class-meta-box.php:154
+#: admin/includes/class-meta-box.php:204
 msgid "Account Settings"
 msgstr "Konto-Einstellungen"
 
-#: admin/includes/class-meta-box.php:162
+#: admin/includes/class-meta-box.php:220
 msgid ""
 "Note: This function is available to you for messages you received <i>after</"
 "i> installation and configuration of Bonaire with the respective contact "
 "form."
 msgstr ""
 
-#: admin/includes/class-meta-box.php:172
+#: admin/includes/class-meta-box.php:230
 msgid ""
-"In order to send replies, please register the email account the contact form "
-"is related to"
+"In order to send replies, please enter the email account details the contact "
+"form is related to"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:181
+#: admin/includes/class-meta-box.php:239
 #, php-format
 msgid "There seems to be a problem with the email account (%d)."
 msgstr "Es scheint ein Problem mit dem E-Mail-Konto (%d) zu geben."
@@ -722,13 +730,15 @@ msgid "Please fill in your email account details first."
 msgstr "Geben Sie bitte zuerst Ihre E-Mail-Konto-Daten ein."
 
 #: admin/includes/class-settings-page.php:120
-msgid "Enter the email address the test mail will be sent to:"
-msgstr ""
-"Geben Sie die E-Mail-Adresse ein, an welche die Test-Nachricht gesendet "
-"werden soll:"
+#, fuzzy
+#| msgid "Send Testmail"
+msgid "Send Test Message"
+msgstr "Testnachricht senden"
 
 #: admin/includes/class-settings-page.php:121
-msgid "Please correct the email address:"
+#, fuzzy
+#| msgid "Please correct the email address:"
+msgid "Please correct the email address"
 msgstr "Bitte korrigieren Sie die E-Mail-Adresse:"
 
 #: admin/includes/class-settings-page.php:122
@@ -990,6 +1000,7 @@ msgid " View Message"
 msgstr "Nachricht ansehen"
 
 #: admin/partials/class-item-display.php:98
+#: admin/partials/class-message-display.php:67
 msgid "From"
 msgstr "Von"
 
@@ -1038,33 +1049,33 @@ msgstr "Ansehen"
 msgid "View"
 msgstr "Ansehen"
 
-#: admin/partials/class-reply-form-display.php:67
-msgid "Your Name"
-msgstr "Ihr Name"
-
+#: admin/partials/class-message-display.php:68
 #: admin/partials/class-reply-form-display.php:68
 msgid "Name"
 msgstr "Name"
 
-#: admin/partials/class-reply-form-display.php:72
-msgid "Recipient"
-msgstr "Empfänger"
-
+#: admin/partials/class-message-display.php:72
+#: admin/partials/class-message-display.php:73
 #: admin/partials/class-reply-form-display.php:73
 msgid "Email"
 msgstr "E-Mail Adresse"
 
+#: admin/partials/class-message-display.php:77
+#: admin/partials/class-message-display.php:79
 #: admin/partials/class-reply-form-display.php:77
 #: admin/partials/class-reply-form-display.php:79
 msgid "Subject"
 msgstr "Betreff"
 
-#: admin/partials/class-reply-form-display.php:86
-#: admin/partials/class-reply-form-display.php:87
-msgid "Message"
-msgstr "Nachricht"
+#: admin/partials/class-reply-form-display.php:67
+msgid "Your Name"
+msgstr "Ihr Name"
 
-#: admin/partials/class-reply-form-display.php:92
+#: admin/partials/class-reply-form-display.php:72
+msgid "Recipient"
+msgstr "Empfänger"
+
+#: admin/partials/class-reply-form-display.php:88
 msgid "Submit"
 msgstr "Senden"
 
@@ -1136,6 +1147,11 @@ msgstr "Bonaire"
 #. Author of the plugin/theme
 msgid "Demis Patti"
 msgstr "Demis Patti"
+
+#~ msgid "Enter the email address the test mail will be sent to:"
+#~ msgstr ""
+#~ "Geben Sie die E-Mail-Adresse ein, an welche die Test-Nachricht gesendet "
+#~ "werden soll:"
 
 #~ msgid ""
 #~ "<strong>The SMTP port number seems to be wrong.</strong><br>Please review "
