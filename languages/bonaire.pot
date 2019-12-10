@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-12-08 21:00+0100\n"
+"POT-Creation-Date: 2019-12-10 01:54+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -543,10 +543,19 @@ msgid "The IMAP port number."
 msgstr ""
 
 #: admin/includes/class-options.php:372
-msgid "Sent Items Folder Name (if Gmail)"
+msgid "Sent Items Folder Name, case-sensitive (only if Gmail)"
 msgstr ""
 
-#: admin/includes/class-options.php:377 admin/includes/class-options.php:388
+#: admin/includes/class-options.php:376 admin/includes/class-options.php:377
+#: admin/includes/class-options.php:387 admin/includes/class-options.php:388
+msgid "Sent"
+msgstr ""
+
+#: admin/includes/class-options.php:379
+msgid "Case sensitive."
+msgstr ""
+
+#: admin/includes/class-options.php:379 admin/includes/class-options.php:390
 msgid ""
 "Use \"Sent\" in the language you use the mail account with or as it is "
 "named in Outlook, Thunderbird etc., respectively)."
@@ -559,11 +568,7 @@ msgid ""
 msgstr ""
 
 #: admin/includes/class-options.php:383
-msgid "Sent Items Folder Path (if Gmail - optional or blank)"
-msgstr ""
-
-#: admin/includes/class-options.php:387 admin/includes/class-options.php:388
-msgid "Sent"
+msgid "Sent Items Folder Path (if Gmail - optional or leave blank)"
 msgstr ""
 
 #: admin/includes/class-options.php:390
