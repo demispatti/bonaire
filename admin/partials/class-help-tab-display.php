@@ -299,15 +299,14 @@ class Bonaire_Help_Tab_Display {
 	 */
 	public static function tab_content_plugin_information_and_privacy_notices( $domain ) {
 		
+	    $cf7_link = '<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a>';
+	    $flamingo_link = '<a href="https://wordpress.org/plugins/flamingo/" target="_blank">Flamingo</a>';
+	    
 		ob_start();
 		?>
 
         <div class="item-description">
-            <p><?php esc_html_e( 'Send replies to messages you recieve trough a ', $domain ) ?> <a
-                    href="https://wordpress.org/plugins/contact-form-7/"
-                    target="_blank">Cotact Form 7</a> <?php esc_html_e( 'contact form and store with', $domain ) ?>
-                <a href="https://wordpress.org/plugins/flamingo/"
-                    target="_blank">Flamingo</a>. <?php esc_html_e( 'Just register the email account that is related to the contct form in order to send replies and to save your reply in your mailserver\'s "Sent Items" folder.', $domain ) ?>
+            <p><?php esc_html_e( printf( __('Reply to messages you recieve trough a %s contact form and store with %s.', $domain ), $cf7_link, $flamingo_link)) ?> <?php esc_html_e( 'Register the email account that is related to the contct form in order to send replies and to save your reply in your mailserver\'s "Sent Items" folder.', $domain ) ?>
             </p>
 
             <h5><?php esc_html_e( 'What this plugin does:', $domain ) ?></h5>
@@ -321,10 +320,8 @@ class Bonaire_Help_Tab_Display {
             <h5><?php esc_html_e( 'This plugin does not:', $domain ) ?></h5>
             <ul class="list">
                 <li>1. <?php esc_html_e( 'Track users', $domain ) ?></li>
-                <li>
-                    2. <?php esc_html_e( 'Write personal user data to the database other than the necessary email account settings, and attaching the senders email address to the messages meta data, which is necessary to link the message to the email account in use.', $domain ) ?></li>
-                <li>
-                    3. <?php esc_html_e( 'Send any data to external servers other than your reply and/or the data necessary to reach, connect and authenticate to the mail server. Once while sending it to it\'s recipient, and once to store it in your mail server\'s "sent items" folder if you choose to do so. The original message will not be attached and sent by this plugin, in both cases not.', $domain ) ?></li>
+                <li>2. <?php esc_html_e( 'Write personal user data to the database other than the necessary email account settings, and attaching the senders email address to the messages meta data, which is necessary to link the message to the email account in use.', $domain ) ?></li>
+                <li>3. <?php esc_html_e( 'Send any data to external servers other than your reply and/or the data necessary to reach, connect and authenticate to the mail server. Once while sending it to it\'s recipient, and once to store it in your mail server\'s "sent items" folder if you choose to do so. The original message will not be attached and sent by this plugin, in both cases not.', $domain ) ?></li>
                 <li>4. <?php esc_html_e( 'Use cookies', $domain ) ?></li>
             </ul>
         </div>

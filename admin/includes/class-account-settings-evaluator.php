@@ -467,6 +467,22 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		}
 		$messages[] = __( 'Successfully tested SMTP port.', $this->domain );
 		
+		// Test SMTPSecure
+		$smtpsecure_result = $this->test_smtpsecure();
+		if ( is_wp_error( $smtpsecure_result ) ) {
+			$error_code = $smtpsecure_result->get_error_code();
+			$error_code = isset( $error_code ) ? $error_code : false;
+			$result     = array(
+				'success' => false,
+				'message' => $smtpsecure_result->get_error_message(),
+				'messages' => $messages,
+				'error_code' => $error_code
+			);
+			
+			return $this->create_response( $result, 'orange' );
+		}
+		$messages[] = __( 'Successfully tested SMTPSecure setting.', $this->domain );
+		
 		// Test SMTP user credentials
 		$socket             = fsockopen( $smtp_host, $smtp_port, $errno, $errstr, 2 );
 		$credentials_result = $this->test_credentials();
@@ -584,6 +600,22 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 			return $this->create_response( $result, 'orange' );
 		}
 		$messages[] = __( 'Successfully tested IMAP port.', $this->domain );
+		
+		// Test SMTPSecure
+		$smtpsecure_result = $this->test_smtpsecure(true);
+		if ( is_wp_error( $smtpsecure_result ) ) {
+			$error_code = $smtpsecure_result->get_error_code();
+			$error_code = isset( $error_code ) ? $error_code : false;
+			$result     = array(
+				'success' => false,
+				'message' => $smtpsecure_result->get_error_message(),
+				'messages' => $messages,
+				'error_code' => $error_code
+			);
+			
+			return $this->create_response( $result, 'orange' );
+		}
+		$messages[] = __( 'Successfully tested SMTPSecure setting.', $this->domain );
 		
 		// Test SSL
 		if ( 'yes' === $this->stored_options->save_reply && 'cert' === $this->stored_options->ssl_certification_validation ) {
@@ -707,6 +739,81 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		return true;
 	}
 	
+	private function test_smtpsecure($is_imap = false) {
+		
+		$mail = $this->get_phpmailer( true );
+		
+		if($is_imap){
+			
+			try {
+				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, true );
+				
+				// Check IMAP connection
+				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+				if ( false !== $imapStream ) {
+					// Close connection
+					imap_close( $imapStream );
+					
+					return true;
+				}
+				
+				// Check IMAP connection
+				$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation, true, true );
+				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+				if ( false !== $imapStream ) {
+					// Close connection
+					imap_close( $imapStream );
+					$imap_secure   = 'ssl' === $this->stored_options->imapsecure ? 'TLS' : 'SSL';
+					$error_message = sprintf( __( 'It seems you shoud set the value for IMAPSecure to "%s". Please change the settings and save them, before running the test again.', $this->domain ), $imap_secure );
+					
+					return new WP_Error( 1, $error_message );
+				}
+				
+				$error_message = __( 'Failed to check IMAPSecure settings. You may want to review your settings and try again.', $this->domain );
+				
+				return new WP_Error( 1, $error_message );
+			} catch( Exception $e ) {
+				
+				return new WP_Error( 2, __( 'Internal Error: Unable to check IMAPSecure settings.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			}
+		}
+		
+		try {
+			
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
+			
+			// Check SMTP connection
+			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+			if ( false !== $imapStream ) {
+				// Close connection
+				imap_close( $imapStream );
+				
+				return true;
+			}
+			
+			// Check IMAP connection
+			$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation,false, true );
+			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+			if ( false !== $imapStream ) {
+				// Close connection
+				imap_close( $imapStream );
+				$smtp_secure   = 'ssl' === $this->stored_options->smtpsecure ? 'TLS' : 'SSL';
+				$error_message = sprintf( __( 'It seems you shoud set the value for SMTPSecure to "%s". Please change the settings and save them, before running the test again.', $this->domain), $smtp_secure );
+				return new WP_Error( 1, $error_message );
+			}
+
+			$error_message = __('Failed to check SMTPSecure settings. You may want to review your settings and try again.', $this->domain );
+			
+			return new WP_Error( 1, $error_message );
+			
+		} catch( Exception $e ) {
+			
+			return new WP_Error( 2, __( 'Internal Error: Unable to check SMTPSecure settings.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+		}
+	}
+	
 	/**
 	 * Tests the SMTP port.
 	 *
@@ -782,18 +889,24 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	 */
 	public function is_ssl() {
 		
-		if ( isset( $_SERVER['HTTPS'] ) ) {
-			if ( 'on' == strtolower( $_SERVER['HTTPS'] ) ) {
+		try{
+			if ( isset( $_SERVER['HTTPS'] ) ) {
+				if ( 'on' == strtolower( $_SERVER['HTTPS'] ) ) {
+					return true;
+				}
+				if ( '1' == $_SERVER['HTTPS'] ) {
+					return true;
+				}
+			} elseif ( isset( $_SERVER['SERVER_PORT'] ) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
 				return true;
 			}
-			if ( '1' == $_SERVER['HTTPS'] ) {
-				return true;
-			}
-		} elseif ( isset( $_SERVER['SERVER_PORT'] ) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
-			return true;
+			
+			return new WP_Error( - 31, __( 'You need to install a SSL certificate, or set the value for "use certification validation to "nocert" (read it\'s tooltip and use the "nocert" option during local development only).', $this->domain ), 'orange' );
+		} catch(Exception $e) {
+			
+			return new WP_Error( - 31, __( 'You need to install a SSL certificate, or set the value for "use certification validation to "nocert" (read it\'s tooltip and use the "nocert" option during local development only).', $this->domain ), 'orange' );
 		}
 		
-		return new WP_Error( - 31, __( 'You need to install a SSL certificate, or set the value for "use certification validation to "nocert" (read it\'s tooltip and use the "nocert" option during local development only).', $this->domain ), 'orange' );
 	}
 	
 	/**
@@ -866,88 +979,43 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 		
 		// Check for SSL
 		if ( 'cert' === $this->stored_options->ssl_certification_validation && false === $this->is_ssl() ) {
-			$error_message = __( 'Error: No SSL Certificate installed on this website.\nDuring local website development, use the \'nocert\' option.\n\nIf you are on a live website, consider installing a SSL certificate and then use the \'cert\' option. Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ) . '<br>' . __( 'Please review your settings and run the test again.', $this->domain );
+			$error_message = __( 'Error: No SSL Certificate installed on this website.<br>During local website development, use the \'nocert\' option.<br>nIf you are on a live website, consider installing a SSL certificate and then use the \'cert\' option. Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ) . '<br>' . __( 'Please review your settings and run the test again.', $this->domain );
 			$read_morelink = printf( '<a href="https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php" target="_blank">%d</a>)', __( 'Read more', $this->domain ) );
 			
 			$error_string = $error_message . '(' . $read_morelink . ')';
 			
-			return new WP_Error( 1, $error_string );
+			return new WP_Error( 1, esc_html($error_string) );
 		}
 		
 		$mail = $this->get_phpmailer( true );
-		if ( $this->is_gmail() ) {
-			
-			try {
-				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
-				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
-				
-				// Check IMAP connection
-				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to Gmail: ' . imap_last_error() );
-				// Retrieve folder list
-				$list = imap_list( $imapStream, '{' . $this->stored_options->imap_host . '}', '*' );
-				// Close connection
-				imap_close( $imapStream );
-				
-				$imap_errors = imap_errors();
-				//
-				if ( false === $imapStream && is_array( $imap_errors ) ) {
-					$error_message = '<strong>' . __( 'Failed to connect to IMAP host (connection timeout).' ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
-					
-					return new WP_Error( 1, $error_message );
-				} else if ( false !== $imapStream && is_array( $imap_errors ) ) {
-					$error_message = $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.', $this->domain );
-					
-					return new WP_Error( 1, $error_message );
-				}
-				
-				// Check Sent Items Folder Path
-				$path = $this->get_sent_items_folder_path_for_testing( $mail );
-				if ( ! in_array( $path, $list, true ) ) {
-					$error_message = false === $imapStream ? '<strong>' . __( 'Failed to connect to host (connection timeout).', $this->domain ) . '</strong><br>' . __( 'Please review your settings and run test again.', $this->domain ) : __( 'Failed to find folder "' . $path . '" (INBOX.Sent). Replies can not be saved on your mail server (Error BON1704-0001).', $this->domain );
-					
-					return new WP_Error( 1, $error_message );
-				}
-			} catch( Exception $e ) {
-				
-				return new WP_Error( 2, __( 'Internal Error: Unable to search for Folder.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
-			}
-			
-			return true;
-		} else {
-			
-			try {
-				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
-				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
-				
-				// Check IMAP connection
-				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to the mail server: ' . imap_last_error() );
-				// Retrieve folder list
-				$list = imap_list( $imapStream, '{' . $this->stored_options->imap_host . '}', '*' );
-				// Close connection
-				imap_close( $imapStream );
-				
-				$imap_errors = imap_errors();
-				//
-				if ( false === $imapStream && is_array( $imap_errors ) ) {
-					$error_message = false !== $imapStream ? __( '<strong>Failed to connect to host (connection timeout).</strong><br>Please review your settings and run test again.', $this->domain ) : $imap_errors[0] . '<br>' . __( 'You may want to disable certification validation temporarily.' );
-					
-					return new WP_Error( 1, $error_message );
-				}
-				
-				// Check Sent Items Folder path
-				$path = $this->get_sent_items_folder_path_for_testing( $mail );
-				if ( ! in_array( $path, $list, true ) ) {
-					$error_message = false === $imapStream ? __( '<strong>Failed to connect to host (connection timeout).</strong><br>Please review your settings and run test again.', $this->domain ) : __( 'Failed to find folder "' . $path . '" (INBOX.Sent). Replies can not be saved on your mail server (Error BON1704-0001).', $this->domain );
-					
-					return new WP_Error( 1, $error_message );
-				}
-			} catch( Exception $e ) {
-				
-				return new WP_Error( 2, __( 'Internal Error: Unable to search for Folder.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
-			}
-		}
 		
-		return true;
+		try {
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
+			
+			// Check IMAP connection
+			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+			// Retrieve folder list
+			$list = imap_list( $imapStream, '{' . $this->stored_options->imap_host . '}', '*' );
+			// Check Sent Items Folder Path
+			$path = $this->get_sent_items_folder_path_for_testing( $mail );
+			if(false !== $imapStream && in_array( $path, $list, true ) ){
+				// Close connection
+				imap_close( $imapStream );
+				
+				return true;
+			}
+
+			$imap_errors = imap_errors();
+			$error_message = sprintf( __( 'It seems you shoud set the value for SMTPSecure to "%d".', $this->domain), $imap_errors  ) . '<br>' . __('Please review your settings and run the test again.', $this->domain);
+			
+			return new WP_Error( 1, $error_message );
+
+		} catch( Exception $e ) {
+			
+			return new WP_Error( 2, __( 'Internal Error: Unable to search for Folder.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+		}
+
 	}
 	
 	/**
@@ -958,24 +1026,21 @@ final class Bonaire_Account_Settings_Evaluator extends PHPMailer {
 	 *
 	 * @return string
 	 */
-	private function get_mailbox( $mail, $ssl_certification_validation ) {
+	private function get_mailbox( $mail, $ssl_certification_validation, $is_imap = false, $recheck = false ) {
+		
+		$mail->Host       = $this->stored_options->imap_host;
+		$mail->Port       = $this->stored_options->imap_port;
+		$secure = $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
+		$smtpsecure = $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
 		
 		if ( $this->is_gmail() ) {
-			
-			$mail->Host       = $this->stored_options->imap_host;
-			$mail->Port       = $this->stored_options->imap_port;
-			$mail->SMTPSecure = $this->stored_options->imapsecure;
-			
-			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . '/' . $ssl_certification_validation . '}';
+
+			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . '/' . $ssl_certification_validation . '}';
 			
 			return $mailserver_path . 'INBOX';
 		}
 		
-		$mail->Host       = $this->stored_options->imap_host;
-		$mail->Port       = $this->stored_options->imap_port;
-		$mail->SMTPSecure = $this->stored_options->imapsecure;
-		
-		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $mail->SMTPSecure . $ssl_certification_validation . '}';
+		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
 		
 		return $mailserver_path . 'INBOX';
 	}

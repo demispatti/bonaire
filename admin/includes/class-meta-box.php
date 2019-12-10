@@ -208,7 +208,7 @@ class Bonaire_Meta_Box {
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
 		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
 		$url                             = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
-		$link                            = '<a href="' . esc_url( $url ) . '">' . __( 'Account Settings', $this->domain ) . '</a>';
+		$link                            = '<a href="' . esc_url( $url ) . '" target="_blank">' . __( 'Account Settings', $this->domain ) . '</a>';
 		
 		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		if ( ( false === $uniqid || false === $recipient_email_address ) ||
@@ -224,26 +224,16 @@ class Bonaire_Meta_Box {
 		 */
 		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		if ( false === $uniqid || false === $recipient_email_address ) {
-			esc_html_e( 'Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire with the respective contact form.', $this->domain );
+			esc_html_e( printf( __('Note: This function is available to you for messages you received <i>%d</i> installation and configuration of Bonaire with the respective contact form.', $this->domain )), __('after', $this->domain));
 			
 			return;
 		}
 		
 		/**
-		 * Check if the username and recipient email adresses match.
-		 * If so, it's the one associated with the message. Else we bail.
-		 */
-		/*if ( false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ) {
-			esc_html_e( 'In order to send replies, please enter the email account details the contact form is related to', $this->domain ) . ' ' . '(' . $recipient_email_address . '): ' . $link;
-			
-			return;
-		}*/
-		
-		/**
 		 * Check if the necessary account settings are marked as valid.
 		 */
 		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) {
-			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $recipient_email_address );
+			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $link );
 			echo $string;
 			
 			return;

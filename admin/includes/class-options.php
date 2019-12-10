@@ -369,25 +369,25 @@ final class Bonaire_Options {
 			),
 			'inbox_folder_name' => array(
 				'id' => 'inbox_folder_name',
-				'name' => __( 'Sent Items Folder Name (if Gmail)', $this->domain ),
+				'name' => __( 'Sent Items Folder Name, case-sensitive (only if Gmail)', $this->domain ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
-				'default_value' => 'Sent',
-				'example' => 'Sent' . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ),
+				'default_value' => __('Sent', $this->domain),
+				'example' => __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __('') . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
-				'name' => __( 'Sent Items Folder Path (if Gmail - optional or blank)', $this->domain ),
+				'name' => __( 'Sent Items Folder Path (if Gmail - optional or leave blank)', $this->domain ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
-				'example' => '"{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ) . '"<br>' . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ),
+				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
+				'tt_description' => __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
 			),
 			'ssl_certification_validation' => array(
 				'id' => 'ssl_certification_validation',

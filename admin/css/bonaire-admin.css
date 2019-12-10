@@ -956,6 +956,10 @@
   list-style: none;
 }
 
+.bonaire-tooltip-example p {
+  color: blue;
+}
+
 @media all and (max-width: 1440px) {
   .contextual-help-tabs-wrap .item-description {
     width: 100%;
