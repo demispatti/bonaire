@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
 "POT-Creation-Date: 2019-12-10 01:54+0100\n"
-"PO-Revision-Date: 2019-12-10 01:54+0100\n"
+"PO-Revision-Date: 2019-12-11 01:57+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -155,21 +155,19 @@ msgid ""
 "It seems you shoud set the value for IMAPSecure to \"%s\". Please change the "
 "settings and save them, before running the test again."
 msgstr ""
+"Anscheinend sollten Sie den Wert für IMAPSecure auf \"%s\" setzen. Bitte "
+"ändern Sie die Einstellungen und speichern Sie sie, bevor Sie den Test "
+"erneut ausführen."
 
 #: admin/includes/class-account-settings-evaluator.php:773
-#, fuzzy
-#| msgid ""
-#| "Failed to connect to host. Please review your settings and try again."
 msgid ""
 "Failed to check IMAPSecure settings. You may want to review your settings "
 "and try again."
 msgstr ""
-"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
-"Einstellungen und versuchen Sie es erneut."
+"IMAPSecure-Einstellungen konnten nicht überprüft werden. Bitte überprüfen "
+"Sie Ihre Einstellungen und versuchen Sie es erneut."
 
 #: admin/includes/class-account-settings-evaluator.php:778
-#, fuzzy
-#| msgid "Internal Error: Unable to check SMTPSecure settings."
 msgid "Internal Error: Unable to check IMAPSecure settings."
 msgstr ""
 "Interner Fehler: SMTPSecure-Einstellungen konnten nicht überprüft werden."
@@ -180,17 +178,17 @@ msgid ""
 "It seems you shoud set the value for SMTPSecure to \"%s\". Please change the "
 "settings and save them, before running the test again."
 msgstr ""
+"Anscheinend sollten Sie den Wert für SMTPSecure auf \"%s\" setzen. Bitte "
+"ändern Sie die Einstellungen und speichern Sie sie, bevor Sie den Test "
+"erneut ausführen."
 
 #: admin/includes/class-account-settings-evaluator.php:807
-#, fuzzy
-#| msgid ""
-#| "Failed to connect to host. Please review your settings and try again."
 msgid ""
 "Failed to check SMTPSecure settings. You may want to review your settings "
 "and try again."
 msgstr ""
-"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
-"Einstellungen und versuchen Sie es erneut."
+"IMAPSecure-Einstellungen konnten nicht überprüft werden. Bitte überprüfen "
+"Sie Ihre Einstellungen und versuchen Sie es erneut."
 
 #: admin/includes/class-account-settings-evaluator.php:813
 msgid "Internal Error: Unable to check SMTPSecure settings."
@@ -225,12 +223,16 @@ msgid ""
 "Bonaire needs this extension to be installed and loaded in order to handle "
 "IMAP events. For local development, see for example: "
 msgstr ""
+"Bonaire muss diese Erweiterung installiert und geladen haben, um IMAP-"
+"Ereignisse verarbeiten zu können. Zur lokalen Entwicklung siehe zum Beispiel:"
 
 #: admin/includes/class-account-settings-evaluator.php:879
 msgid ""
 "For live websites, contact your admin or host in order to include this PHP "
 "extension."
 msgstr ""
+"Wenden Sie sich bei Live-Websites an Ihren Administrator oder Host, um diese "
+"PHP-Erweiterung einzuschließen."
 
 #: admin/includes/class-account-settings-evaluator.php:904
 #: admin/includes/class-account-settings-evaluator.php:907
@@ -239,6 +241,10 @@ msgid ""
 "certification validation to \"nocert\" (read it's tooltip and use the "
 "\"nocert\" option during local development only)."
 msgstr ""
+"Sie müssen ein SSL-Zertifikat installieren oder den Wert für "
+"\"Zertifizierungsüberprüfung verwenden\" auf \"nocert\" setzen (lesen Sie "
+"den Tooltip und verwenden Sie die Option \"nocert\" nur während der lokalen "
+"Entwicklung)."
 
 #: admin/includes/class-account-settings-evaluator.php:926
 #, php-format
@@ -263,26 +269,17 @@ msgid "Internal Error: Unable to check IMAP port."
 msgstr "Interner Fehler: Der IMAP-Port konnte nicht überprüft werden."
 
 #: admin/includes/class-account-settings-evaluator.php:982
-#, fuzzy
-#| msgid ""
-#| "Error: No SSL Certificate installed on this website.\n"
-#| "During local website development, use the 'nocert' option.\n"
-#| "\n"
-#| "If you are on a live website, consider installing a SSL certificate and "
-#| "then use the 'cert' option. Otherwise, you're a possible subject of man "
-#| "in the middle attacks (<a href='https://stackoverflow.com/"
-#| "questions/7891729/certificate-error-using-imap-in-php' target='_blank'>"
 msgid ""
 "Error: No SSL Certificate installed on this website.<br>During local website "
 "development, use the 'nocert' option.<br>nIf you are on a live website, "
 "consider installing a SSL certificate and then use the 'cert' option. "
 "Otherwise, you're a possible subject of man in the middle attacks"
 msgstr ""
-"Fehler: Auf dieser Website ist kein SSL-Zertifikat installiert. Verwenden "
-"Sie während der Entwicklung der lokalen Website die Option 'nocert'. Wenn "
-"Sie sich auf einer Live-Website befinden, sollten Sie ein SSL-Zertifikat "
-"installieren und anschließend die Option \"cert\" verwenden. Andernfalls "
-"sind Sie ein potenzielles Ziel von Man-In-The-Middle-Attacken ("
+"Fehler: Auf dieser Website ist kein SSL-Zertifikat installiert. <br> "
+"Verwenden Sie während der Entwicklung der lokalen Website die Option "
+"'nocert'. <br> nWenn Sie sich auf einer Live-Website befinden, sollten Sie "
+"ein SSL-Zertifikat installieren und dann die Option 'cert' verwenden. "
+"Ansonsten bist du ein mögliches Thema von Menschen in den mittleren Angriffen"
 
 #: admin/includes/class-account-settings-evaluator.php:983
 #: admin/includes/class-options.php:404
@@ -400,15 +397,13 @@ msgstr ""
 "Einstellungen und versuchen Sie es erneut."
 
 #: admin/includes/class-mail.php:231
-#, fuzzy
-#| msgid ""
-#| "Failed to connect to host. Please review your settings and try again."
 msgid ""
 "Message sent, but failed to save it in your mail server's default folder for "
 "sent items. Please review your settings and try again."
 msgstr ""
-"Fehler beim Verbindungsaufbau zum Host. Bitte überprüfen Sie Ihre "
-"Einstellungen und versuchen Sie es erneut."
+"Die Nachricht wurde gesendet, konnte jedoch nicht im Standardordner Ihres "
+"Mailservers für gesendete Objekte gespeichert werden. Bitte überprüfen Sie "
+"Ihre Einstellungen und versuchen Sie es erneut."
 
 #: admin/includes/class-meta-box.php:131
 #: admin/partials/class-reply-form-display.php:82
@@ -430,10 +425,13 @@ msgid ""
 "Note: This function is available to you for messages you received <i>%d</i> "
 "installation and configuration of Bonaire with the respective contact form."
 msgstr ""
+"Hinweis: Diese Funktion steht Ihnen für Nachrichten zur Verfügung, die Sie "
+"über das entsprechende Kontaktformular von <i>%d</i> Installation und "
+"Konfiguration von Bonaire erhalten haben."
 
 #: admin/includes/class-meta-box.php:227
 msgid "after"
-msgstr ""
+msgstr "nach"
 
 #: admin/includes/class-meta-box.php:236
 #, php-format
@@ -605,10 +603,10 @@ msgid "The IMAP port number."
 msgstr "Die Port-Nummer des IMAP-Hosts."
 
 #: admin/includes/class-options.php:372
-#, fuzzy
-#| msgid "Sent Items Folder Name (if Gmail)"
 msgid "Sent Items Folder Name, case-sensitive (only if Gmail)"
-msgstr "Ordnername für gesendete Objekte (bei Google Mail)"
+msgstr ""
+"Ordnername für gesendete Objekte, Groß- und Kleinschreibung beachten (nur "
+"bei Google Mail)"
 
 #: admin/includes/class-options.php:376 admin/includes/class-options.php:377
 #: admin/includes/class-options.php:387 admin/includes/class-options.php:388
@@ -617,23 +615,25 @@ msgstr "Gesendet"
 
 #: admin/includes/class-options.php:379
 msgid "Case sensitive."
-msgstr ""
+msgstr "Berücksichtigt Groß- und Kleinschreibung."
 
 #: admin/includes/class-options.php:379 admin/includes/class-options.php:390
 msgid ""
 "Use \"Sent\" in the language you use the mail account with or as it is named "
 "in Outlook, Thunderbird etc., respectively)."
 msgstr ""
+"Verwenden Sie \"Gesendet\" in der Sprache, in der Sie das E-Mail-Konto "
+"verwenden (oder wie in Outlook, Thunderbird usw. angegeben)."
 
 #: admin/includes/class-options.php:379
 msgid ""
 "The name of the folder your replies will be stored into on the web server. E."
 "g. Sent, Gesendet, Envoyé, etc."
 msgstr ""
+"Der Name des Ordners, in dem Ihre Antworten auf dem Webserver gespeichert "
+"werden. Z.B. Gesendet"
 
 #: admin/includes/class-options.php:383
-#, fuzzy
-#| msgid "Sent Items Folder Path (if Gmail - optional or blank)"
 msgid "Sent Items Folder Path (if Gmail - optional or leave blank)"
 msgstr ""
 "Ordnerpfad für gesendete Objekte (falls Google Mail - optional oder leer "
@@ -645,6 +645,9 @@ msgid ""
 "example. Use this approach, if the option above should fail (Error "
 "BON1704-0001). <br>Otherwise, leave blank."
 msgstr ""
+"Dies ist eine Option, um einen Posteingangspfad ähnlich dem im Beispiel "
+"anzugeben. Verwenden Sie diesen Ansatz, wenn die obige Option fehlschlagen "
+"sollte (Fehler BON1704-0001). <br> Andernfalls lassen Sie das Feld leer."
 
 #: admin/includes/class-options.php:394
 msgid "Use SSL Certification Validation"
@@ -945,7 +948,6 @@ msgid "Track users"
 msgstr "Nutzer-Verfolgung (User Tracking)"
 
 #: admin/partials/class-help-tab-display.php:323
-#, fuzzy
 msgid ""
 "Write personal user data to the database other than the necessary email "
 "account settings, and attaching the senders email address to the messages "
@@ -958,7 +960,6 @@ msgstr ""
 "um die Nachricht mit dem verwendeten E-Mail-Konto zu verknüpfen."
 
 #: admin/partials/class-help-tab-display.php:324
-#, fuzzy
 msgid ""
 "Send any data to external servers other than your reply and/or the data "
 "necessary to reach, connect and authenticate to the mail server. Once while "
