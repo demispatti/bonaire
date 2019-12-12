@@ -190,7 +190,7 @@ class Bonaire_Dashboard_Widget {
 			}
 		}
 		
-		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 		// If there are no posts to show
 		if ( empty( $posts ) ) {
 			

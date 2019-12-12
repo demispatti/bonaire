@@ -33,10 +33,10 @@ if ( ! class_exists( 'AdminIncludes\Bonaire_Mail' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
 }
 if ( ! class_exists( 'AdminIncludes\Bonaire_Account_Evaluator' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-account-settings-evaluator.php';
+	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Account_Settings_Status' ) ) {
-	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-account-settings-status.php';
+if ( ! class_exists( 'AdminIncludes\Bonaire_Settings_Status' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-status.php';
 }
 if ( ! class_exists( 'AdminIncludes\Bonaire_Ajax' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
@@ -159,7 +159,7 @@ class Bonaire_Admin {
 	/**
 	 * Holds the instance of the class responsible for evaluating the email account settings.
 	 *
-	 * @var AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Evaluator
+	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Account_Evaluator
 	 * @since    1.0.0
 	 * @access   private
 	 */
@@ -168,7 +168,7 @@ class Bonaire_Admin {
 	/**
 	 * Holds the instance of the class responsible for handling the email account settings status.
 	 *
-	 * @var AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
+	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Account_Settings_Status
 	 * @since    1.0.0
 	 * @access   private
 	 */
@@ -495,7 +495,7 @@ class Bonaire_Admin {
 		/**
 		 * The class responsible for the mailing functionality.
 		 */
-		$this->Bonaire_Account_Evaluator = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this->Bonaire_Options );
+		$this->Bonaire_Account_Evaluator = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $this->Bonaire_Options );
 	}
 	
 	/**
@@ -506,7 +506,7 @@ class Bonaire_Admin {
 	 */
 	private function include_account_settings_status() {
 		
-		$this->Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		$this->Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 	}
 	
 	/**

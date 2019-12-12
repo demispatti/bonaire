@@ -60,7 +60,7 @@ class Bonaire_Ajax {
 	/**
 	 * Holds the instance responsible for evaluating the email account settings.
 	 *
-	 * @var AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Settings_Evaluator
+	 * @var AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Account_Settings_Evaluator
 	 * @since    1.0.0
 	 * @access   private
 	 */
@@ -69,7 +69,7 @@ class Bonaire_Ajax {
 	/**
 	 * Holds the instance responsible for evaluating the email account settings.
 	 *
-	 * @var AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
+	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Account_Settings_Status
 	 * @since    1.0.0
 	 * @access   private
 	 */
@@ -100,8 +100,8 @@ class Bonaire_Ajax {
 	 * @param AdminIncludes\Bonaire_Options $Bonaire_Options
 	 * @param AdminIncludes\Bonaire_Post_Views $Bonaire_Post_Views
 	 * @param AdminIncludes\Bonaire_Mail $Bonaire_Mail
-	 * @param AdminIncludes\Bonaire_Account_Settings_Evaluator $Bonaire_Account_Evaluator
-	 * @param AdminIncludes\Bonaire_Account_Settings_Status $Bonaire_Account_Settings_Status
+	 * @param AdminIncludes\Bonaire_Settings_Evaluator $Bonaire_Account_Evaluator
+	 * @param AdminIncludes\Bonaire_Settings_Status $Bonaire_Account_Settings_Status
 	 *
 	 * @return void
 	 * @since 0.9.6

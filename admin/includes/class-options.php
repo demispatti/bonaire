@@ -196,7 +196,7 @@ final class Bonaire_Options {
 	 */
 	private function options_meta() {
 		
-		$options_meta = (object) array(
+		return (object) array(
 			'form_id' => array(
 				'id' => 'form_id',
 				'name' => __( 'Form Id', $this->domain ),
@@ -376,7 +376,7 @@ final class Bonaire_Options {
 				'default_value' => __('Sent', $this->domain),
 				'example' => __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __('') . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __('Case sensitive.') . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
@@ -404,8 +404,6 @@ final class Bonaire_Options {
 				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", $this->domain ) . "</a>)."
 			)
 		);
-		
-		return $options_meta;
 	}
 	
 	/**
@@ -463,7 +461,7 @@ final class Bonaire_Options {
 	 */
 	private function get_script_data() {
 		
-		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 		
 		$options_meta     = array( 'options_meta' => $this->options_meta() );
 		$default_options  = array( 'default_options' => $this->default_options() );
@@ -581,8 +579,8 @@ final class Bonaire_Options {
 	private function evaluate_account_settings( $output, $old_stored_options ) {
 		
 		// Test SMTP and / or IMAP settings
-		$Bonaire_Account_Evaluator       = new AdminIncludes\Bonaire_Account_Settings_Evaluator( $this->domain, $this );
-		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Evaluator       = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $this );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 		
 		$imap_result                = null;
 		$imap_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'imap' );
@@ -696,7 +694,7 @@ final class Bonaire_Options {
 	 */
 	public function reset_options() {
 		
-		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 		
 		delete_option( 'bonaire_options' );
 		$default_settings = $this->default_options();

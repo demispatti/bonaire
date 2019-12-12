@@ -165,7 +165,7 @@ class Bonaire_Meta_Box {
 		
 		$post_id                         = (int) $_REQUEST['post'];
 		$stored_options                  = $this->Bonaire_Options->get_stored_options();
-		$Bonaire_Account_Settings_Status = new Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
 		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
 		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
@@ -173,7 +173,7 @@ class Bonaire_Meta_Box {
 		
 		$_post          = get_post( $post_id );
 		$post_meta      = get_post_meta( $_post->ID );
-		$your_message   = $post_meta['_field_your-message'][0];
+		$your_message   = isset($post_meta['_field_your-message'][0]) ? $post_meta['_field_your-message'][0] : __('*no content*', $this->domain);
 		
 		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		if ( ( false === $uniqid || false === $recipient_email_address ) ||
@@ -202,7 +202,7 @@ class Bonaire_Meta_Box {
 		
 		$post_id                         = (int) $_REQUEST['post'];
 		$stored_options                  = $this->Bonaire_Options->get_stored_options();
-		$Bonaire_Account_Settings_Status = new Bonaire_Account_Settings_Status( $this->domain );
+		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
 		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
 		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';

@@ -69,6 +69,8 @@ class Bonaire_Help_Tab_Display {
 	 */
 	public static function tab_content_prerequisites( $domain ) {
 		
+	    $link = '<a href="https://blog.cf7skins.com/matching-mail-tags-with-form-tags-in-contact-form-7/" target="_blank">' . __( 'Post', $domain ) . '</a>';
+	    
 		ob_start();
 		?>
 
@@ -90,6 +92,7 @@ class Bonaire_Help_Tab_Display {
                 <li>3. <?php esc_html_e( 'your-subject', $domain ) ?></li>
                 <li>4. <?php esc_html_e( 'your-message', $domain ) ?></li>
             </ul>
+            <span><?php echo sprintf( __('See this %s for more details on how to set up Contact Form 7.', $domain), $link) ?></span>
         </div>
         <div class="item-images">
             <div>
