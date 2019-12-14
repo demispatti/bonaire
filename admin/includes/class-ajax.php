@@ -136,6 +136,7 @@ class Bonaire_Ajax {
 		add_action( 'wp_ajax_bonaire_save_options', array( $this, 'bonaire_save_options' ) );
 		add_action( 'wp_ajax_bonaire_reset_options', array( $this, 'bonaire_reset_options' ) );
 		add_action( 'wp_ajax_bonaire_send_testmail', array( $this, 'bonaire_send_testmail' ) );
+		add_action( 'wp_ajax_bonaire_test_contact_form', array( $this, 'bonaire_test_contact_form' ) );
 		add_action( 'wp_ajax_bonaire_test_smtp_settings', array( $this, 'bonaire_test_smtp_settings' ) );
 		add_action( 'wp_ajax_bonaire_test_imap_settings', array( $this, 'bonaire_test_imap_settings' ) );
 		add_action( 'wp_ajax_bonaire_get_settings_status', array( $this, 'bonaire_get_settings_status' ) );
@@ -320,9 +321,11 @@ class Bonaire_Ajax {
 			);
 			wp_send_json_success( $response );
 		} else {
+			
 			$response = array(
 				'success' => true,
 				'message' => __( 'Settings saved.', $this->domain ),
+				'cf7_status' => isset( $result['cf7_status'] ) ? $result['cf7_status'] : '',
 				'smtp_status' => isset( $result['smtp_status'] ) ? $result['smtp_status'] : '',
 				'imap_status' => isset( $result['imap_status'] ) ? $result['imap_status'] : ''
 			);
@@ -363,6 +366,37 @@ class Bonaire_Ajax {
 				'message' => __( 'Settings restored to default.', $this->domain ),
 				'smtp_status' => $result['smtp_status'],
 				'imap_status' => $result['imap_status']
+			);
+			wp_send_json_success( $response );
+		}
+	}
+	
+	public function bonaire_test_contact_form() {
+		
+		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_test_contact_form_nonce' ) ) {
+			
+			$response = array(
+				'success' => false,
+				'message' => $this->nonce_error_text
+			);
+			wp_send_json_error( $response );
+		}
+		
+		$result = $this->Bonaire_Account_Settings_Evaluator->bonaire_test_contact_form();
+		if ( is_wp_error( $result ) ) {
+			
+			$response = array(
+				'success' => false,
+				'message' => $result->get_error_message(),
+				'status' => 'orange'
+			);
+			wp_send_json_error( $response );
+		} else {
+			
+			$response = array(
+				'success' => true,
+				'message' => $result['message'],
+				'status' => $result['status']
 			);
 			wp_send_json_success( $response );
 		}
@@ -463,6 +497,7 @@ class Bonaire_Ajax {
 		$result   = $this->Bonaire_Account_Settings_Status->get_settings_status();
 		$response = array(
 			'success' => true,
+			'cf7_status' => isset( $result['cf7'] ) ? $result['cf7'] : 'orange',
 			'smtp_status' => isset( $result['smtp'] ) ? $result['smtp'] : 'inactive',
 			'imap_status' => isset( $result['imap'] ) ? $result['imap'] : 'inactive'
 		);

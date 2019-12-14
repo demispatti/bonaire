@@ -46,11 +46,13 @@
         this.bonaireSaveOptionsButton = this.bonaireOptionsForm.find('.bonaire-save-options-button');
         this.bonaireResetOptionsButton = this.bonaireOptionsForm.find('.bonaire-reset-options-button');
         this.bonaireSendTestMailButton = this.connectionDetailsContainer.find('.bonaire-send-testmail-button');
+        this.bonaireTestContactFormButton = this.connectionDetailsContainer.find('.bonaire-test-contact-form-button');
         this.bonaireTestSmtpSettingsButton = this.connectionDetailsContainer.find('.bonaire-test-smtp-settings-button');
         this.bonaireTestImapSettingsButton = this.connectionDetailsContainer.find('.bonaire-test-imap-settings-button');
         this.bonaireSaveOptionsAction = 'bonaire_save_options';
         this.resetOptionsAction = 'bonaire_reset_options';
         this.testConnectionAction = 'bonaire_evaluate_settings';
+        this.testContactFormAction = 'bonaire_test_contact_form';
         this.testSmtpSettingsAction = 'bonaire_test_smtp_settings';
         this.testImapSettingsAction = 'bonaire_test_imap_settings';
         this.sendTestMailAction = 'bonaire_send_testmail';
@@ -140,6 +142,7 @@
             this.bonaireSaveOptionsButton.bind('click', {context: this}, this.bonaireSaveOptions);
             this.bonaireResetOptionsButton.bind('click', {context: this}, this.bonaireResetOptions);
             this.bonaireSendTestMailButton.bind('click', {context: this}, this.promptForEmailAddress);
+            this.bonaireTestContactFormButton.bind('click', {context: this, protocol: 'cf7'}, this.bonaireEvaluateSettings);
             this.bonaireTestSmtpSettingsButton.bind('click', {context: this, protocol: 'smtp'}, this.bonaireEvaluateSettings);
             this.bonaireTestImapSettingsButton.bind('click', {context: this, protocol: 'imap'}, this.bonaireEvaluateSettings);
             this.bonaireOptionsFormInputFields.bind('focus', {context: this}, this.unsetInvalidInputFieldIndicator);
@@ -316,6 +319,10 @@
                 }
                 if (response.success === true){
 
+                    var cf7_status = response.data.cf7_status;
+                    if (undefined !== cf7_status){
+                        $this.updateSettingsStatus('cf7', cf7_status);
+                    }
                     var smtp_status = response.data.smtp_status;
                     if (undefined !== smtp_status){
                         $this.updateSettingsStatus('smtp', smtp_status);
@@ -344,8 +351,10 @@
 
                     if('smtp' === protocol){
                         result = response.data.smtp_status;
-                    } else {
+                    } else if('imap' === protocol){
                         result = response.data.imap_status;
+                    }else {
+                        result = response.data.cf7_status;
                     }
 
                     return result;
@@ -397,9 +406,13 @@
                 data = {
                     action: $this.testSmtpSettingsAction
                 };
-            } else{
+            } else if('imap' === protocol){
                 data = {
                     action: $this.testImapSettingsAction
+                };
+            } else {
+                data = {
+                    action: $this.testContactFormAction
                 };
             }
             $.extend(data, {nonce: $(this).data('nonce')});

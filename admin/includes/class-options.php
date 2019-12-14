@@ -109,6 +109,10 @@ final class Bonaire_Options {
 		'ssl_certification_validation' => '',
 	);
 	
+	public $contact_form_hash_keys = array(
+		'channel' => ''
+	);
+	
 	/**
 	 * Returns the default options.
 	 *
@@ -220,6 +224,50 @@ final class Bonaire_Options {
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg',
 				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', $this->domain )
 			),
+			//'your_name' => array(
+			//	'id' => 'your_name',
+			//	'name' => __( 'Your Name Form Tag', $this->domain ),
+			//	'type' => 'text',
+			//	'setting' => false,
+			//	'group' => 'none',
+			//	'default_value' => 'your-name',
+			//	'example' => 'your-name',
+			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-name.jpg'*/,
+			//	'tt_description' => __( 'The form tag used to get the sender\'s name.', $this->domain )
+			//),
+			//'your_email' => array(
+			//	'id' => 'your_email',
+			//	'name' => __( 'Your Email Form Tag', $this->domain ),
+			//	'type' => 'text',
+			//	'setting' => false,
+			//	'group' => 'none',
+			//	'default_value' => 'your-email',
+			//	'example' => 'your-email',
+			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg'*/,
+			//	'tt_description' => __( 'The form tag used to get the sender\'s email address.', $this->domain )
+			//),
+			//'your_subject' => array(
+			//	'id' => 'your_subject',
+			//	'name' => __( 'Your Subject Form Tag', $this->domain ),
+			//	'type' => 'text',
+			//	'setting' => false,
+			//	'group' => 'none',
+			//	'default_value' => 'your-subject',
+			//	'example' => 'your-subject',
+			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-subject.jpg'*/,
+			//	'tt_description' => __( 'The form tag used to get the message subject.', $this->domain )
+			//),
+			//'your_message' => array(
+			//	'id' => 'your_message',
+			//	'name' => __( 'Your Message Form Tag', $this->domain ),
+			//	'type' => 'text',
+			//	'setting' => false,
+			//	'group' => 'none',
+			//	'default_value' => 'your-message',
+			//	'example' => 'your-message',
+			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-message.jpg'*/,
+			//	'tt_description' => __( 'The form tag used to get the message.', $this->domain )
+			//),
 			'number_posts' => array(
 				'id' => 'number_posts',
 				'name' => __( 'Number Of Messages', $this->domain ),
@@ -373,10 +421,10 @@ final class Bonaire_Options {
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
-				'default_value' => __('Sent', $this->domain),
+				'default_value' => __( 'Sent', $this->domain ),
 				'example' => __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __('Case sensitive.') . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __( 'Case sensitive.' ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
@@ -395,11 +443,11 @@ final class Bonaire_Options {
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
-				'default_value' => 'cert',
-				'example' => __( 'cert', $this->domain ),
-				'values' => array( 'nocert' => 'nocert', 'cert' => 'cert' ),
+				'default_value' => 'Yes',
+				'example' => __( 'Yes', $this->domain ),
+				'values' => array( 'nocert' => __( 'No', $this->domain ), 'cert' => __( 'Yes', $this->domain ) ),
 				'tt_image' => '',
-				'tt_description' => __( '"nocert" Skips the ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ) . " " .
+				'tt_description' => __( '"No" skips ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ) . " " .
 				                    __( 'Otherwise, you\'re a potential subject of man in the middle attacks', $this->domain ) . " " .
 				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", $this->domain ) . "</a>)."
 			)
@@ -467,11 +515,12 @@ final class Bonaire_Options {
 		$default_options  = array( 'default_options' => $this->default_options() );
 		$has_empty_fields = array( 'has_empty_field' => $this->has_empty_field() );
 		$save_reply       = array( 'save_reply' => $this->stored_options->{0}->save_reply );
+		$cf7_status       = array( 'cf7_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'cf7', true ) );
 		$smtp_status      = array( 'smtp_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) );
 		$imap_status      = array( 'imap_status' => $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true ) );
 		$ajaxurl          = array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) );
 		
-		return array_merge( $options_meta, $default_options, $has_empty_fields, $save_reply, $ajaxurl, $smtp_status, $imap_status );
+		return array_merge( $options_meta, $default_options, $has_empty_fields, $save_reply, $ajaxurl, $cf7_status, $smtp_status, $imap_status );
 	}
 	
 	/**
@@ -582,6 +631,13 @@ final class Bonaire_Options {
 		$Bonaire_Account_Evaluator       = new AdminIncludes\Bonaire_Settings_Evaluator( $this->domain, $this );
 		$Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 		
+		$cf7_result                = null;
+		$cf7_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'cf7' );
+		$have_cf7_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'cf7' );
+		if ( $have_cf7_settings_changed || false === $have_cf7_settings_changed && 'green' !== $cf7_status ) {
+			$cf7_result = $Bonaire_Account_Evaluator->bonaire_test_contact_form();
+		}
+		
 		$imap_result                = null;
 		$imap_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'imap' );
 		$have_imap_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'imap' );
@@ -593,6 +649,7 @@ final class Bonaire_Options {
 				$imap_result = $Bonaire_Account_Evaluator->bonaire_test_imap_settings();
 			}
 		}
+		
 		$smtp_result                = null;
 		$smtp_status                = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp' );
 		$have_smtp_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'smtp' );
@@ -600,10 +657,11 @@ final class Bonaire_Options {
 			$smtp_result = $Bonaire_Account_Evaluator->bonaire_test_smtp_settings();
 		}
 		
-		if ( ! is_wp_error( $smtp_result ) && ! is_wp_error( $imap_result ) ) {
+		if ( ! is_wp_error( $smtp_result ) && ! is_wp_error( $imap_result ) && ! is_wp_error( $cf7_result ) ) {
 			
 			return array(
 				'success' => true,
+				'cf7_status' => $cf7_result['status'],
 				'smtp_status' => $smtp_result['status'],
 				'imap_status' => $imap_result['status'],
 				'message' => false,
@@ -617,6 +675,7 @@ final class Bonaire_Options {
 			__( 'Settings Saved.', $this->domain ),
 			array(
 				'success' => false,
+				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : 'green',
 				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : 'green',
 				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : 'green',
 				'message' => false,
@@ -643,9 +702,13 @@ final class Bonaire_Options {
 				
 				return $this->check_for_changed_settings( $this->smtp_hash_keys, $input, $old_stored_options );
 			
-			default:
+			case "imap":
 				
 				return $this->check_for_changed_settings( $this->imap_hash_keys, $input, $old_stored_options );
+			
+			default:
+				
+				return $this->check_for_changed_settings( $this->contact_form_hash_keys, $input, $old_stored_options );
 		}
 	}
 	

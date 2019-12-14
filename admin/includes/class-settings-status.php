@@ -69,6 +69,7 @@ final class Bonaire_Settings_Status {
 		} else {
 			
 			return array(
+				'cf7' => isset( $stored_options[1]['cf7_status'] ) ? $stored_options[1]['cf7_status'] : 'orange',
 				'smtp' => isset( $stored_options[1]['smtp_status'] ) ? $stored_options[1]['smtp_status'] : 'orange',
 				'imap' => isset( $stored_options[1]['imap_status'] ) ? $stored_options[1]['imap_status'] : 'orange'
 			);

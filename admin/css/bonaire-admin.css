@@ -379,7 +379,8 @@
   margin-top: 0;
   margin-bottom: 0;
 }
-#connection_details .wpcf7,
+#connection_details .cf7,
+#connection_details .dashboard,
 #connection_details .smtp,
 #connection_details .imap,
 #connection_details .contactform {
@@ -387,13 +388,15 @@
   box-sizing: border-box;
   margin: 2.0rem 1.6rem 3.0rem 1.6rem;
 }
-#connection_details .wpcf7 h5,
+#connection_details .cf7 h5,
+#connection_details .dashboard h5,
 #connection_details .smtp h5,
 #connection_details .imap h5,
 #connection_details .contactform h5 {
   display: inline-block;
 }
-#connection_details .wpcf7 > div,
+#connection_details .cf7 > div,
+#connection_details .dashboard > div,
 #connection_details .smtp > div,
 #connection_details .imap > div,
 #connection_details .contactform > div {
@@ -404,7 +407,8 @@
   display: flex;
   margin-bottom: 1.2rem;
 }
-#connection_details .wpcf7 .status-indicator,
+#connection_details .cf7 .status-indicator,
+#connection_details .dashboard .status-indicator,
 #connection_details .smtp .status-indicator,
 #connection_details .imap .status-indicator,
 #connection_details .contactform .status-indicator {
@@ -414,7 +418,8 @@
   position: relative;
   top: 2px;
 }
-#connection_details .wpcf7 .status-indicator i,
+#connection_details .cf7 .status-indicator i,
+#connection_details .dashboard .status-indicator i,
 #connection_details .smtp .status-indicator i,
 #connection_details .imap .status-indicator i,
 #connection_details .contactform .status-indicator i {
@@ -430,7 +435,8 @@
   border-radius: 50%;
   border: 1px solid #eee;
 }
-#connection_details .wpcf7 .status-indicator i:before,
+#connection_details .cf7 .status-indicator i:before,
+#connection_details .dashboard .status-indicator i:before,
 #connection_details .smtp .status-indicator i:before,
 #connection_details .imap .status-indicator i:before,
 #connection_details .contactform .status-indicator i:before {
@@ -445,49 +451,57 @@
   top: -10px;
   left: 0;
 }
-#connection_details .wpcf7 .status-indicator.red i,
+#connection_details .cf7 .status-indicator.red i,
+#connection_details .dashboard .status-indicator.red i,
 #connection_details .smtp .status-indicator.red i,
 #connection_details .imap .status-indicator.red i,
 #connection_details .contactform .status-indicator.red i {
   background-color: #F03434;
 }
-#connection_details .wpcf7 .status-indicator.red i:before,
+#connection_details .cf7 .status-indicator.red i:before,
+#connection_details .dashboard .status-indicator.red i:before,
 #connection_details .smtp .status-indicator.red i:before,
 #connection_details .imap .status-indicator.red i:before,
 #connection_details .contactform .status-indicator.red i:before {
   content: "\f335";
 }
-#connection_details .wpcf7 .status-indicator.orange i,
+#connection_details .cf7 .status-indicator.orange i,
+#connection_details .dashboard .status-indicator.orange i,
 #connection_details .smtp .status-indicator.orange i,
 #connection_details .imap .status-indicator.orange i,
 #connection_details .contactform .status-indicator.orange i {
   background-color: #FFCB05;
 }
-#connection_details .wpcf7 .status-indicator.orange i:before,
+#connection_details .cf7 .status-indicator.orange i:before,
+#connection_details .dashboard .status-indicator.orange i:before,
 #connection_details .smtp .status-indicator.orange i:before,
 #connection_details .imap .status-indicator.orange i:before,
 #connection_details .contactform .status-indicator.orange i:before {
   content: "\f460";
 }
-#connection_details .wpcf7 .status-indicator.green i,
+#connection_details .cf7 .status-indicator.green i,
+#connection_details .dashboard .status-indicator.green i,
 #connection_details .smtp .status-indicator.green i,
 #connection_details .imap .status-indicator.green i,
 #connection_details .contactform .status-indicator.green i {
   background-color: #26C281;
 }
-#connection_details .wpcf7 .status-indicator.green i:before,
+#connection_details .cf7 .status-indicator.green i:before,
+#connection_details .dashboard .status-indicator.green i:before,
 #connection_details .smtp .status-indicator.green i:before,
 #connection_details .imap .status-indicator.green i:before,
 #connection_details .contactform .status-indicator.green i:before {
   content: "\f147";
 }
-#connection_details .wpcf7 .status-indicator.inactive i,
+#connection_details .cf7 .status-indicator.inactive i,
+#connection_details .dashboard .status-indicator.inactive i,
 #connection_details .smtp .status-indicator.inactive i,
 #connection_details .imap .status-indicator.inactive i,
 #connection_details .contactform .status-indicator.inactive i {
   background-color: #bfbfbf;
 }
-#connection_details .wpcf7 .status-indicator.inactive i:before,
+#connection_details .cf7 .status-indicator.inactive i:before,
+#connection_details .dashboard .status-indicator.inactive i:before,
 #connection_details .smtp .status-indicator.inactive i:before,
 #connection_details .imap .status-indicator.inactive i:before,
 #connection_details .contactform .status-indicator.inactive i:before {
@@ -505,9 +519,6 @@
   display: block;
   box-sizing: border-box;
   padding-top: 2.0rem;
-  /*display: block;
-  box-sizing: border-box;
-  margin: 2.0rem 1.6rem 3.0rem 1.6rem;*/
 }
 #connection_details .contactform {
   box-sizing: border-box;
@@ -515,22 +526,22 @@
   padding-top: 2.0rem;
   background-color: #fff;
 }
-#connection_details .button-container {
-  box-sizing: border-box;
-  width: auto;
-  padding: 0 1.6rem;
-}
-#connection_details .button-container .button {
-  width: auto;
-  height: 39px;
-}
-#connection_details .buttons {
+#connection_details .buttons-container {
   border-top: 1px solid #eee;
   box-sizing: border-box;
   display: block;
   width: 100%;
   float: unset;
   overflow: hidden;
+  padding: 0 1.6rem;
+}
+#connection_details .buttons-container .buttons {
+  width: auto;
+}
+#connection_details .buttons-container h5 {
+  display: block;
+}
+#connection_details .buttons {
   padding: 3.2rem 0 2.0rem 0;
 }
 #connection_details .buttons .reset-button-container {
@@ -544,7 +555,7 @@
 }
 #connection_details .footer {
   border-top: 1px solid #eee;
-  margin: 6.0rem auto 1.0rem auto;
+  margin: 1.0rem auto 1.0rem auto;
   padding-top: 20px;
 }
 #connection_details .footer h5 {
@@ -557,14 +568,14 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  text-align: center;
+  text-align: justify;
   box-sizing: border-box;
   overflow: hidden;
   background-color: #fff;
-  padding: 3.2rem 0 2.0rem 0;
+  padding: 1.6rem 1.6rem 2.0rem 1.6rem;
 }
 #connection_details .footer > div .button-container {
-  padding-right: 48px;
+  padding-right: 8px;
 }
 #connection_details .footer > div .button-container:last-of-type {
   padding-right: 0;

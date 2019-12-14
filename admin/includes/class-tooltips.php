@@ -47,6 +47,7 @@ class Bonaire_Tooltips {
 	public static $additional_option_keys = array(
 		'save_options' => 'save_options',
 		'reset_options' => 'reset_options',
+		'test_contact_form' => 'test_contact_form',
 		'test_smtp_settings' => 'test_smtp_settings',
 		'test_imap_settings' => 'test_imap_settings',
 		'send_testmail' => 'send_testmail'
@@ -242,6 +243,19 @@ class Bonaire_Tooltips {
 		);
 	}
 	
+	
+	private function test_contact_form_button_args() {
+		
+		return array(
+			'id' => 'test_contact_form',
+			'option_key' => 'test_contact_form',
+			'heading' => __( 'Test Contact Form Tags', $this->domain ),
+			'image' => '',
+			'example' => '',
+			'description' => __( 'Check the contact form for the required form tags.', $this->domain )
+		);
+	}
+	
 	/**
 	 * Returns the argumants the 'test SMTP settings' button consists of.
 	 *
@@ -338,6 +352,7 @@ class Bonaire_Tooltips {
 		// Buttons and checkboxes that do not relate to a stored option, but will also be covered by a tooltip.
 		$tooltips['save_options']       = $this->compose_tooltip( $this->save_options_button_args() );
 		$tooltips['reset_options']      = $this->compose_tooltip( $this->reset_options_button_args() );
+		$tooltips['test_contact_form']  = $this->compose_tooltip( $this->test_contact_form_button_args() );
 		$tooltips['test_smtp_settings'] = $this->compose_tooltip( $this->test_smtp_settings_button_args() );
 		$tooltips['test_imap_settings'] = $this->compose_tooltip( $this->test_imap_settings_button_args() );
 		$tooltips['send_testmail']      = $this->compose_tooltip( $this->send_testmail_button_args() );

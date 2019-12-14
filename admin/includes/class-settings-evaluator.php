@@ -2,6 +2,10 @@
 
 namespace Bonaire\Admin\Includes;
 
+if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php' ) ) {
+	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php';
+}
+
 use Exception;
 use PHPMailer;
 use Bonaire\Admin\Includes as AdminIncludes;
@@ -60,11 +64,11 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	/**
 	 * The class responsible for setting the account settings status.
 	 *
-	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Account_Settings_Status
+	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Settings_Status
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private $Bonaire_Account_Settings_Status;
+	private $Bonaire_Settings_Status;
 	
 	/**
 	 * Holds the stored options.
@@ -169,7 +173,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function set_email_account_settings_evaluator() {
 		
-		$this->Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
+		$this->Bonaire_Settings_Status = new Bonaire_Settings_Status( $this->domain );
 	}
 	
 	/**
@@ -267,6 +271,50 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	}
 	
 	/**
+	 *
+	 *
+	 * @return bool|array|\WP_Error
+	 * @throws \Exception
+	 * @since 1.0.0
+	 */
+	private function test_contact_form_settings() {
+		
+		if ( true === $this->meets_requirements( 'cf7' ) ) {
+
+			$result = $this->test_form();
+			if ( is_wp_error( $result ) ) {
+				$status     = 'orange';
+				$error_code = $result->get_error_code();
+				$error_code = isset( $error_code ) ? $error_code : false;
+				$result     = array(
+					'success' => false,
+					'message' => $result->get_error_message(),
+					'messages' => false,
+					'error_code' => $error_code
+				);
+				
+				$this->Bonaire_Settings_Status->set_settings_status( 'cf7', $status );
+				
+				return $this->create_response( $result, $status );
+			}
+			
+			if ( true === $result['success'] ) {
+				$status = 'green';
+				$this->Bonaire_Settings_Status->set_settings_status( 'cf7', $status );
+			} else {
+				$status = 'orange';
+				$this->Bonaire_Settings_Status->set_settings_status( 'cf7', $status );
+			}
+			
+			return $this->create_response( $result, $status );
+		}
+		
+		$this->Bonaire_Settings_Status->set_settings_status( 'cf7', 'orange' );
+		
+		return new WP_Error( 1, __( 'Please add a contact form first.', $this->domain ) );
+	}
+	
+	/**
 	 * Check if the form is filled out completely. If so, evaluate the SMTP settings.
 	 * Sets the 'settings status' after evaluation.
 	 *
@@ -292,23 +340,23 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 					'error_code' => $error_code
 				);
 				
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'smtp', $status );
+				$this->Bonaire_Settings_Status->set_settings_status( 'smtp', $status );
 				
 				return $this->create_response( $result, $status );
 			}
 			
-			$status = $this->Bonaire_Account_Settings_Status->get_settings_status( 'smtp' );
+			$status = $this->Bonaire_Settings_Status->get_settings_status( 'smtp' );
 			if ( true === $result['success'] ) {
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'smtp', 'green' );
+				$this->Bonaire_Settings_Status->set_settings_status( 'smtp', 'green' );
 			} else {
 				$status = 'orange';
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'smtp', 'orange' );
+				$this->Bonaire_Settings_Status->set_settings_status( 'smtp', 'orange' );
 			}
 			
 			return $this->create_response( $result, $status );
 		}
 		
-		$this->Bonaire_Account_Settings_Status->set_settings_status( 'smtp', 'orange' );
+		$this->Bonaire_Settings_Status->set_settings_status( 'smtp', 'orange' );
 		
 		return new WP_Error( 1, __( 'Please add your email account settings first.', $this->domain ) );
 	}
@@ -347,26 +395,26 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 					'messages' => false,
 					'error_code' => $error_code
 				);
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+				$this->Bonaire_Settings_Status->set_settings_status( 'imap', $status );
 				
 				return $this->create_response( $result, $status );
 			}
 			
 			if ( true === $result['success'] ) {
 				$status = 'green';
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+				$this->Bonaire_Settings_Status->set_settings_status( 'imap', $status );
 			} else {
 				$status = 'orange';
-				$this->Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+				$this->Bonaire_Settings_Status->set_settings_status( 'imap', $status );
 			}
 			
 			return $this->create_response( $result, $status );
 		}
 		
 		if ( 'yes' === $this->stored_options->{0}->save_reply ) {
-			$this->Bonaire_Account_Settings_Status->set_settings_status( 'imap', 'orange' );
+			$this->Bonaire_Settings_Status->set_settings_status( 'imap', 'orange' );
 		} else {
-			$this->Bonaire_Account_Settings_Status->set_settings_status( 'imap', 'inactive' );
+			$this->Bonaire_Settings_Status->set_settings_status( 'imap', 'inactive' );
 		}
 		
 		return new WP_Error( 1, __( 'Please add your email account settings first.', $this->domain ) );
@@ -382,6 +430,9 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function meets_requirements( $protocol ) {
 		
+		if('cf7' === $protocol){
+			return '_0' !== $this->stored_options->channel && '_'.__( 'none', $this->domain) !== $this->stored_options->channel;
+		}
 		$is_complete = true;
 		foreach ( (array) $this->options_meta as $key => $args ) {
 			if ( ( isset( $this->stored_options->{$key} ) && '' === $this->stored_options->{$key} ) && $protocol === $args['group'] ) {
@@ -515,6 +566,12 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
 		return $this->create_response( $result, 'green' );
+	}
+	
+	
+	public function bonaire_test_contact_form(){
+		
+		return $this->test_contact_form_settings();
 	}
 	
 	/**
@@ -692,6 +749,58 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		}
 		
 		return new WP_Error( $result['error_code'], $message, $status );
+	}
+	
+	private function test_form() {
+		
+		$channel = is_int( (int)str_replace( '_', '', $this->stored_options->channel )) ? (int) str_replace( '_', '', $this->stored_options->channel ) : false;
+		if(false === $channel || 0 === $channel){
+			$error_message = '<strong>' . __( 'There\'s no contact form set yet.', $this->domain ) . '</strong><br>' . __( 'Please create a contact form first.', $this->domain );
+			
+			return new WP_Error( 1, $error_message );
+		}
+		$args = array(
+			'id' => $channel,
+			'post_status' => 'any',
+			'posts_per_page' => -1,
+			'orderby' => 'name',
+			'order' => 'ASC',
+		);
+		
+		$contact_forms_by_channel = WPCF7_ContactForm::find( $args );
+		/**
+		 * @var WPCF7_ContactForm $contact_form
+		 */
+		$contact_form = null;
+		foreach( $contact_forms_by_channel as $i => $cform){
+			if($channel === $cform->id){
+				$contact_form = $cform;
+			}
+		}
+		$scanned_form_tags = $contact_form->scan_form_tags();
+		$scanned_tags = array();
+		foreach ( $scanned_form_tags as $j => $form_tag ) {
+			$scanned_tags[] = $scanned_form_tags[ $j ]->name;
+		}
+		
+		$expected_form_tags = array('your-email', 'your-name', 'your-subject', 'your-message');
+		
+		$error_message = '<strong>' . __( 'Form tags to review:', $this->domain ) . '</strong><br>';
+		$errors = 0;
+		$messages = array();
+		foreach( $expected_form_tags as $i => $expected_form_tag){
+			if ( ! in_array( $expected_form_tag, $scanned_tags ) ) {
+				$error_message .= '<span>' . __('Expected Form Tag:', $this->domain) . ' '.$expected_form_tag . '</span><br>';
+				$errors++;
+			}
+		}
+		
+		if(0 !== $errors){
+			
+			return new WP_Error( 1, $error_message );
+		}
+		
+		return array( 'success' => true, 'message' => __('Congratulations! The Contact Form seems to be configured as required.', $this->domain), 'messages' => false, 'error_code' => 0 );
 	}
 	
 	/**

@@ -101,6 +101,7 @@ class Bonaire_Settings_Page_Display {
 		$send_test_message_nonce  = wp_create_nonce( 'bonaire_send_testmail_nonce' );
 		$test_smtp_settings_nonce = wp_create_nonce( 'bonaire_test_smtp_settings_nonce' );
 		$test_imap_settings_nonce = wp_create_nonce( 'bonaire_test_imap_settings_nonce' );
+		$test_contact_form_nonce  = wp_create_nonce( 'bonaire_test_contact_form_nonce' );
 		ob_start();
 		?>
         <h2 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h2>
@@ -121,21 +122,22 @@ class Bonaire_Settings_Page_Display {
 							$string .= '<input type="hidden" value="' . esc_html( $value ) . '" data-form-input="bonaire" data-key="form_id" name="bonaire_options[form_id]"/>';
 						} else {
 							// Settings Section Titles
-							$string .= 'channel' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' : '';
-							$string .= 'number_posts' === $key ? '<div class="wpcf7"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
+							$string .= 'channel' === $key ? '<div class="cf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'cf7' ) : '';
+							$string .= 'number_posts' === $key ? '<div class="dashboard"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
 							$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
 							$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
 							
 							// Settings
 							$string .= $this->get_settings_field( $key, $value, $this->options_meta );
 							// Close title div
-							$string .= 'channel' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key || 'your_message' === $key ? '</div>' : '';
+							$string .= 'channel' === $key || 'your_message' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key ? '</div>' : '';
 						}
 					}
 					echo $string;
 					?>
                     <div class="buttons-container">
                         <div class="buttons">
+	                        <h5 class="content-section-title"><?php echo __( 'Reset And Save Settings', $this->domain ) ?></h5>
                             <!-- Reset Button -->
                             <div class="button-container reset-button-container">
                                 <label for="bonaire_options[reset_options]"></label>
@@ -156,6 +158,13 @@ class Bonaire_Settings_Page_Display {
             <div class="footer">
                 <h5 class="content-section-title"><?php esc_html_e( 'Test Settings', $this->domain ) ?></h5>
                 <div>
+                    <!-- Test Contact Form Button -->
+                    <div class="button-container test-contact-form-button-container">
+                        <label for="bonaire_options[test_contact_form]"></label>
+                        <input class="button button-secondary bonaire-test-contact-form-button" type="submit"
+                            value="<?php esc_html_e( 'Test Contact Form Tags', $this->domain ) ?>" name="bonaire_options[test_contact_form]"
+                            data-nonce="<?php echo $test_contact_form_nonce ?>"/>
+                    </div>
                     <!-- Test SMTP Settings Button -->
                     <div class="button-container test-smtp-settings-button-container">
                         <label for="bonaire_options[test_smtp_settings]"></label>
@@ -198,6 +207,11 @@ class Bonaire_Settings_Page_Display {
 	private function get_strings() {
 		
 		return array(
+			'cf7' => array(
+				'orange' => __( 'Settings check not successful.', $this->domain ),
+				'green' => __( 'Settings check successful (since last changes).', $this->domain ),
+				'inactive' => __( 'Inactive.', $this->domain )
+			),
 			'smtp' => array(
 				'orange' => __( 'Settings check not successful.', $this->domain ),
 				'green' => __( 'Settings check successful (since last changes).', $this->domain ),
@@ -269,9 +283,11 @@ class Bonaire_Settings_Page_Display {
 		}
 		
 		$disabled = '';
+		if ( 'smtpauth' === $key || 'your_name' === $key || 'your_email' === $key || 'your_subject' === $key || 'your_message' === $key) {
+			$disabled = 'disabled';
+		}
 		if ( 'smtpauth' === $key ) {
 			$value    = 'true';
-			$disabled = 'disabled';
 		}
 		
 		if ( 'smtpauth' === $key || 'test_address' === $key ) {
@@ -285,7 +301,7 @@ class Bonaire_Settings_Page_Display {
 		ob_start();
 		?>
         <div>
-            <label for="<?php echo $name ?>" type="checkbox"><?php echo $label ?></label>
+            <label for="<?php echo $name ?>" type="text"><?php echo $label ?></label>
             <input id="<?php echo $name ?>" name="<?php echo $name ?>" type="text" value="<?php echo $value ?>"
                 data-form-input="<?php echo $data_form_input ?>" data-key="<?php echo $key ?>"
                 data-default-value="<?php echo $default_value ?>" <?php echo $disabled ?>/>
@@ -366,7 +382,7 @@ class Bonaire_Settings_Page_Display {
 		ob_start();
 		?>
         <div>
-            <label for="<?php echo $name ?>" type="checkbox"><?php echo $label ?></label>
+            <label for="<?php echo $name ?>" type="text"><?php echo $label ?></label>
             <input id="<?php echo $name ?>" name="<?php echo $name ?>" type="checkbox" value="<?php echo $value ?>"
                 data-form-input="<?php echo $data_form_input ?>" data-key="<?php echo $key ?>" data-default-value="<?php echo $default_value ?>"/>
         </div>

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-12-11 03:48+0100\n"
+"POT-Creation-Date: 2019-12-14 02:13+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -27,15 +27,15 @@ msgstr ""
 
 #: admin/includes/class-adapter.php:411 admin/includes/class-adapter.php:416
 #: admin/includes/class-adapter.php:446 admin/includes/class-adapter.php:451
-#: admin/includes/class-ajax.php:174 admin/includes/class-ajax.php:357
-#: admin/includes/class-options.php:564
-#: admin/includes/class-settings-evaluator.php:749
-#: admin/includes/class-settings-evaluator.php:818
-#: admin/includes/class-settings-evaluator.php:853
-#: admin/includes/class-settings-evaluator.php:880
-#: admin/includes/class-settings-evaluator.php:971
-#: admin/includes/class-settings-evaluator.php:1003
-#: admin/includes/class-settings-evaluator.php:1056
+#: admin/includes/class-ajax.php:175 admin/includes/class-ajax.php:360
+#: admin/includes/class-options.php:613
+#: admin/includes/class-settings-evaluator.php:826
+#: admin/includes/class-settings-evaluator.php:895
+#: admin/includes/class-settings-evaluator.php:930
+#: admin/includes/class-settings-evaluator.php:957
+#: admin/includes/class-settings-evaluator.php:1048
+#: admin/includes/class-settings-evaluator.php:1080
+#: admin/includes/class-settings-evaluator.php:1133
 msgid "Please try again later."
 msgstr ""
 
@@ -43,43 +43,43 @@ msgstr ""
 msgid "That won't do."
 msgstr ""
 
-#: admin/includes/class-ajax.php:167
+#: admin/includes/class-ajax.php:168
 msgid "Message marked as read."
 msgstr ""
 
-#: admin/includes/class-ajax.php:174
+#: admin/includes/class-ajax.php:175
 msgid "Failed to mark message as read."
 msgstr ""
 
-#: admin/includes/class-ajax.php:206
+#: admin/includes/class-ajax.php:207
 msgid "Message marked as spam."
 msgstr ""
 
-#: admin/includes/class-ajax.php:249
+#: admin/includes/class-ajax.php:250
 msgid "Message moved to trash."
 msgstr ""
 
-#: admin/includes/class-ajax.php:325
+#: admin/includes/class-ajax.php:327
 msgid "Settings saved."
 msgstr ""
 
-#: admin/includes/class-ajax.php:363
+#: admin/includes/class-ajax.php:366
 msgid "Settings restored to default."
 msgstr ""
 
-#: admin/includes/class-ajax.php:494
+#: admin/includes/class-ajax.php:529
 msgid "Please review the email address you entered."
 msgstr ""
 
-#: admin/includes/class-ajax.php:517 admin/includes/class-ajax.php:561
+#: admin/includes/class-ajax.php:552 admin/includes/class-ajax.php:596
 msgid "Error code"
 msgstr ""
 
-#: admin/includes/class-ajax.php:524
+#: admin/includes/class-ajax.php:559
 msgid "Test message sent successfully!"
 msgstr ""
 
-#: admin/includes/class-ajax.php:569
+#: admin/includes/class-ajax.php:604
 msgid "Message sent!"
 msgstr ""
 
@@ -149,247 +149,247 @@ msgstr ""
 msgid "*no content*"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:211
+#: admin/includes/class-meta-box.php:212
 msgid "Account Settings"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:227
+#: admin/includes/class-meta-box.php:228
 #, php-format
 msgid ""
 "Note: This function is available to you for messages you received <i>%d</i> "
 "installation and configuration of Bonaire with the respective contact form."
 msgstr ""
 
-#: admin/includes/class-meta-box.php:227
+#: admin/includes/class-meta-box.php:228
 msgid "after"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:236
+#: admin/includes/class-meta-box.php:237
 #, php-format
-msgid "There seems to be a problem with the email account (%d)."
+msgid ""
+"There seems to be a problem with the email account or the contact form (%d)."
 msgstr ""
 
-#: admin/includes/class-options.php:202
+#: admin/includes/class-options.php:206
 msgid "Form Id"
 msgstr ""
 
-#: admin/includes/class-options.php:213
+#: admin/includes/class-options.php:217
 msgid "Contact Form Title"
 msgstr ""
 
-#: admin/includes/class-options.php:217 admin/includes/class-options.php:219
+#: admin/includes/class-options.php:221 admin/includes/class-options.php:223
+#: admin/includes/class-settings-evaluator.php:434
 msgid "none"
 msgstr ""
 
-#: admin/includes/class-options.php:218
+#: admin/includes/class-options.php:222
 msgid "Contact form 1"
 msgstr ""
 
-#: admin/includes/class-options.php:221
+#: admin/includes/class-options.php:225
 msgid ""
 "The Title of the contactform you want to use this plugin with. Usually it "
 "is the form that's displayed on the contact page of your website."
 msgstr ""
 
-#: admin/includes/class-options.php:225
+#: admin/includes/class-options.php:273
 msgid "Number Of Messages"
 msgstr ""
 
-#: admin/includes/class-options.php:230
+#: admin/includes/class-options.php:278
 msgid "5"
 msgstr ""
 
-#: admin/includes/class-options.php:233
+#: admin/includes/class-options.php:281
 msgid "Max. number of unread messages to display on the dashboard widget."
 msgstr ""
 
-#: admin/includes/class-options.php:237
+#: admin/includes/class-options.php:285
 msgid "Username"
 msgstr ""
 
-#: admin/includes/class-options.php:244
+#: admin/includes/class-options.php:292
 msgid ""
 "The username you authenticate to the email account with. This is most "
 "likely the email address or your name."
 msgstr ""
 
-#: admin/includes/class-options.php:248
+#: admin/includes/class-options.php:296
 msgid "Password"
 msgstr ""
 
-#: admin/includes/class-options.php:253 admin/includes/class-options.php:264
+#: admin/includes/class-options.php:301 admin/includes/class-options.php:312
 msgid "No example"
 msgstr ""
 
-#: admin/includes/class-options.php:255
+#: admin/includes/class-options.php:303
 msgid ""
 "Your password. It will be stored encrypted in the database, and replaced by "
 "***** in the user interface after saving it. Please make sure you have "
 "generated your SALT-Keys."
 msgstr ""
 
-#: admin/includes/class-options.php:259
+#: admin/includes/class-options.php:307
 msgid "SMTPAuth"
 msgstr ""
 
-#: admin/includes/class-options.php:266
+#: admin/includes/class-options.php:314
 msgid "You must authenticate with your username and password."
 msgstr ""
 
-#: admin/includes/class-options.php:270
+#: admin/includes/class-options.php:318
 msgid "SMTP Host"
 msgstr ""
 
-#: admin/includes/class-options.php:277
+#: admin/includes/class-options.php:325
 msgid "The address of the SMTP host."
 msgstr ""
 
-#: admin/includes/class-options.php:277 admin/includes/class-options.php:288
-#: admin/includes/class-options.php:300
+#: admin/includes/class-options.php:325 admin/includes/class-options.php:336
+#: admin/includes/class-options.php:348
 msgid "Get this from your hosting or email provider."
 msgstr ""
 
-#: admin/includes/class-options.php:281
+#: admin/includes/class-options.php:329
 msgid "SMTP Port"
 msgstr ""
 
-#: admin/includes/class-options.php:288
+#: admin/includes/class-options.php:336
 msgid "The SMTP port number."
 msgstr ""
 
-#: admin/includes/class-options.php:292
+#: admin/includes/class-options.php:340
 msgid "SMTPSecure"
 msgstr ""
 
-#: admin/includes/class-options.php:300 admin/includes/class-options.php:346
+#: admin/includes/class-options.php:348 admin/includes/class-options.php:394
 msgid "SSL or TLS is required."
 msgstr ""
 
-#: admin/includes/class-options.php:304
+#: admin/includes/class-options.php:352
 msgid "From Name"
 msgstr ""
 
-#: admin/includes/class-options.php:311
+#: admin/includes/class-options.php:359
 msgid "Your name or website name or company name or..."
 msgstr ""
 
-#: admin/includes/class-options.php:315
+#: admin/includes/class-options.php:363
 msgid "From E-Mail Address"
 msgstr ""
 
-#: admin/includes/class-options.php:322
+#: admin/includes/class-options.php:370
 msgid "The account's email address."
 msgstr ""
 
-#: admin/includes/class-options.php:326
+#: admin/includes/class-options.php:374
 msgid "Save Reply"
 msgstr ""
 
-#: admin/includes/class-options.php:330 admin/includes/class-options.php:332
+#: admin/includes/class-options.php:378 admin/includes/class-options.php:380
+#: admin/includes/class-options.php:448
 msgid "No"
 msgstr ""
 
-#: admin/includes/class-options.php:331 admin/includes/class-options.php:332
+#: admin/includes/class-options.php:379 admin/includes/class-options.php:380
+#: admin/includes/class-options.php:447 admin/includes/class-options.php:448
 msgid "Yes"
 msgstr ""
 
-#: admin/includes/class-options.php:334
+#: admin/includes/class-options.php:382
 msgid ""
 "Store replies on your mail server inside the default folder for sent items."
 msgstr ""
 
-#: admin/includes/class-options.php:338
+#: admin/includes/class-options.php:386
 msgid "IMAPSecure"
 msgstr ""
 
-#: admin/includes/class-options.php:350
+#: admin/includes/class-options.php:398
 msgid "IMAP Host"
 msgstr ""
 
-#: admin/includes/class-options.php:357
+#: admin/includes/class-options.php:405
 msgid "The address of the IMAP host."
 msgstr ""
 
-#: admin/includes/class-options.php:361
+#: admin/includes/class-options.php:409
 msgid "IMAP Port"
 msgstr ""
 
-#: admin/includes/class-options.php:368
+#: admin/includes/class-options.php:416
 msgid "The IMAP port number."
 msgstr ""
 
-#: admin/includes/class-options.php:372
+#: admin/includes/class-options.php:420
 msgid "Sent Items Folder Name, case-sensitive (only if Gmail)"
 msgstr ""
 
-#: admin/includes/class-options.php:376 admin/includes/class-options.php:377
-#: admin/includes/class-options.php:387 admin/includes/class-options.php:388
+#: admin/includes/class-options.php:424 admin/includes/class-options.php:425
+#: admin/includes/class-options.php:435 admin/includes/class-options.php:436
 msgid "Sent"
 msgstr ""
 
-#: admin/includes/class-options.php:379
+#: admin/includes/class-options.php:427
 msgid "Case sensitive."
 msgstr ""
 
-#: admin/includes/class-options.php:379 admin/includes/class-options.php:390
+#: admin/includes/class-options.php:427 admin/includes/class-options.php:438
 msgid ""
 "Use \"Sent\" in the language you use the mail account with or as it is "
 "named in Outlook, Thunderbird etc., respectively)."
 msgstr ""
 
-#: admin/includes/class-options.php:379
+#: admin/includes/class-options.php:427
 msgid ""
 "The name of the folder your replies will be stored into on the web server. "
 "E.g. Sent, Gesendet, Envoyé, etc."
 msgstr ""
 
-#: admin/includes/class-options.php:383
+#: admin/includes/class-options.php:431
 msgid "Sent Items Folder Path (if Gmail - optional or leave blank)"
 msgstr ""
 
-#: admin/includes/class-options.php:390
+#: admin/includes/class-options.php:438
 msgid ""
 "This is an option to provide an inbox path similar to the one in the "
 "example. Use this approach, if the option above should fail (Error "
 "BON1704-0001). <br>Otherwise, leave blank."
 msgstr ""
 
-#: admin/includes/class-options.php:394
+#: admin/includes/class-options.php:442
 msgid "Use SSL Certification Validation"
 msgstr ""
 
-#: admin/includes/class-options.php:399
-msgid "cert"
-msgstr ""
-
-#: admin/includes/class-options.php:402
+#: admin/includes/class-options.php:450
 msgid ""
-"\"nocert\" Skips the ssl certificate validation. This setting is not secure "
-"and you should avoid using it."
+"\"No\" skips ssl certificate validation. This setting is not secure and you "
+"should avoid using it."
 msgstr ""
 
-#: admin/includes/class-options.php:403
+#: admin/includes/class-options.php:451
 msgid "Otherwise, you're a potential subject of man in the middle attacks"
 msgstr ""
 
-#: admin/includes/class-options.php:404
-#: admin/includes/class-settings-evaluator.php:1023
+#: admin/includes/class-options.php:452
+#: admin/includes/class-settings-evaluator.php:1100
 msgid "Read more"
 msgstr ""
 
-#: admin/includes/class-options.php:561
+#: admin/includes/class-options.php:610
 msgid "There's nothing to save."
 msgstr ""
 
-#: admin/includes/class-options.php:564
+#: admin/includes/class-options.php:613
 msgid "Can't save settings right now."
 msgstr ""
 
-#: admin/includes/class-options.php:617
+#: admin/includes/class-options.php:675
 msgid "Settings Saved."
 msgstr ""
 
-#: admin/includes/class-options.php:724
+#: admin/includes/class-options.php:787
 msgid "Failed to reset settings. Please refresh the page and try again."
 msgstr ""
 
@@ -398,209 +398,233 @@ msgstr ""
 msgid "Views"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:159
+#: admin/includes/class-settings-evaluator.php:163
 msgid "Bonaire Testmail"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:160
+#: admin/includes/class-settings-evaluator.php:164
 msgid ""
 "Howdy. This test message was generated by \"Bonaire\" for WordPress. Thanks "
 "for using this plugin!"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:236
+#: admin/includes/class-settings-evaluator.php:240
 msgid "Sending test message failed:"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:236
+#: admin/includes/class-settings-evaluator.php:240
 msgid "Could not reach the mail server."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:236
+#: admin/includes/class-settings-evaluator.php:240
 msgid ""
 "Please make sure that you are connected to the internet, and that you've "
 "tested the SMTP and IMAP settings with the respective buttons on this "
 "plugin's settings page."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:345
-#: admin/includes/class-settings-evaluator.php:404
+#: admin/includes/class-settings-evaluator.php:314
+msgid "Please add a contact form first."
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:361
+#: admin/includes/class-settings-evaluator.php:420
 msgid "Please add your email account settings first."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:476
-#: admin/includes/class-settings-evaluator.php:594
+#: admin/includes/class-settings-evaluator.php:495
+#: admin/includes/class-settings-evaluator.php:619
 msgid "Successfully checked internet connection."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:492
-#: admin/includes/class-settings-evaluator.php:626
+#: admin/includes/class-settings-evaluator.php:511
+#: admin/includes/class-settings-evaluator.php:651
 msgid "Successfully resolved host name."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:508
+#: admin/includes/class-settings-evaluator.php:527
 msgid "Successfully tested SMTP port."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:524
-#: admin/includes/class-settings-evaluator.php:658
+#: admin/includes/class-settings-evaluator.php:543
+#: admin/includes/class-settings-evaluator.php:683
 msgid "Successfully tested SMTPSecure setting."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:542
+#: admin/includes/class-settings-evaluator.php:561
 msgid "Successfully authenticated to the email account via SMTP."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:545
+#: admin/includes/class-settings-evaluator.php:564
 msgid "Your SMTP settings are valid."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:610
+#: admin/includes/class-settings-evaluator.php:635
 msgid "Successfully checked for IMAP extension."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:642
-#: admin/includes/class-settings-evaluator.php:677
+#: admin/includes/class-settings-evaluator.php:667
+#: admin/includes/class-settings-evaluator.php:702
 msgid "Successfully tested IMAP port."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:693
+#: admin/includes/class-settings-evaluator.php:718
 msgid "Successfully contacted the inbox folder on the mail server."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:696
+#: admin/includes/class-settings-evaluator.php:721
 msgid "Your IMAP settings are valid."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:742
+#: admin/includes/class-settings-evaluator.php:758
+msgid "There's no contact form set yet."
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:758
+msgid "Please create a contact form first."
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:788
+msgid "Form tags to review:"
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:793
+msgid "Expected Form Tag:"
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:803
+msgid "Congratulations! The Contact Form seems to be configured as required."
+msgstr ""
+
+#: admin/includes/class-settings-evaluator.php:819
 msgid ""
 "It seems that you are not connected to the internet, or a firewall is "
 "blocking access to it."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:742
+#: admin/includes/class-settings-evaluator.php:819
 msgid "Please make sure that you are connected to the internet."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:749
-#: admin/includes/class-settings-evaluator.php:880
+#: admin/includes/class-settings-evaluator.php:826
+#: admin/includes/class-settings-evaluator.php:957
 msgid "Internal Error: Unable to check the SMTP port."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:769
+#: admin/includes/class-settings-evaluator.php:846
 #, php-format
 msgid "Failed to resolve SMTP host name (%d)."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:769
-#: admin/includes/class-settings-evaluator.php:774
-#: admin/includes/class-settings-evaluator.php:966
-#: admin/includes/class-settings-evaluator.php:1022
-#: admin/includes/class-settings-evaluator.php:1050
+#: admin/includes/class-settings-evaluator.php:846
+#: admin/includes/class-settings-evaluator.php:851
+#: admin/includes/class-settings-evaluator.php:1043
+#: admin/includes/class-settings-evaluator.php:1099
+#: admin/includes/class-settings-evaluator.php:1127
 msgid "Please review your settings and run the test again."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:774
+#: admin/includes/class-settings-evaluator.php:851
 msgid "Internal Error: Unable to resolve SMTP host name."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:808
+#: admin/includes/class-settings-evaluator.php:885
 #, php-format
 msgid ""
 "It seems you shoud set the value for IMAPSecure to \"%s\". Please change "
 "the settings and save them, before running the test again."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:813
+#: admin/includes/class-settings-evaluator.php:890
 msgid ""
 "Failed to check IMAPSecure settings. You may want to review your settings "
 "and try again."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:818
+#: admin/includes/class-settings-evaluator.php:895
 msgid "Internal Error: Unable to check IMAPSecure settings."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:843
+#: admin/includes/class-settings-evaluator.php:920
 #, php-format
 msgid ""
 "It seems you shoud set the value for SMTPSecure to \"%s\". Please change "
 "the settings and save them, before running the test again."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:847
+#: admin/includes/class-settings-evaluator.php:924
 msgid ""
 "Failed to check SMTPSecure settings. You may want to review your settings "
 "and try again."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:853
+#: admin/includes/class-settings-evaluator.php:930
 msgid "Internal Error: Unable to check SMTPSecure settings."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:875
+#: admin/includes/class-settings-evaluator.php:952
 msgid "The SMTP port number seems to be wrong."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:875
+#: admin/includes/class-settings-evaluator.php:952
 msgid "Please review your setting."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:900
+#: admin/includes/class-settings-evaluator.php:977
 msgid "SMTP Error: Could not authenticate."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:900
+#: admin/includes/class-settings-evaluator.php:977
 msgid "Please review your username and password."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:916
+#: admin/includes/class-settings-evaluator.php:993
 msgid "PHP IMAP extension is missing."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:916
+#: admin/includes/class-settings-evaluator.php:993
 msgid ""
 "Bonaire needs this extension to be installed and loaded in order to handle "
 "IMAP events. For local development, see for example: "
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:919
+#: admin/includes/class-settings-evaluator.php:996
 msgid ""
 "For live websites, contact your admin or host in order to include this PHP "
 "extension."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:944
-#: admin/includes/class-settings-evaluator.php:947
+#: admin/includes/class-settings-evaluator.php:1021
+#: admin/includes/class-settings-evaluator.php:1024
 msgid ""
 "You need to install a SSL certificate, or set the value for \"use "
 "certification validation to \"nocert\" (read it's tooltip and use the "
 "\"nocert\" option during local development only)."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:966
+#: admin/includes/class-settings-evaluator.php:1043
 #, php-format
 msgid "Failed to resolve IMAP host (%d)."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:971
+#: admin/includes/class-settings-evaluator.php:1048
 msgid "Internal Error: Unable to resolve IMAP hostname."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:998
+#: admin/includes/class-settings-evaluator.php:1075
 msgid "Failed to evaluate port number."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:998
+#: admin/includes/class-settings-evaluator.php:1075
 #, php-format
 msgid "Please review the port number of your IMAP server (%d)."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1003
+#: admin/includes/class-settings-evaluator.php:1080
 msgid "Internal Error: Unable to check IMAP port."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1022
+#: admin/includes/class-settings-evaluator.php:1099
 msgid ""
 "Error: No SSL Certificate installed on this website.<br>During local "
 "website development, use the 'nocert' option.<br>nIf you are on a live "
@@ -608,12 +632,12 @@ msgid ""
 "option. Otherwise, you're a possible subject of man in the middle attacks"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1050
+#: admin/includes/class-settings-evaluator.php:1127
 #, php-format
 msgid "It seems you shoud set the value for SMTPSecure to \"%d\"."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1056
+#: admin/includes/class-settings-evaluator.php:1133
 msgid "Internal Error: Unable to search for Folder."
 msgstr ""
 
@@ -688,56 +712,65 @@ msgstr ""
 msgid "Bonaire Settings Page"
 msgstr ""
 
-#: admin/includes/class-settings-status.php:101
+#: admin/includes/class-settings-status.php:102
 msgid "Internal Error: Unable to set settings status."
 msgstr ""
 
-#: admin/includes/class-tooltips.php:167
+#: admin/includes/class-tooltips.php:168
 msgid "Example for Gmail"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:220
-#: admin/partials/class-settings-page-display.php:150
+#: admin/includes/class-tooltips.php:221
+#: admin/partials/class-settings-page-display.php:152
 msgid "Save Settings"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:223
+#: admin/includes/class-tooltips.php:224
 msgid "Stores your settings in the database."
 msgstr ""
 
-#: admin/includes/class-tooltips.php:238
-#: admin/partials/class-settings-page-display.php:143
+#: admin/includes/class-tooltips.php:239
+#: admin/partials/class-settings-page-display.php:145
 msgid "Reset Settings"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:241
+#: admin/includes/class-tooltips.php:242
 msgid "Reset the settings."
 msgstr ""
 
-#: admin/includes/class-tooltips.php:256
-#: admin/partials/class-settings-page-display.php:163
+#: admin/includes/class-tooltips.php:252
+#: admin/partials/class-settings-page-display.php:165
+msgid "Test Contact Form Tags"
+msgstr ""
+
+#: admin/includes/class-tooltips.php:255
+msgid "Check the contact form for the required form tags."
+msgstr ""
+
+#: admin/includes/class-tooltips.php:270
+#: admin/partials/class-settings-page-display.php:172
 msgid "Test SMTP Settings"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:259
+#: admin/includes/class-tooltips.php:273
 msgid "Check the SMTP settings after saving your changes."
 msgstr ""
 
-#: admin/includes/class-tooltips.php:274
-#: admin/partials/class-settings-page-display.php:171
+#: admin/includes/class-tooltips.php:288
+#: admin/partials/class-settings-page-display.php:180
 msgid "Test IMAP Settings"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:277
+#: admin/includes/class-tooltips.php:291
 msgid "Check the IMAP settings after saving your changes."
 msgstr ""
 
-#: admin/includes/class-tooltips.php:292
-#: admin/partials/class-settings-page-display.php:178
+#: admin/includes/class-tooltips.php:306
+#: admin/partials/class-settings-page-display.php:187
 msgid "Send Testmail"
 msgstr ""
 
-#: admin/includes/class-tooltips.php:295
+#: admin/includes/class-tooltips.php:309
 msgid "Send a test message to this email account."
 msgstr ""
 
@@ -763,7 +796,7 @@ msgid "Plugin Settings"
 msgstr ""
 
 #: admin/partials/class-help-tab-display.php:40
-#: admin/partials/class-settings-page-display.php:124
+#: admin/partials/class-settings-page-display.php:125
 msgid "Contact Form 7 Settings"
 msgstr ""
 
@@ -961,52 +994,59 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:106
+#: admin/partials/class-settings-page-display.php:107
 msgid "Bonaire Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:108
+#: admin/partials/class-settings-page-display.php:109
 msgid "Email Account and further Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:110
+#: admin/partials/class-settings-page-display.php:111
 msgid "Information"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:125
+#: admin/partials/class-settings-page-display.php:126
 msgid "Dashboard Widget Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:126
+#: admin/partials/class-settings-page-display.php:127
 msgid "SMTP Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:127
+#: admin/partials/class-settings-page-display.php:128
 msgid "IMAP Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:157
+#: admin/partials/class-settings-page-display.php:140
+msgid "Reset And Save Settings"
+msgstr ""
+
+#: admin/partials/class-settings-page-display.php:159
 msgid "Test Settings"
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:202
+#: admin/partials/class-settings-page-display.php:211
+#: admin/partials/class-settings-page-display.php:216
 msgid "Settings check not successful."
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:203
+#: admin/partials/class-settings-page-display.php:212
+#: admin/partials/class-settings-page-display.php:217
 msgid "Settings check successful (since last changes)."
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:204
-#: admin/partials/class-settings-page-display.php:209
+#: admin/partials/class-settings-page-display.php:213
+#: admin/partials/class-settings-page-display.php:218
+#: admin/partials/class-settings-page-display.php:223
 msgid "Inactive."
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:207
+#: admin/partials/class-settings-page-display.php:221
 msgid "Settings check not successful (since last changes)."
 msgstr ""
 
-#: admin/partials/class-settings-page-display.php:208
+#: admin/partials/class-settings-page-display.php:222
 msgid "Settings check successful."
 msgstr ""
 

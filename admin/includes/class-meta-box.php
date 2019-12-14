@@ -203,6 +203,7 @@ class Bonaire_Meta_Box {
 		$post_id                         = (int) $_REQUEST['post'];
 		$stored_options                  = $this->Bonaire_Options->get_stored_options();
 		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
+		$cf7_status                      = $Bonaire_Account_Settings_Status->get_settings_status( 'cf7', true );
 		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
 		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
@@ -232,8 +233,8 @@ class Bonaire_Meta_Box {
 		/**
 		 * Check if the necessary account settings are marked as valid.
 		 */
-		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) {
-			$string = sprintf( __( 'There seems to be a problem with the email account (%d).', $this->domain ), $link );
+		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status || false === $cf7_status ) {
+			$string = sprintf( __( 'There seems to be a problem with the email account or the contact form (%d).', $this->domain ), $link );
 			echo $string;
 			
 			return;
