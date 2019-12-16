@@ -107,8 +107,8 @@ final class Bonaire_Mail extends PHPMailer {
 	 */
 	private function decrypt( $string ) {
 		
-		$secret_key = AUTH_KEY;
-		$secret_iv  = AUTH_SALT;
+		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
+		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
 		
 		if ( '' === $secret_key || '' === $secret_iv ) {
 			return $string;
@@ -118,9 +118,7 @@ final class Bonaire_Mail extends PHPMailer {
 		$key            = hash( 'sha256', $secret_key );
 		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
 		
-		$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		
-		return $output;
+		return openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
 	}
 	
 	/**

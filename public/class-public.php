@@ -100,27 +100,20 @@ class Bonaire_Public {
 	 * @since 0.9.6
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
-	private function crypt( $string, $action = 'e' ) {
+	private function crypt( $string ) {
 		
-		$secret_key = AUTH_KEY;
-		$secret_iv  = AUTH_SALT;
+		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
+		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
 		
 		if ( '' === $secret_key || '' === $secret_iv ) {
 			return $string;
 		}
 		
-		$output         = false;
 		$encrypt_method = 'AES-256-CBC';
 		$key            = hash( 'sha256', $secret_key );
 		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		if ( $action === 'e' ) {
-			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
-		} elseif ( $action === 'd' ) {
-			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		}
-		
-		return $output;
+
+		return base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
 	}
 	
 }
