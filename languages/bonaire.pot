@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-12-16 04:48+0100\n"
+"POT-Creation-Date: 2019-12-16 05:35+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -35,7 +35,7 @@ msgstr ""
 #: admin/includes/class-settings-evaluator.php:934
 #: admin/includes/class-settings-evaluator.php:1025
 #: admin/includes/class-settings-evaluator.php:1057
-#: admin/includes/class-settings-evaluator.php:1110
+#: admin/includes/class-settings-evaluator.php:1109
 msgid "Please try again later."
 msgstr ""
 
@@ -328,7 +328,6 @@ msgid "Sent Items Folder Name, case-sensitive (only if Gmail)"
 msgstr ""
 
 #: admin/includes/class-options.php:381 admin/includes/class-options.php:392
-#: admin/includes/class-settings-evaluator.php:1134
 msgid "Sent"
 msgstr ""
 
@@ -521,7 +520,7 @@ msgstr ""
 #: admin/includes/class-settings-evaluator.php:851
 #: admin/includes/class-settings-evaluator.php:1020
 #: admin/includes/class-settings-evaluator.php:1076
-#: admin/includes/class-settings-evaluator.php:1104
+#: admin/includes/class-settings-evaluator.php:1103
 msgid "Please review your settings and run the test again."
 msgstr ""
 
@@ -612,12 +611,12 @@ msgid ""
 "option. Otherwise, you're a possible subject of man in the middle attacks"
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1104
+#: admin/includes/class-settings-evaluator.php:1103
 #, php-format
 msgid "It seems you shoud set the value for SMTPSecure to \"%d\"."
 msgstr ""
 
-#: admin/includes/class-settings-evaluator.php:1110
+#: admin/includes/class-settings-evaluator.php:1109
 msgid "Internal Error: Unable to search for Folder."
 msgstr ""
 
@@ -639,9 +638,14 @@ msgid "Nothing to reset."
 msgstr ""
 
 #: admin/includes/class-settings-page.php:118
+msgid "Send Test Mail."
+msgstr ""
+
 #: admin/includes/class-settings-page.php:119
 #: admin/includes/class-settings-page.php:132
-msgid "Please fill in your email account details first."
+msgid ""
+"Please fill in your email account details, then test the Form Tags, the "
+"SMTP and IMAP Settings, and try again."
 msgstr ""
 
 #: admin/includes/class-settings-page.php:120

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bonaire 0.9.0\n"
-"POT-Creation-Date: 2019-12-16 04:48+0100\n"
-"PO-Revision-Date: 2019-12-16 04:49+0100\n"
+"POT-Creation-Date: 2019-12-16 05:35+0100\n"
+"PO-Revision-Date: 2019-12-16 05:36+0100\n"
 "Last-Translator: Demis Patti <demispatti@gmail.com>\n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
 "Language: de\n"
@@ -35,7 +35,7 @@ msgstr "Interner Fehler: Die Nachricht konnte nicht als Spam markiert werden."
 #: admin/includes/class-settings-evaluator.php:934
 #: admin/includes/class-settings-evaluator.php:1025
 #: admin/includes/class-settings-evaluator.php:1057
-#: admin/includes/class-settings-evaluator.php:1110
+#: admin/includes/class-settings-evaluator.php:1109
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
@@ -355,7 +355,6 @@ msgstr ""
 "bei Google Mail)"
 
 #: admin/includes/class-options.php:381 admin/includes/class-options.php:392
-#: admin/includes/class-settings-evaluator.php:1134
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -572,7 +571,7 @@ msgstr "Fehler beim Auflösen des SMTP-Hostnamens (%d)."
 #: admin/includes/class-settings-evaluator.php:851
 #: admin/includes/class-settings-evaluator.php:1020
 #: admin/includes/class-settings-evaluator.php:1076
-#: admin/includes/class-settings-evaluator.php:1104
+#: admin/includes/class-settings-evaluator.php:1103
 msgid "Please review your settings and run the test again."
 msgstr ""
 "Bitte überprüfen Sie Ihre Einstellungen und führen Sie den Test erneut aus."
@@ -682,12 +681,12 @@ msgstr ""
 "ein SSL-Zertifikat installieren und dann die Option 'cert' verwenden. "
 "Ansonsten bist du ein mögliches Thema von Menschen in den mittleren Angriffen"
 
-#: admin/includes/class-settings-evaluator.php:1104
+#: admin/includes/class-settings-evaluator.php:1103
 #, php-format
 msgid "It seems you shoud set the value for SMTPSecure to \"%d\"."
 msgstr "Anscheinend sollten Sie den Wert für SMTPSecure auf \"%d\" setzen."
 
-#: admin/includes/class-settings-evaluator.php:1110
+#: admin/includes/class-settings-evaluator.php:1109
 msgid "Internal Error: Unable to search for Folder."
 msgstr "Interner Fehler: Nach dem Ordner konnte nicht gesucht werden."
 
@@ -709,10 +708,17 @@ msgid "Nothing to reset."
 msgstr "Nichts zurück zu setzen."
 
 #: admin/includes/class-settings-page.php:118
+msgid "Send Test Mail."
+msgstr "Testnachricht senden."
+
 #: admin/includes/class-settings-page.php:119
 #: admin/includes/class-settings-page.php:132
-msgid "Please fill in your email account details first."
-msgstr "Geben Sie bitte zuerst Ihre E-Mail-Konto-Daten ein."
+msgid ""
+"Please fill in your email account details, then test the Form Tags, the SMTP "
+"and IMAP Settings, and try again."
+msgstr ""
+"Bitte geben Sie Ihre E-Mail-Kontodaten ein, testen Sie die Formular-Tags, "
+"die SMTP- und die IMAP-Einstellungen, und versuchen Sie es erneut."
 
 #: admin/includes/class-settings-page.php:120
 msgid "Send Test Message"
@@ -1146,6 +1152,9 @@ msgstr "Bonaire"
 #. Author of the plugin/theme
 msgid "Demis Patti"
 msgstr "Demis Patti"
+
+#~ msgid "Please fill in your email account details first."
+#~ msgstr "Geben Sie bitte zuerst Ihre E-Mail-Konto-Daten ein."
 
 #~ msgid ""
 #~ "It seems you shoud set the value for IMAPSecure to \"%s\". Please change "

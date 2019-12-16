@@ -1075,7 +1075,6 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		if ( 'nocert' !== $this->stored_options->ssl_certification_validation && false === $this->is_ssl() ) {
 			$error_message = __( 'Error: No SSL Certificate installed on this website.<br>During local website development, use the \'nocert\' option.<br>nIf you are on a live website, consider installing a SSL certificate and then use the \'cert\' option. Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ) . '<br>' . __( 'Please review your settings and run the test again.', $this->domain );
 			$read_morelink = printf( '<a href="https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php" target="_blank">%d</a>)', __( 'Read more', $this->domain ) );
-			
 			$error_string = $error_message . '(' . $read_morelink . ')';
 			
 			return new WP_Error( 1, esc_html($error_string) );
@@ -1122,8 +1121,8 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function get_mailbox( $mail, $ssl_certification_validation, $is_imap = false, $recheck = false ) {
 		
-		$mail->Host        = /*$is_imap ? */$this->stored_options->imap_host/* : $this->stored_options->smtp_host*/;
-		$mail->Port        = /*$is_imap ? */$this->stored_options->imap_port/* : $this->stored_options->smtp_port*/;
+		$mail->Host        = $this->stored_options->imap_host;
+		$mail->Port        = $this->stored_options->imap_port;
 		$secure            = $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
 		$smtpsecure        = $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
 		$inbox_folder_name = $this->stored_options->inbox_folder_name;
@@ -1131,8 +1130,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		if ( $this->is_gmail() ) {
 
 			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
-			$inbox_folder_name = '' !== $inbox_folder_name ? $inbox_folder_name : __('Sent', $this->domain);
-			return $mailserver_path . 'INBOX'/* . $inbox_folder_name*/;
+			return $mailserver_path . 'INBOX';
 		}
 		
 		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';

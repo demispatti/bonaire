@@ -115,8 +115,8 @@ class Bonaire_Settings_Page {
 				'save_options_notice' => __( 'Nothing to save.', $this->domain ),
 				'reset_options_title' => __( 'Reset Options', $this->domain ),
 				'reset_options_notice' => __( 'Nothing to reset.', $this->domain ),
-				'send_test_mail_title' => __( 'Please fill in your email account details first.', $this->domain ),
-				'send_test_mail_notice' => __( 'Please fill in your email account details first.', $this->domain ),
+				'send_test_mail_title' => __( 'Send Test Mail.', $this->domain ),
+				'send_test_mail_notice' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', $this->domain ),
 				'send_test_mail_prompt_title' => __( 'Send Test Message', $this->domain ),
 				'send_test_mail_prompt_review_email_title' => __( 'Please correct the email address', $this->domain ),
 				'working' => __( 'working', $this->domain ),
@@ -129,7 +129,7 @@ class Bonaire_Settings_Page {
 				'title' => __( 'Please fix following errors:', $this->domain )
 			),
 			'reply_error' => array(
-				'title' => __( 'Please fill in your email account details first.', $this->domain ),
+				'title' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', $this->domain ),
 				'text' => __( 'Go to settings page:', $this->domain ),
 				'link' => '/wp-admin/options-general.php?page=bonaire.php',
 				'link_text' => __( 'Go!', $this->domain )
