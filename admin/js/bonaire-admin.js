@@ -134,9 +134,7 @@
             this.moveToTrashButton.bind('click', {context: this}, this.bonaireMoveToTrash);
             this.handleDiv.bind('click', this.bonaireToggleWidgetContent);
             // Meta Box
-            if ('1' === BonaireOptions.manage_handle_divs){
-                this.manageHandleDivs();
-            }
+            this.manageHandleDivs();
             this.bonaireReplyButton.bind('click', {context: this}, this.bonaireReply);
             // Options Page
             this.bonaireSaveOptionsButton.bind('click', {context: this}, this.bonaireSaveOptions);
@@ -727,8 +725,14 @@
             this.loaderSpinner.removeClass('is-active');
         },
         manageHandleDivs: function(){
-            $('#inboundfieldsdiv, #inboundmetadiv').addClass('closed');
-            $('#bonaire-message-meta-box, #bonaire-reply-meta-box').removeClass('closed');
+
+            if ('1' === BonaireOptions.manage_handle_divs){
+                $('#inboundfieldsdiv, #inboundmetadiv').addClass('closed');
+                $('#bonaire-message-meta-box, #bonaire-reply-meta-box').removeClass('closed');
+            } else {
+                $('#bonaire-message-meta-box, #inboundmetadiv').addClass('closed');
+                $('#inboundfieldsdiv, #bonaire-reply-meta-box').removeClass('closed');
+            }
         }
 
     };

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Bonaire\n"
-"POT-Creation-Date: 2019-12-14 02:13+0100\n"
+"POT-Creation-Date: 2019-12-16 01:48+0100\n"
 "PO-Revision-Date: 2018-11-02 02:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: Demis Patti <demispatti@gmail.com>\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: admin/includes/class-adapter.php:411 admin/includes/class-adapter.php:416
 #: admin/includes/class-adapter.php:446 admin/includes/class-adapter.php:451
 #: admin/includes/class-ajax.php:175 admin/includes/class-ajax.php:360
-#: admin/includes/class-options.php:613
+#: admin/includes/class-options.php:569
 #: admin/includes/class-settings-evaluator.php:826
 #: admin/includes/class-settings-evaluator.php:895
 #: admin/includes/class-settings-evaluator.php:930
@@ -135,39 +135,40 @@ msgid ""
 "for sent items. Please review your settings and try again."
 msgstr ""
 
-#: admin/includes/class-meta-box.php:131
+#: admin/includes/class-meta-box.php:159
 #: admin/partials/class-reply-form-display.php:82
 msgid "Message"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:147
+#: admin/includes/class-meta-box.php:175
 #: admin/partials/class-item-display.php:112
 msgid "Reply"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:176
+#: admin/includes/class-meta-box.php:201
 msgid "*no content*"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:212
-msgid "Account Settings"
+#: admin/includes/class-meta-box.php:232
+msgid "Plugin Settings Page"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:228
+#: admin/includes/class-meta-box.php:233
+msgid "Contact Forms Page"
+msgstr ""
+
+#: admin/includes/class-meta-box.php:241
+msgid ""
+"Please Note: This function is available to you for messages you received "
+"<i>after</i> installation and configuration of Bonaire Plugin with the "
+"respective contact form."
+msgstr ""
+
+#: admin/includes/class-meta-box.php:250
 #, php-format
 msgid ""
-"Note: This function is available to you for messages you received <i>%d</i> "
-"installation and configuration of Bonaire with the respective contact form."
-msgstr ""
-
-#: admin/includes/class-meta-box.php:228
-msgid "after"
-msgstr ""
-
-#: admin/includes/class-meta-box.php:237
-#, php-format
-msgid ""
-"There seems to be a problem with the email account or the contact form (%d)."
+"There seems to be a problem with your email settings (%s) or the contact "
+"form (%s)."
 msgstr ""
 
 #: admin/includes/class-options.php:206
@@ -193,203 +194,202 @@ msgid ""
 "is the form that's displayed on the contact page of your website."
 msgstr ""
 
-#: admin/includes/class-options.php:273
+#: admin/includes/class-options.php:229
 msgid "Number Of Messages"
 msgstr ""
 
-#: admin/includes/class-options.php:278
+#: admin/includes/class-options.php:234
 msgid "5"
 msgstr ""
 
-#: admin/includes/class-options.php:281
+#: admin/includes/class-options.php:237
 msgid "Max. number of unread messages to display on the dashboard widget."
 msgstr ""
 
-#: admin/includes/class-options.php:285
+#: admin/includes/class-options.php:241
 msgid "Username"
 msgstr ""
 
-#: admin/includes/class-options.php:292
+#: admin/includes/class-options.php:248
 msgid ""
 "The username you authenticate to the email account with. This is most "
 "likely the email address or your name."
 msgstr ""
 
-#: admin/includes/class-options.php:296
+#: admin/includes/class-options.php:252
 msgid "Password"
 msgstr ""
 
-#: admin/includes/class-options.php:301 admin/includes/class-options.php:312
+#: admin/includes/class-options.php:257 admin/includes/class-options.php:268
 msgid "No example"
 msgstr ""
 
-#: admin/includes/class-options.php:303
+#: admin/includes/class-options.php:259
 msgid ""
 "Your password. It will be stored encrypted in the database, and replaced by "
 "***** in the user interface after saving it. Please make sure you have "
 "generated your SALT-Keys."
 msgstr ""
 
-#: admin/includes/class-options.php:307
+#: admin/includes/class-options.php:263
 msgid "SMTPAuth"
 msgstr ""
 
-#: admin/includes/class-options.php:314
+#: admin/includes/class-options.php:270
 msgid "You must authenticate with your username and password."
 msgstr ""
 
-#: admin/includes/class-options.php:318
+#: admin/includes/class-options.php:274
 msgid "SMTP Host"
 msgstr ""
 
-#: admin/includes/class-options.php:325
+#: admin/includes/class-options.php:281
 msgid "The address of the SMTP host."
 msgstr ""
 
-#: admin/includes/class-options.php:325 admin/includes/class-options.php:336
-#: admin/includes/class-options.php:348
+#: admin/includes/class-options.php:281 admin/includes/class-options.php:292
+#: admin/includes/class-options.php:304
 msgid "Get this from your hosting or email provider."
 msgstr ""
 
-#: admin/includes/class-options.php:329
+#: admin/includes/class-options.php:285
 msgid "SMTP Port"
 msgstr ""
 
-#: admin/includes/class-options.php:336
+#: admin/includes/class-options.php:292
 msgid "The SMTP port number."
 msgstr ""
 
-#: admin/includes/class-options.php:340
+#: admin/includes/class-options.php:296
 msgid "SMTPSecure"
 msgstr ""
 
-#: admin/includes/class-options.php:348 admin/includes/class-options.php:394
+#: admin/includes/class-options.php:304 admin/includes/class-options.php:350
 msgid "SSL or TLS is required."
 msgstr ""
 
-#: admin/includes/class-options.php:352
+#: admin/includes/class-options.php:308
 msgid "From Name"
 msgstr ""
 
-#: admin/includes/class-options.php:359
+#: admin/includes/class-options.php:315
 msgid "Your name or website name or company name or..."
 msgstr ""
 
-#: admin/includes/class-options.php:363
+#: admin/includes/class-options.php:319
 msgid "From E-Mail Address"
 msgstr ""
 
-#: admin/includes/class-options.php:370
+#: admin/includes/class-options.php:326
 msgid "The account's email address."
 msgstr ""
 
-#: admin/includes/class-options.php:374
+#: admin/includes/class-options.php:330
 msgid "Save Reply"
 msgstr ""
 
-#: admin/includes/class-options.php:378 admin/includes/class-options.php:380
-#: admin/includes/class-options.php:448
+#: admin/includes/class-options.php:334 admin/includes/class-options.php:336
+#: admin/includes/class-options.php:404
 msgid "No"
 msgstr ""
 
-#: admin/includes/class-options.php:379 admin/includes/class-options.php:380
-#: admin/includes/class-options.php:447 admin/includes/class-options.php:448
+#: admin/includes/class-options.php:335 admin/includes/class-options.php:336
+#: admin/includes/class-options.php:403 admin/includes/class-options.php:404
 msgid "Yes"
 msgstr ""
 
-#: admin/includes/class-options.php:382
+#: admin/includes/class-options.php:338
 msgid ""
 "Store replies on your mail server inside the default folder for sent items."
 msgstr ""
 
-#: admin/includes/class-options.php:386
+#: admin/includes/class-options.php:342
 msgid "IMAPSecure"
 msgstr ""
 
-#: admin/includes/class-options.php:398
+#: admin/includes/class-options.php:354
 msgid "IMAP Host"
 msgstr ""
 
-#: admin/includes/class-options.php:405
+#: admin/includes/class-options.php:361
 msgid "The address of the IMAP host."
 msgstr ""
 
-#: admin/includes/class-options.php:409
+#: admin/includes/class-options.php:365
 msgid "IMAP Port"
 msgstr ""
 
-#: admin/includes/class-options.php:416
+#: admin/includes/class-options.php:372
 msgid "The IMAP port number."
 msgstr ""
 
-#: admin/includes/class-options.php:420
+#: admin/includes/class-options.php:376
 msgid "Sent Items Folder Name, case-sensitive (only if Gmail)"
 msgstr ""
 
-#: admin/includes/class-options.php:424 admin/includes/class-options.php:425
-#: admin/includes/class-options.php:435 admin/includes/class-options.php:436
+#: admin/includes/class-options.php:381 admin/includes/class-options.php:392
 msgid "Sent"
 msgstr ""
 
-#: admin/includes/class-options.php:427
+#: admin/includes/class-options.php:383
 msgid "Case sensitive."
 msgstr ""
 
-#: admin/includes/class-options.php:427 admin/includes/class-options.php:438
+#: admin/includes/class-options.php:383 admin/includes/class-options.php:394
 msgid ""
 "Use \"Sent\" in the language you use the mail account with or as it is "
 "named in Outlook, Thunderbird etc., respectively)."
 msgstr ""
 
-#: admin/includes/class-options.php:427
+#: admin/includes/class-options.php:383
 msgid ""
 "The name of the folder your replies will be stored into on the web server. "
 "E.g. Sent, Gesendet, Envoyé, etc."
 msgstr ""
 
-#: admin/includes/class-options.php:431
+#: admin/includes/class-options.php:387
 msgid "Sent Items Folder Path (if Gmail - optional or leave blank)"
 msgstr ""
 
-#: admin/includes/class-options.php:438
+#: admin/includes/class-options.php:394
 msgid ""
 "This is an option to provide an inbox path similar to the one in the "
 "example. Use this approach, if the option above should fail (Error "
 "BON1704-0001). <br>Otherwise, leave blank."
 msgstr ""
 
-#: admin/includes/class-options.php:442
+#: admin/includes/class-options.php:398
 msgid "Use SSL Certification Validation"
 msgstr ""
 
-#: admin/includes/class-options.php:450
+#: admin/includes/class-options.php:406
 msgid ""
 "\"No\" skips ssl certificate validation. This setting is not secure and you "
 "should avoid using it."
 msgstr ""
 
-#: admin/includes/class-options.php:451
+#: admin/includes/class-options.php:407
 msgid "Otherwise, you're a potential subject of man in the middle attacks"
 msgstr ""
 
-#: admin/includes/class-options.php:452
+#: admin/includes/class-options.php:408
 #: admin/includes/class-settings-evaluator.php:1100
 msgid "Read more"
 msgstr ""
 
-#: admin/includes/class-options.php:610
+#: admin/includes/class-options.php:566
 msgid "There's nothing to save."
 msgstr ""
 
-#: admin/includes/class-options.php:613
+#: admin/includes/class-options.php:569
 msgid "Can't save settings right now."
 msgstr ""
 
-#: admin/includes/class-options.php:675
+#: admin/includes/class-options.php:631
 msgid "Settings Saved."
 msgstr ""
 
-#: admin/includes/class-options.php:787
+#: admin/includes/class-options.php:743
 msgid "Failed to reset settings. Please refresh the page and try again."
 msgstr ""
 

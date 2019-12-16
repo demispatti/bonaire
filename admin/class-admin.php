@@ -168,11 +168,11 @@ class Bonaire_Admin {
 	/**
 	 * Holds the instance of the class responsible for handling the email account settings status.
 	 *
-	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Account_Settings_Status
+	 * @var AdminIncludes\Bonaire_Settings_Status $Bonaire_Settings_Status
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private $Bonaire_Account_Settings_Status;
+	private $Bonaire_Settings_Status;
 	
 	/**
 	 * Set the options instance.
@@ -259,7 +259,7 @@ class Bonaire_Admin {
 				$this->include_options();
 				$this->include_bonaire_mail();
 				$this->include_account_evaluator();
-				$this->include_account_settings_status();
+				$this->include_settings_status();
 				$this->include_ajax();
 				$this->include_contextual_help();
 				$this->include_tooltips();
@@ -504,9 +504,9 @@ class Bonaire_Admin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	private function include_account_settings_status() {
+	private function include_settings_status() {
 		
-		$this->Bonaire_Account_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
+		$this->Bonaire_Settings_Status = new AdminIncludes\Bonaire_Settings_Status( $this->domain );
 	}
 	
 	/**
@@ -579,7 +579,7 @@ class Bonaire_Admin {
 		/**
 		 * The class responsible for this plugin's ajax functionality.
 		 */
-		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail, $this->Bonaire_Account_Evaluator, $this->Bonaire_Account_Settings_Status );
+		$Bonaire_Ajax = new AdminIncludes\Bonaire_Ajax( $this->domain, $this->Bonaire_Options, $this->Bonaire_Post_Views, $this->Bonaire_Mail, $this->Bonaire_Account_Evaluator, $this->Bonaire_Settings_Status );
 		$Bonaire_Ajax->add_hooks();
 	}
 	

@@ -17,7 +17,7 @@ Send Replies to messages you received trough a CF7 form and have stored with 'Fl
 
 == Features ==
 
-- Send replies to messages recieved trough a default "Contact Form 7" contact form
+- Send replies to messages received trough a default "Contact Form 7" contact form
 - Store replies on your mail server's 'Sent Items' folder  
 - Dashboard Widget lists incoming messages  
 - Email replies are text-only (HTML-Mails will be added soon)  

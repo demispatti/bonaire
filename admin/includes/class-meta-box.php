@@ -107,9 +107,37 @@ class Bonaire_Meta_Box {
 	public function add_hooks() {
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_message_meta_box' ), 10 );
-		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_reply_form_meta_box' ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'localize_script' ), 20 );
+		
+		// Show this meta box anyway since it hosts some user messages [for now] in case the plugin isn\'t configured propperly.
+		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_reply_form_meta_box' ), 11 );
+		
+		// Show this meta box only if the Bonaire is configured propperly and the user can indeed respond to this message.
+		if(false === $this->can_reply()){
+			return;
+		}
+		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_message_meta_box' ), 10 );
+	}
+	
+	private function can_reply() {
+		
+		$post_id                         = (int) $_REQUEST['post'];
+		$stored_options                  = $this->Bonaire_Options->get_stored_options();
+		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
+		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
+		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
+		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
+		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
+		$uniqid                          = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
+		
+		if ( ( false === $uniqid || false === $recipient_email_address ) ||
+		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
+		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ) {
+			
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -152,7 +180,8 @@ class Bonaire_Meta_Box {
 	
 	public function localize_script() {
 		
-		wp_localize_script( 'bonaire-admin-js', 'BonaireOptions', array( 'manage_handle_divs' => '1' ) );
+		$handle_divs = $this->can_reply() ? '1' : '0';
+		wp_localize_script( 'bonaire-admin-js', 'BonaireOptions', array( 'manage_handle_divs' => $handle_divs ) );
 	}
 	
 	/**
@@ -163,26 +192,14 @@ class Bonaire_Meta_Box {
 	 */
 	public function display_message_meta_box() {
 		
-		$post_id                         = (int) $_REQUEST['post'];
-		$stored_options                  = $this->Bonaire_Options->get_stored_options();
-		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
-		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
-		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
-		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
-		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
-		
-		$_post          = get_post( $post_id );
-		$post_meta      = get_post_meta( $_post->ID );
-		$your_message   = isset($post_meta['_field_your-message'][0]) ? $post_meta['_field_your-message'][0] : __('*no content*', $this->domain);
-		
-		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
-		if ( ( false === $uniqid || false === $recipient_email_address ) ||
-		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
-		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ) {
-			
+		$post_id = (int) isset($_REQUEST['post']) && is_int( (int)$_REQUEST['post']) ? $_REQUEST['post'] : false;
+		if(false === $post_id){
 			return;
 		}
-		
+
+		$post_meta      = get_post_meta( $post_id );
+		$your_message   = isset($post_meta['_field_your-message'][0]) ? $post_meta['_field_your-message'][0] : __('*no content*', $this->domain);
+
 		/**
 		 * Display reply form.
 		 */
@@ -200,7 +217,11 @@ class Bonaire_Meta_Box {
 	 */
 	public function display_reply_form_meta_box() {
 		
-		$post_id                         = (int) $_REQUEST['post'];
+		$post_id = isset( $_REQUEST['post'] ) && is_int( (int) $_REQUEST['post'] ) ? (int) $_REQUEST['post'] : false;
+		if ( false === $post_id ) {
+			return;
+		}
+		
 		$stored_options                  = $this->Bonaire_Options->get_stored_options();
 		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
 		$cf7_status                      = $Bonaire_Account_Settings_Status->get_settings_status( 'cf7', true );
@@ -208,24 +229,16 @@ class Bonaire_Meta_Box {
 		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
 		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
-		$url                             = site_url() . '/wp-admin/options-general.php?page=bonaire.php';
-		$link                            = '<a href="' . esc_url( $url ) . '" target="_blank">' . __( 'Account Settings', $this->domain ) . '</a>';
-		
-		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
-		if ( ( false === $uniqid || false === $recipient_email_address ) ||
-		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
-		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ) {
-			
-			return;
-		}
+		$settings_page_link              = '<a href="' . esc_url( site_url() . '/wp-admin/options-general.php?page=bonaire.php' ) . '" target="_blank">' . __( 'Plugin Settings Page', $this->domain ) . '</a>';
+		$contactforms_page_link          = '<a href="' . esc_url( site_url() . '/wp-admin/admin.php?page=wpcf7' ) . '" target="_blank">' . __( 'Contact Forms Page', $this->domain ) . '</a>';
+		$uniqid                          = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		
 		/**
 		 * Check if the message was preprocessed.
 		 * If not, a reply is not possible since we don't know the sender's email address.
 		 */
-		$uniqid = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		if ( false === $uniqid || false === $recipient_email_address ) {
-			esc_html_e( printf( __('Note: This function is available to you for messages you received <i>%d</i> installation and configuration of Bonaire with the respective contact form.', $this->domain )), __('after', $this->domain));
+			echo __('Please Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire Plugin with the respective contact form.', $this->domain );
 			
 			return;
 		}
@@ -234,9 +247,8 @@ class Bonaire_Meta_Box {
 		 * Check if the necessary account settings are marked as valid.
 		 */
 		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status || false === $cf7_status ) {
-			$string = sprintf( __( 'There seems to be a problem with the email account or the contact form (%d).', $this->domain ), $link );
-			echo $string;
-			
+			printf( __( 'There seems to be a problem with your email settings (%s) or the contact form (%s).', $this->domain ), $settings_page_link, $contactforms_page_link );
+
 			return;
 		}
 		
@@ -245,7 +257,7 @@ class Bonaire_Meta_Box {
 		 */
 		$your_subject = $this->Bonaire_Adapter->get_post_field( $post_id, 'your-subject' );
 		$your_email   = $this->Bonaire_Adapter->get_meta_field( $post_id, 'post_author_email' );
-		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $stored_options );
+		$string       = AdminPartials\Bonaire_Reply_Form_Display::reply_form_display( $your_subject, $your_email, $this->Bonaire_Options->get_stored_options() );
 		echo $string;
 		
 		return;

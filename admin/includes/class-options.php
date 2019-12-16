@@ -224,50 +224,6 @@ final class Bonaire_Options {
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg',
 				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', $this->domain )
 			),
-			//'your_name' => array(
-			//	'id' => 'your_name',
-			//	'name' => __( 'Your Name Form Tag', $this->domain ),
-			//	'type' => 'text',
-			//	'setting' => false,
-			//	'group' => 'none',
-			//	'default_value' => 'your-name',
-			//	'example' => 'your-name',
-			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-name.jpg'*/,
-			//	'tt_description' => __( 'The form tag used to get the sender\'s name.', $this->domain )
-			//),
-			//'your_email' => array(
-			//	'id' => 'your_email',
-			//	'name' => __( 'Your Email Form Tag', $this->domain ),
-			//	'type' => 'text',
-			//	'setting' => false,
-			//	'group' => 'none',
-			//	'default_value' => 'your-email',
-			//	'example' => 'your-email',
-			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg'*/,
-			//	'tt_description' => __( 'The form tag used to get the sender\'s email address.', $this->domain )
-			//),
-			//'your_subject' => array(
-			//	'id' => 'your_subject',
-			//	'name' => __( 'Your Subject Form Tag', $this->domain ),
-			//	'type' => 'text',
-			//	'setting' => false,
-			//	'group' => 'none',
-			//	'default_value' => 'your-subject',
-			//	'example' => 'your-subject',
-			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-subject.jpg'*/,
-			//	'tt_description' => __( 'The form tag used to get the message subject.', $this->domain )
-			//),
-			//'your_message' => array(
-			//	'id' => 'your_message',
-			//	'name' => __( 'Your Message Form Tag', $this->domain ),
-			//	'type' => 'text',
-			//	'setting' => false,
-			//	'group' => 'none',
-			//	'default_value' => 'your-message',
-			//	'example' => 'your-message',
-			//	'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-message.jpg'*/,
-			//	'tt_description' => __( 'The form tag used to get the message.', $this->domain )
-			//),
 			'number_posts' => array(
 				'id' => 'number_posts',
 				'name' => __( 'Number Of Messages', $this->domain ),
@@ -421,7 +377,7 @@ final class Bonaire_Options {
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
-				'default_value' => __( 'Sent', $this->domain ),
+				'default_value' => '',
 				'example' => __( 'Sent', $this->domain ),
 				'tt_image' => '',
 				'tt_description' => __( 'Case sensitive.' ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
@@ -432,7 +388,7 @@ final class Bonaire_Options {
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
-				'default_value' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
+				'default_value' => '',
 				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
 				'tt_image' => '',
 				'tt_description' => __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )

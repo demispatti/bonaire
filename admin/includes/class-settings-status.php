@@ -61,7 +61,7 @@ final class Bonaire_Settings_Status {
 			
 			if ( $bool ) {
 				
-				return 'green' === $stored_options[1][ $protocol . '_status' ];
+				return isset( $stored_options[1][ $protocol . '_status' ]) && 'green' === $stored_options[1][ $protocol . '_status' ];
 			} else {
 				
 				return isset( $stored_options[1][ $protocol . '_status' ] ) ? $stored_options[1][ $protocol . '_status' ] : 'orange';
