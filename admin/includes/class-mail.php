@@ -211,7 +211,7 @@ final class Bonaire_Mail extends PHPMailer {
 		
 		try {
 			
-			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
 			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
 			$sent_items_folder            = $this->get_sent_items_folder_for_send_mail( $mail );
 			

@@ -863,33 +863,21 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		if($is_imap){
 			
 			try {
-				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
-				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, true );
+				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
+				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, true, false);
 				
 				// Check IMAP connection
-				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password, OP_READONLY ) or false;
 				if ( false !== $imapStream ) {
 					// Close connection
 					imap_close( $imapStream );
 					
 					return true;
-				}
-				
-				// Check IMAP connection
-				$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation, true, true );
-				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
-				if ( false !== $imapStream ) {
-					// Close connection
-					imap_close( $imapStream );
-					$imap_secure   = 'ssl' === $this->stored_options->imapsecure ? 'TLS' : 'SSL';
-					$error_message = sprintf( __( 'It seems you shoud set the value for IMAPSecure to "%s". Please change the settings and save them, before running the test again.', $this->domain ), $imap_secure );
+				} else {
 					
-					return new WP_Error( 1, $error_message );
+					return new WP_Error( 1, __('IMAP Error', $this->domain) . ': ' . imap_last_error() );
 				}
-				
-				$error_message = __( 'Failed to check IMAPSecure settings. You may want to review your settings and try again.', $this->domain );
-				
-				return new WP_Error( 1, $error_message );
+
 			} catch( Exception $e ) {
 				
 				return new WP_Error( 2, __( 'Internal Error: Unable to check IMAPSecure settings.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
@@ -898,33 +886,22 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		
 		try {
 			
-			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
-			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
+			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, false, false );
 			
 			// Check SMTP connection
-			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
+			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password, OP_READONLY ) or false;
+			$errors = null;
 			if ( false !== $imapStream ) {
 				// Close connection
 				imap_close( $imapStream );
 				
 				return true;
-			}
-			
-			// Check IMAP connection
-			$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation,false, true );
-			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
-			if ( false !== $imapStream ) {
-				// Close connection
-				imap_close( $imapStream );
-				$smtp_secure   = 'ssl' === $this->stored_options->smtpsecure ? 'TLS' : 'SSL';
-				$error_message = sprintf( __( 'It seems you shoud set the value for SMTPSecure to "%s". Please change the settings and save them, before running the test again.', $this->domain), $smtp_secure );
-				return new WP_Error( 1, $error_message );
+			} else {
+
+				return new WP_Error( 1, __( 'IMAP Error', $this->domain ) . ': ' . imap_last_error() );
 			}
 
-			$error_message = __('Failed to check SMTPSecure settings. You may want to review your settings and try again.', $this->domain );
-			
-			return new WP_Error( 1, $error_message );
-			
 		} catch( Exception $e ) {
 			
 			return new WP_Error( 2, __( 'Internal Error: Unable to check SMTPSecure settings.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
@@ -1040,7 +1017,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 			$test_dns = gethostbyname( $imap_host . '.' );
 			
 			if ( ! preg_match( '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $test_dns ) ) {
-				$error_message = '<strong>' . printf( __( 'Failed to resolve IMAP host (%d).', $this->domain ), $imap_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
+				$error_message = '<strong>' . sprintf( __( 'Failed to resolve IMAP host (%s).', $this->domain ), $imap_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 				
 				return new WP_Error( 1, $error_message );
 			}
@@ -1095,7 +1072,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	private function test_inbox() {
 		
 		// Check for SSL
-		if ( 'cert' === $this->stored_options->ssl_certification_validation && false === $this->is_ssl() ) {
+		if ( 'nocert' !== $this->stored_options->ssl_certification_validation && false === $this->is_ssl() ) {
 			$error_message = __( 'Error: No SSL Certificate installed on this website.<br>During local website development, use the \'nocert\' option.<br>nIf you are on a live website, consider installing a SSL certificate and then use the \'cert\' option. Otherwise, you\'re a possible subject of man in the middle attacks', $this->domain ) . '<br>' . __( 'Please review your settings and run the test again.', $this->domain );
 			$read_morelink = printf( '<a href="https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php" target="_blank">%d</a>)', __( 'Read more', $this->domain ) );
 			
@@ -1107,7 +1084,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$mail = $this->get_phpmailer( true );
 		
 		try {
-			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? 'novalidate-cert' : '';
+			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
 			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
 			
 			// Check IMAP connection
@@ -1145,16 +1122,17 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function get_mailbox( $mail, $ssl_certification_validation, $is_imap = false, $recheck = false ) {
 		
-		$mail->Host       = $this->stored_options->imap_host;
-		$mail->Port       = $this->stored_options->imap_port;
-		$secure = $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
-		$smtpsecure = $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
+		$mail->Host        = /*$is_imap ? */$this->stored_options->imap_host/* : $this->stored_options->smtp_host*/;
+		$mail->Port        = /*$is_imap ? */$this->stored_options->imap_port/* : $this->stored_options->smtp_port*/;
+		$secure            = $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
+		$smtpsecure        = $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
+		$inbox_folder_name = $this->stored_options->inbox_folder_name;
 		
 		if ( $this->is_gmail() ) {
 
-			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . '/' . $ssl_certification_validation . '}';
-			
-			return $mailserver_path . 'INBOX';
+			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
+			$inbox_folder_name = '' !== $inbox_folder_name ? $inbox_folder_name : __('Sent', $this->domain);
+			return $mailserver_path . 'INBOX'/* . $inbox_folder_name*/;
 		}
 		
 		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
