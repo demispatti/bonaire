@@ -1,9 +1,9 @@
 
 
 <p align="center">
-  <a href="https://wordpress.org/plugins/bonaire/" target="_blank">
+  <!--<a href="https://wordpress.org/plugins/bonaire/" target="_blank">
     <img src="/assets/icon-128x128.png" alt="Bonaire Logo" width="128" height="128">
-  </a>
+  </a>-->
 </p>
 
 <h2 align="center">Bonaire</h2>
