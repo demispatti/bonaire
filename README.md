@@ -1,9 +1,9 @@
 
 
 <p align="center">
-  <!--<a href="https://wordpress.org/plugins/bonaire/" target="_blank">
+  <a href="https://wordpress.org/plugins/bonaire/" target="_blank">
     <img src="/assets/icon-128x128.png" alt="Bonaire Logo" width="128" height="128">
-  </a>-->
+  </a>
 </p>
 
 <h2 align="center">Bonaire</h2>
@@ -11,7 +11,7 @@
 A WordPress plugin to send replies via your website to messages you received with  <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> and which you store with <a href="https://wordpress.org/plugins/flamingo/" target="_blank">Flamingo</a>.
   <br>
   <br>
-  <!--<a href="https://downloads.wordpress.org/plugin/bonaire.zip" target="_blank"><strong>Get The Plugin</strong></a>-->
+  <a href="https://downloads.wordpress.org/plugin/bonaire.zip" target="_blank"><strong>Get The Plugin</strong></a>
   <br>
   <br>
   <a href="https://github.com/demispatti/bonaire/issues/new?template=bug.md" target="_blank">Report A Bug</a>
