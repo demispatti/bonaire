@@ -228,6 +228,7 @@ class Bonaire_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_update_post' ), 11 );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 	}
 	
 	/**
@@ -290,13 +291,12 @@ class Bonaire_Admin {
 	 */
 	public function enqueue_styles( $hook_suffix ) {
 		
-		$prefix = ( defined( 'BONAIRE_SCRIPT_DEBUG' ) && BONAIRE_SCRIPT_DEBUG ) ? '' : '.min';
+		$prefix = ( defined( 'BONAIRE_SCRIPT_DEBUG' ) ) ? '' : '.min';
 		
 		if ( in_array( $hook_suffix, self::$plugin_hook_suffixes, true ) ) {
 			
 			wp_enqueue_style( 'dashicons' );
 			
-			global $wp_scripts;
 			wp_enqueue_style( 'jquery-ui-smoothness',
 				BONAIRE_ROOT_URL . "vendor/jquery-ui/jquery-ui.min.css",
 				array(),
@@ -358,8 +358,7 @@ class Bonaire_Admin {
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 		
-		$prefix = /*( defined( 'BONAIRE_SCRIPT_DEBUG' ) && BONAIRE_SCRIPT_DEBUG ) ? '' : '.min'*/
-			'';
+		$prefix = ( defined( 'BONAIRE_SCRIPT_DEBUG' ) ) ? '' : '.min';
 		
 		if ( in_array( $hook_suffix, self::$plugin_hook_suffixes, true ) ) {
 			
@@ -596,6 +595,28 @@ class Bonaire_Admin {
 		 */
 		$Bonaire_Tooltips = new AdminIncludes\Bonaire_Tooltips( $this->domain, $this->Bonaire_Options->get_options_meta() );
 		$Bonaire_Tooltips->add_hooks();
+	}
+	
+	/**
+	 * Adds support, rating, and donation links to the plugin row meta to the plugins admin screen.
+	 *
+	 * @param array $meta
+	 * @param string $file
+	 *
+	 * @return array  $meta
+	 * @since  1.0.0
+	 */
+	public function plugin_row_meta( $meta, $file ) {
+		
+		$plugin = plugin_basename( 'bonaire/bonaire.php' );
+		
+		if ( $file === $plugin ) {
+			$meta[] = '<a href="https://wordpress.org/support/plugin/bonaire" target="_blank">' . __( 'Plugin Support', $this->domain ) . '</a>';
+			$meta[] = '<a href="https://wordpress.org/support/view/plugin-reviews/bonaire" target="_blank">' . __( 'Rate Plugin', $this->domain ) . '</a>';
+			$meta[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q" target="_blank">' . __( 'Donate', $this->domain ) . '</a>';
+		}
+		
+		return $meta;
 	}
 	
 }

@@ -371,6 +371,12 @@ class Bonaire_Ajax {
 		}
 	}
 	
+	/**
+	 * Tests if the contact form configuration meets our requirements.
+	 *
+	 * @throws \Exception
+	 * @since 1.0.0
+	 */
 	public function bonaire_test_contact_form() {
 		
 		if ( false === wp_verify_nonce( $_REQUEST['nonce'], 'bonaire_test_contact_form_nonce' ) ) {
@@ -434,7 +440,7 @@ class Bonaire_Ajax {
 			$response = array(
 				'success' => true,
 				'message' => $result['message'],
-				'status' => $result['status']
+				'status' => 'green'
 			);
 			wp_send_json_success( $response );
 		}

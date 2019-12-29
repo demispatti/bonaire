@@ -114,14 +114,25 @@ class Bonaire_Meta_Box {
 		
 		// Show this meta box only if the Bonaire is configured propperly and the user can indeed respond to this message.
 		if(false === $this->can_reply()){
+			
 			return;
 		}
 		add_action( 'load-flamingo_page_flamingo_inbound', array( $this, 'add_message_meta_box' ), 10 );
 	}
 	
+	/**
+	 * Checks if all criteria is met to send a reply.
+	 *
+	 * @return bool
+	 * @since 1.0.0
+	 */
 	private function can_reply() {
 		
-		$post_id                         = (int) $_REQUEST['post'];
+		$post_id = isset( $_REQUEST['post'] ) && is_int( (int) $_REQUEST['post'] ) ? (int) $_REQUEST['post'] : false;
+		if(false === $post_id) {
+			
+			return false;
+		}
 		$stored_options                  = $this->Bonaire_Options->get_stored_options();
 		$Bonaire_Account_Settings_Status = new Bonaire_Settings_Status( $this->domain );
 		$smtp_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true );
@@ -132,7 +143,8 @@ class Bonaire_Meta_Box {
 		
 		if ( ( false === $uniqid || false === $recipient_email_address ) ||
 		     false === $this->Bonaire_Adapter->is_same_email_address( $post_id ) ||
-		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ) {
+		     ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status ) ||
+		     $this->Bonaire_Options->stored_options->{0}->from !== $this->Bonaire_Adapter->get_recipient_email_address( $post_id ) ) {
 			
 			return false;
 		}
@@ -152,6 +164,11 @@ class Bonaire_Meta_Box {
 		wp_enqueue_script( 'dashicons' );
 	}
 	
+	/**
+	 * Registers the meta box with WordPress.
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_message_meta_box() {
 		
 		add_meta_box(
@@ -178,6 +195,11 @@ class Bonaire_Meta_Box {
 		);
 	}
 	
+	/**
+	 * Sends meta box related data to the JavaScript file.
+	 *
+	 * @since 1.0.0
+	 */
 	public function localize_script() {
 		
 		$handle_divs = $this->can_reply() ? '1' : '0';
@@ -234,21 +256,30 @@ class Bonaire_Meta_Box {
 		$uniqid                          = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		
 		/**
-		 * Check if the message was preprocessed.
-		 * If not, a reply is not possible since we don't know the sender's email address.
+		 * Checks if the message was preprocessed.
+		 * If not, a reply is not possible since we don't know the recipient's email address.
 		 */
 		if ( false === $uniqid || false === $recipient_email_address ) {
-			echo __('Please Note: This function is available to you for messages you received <i>after</i> installation and configuration of Bonaire Plugin with the respective contact form.', $this->domain );
+			echo __( 'Please Note: This function is available for messages you received <i>after</i> installation and configuration of Bonaire Plugin with the respective contact form.', $this->domain ) . ' ' . __( 'The reason is that Contact Form 7 has no need to store the email address the message was recieved by.', $this->domain ) . ' ' . __( 'In order to send replies from the original email address, Bonaire post-processes recieved messages and tags the message with that email address to be able to associate the message with the configured email account.', $this->domain ) . ' ' . sprintf( __( 'Simply put, once you\'ve set up the contact form (%1$s) and configured the email account settings (%2$s), you\'ll be able to reply to any message you recieve trough the respective contact form.', $this->domain ), $contactforms_page_link, $settings_page_link);
 			
 			return;
 		}
 		
 		/**
-		 * Check if the necessary account settings are marked as valid.
+		 * Checks if the necessary account settings are marked as valid.
 		 */
 		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status || false === $cf7_status ) {
 			printf( __( 'There seems to be a problem with your email settings (%s) or the contact form (%s).', $this->domain ), $settings_page_link, $contactforms_page_link );
 
+			return;
+		}
+		
+		/**
+		 * Checks if the recipient email address matches the one that is configured on the plugin settings page.
+		 */
+		if ( $stored_options->from !== $recipient_email_address ) {
+			printf( __( 'This message was recieved trough the following email account: <strong>%s</strong>. Bonaire is set to send answers via <strong>%s</strong>. Go to %s.', $this->domain ), $recipient_email_address, $stored_options->from, $settings_page_link);
+			
 			return;
 		}
 		

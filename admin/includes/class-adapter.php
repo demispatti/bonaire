@@ -216,6 +216,12 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		return false;
 	}
 	
+	/**
+	 * @param $post_id
+	 * @param $field_name
+	 *
+	 * @return bool|mixed
+	 */
 	private function post_field( $post_id, $field_name ) {
 		
 		foreach ( $this->posts as $i => $post ) {
@@ -262,7 +268,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @param int $post_id
 	 * @param string $field_name
 	 *
-	 * @return string
+	 * @return string|bool
 	 * @since 0.9.6
 	 */
 	public function get_meta_field( $post_id, $field_name ) {
@@ -310,24 +316,27 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 */
 	private function recipient_email_address( $post_id ) {
 		
-		$channel = $this->get_inbound_channel_from_current_message( $post_id );
+		$channel = $this->get_form_id_from_current_message( $post_id );
 		
 		$args = array(
-			'name' => $channel,
+			'id' => $channel,
 			'post_status' => 'any',
-			'posts_per_page' => 1,
+			'posts_per_page' => -1,
 			'offset' => 0,
 			'orderby' => 'name',
 			'order' => 'ASC',
 		);
 		
 		$contact_form_by_channel = WPCF7_ContactForm::find( $args );
+		if(empty($contact_form_by_channel)) {
+			
+			return false;
+		}
 		/**
 		 * @var WPCF7_ContactForm $contact_form
 		 */
 		$contact_form = $contact_form_by_channel[0];
 		$properties   = $contact_form->get_properties();
-		$contact_form = $contact_form->name() === $channel ? $contact_form : false;
 		if ( is_a( $contact_form, 'WPCF7_ContactForm' ) ) {
 			
 			return isset( $properties['mail']['recipient'] ) && '' !== $properties['mail']['recipient'] ? $properties['mail']['recipient'] : false;
@@ -345,12 +354,12 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @return string|bool
 	 * @since 0.9.6
 	 */
-	private function get_inbound_channel_from_current_message( $post_id ) {
+	private function get_form_id_from_current_message( $post_id ) {
 		
 		foreach ( $this->posts as $i => $post ) {
 			if ( (int) $post->id === (int) $post_id ) {
 				
-				return isset( $post->channel ) ? $post->channel : false;
+				return isset( $post->meta['form_id'] ) ? $post->meta['form_id'] : false;
 			}
 		}
 		

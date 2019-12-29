@@ -44,7 +44,12 @@ if ( ! defined( 'BONAIRE_ROOT_URL' ) ) {
 	define( 'BONAIRE_ROOT_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'BONAIRE_PLUGINS_ROOT_DIR' ) ) {
-	define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../' );
+	if('src' === basename( __DIR__ )){
+		define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../../' );
+		define( 'BONAIRE_SCRIPT_DEBUG', true );
+	} else {
+		define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../' );
+	}
 }
 
 /**

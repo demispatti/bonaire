@@ -2,10 +2,6 @@
 
 namespace Bonaire\Admin\Includes;
 
-if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php' ) ) {
-	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php';
-}
-
 use Exception;
 use PHPMailer;
 use Bonaire\Admin\Includes as AdminIncludes;
@@ -25,10 +21,6 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'PHPMailer' ) ) {
 	include ABSPATH . 'wp-includes/class-phpmailer.php';
 }
-
-/**
- * Include dependencies.
- */
 if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php' ) ) {
 	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php';
 }
@@ -110,11 +102,12 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$mail->Username   = $this->stored_options->username;
 		$mail->Password   = $this->decrypt( $this->stored_options->password );
 		$mail->SMTPSecure = $this->stored_options->smtpsecure;
+		$mail->SMTPAutoTLS = false;
 		$mail->isSMTP();
 		
 		// Debug
 		if ( null !== $exceptions ) {
-			$mail->SMTPDebug   = 2;
+			$mail->SMTPDebug   = 3;
 			$mail->Debugoutput = function ( $str, $level ) {
 				
 				global $debug;
@@ -196,6 +189,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 * Sets up the mailer instance.
 	 *
 	 * @param object $data
+	 * @param string $recipient_email_address
 	 * @param null $exceptions
 	 *
 	 * @return PHPMailer $mail
@@ -211,6 +205,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$mail->From     = $this->stored_options->from;
 		$mail->FromName = $data->fromname;
 		$mail->isSMTP();
+		$mail->SMTPAutoTLS = false;
 		
 		return $mail;
 	}
@@ -271,7 +266,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	}
 	
 	/**
-	 *
+	 * Runs the routine that tests the contact form.
 	 *
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
@@ -317,8 +312,6 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	/**
 	 * Check if the form is filled out completely. If so, evaluate the SMTP settings.
 	 * Sets the 'settings status' after evaluation.
-	 *
-	 * @param bool $internal
 	 *
 	 * @return bool|array|\WP_Error
 	 * @throws \Exception
@@ -527,7 +520,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$messages[] = __( 'Successfully tested SMTP port.', $this->domain );
 		
 		// Test SMTPSecure
-		$smtpsecure_result = $this->test_smtpsecure();
+		$smtpsecure_result = $this->test_connection_type('smtp');
 		if ( is_wp_error( $smtpsecure_result ) ) {
 			$error_code = $smtpsecure_result->get_error_code();
 			$error_code = isset( $error_code ) ? $error_code : false;
@@ -561,14 +554,20 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$messages[] = __( 'Successfully authenticated to the email account via SMTP.', $this->domain );
 		
 		// Add final success message.
-		$messages[] = '<strong>' . __( 'Your SMTP settings are valid.', $this->domain ) . '</strong>';
+		$messages[] = '<strong>' . __( 'Congratulations! Your SMTP settings are valid.', $this->domain ) . '</strong>';
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
 		return $this->create_response( $result, 'green' );
 	}
 	
-	
+	/**
+	 * Checks the contact form.
+	 *
+	 * @return array|bool|\WP_Error
+	 * @throws \Exception
+	 * @see test_form()
+	 */
 	public function bonaire_test_contact_form(){
 		
 		return $this->test_contact_form_settings();
@@ -667,7 +666,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$messages[] = __( 'Successfully tested IMAP port.', $this->domain );
 		
 		// Test SMTPSecure
-		$smtpsecure_result = $this->test_smtpsecure(true);
+		$smtpsecure_result = $this->test_connection_type('imap');
 		if ( is_wp_error( $smtpsecure_result ) ) {
 			$error_code = $smtpsecure_result->get_error_code();
 			$error_code = isset( $error_code ) ? $error_code : false;
@@ -718,7 +717,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$messages[] = __( 'Successfully contacted the inbox folder on the mail server.', $this->domain );
 		
 		// Add final success message.
-		$messages[] = '<strong>' . __( 'Your IMAP settings are valid.', $this->domain ) . '</strong>';
+		$messages[] = '<strong>' . __( 'Congratulations! Your IMAP settings are valid.', $this->domain ) . '</strong>';
 		
 		$result = array( 'success' => true, 'message' => false, 'messages' => $messages, 'error_code' => 0 );
 		
@@ -734,9 +733,20 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	private function create_response( $result, $status ) {
 		
 		$string = '';
-		if ( isset( $result['messages'] ) && false !== $result['messages'] ) {
+		$messages = isset( $result['messages'] ) && is_array($result['messages']) ? $result['messages'] : false;
+		
+		if ( isset( $messages ) && false !== $messages ) {
+			//$number_messages = count( $messages );
+			//$count = 0;
 			foreach ( $result['messages'] as $i => $message ) {
+				//if(count( $messages ) > 1) {
+					/*while( $count <= $number_messages-1){
+						$string .= $message . '<br>';
+						$count++;
+					}*/
+				//}
 				$string .= $message . '<br>';
+				//$string .= '<strong>' . $message . '</strong>' . '<br>';
 			}
 			$message = $string . '<br>' . $result['message'];
 		} else {
@@ -751,14 +761,24 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		return new WP_Error( $result['error_code'], $message, $status );
 	}
 	
+	/**
+	 * Checks if a contact form is set,
+	 * is given the required form tags and has named them propperly.
+	 *
+	 * @return array|WP_Error
+	 * @since 1.0.0
+	 */
 	private function test_form() {
 		
+		// Get the channel (a.k.a. form id)
 		$channel = is_int( (int)str_replace( '_', '', $this->stored_options->channel )) ? (int) str_replace( '_', '', $this->stored_options->channel ) : false;
+		// Check if there is a contact form we can use
 		if(false === $channel || 0 === $channel){
 			$error_message = '<strong>' . __( 'There\'s no contact form set yet.', $this->domain ) . '</strong><br>' . __( 'Please create a contact form first.', $this->domain );
 			
 			return new WP_Error( 1, $error_message );
 		}
+		// Add the channel to the args array
 		$args = array(
 			'id' => $channel,
 			'post_status' => 'any',
@@ -766,7 +786,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 			'orderby' => 'name',
 			'order' => 'ASC',
 		);
-		
+		// Get the contact form
 		$contact_forms_by_channel = WPCF7_ContactForm::find( $args );
 		/**
 		 * @var WPCF7_ContactForm $contact_form
@@ -777,6 +797,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 				$contact_form = $cform;
 			}
 		}
+		// Extract the form tags
 		$scanned_form_tags = $contact_form->scan_form_tags();
 		$scanned_tags = array();
 		foreach ( $scanned_form_tags as $j => $form_tag ) {
@@ -787,7 +808,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		
 		$error_message = '<strong>' . __( 'Form tags to review:', $this->domain ) . '</strong><br>';
 		$errors = 0;
-		$messages = array();
+		// Compare the tags
 		foreach( $expected_form_tags as $i => $expected_form_tag){
 			if ( ! in_array( $expected_form_tag, $scanned_tags ) ) {
 				$error_message .= '<span>' . __('Expected Form Tag:', $this->domain) . ' '.$expected_form_tag . '</span><br>';
@@ -839,16 +860,18 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function resolve_smtp_hostname( $smtp_host ) {
 		
+		$protocol = 'SMTP';
+		
 		try {
 			$test_dns = gethostbyname( $smtp_host . '.' );
 			
 			if ( ! preg_match( '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $test_dns ) ) {
-				$error_message = '<strong>' . printf( __( 'Failed to resolve SMTP host name (%d).', $this->domain ), $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
+				$error_message = '<strong>' . wp_sprintf( __( 'Failed to resolve %1$s host name (%2$s).', $this->domain ), $protocol, $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 				
 				return new WP_Error( 1, $error_message );
 			}
 		} catch( Exception $e ) {
-			$error_message = '<strong>' . printf( __( 'Internal Error: Unable to resolve SMTP host name.', $this->domain ), $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
+			$error_message = '<strong>' . wp_sprintf( __( 'Internal Error: Unable to resolve %1$s host name (%2$s).', $this->domain ), $protocol, $smtp_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 			
 			return new WP_Error( 2, $error_message );
 		}
@@ -856,15 +879,23 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		return true;
 	}
 	
-	private function test_smtpsecure($is_imap = false) {
+	/**
+	 * Checks the settings for SMTPSecure or IMAPSecure respectively.
+	 *
+	 * @param string $encryption
+	 *
+	 * @return bool|\WP_Error
+	 */
+	private function test_connection_type($encryption) {
 		
 		$mail = $this->get_phpmailer( true );
 		
-		if($is_imap){
+		if( 'imap' === $encryption){
 			
 			try {
+				$protocol = 'IMAP';
 				$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
-				$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, true, false);
+				$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation, true, false);
 				
 				// Check IMAP connection
 				$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password, OP_READONLY ) or false;
@@ -874,6 +905,17 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 					
 					return true;
 				} else {
+					$last_error = imap_last_error();
+					if( preg_match('/#11001/', $last_error)){
+						
+						return new WP_Error( 1, sprintf( __( 'Please check your %1$s Host url (%2$s) and try again.', $this->domain ), $protocol, $this->stored_options->imap_host ) );
+					}
+					
+					if ( preg_match( '/IMAP connection broken/', $last_error ) ) {
+						
+						$encryption = 'ssl' === $this->stored_options->imapsecure ? 'TLS' : 'SSL';
+						return new WP_Error( 1, sprintf( __( 'It seems you shoud set the value for %1$sSecure to "%2$s".', $this->domain ), $protocol, $encryption ) . ' ' . __('Please review your settings and run the test again.', $this->domain) );
+					}
 					
 					return new WP_Error( 1, __('IMAP Error', $this->domain) . ': ' . imap_last_error() );
 				}
@@ -885,22 +927,33 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		}
 		
 		try {
-			
-			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
-			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation, false, false );
-			
-			// Check SMTP connection
-			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password, OP_READONLY ) or false;
-			$errors = null;
-			if ( false !== $imapStream ) {
-				// Close connection
-				imap_close( $imapStream );
+			if($mail->smtpConnect()){
 				
 				return true;
-			} else {
-
-				return new WP_Error( 1, __( 'IMAP Error', $this->domain ) . ': ' . imap_last_error() );
 			}
+			
+			$stored_SMTPSecure = $mail->SMTPSecure;
+			$stored_smtp_port = $mail->Port;
+			
+			if('ssl' === $mail->SMTPSecure){
+				$port = 465;
+				$mail->Port = $port;
+				
+				if ( $mail->smtpConnect() ) {
+					
+					return new WP_Error( 1, sprintf( __( 'Please set your SMTP Port to %1$s, save the settings and try again.', $this->domain ), $port ) );
+				}
+			} else {
+				$port = 587;
+				$mail->Port = $port;
+				
+				if ( $mail->smtpConnect() ) {
+					
+					return new WP_Error( 1, sprintf( __( 'Please set your SMTP Port to %1$s, save the settings and try again.', $this->domain ), $port ) );
+				}
+			}
+			
+			return new WP_Error( 1, sprintf( __( 'Please review your settings for SMTPSecure (%1$s) and SMTP Port (%2$s) and try again.', $this->domain ), $stored_SMTPSecure, $stored_smtp_port ) );
 
 		} catch( Exception $e ) {
 			
@@ -1013,16 +1066,18 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 */
 	private function resolve_imap_hostname( $imap_host ) {
 		
+		$protocol = 'IMAP';
+		
 		try {
 			$test_dns = gethostbyname( $imap_host . '.' );
 			
 			if ( ! preg_match( '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $test_dns ) ) {
-				$error_message = '<strong>' . sprintf( __( 'Failed to resolve IMAP host (%s).', $this->domain ), $imap_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
+				$error_message = '<strong>' . wp_sprintf( __( 'Failed to resolve %1$s host name (%2$s).', $this->domain ), $protocol, $imap_host ) . '</strong><br>' . __( 'Please review your settings and run the test again.', $this->domain );
 				
 				return new WP_Error( 1, $error_message );
 			}
 		} catch( Exception $e ) {
-			$error_message = '<strong>' . printf( __( 'Internal Error: Unable to resolve IMAP hostname.', $this->domain ), $imap_host ) . '</strong><br>' . __( 'Please try again later.', $this->domain );
+			$error_message = '<strong>' . wp_sprintf( __( 'Internal Error: Unable to resolve %1$s host name (%2$s).', $this->domain ), $protocol, $imap_host ) . '</strong><br>' . __( 'Please try again later.', $this->domain );
 			
 			return new WP_Error( 2, $error_message );
 		}
@@ -1084,7 +1139,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		
 		try {
 			$ssl_certification_validation = 'nocert' === $this->stored_options->ssl_certification_validation ? '/novalidate-cert' : '';
-			$mailbox                      = $this->get_mailbox( $mail, $ssl_certification_validation );
+			$mailbox = $this->get_mailbox( $mail, $ssl_certification_validation, true, false );
 			
 			// Check IMAP connection
 			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or false;
@@ -1099,14 +1154,14 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 				return true;
 			}
 
-			$imap_errors = imap_errors();
-			$error_message = sprintf( __( 'It seems you shoud set the value for SMTPSecure to "%d".', $this->domain), $imap_errors  ) . '<br>' . __('Please review your settings and run the test again.', $this->domain);
+			$imap_errors = imap_last_error();
+			$error_message = sprintf( __( 'Unable to find the inbox folder.', $this->domain), $imap_errors  ) . '<br>' . __('Please review your settings and run the test again.', $this->domain);
 			
 			return new WP_Error( 1, $error_message );
 
 		} catch( Exception $e ) {
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to search for Folder.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
+			return new WP_Error( 2, __( 'Internal Error: Unable to search for folder.', $this->domain ) . '<br>' . __( 'Please try again later.', $this->domain ) );
 		}
 
 	}
@@ -1114,8 +1169,10 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	/**
 	 * Returns the path to the mailbox on the mail server.
 	 *
-	 * @param $mail
-	 * @param $ssl_certification_validation
+	 * @param PHPMailer $mail
+	 * @param string $ssl_certification_validation
+	 * @param bool $is_imap
+	 * @param bool $recheck
 	 *
 	 * @return string
 	 */
@@ -1123,39 +1180,14 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		
 		$mail->Host        = $this->stored_options->imap_host;
 		$mail->Port        = $this->stored_options->imap_port;
-		$secure            = $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
-		$smtpsecure        = $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
-		$inbox_folder_name = $this->stored_options->inbox_folder_name;
-		
-		if ( $this->is_gmail() ) {
+		$secure            = true === $is_imap ? $this->stored_options->imapsecure : $this->stored_options->smtpsecure;
+		$smtpsecure        = true === $recheck ? 'ssl' === $this->stored_options->imapsecure ? 'tls' : 'ssl' : $secure;
 
-			$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
-			return $mailserver_path . 'INBOX';
-		}
-		
-		$mailserver_path = '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}';
-		
-		return $mailserver_path . 'INBOX';
+		return '{' . $mail->Host . ':' . $mail->Port . '/imap/' . $smtpsecure . $ssl_certification_validation . '}INBOX';
 	}
 	
 	/**
-	 * Returns the path to the user's Sent Items folder.
-	 *
-	 * @param $mail
-	 *
-	 * @return string
-	 */
-	private function get_sent_items_folder_for_send_mail( $mail ) {
-		
-		$inbox = $this->is_gmail() ? "[Gmail]/" : "INBOX.";
-		
-		$inbox_folder_name = $this->is_gmail() && '' !== $this->stored_options->inbox_folder_name ? $this->stored_options->inbox_folder_name : 'Sent';
-		
-		return '{' . $mail->Host . '}' . $inbox . $inbox_folder_name;
-	}
-	
-	/**
-	 * @param $mail
+	 * @param PHPMailer $mail
 	 *
 	 * @return string
 	 */
@@ -1169,6 +1201,28 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		return $this->get_sent_items_folder_for_send_mail( $mail );
 	}
 	
+	/**
+	 * Returns the path to the user's Sent Items folder.
+	 *
+	 * @param PHPMailer $mail
+	 *
+	 * @return string
+	 */
+	private function get_sent_items_folder_for_send_mail( $mail ) {
+		
+		$inbox = $this->is_gmail() ? "[Gmail]/" : "INBOX.";
+		
+		$inbox_folder_name = $this->is_gmail() && '' !== $this->stored_options->inbox_folder_name ? $this->stored_options->inbox_folder_name : 'Sent';
+		
+		return '{' . $mail->Host . '}' . $inbox . $inbox_folder_name;
+	}
+	
+	/**
+	 * Checks if the account in use is gmail.
+	 *
+	 * @return int|false
+	 * @since 1.0.0
+	 */
 	private function is_gmail() {
 		
 		return preg_match( '/smtp.gmail.com/', $this->stored_options->smtp_host );

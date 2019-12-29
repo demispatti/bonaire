@@ -418,7 +418,6 @@
             $this.showLoaderSpinner();
 
             $.post(ajaxurl, data, function ( response ){
-
                 // @todo fix
                 if (undefined === response.data){
                     response = $.parseJSON(response);
@@ -493,7 +492,7 @@
             // Check for account settings status
             var smtpStatus = BonaireOptions.smtp_status;
             var imapStatus = BonaireOptions.imap_status;
-            var saveReply = BonaireOptions.save_reply;
+            var saveReply  = BonaireOptions.save_reply;
 
             return 'yes' === saveReply ? '1' === imapStatus : '1' === smtpStatus;
         },
@@ -727,10 +726,10 @@
         manageHandleDivs: function(){
 
             if ('1' === BonaireOptions.manage_handle_divs){
-                $('#inboundfieldsdiv, #inboundmetadiv').addClass('closed');
+                $('#inboundfieldsdiv, #inboundmetadiv, #inboundconsentdiv').addClass('closed');
                 $('#bonaire-message-meta-box, #bonaire-reply-meta-box').removeClass('closed');
             } else {
-                $('#bonaire-message-meta-box, #inboundmetadiv').addClass('closed');
+                $('#bonaire-message-meta-box, #inboundmetadiv, #inboundconsentdiv').addClass('closed');
                 $('#inboundfieldsdiv, #bonaire-reply-meta-box').removeClass('closed');
             }
         }

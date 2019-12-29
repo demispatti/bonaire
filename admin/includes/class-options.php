@@ -445,12 +445,6 @@ final class Bonaire_Options {
 	 * @return void
 	 * @since 0.9.6
 	 */
-	
-	/**
-	 * Sends option data to the JavaScript file.
-	 *
-	 * @since 1.0.0
-	 */
 	public function localize_script() {
 		
 		wp_localize_script( 'bonaire-admin-js', 'BonaireOptions', $this->get_script_data() );
