@@ -478,7 +478,7 @@ class Bonaire_Ajax {
 			$response = array(
 				'success' => true,
 				'message' => $result['message'],
-				'status' => $result['status']
+				'status' => 'green'
 			);
 			wp_send_json_success( $response );
 		}

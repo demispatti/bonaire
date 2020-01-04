@@ -214,7 +214,7 @@ final class Bonaire_Options {
 			),
 			'channel' => array(
 				'id' => 'channel',
-				'name' => __( 'Contact Form Title', $this->domain ),
+				'name' => __( 'Contact Form', $this->domain ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
@@ -373,29 +373,29 @@ final class Bonaire_Options {
 			),
 			'inbox_folder_name' => array(
 				'id' => 'inbox_folder_name',
-				'name' => __( 'Sent Items Folder Name, case-sensitive (only if Gmail)', $this->domain ),
+				'name' => __( 'Sent Items Folder', $this->domain ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __( 'Case sensitive.' ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __( 'Case sensitive, Gmail only.', $this->domain ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
-				'name' => __( 'Sent Items Folder Path (if Gmail - optional or leave blank)', $this->domain ),
+				'name' => __( 'Sent Items Path', $this->domain ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
 				'tt_image' => '',
-				'tt_description' => __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
+				'tt_description' => __('(if Gmail - optional or leave blank)', $this->domain) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
 			),
 			'ssl_certification_validation' => array(
 				'id' => 'ssl_certification_validation',
-				'name' => __( 'Use SSL Certification Validation', $this->domain ),
+				'name' => __( 'SSL Certification Validation', $this->domain ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
@@ -531,6 +531,9 @@ final class Bonaire_Options {
 	 */
 	public function bonaire_save_options( $input ) {
 		
+		// Copy the currently stored options for later use
+		$old_stored_options = get_option( 'bonaire_options' );
+		
 		// Validate
 		$output = $this->validate_options( $input );
 		
@@ -546,7 +549,6 @@ final class Bonaire_Options {
 			$output['password'] = $this->crypt( $input['password'], 'e' );
 		}
 		
-		$old_stored_options = get_option( 'bonaire_options' );
 		$stored_options     = get_option( 'bonaire_options' );
 		$stored_options[0]  = $output;
 		
@@ -686,7 +688,7 @@ final class Bonaire_Options {
 			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'], $action = 'd' );
 		}
 		
-		$result = array_diff( $input_array_to_check, $stored_options_array_to_check );
+		$result = array_diff_assoc( $input_array_to_check, $stored_options_array_to_check );
 		unset( $old_stored_options );
 		unset( $input_array_to_check );
 		unset( $stored_options_array_to_check );

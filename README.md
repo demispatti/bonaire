@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://wordpress.org/plugins/bonaire/" target="_blank">
-    <img src="/assets/icon-128x128.png" alt="Bonaire Logo" width="128" height="128">
+    <img src="https://wordpress.org/plugins/bonaire/assets/icon-128x128.png" alt="Bonaire Logo" width="128" height="128">
   </a>
 </p>
 
@@ -38,10 +38,11 @@ A WordPress plugin to send replies via your website to messages you received wit
 - Send replies to messages received trough a default "Contact Form 7" contact form
 - Store replies on your mail server's 'Sent Items' folder  
 - Dashboard Widget lists incoming messages  
-- Email replies are text-only (HTML-Mails will be added soon)  
+- Email replies are text-only
 
 ---
 ## Requirements
+- Familiarity with configuration and usage of both Contact Form 7 and Flamingo
 - [Contact Form 7](https://wordpress.org/plugins/contact-form-7/) installed and activated
 - [Flamingo](https://wordpress.org/plugins/flamingo/) installed and activated
 - PHP IMAP extension installed and enabled on your web server
