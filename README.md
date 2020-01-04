@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <a href="https://wordpress.org/plugins/bonaire/" target="_blank">
+  <a href="https://ps.w.org/bonaire/assets/icon-256x256.png" target="_blank">
     <img src="https://wordpress.org/plugins/bonaire/assets/icon-128x128.png" alt="Bonaire Logo" width="128" height="128">
   </a>
 </p>
