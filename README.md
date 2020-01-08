@@ -8,10 +8,11 @@
 
 <h2 align="center">Bonaire</h2>
 <p align="center">
-A WordPress plugin to send replies via your website to messages you received with  <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> and which you store with <a href="https://wordpress.org/plugins/flamingo/" target="_blank">Flamingo</a>.
-  <br>
-  <br>
-  <a href="https://downloads.wordpress.org/plugin/bonaire.zip" target="_blank"><strong>Get The Plugin</strong></a>
+A WordPress plugin to send replies via your website to messages you received with 
+<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> and which you store with <a href="https://wordpress.org/plugins/flamingo/" target="_blank">Flamingo</a>.
+<br><br>
+<a href="https://wordpress.org/plugins/bonaire/" target="_blank"><strong>WordPress Plugin Repository Page</strong></a><br>
+<a href="https://downloads.wordpress.org/plugin/bonaire.zip" target="_blank"><strong>Download</strong></a>
   <br>
   <br>
   <a href="https://github.com/demispatti/bonaire/issues/new?template=bug.md" target="_blank">Report A Bug</a><br>
