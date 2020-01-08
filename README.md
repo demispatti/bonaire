@@ -14,7 +14,7 @@ A WordPress plugin to send replies via your website to messages you received wit
   <a href="https://downloads.wordpress.org/plugin/bonaire.zip" target="_blank"><strong>Get The Plugin</strong></a>
   <br>
   <br>
-  <a href="https://github.com/demispatti/bonaire/issues/new?template=bug.md" target="_blank">Report A Bug</a>
+  <a href="https://github.com/demispatti/bonaire/issues/new?template=bug.md" target="_blank">Report A Bug</a><br>
   <a href="https://github.com/demispatti/bonaire/issues/new?template=feature.md&labels=feature" target="_blank">Request Feature</a>
 </p>
 
