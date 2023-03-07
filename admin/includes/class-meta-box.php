@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Bonaire\Admin\Includes as AdminIncludes;

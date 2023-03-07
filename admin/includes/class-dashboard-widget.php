@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Bonaire\Admin\Includes as AdminIncludes;
@@ -226,7 +225,7 @@ class Bonaire_Dashboard_Widget {
 	 * @return string
 	 * @uses  get_item( $post )
 	 * @since 0.9.6
-	 * @uses  get_post_meta( $post->id )
+	 * @uses  get_post_meta( $post->id() )
 	 */
 	private function display_widget_content( $posts ) {
 		
@@ -237,7 +236,7 @@ class Bonaire_Dashboard_Widget {
 			
 			$string = '<ul>';
 			foreach ( $posts as $i => $post ) {
-				$post_meta  = get_post_meta( $post->id );
+				$post_meta  = get_post_meta( $post->id() );
 				$post_views = isset( $post_meta['post_views_count'] ) ? $post_meta['post_views_count'][0] : '';
 				if ( '' === $post_views && $count <= $number_posts ) {
 					$string .= AdminPartials\Bonaire_Item_Display::item_display( $post );

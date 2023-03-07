@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 /**
@@ -128,7 +127,6 @@ class Bonaire_Post_Views {
 		$count ++;
 		
 		return update_post_meta( $post_id, $count_key, $count );
-		//delete_post_meta( $post_id, $count_key );
 	}
 	
 }

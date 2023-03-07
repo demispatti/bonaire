@@ -1,9 +1,8 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Exception;
-use PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 use Bonaire\Admin\Includes as AdminIncludes;
 use WP_Error;
 
@@ -14,11 +13,15 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( ! trait_exists( 'WPCF7_SWV_SchemaHolder' ) ) {
+	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/swv/schema-holder.php';
+}
+
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'PHPMailer' ) ) {
-	include ABSPATH . 'wp-includes/class-phpmailer.php';
+if ( ! class_exists( 'PHPMailer\PHPMailer\PHPMailer' ) ) {
+	include ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
 }
 
 /**

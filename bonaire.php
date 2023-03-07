@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire;
 
 use Bonaire\Includes as Includes;
@@ -19,15 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
  * that starts the plugin.
  *
  * @link              https://demispatti.ch
- * @since             1.0.0
+ * Version:           0.1.1
+ * Stable tag:        0.1.1
+ * Requires at least: 5.5
+ * Tested up to:      6.1.1
+ * Requires PHP:      5.6
+ * Max. PHP version:  7.4.21
  * @package           Bonaire
  * @wordpress-plugin
  * Plugin Name:       Bonaire
- * Plugin URI:        https://demispatti.ch
  * Description:       Bonaire.
- * Version:           1.0.0
  * Author:            Demis Patti
- * Author URI:        https://demispatti.ch
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bonaire

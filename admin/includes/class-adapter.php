@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Flamingo_Inbound_Message, WPCF7_ContactForm;
@@ -165,7 +164,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	private function post( $post_id ) {
 		
 		foreach ( $this->posts as $i => $post ) {
-			if ( $post_id === $post->id ) {
+			if ( $post_id === $post->id() ) {
 				return $post;
 			}
 		}
@@ -186,7 +185,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		
 		foreach ( $this->posts as $i => $post ) {
 			
-			if ( $post_id === $post->id ) {
+			if ( $post_id === $post->id() ) {
 				return isset( $post[ $attribute ] ) ? sanitize_text_field( $post[ $attribute ] ) : false;
 			}
 		}
@@ -207,7 +206,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		
 		foreach ( $this->posts as $i => $post ) {
 			foreach ( $post->meta as $field => $value ) {
-				if ( $post_id === $post->id && $field_name === $field ) {
+				if ( $post_id === $post->id() && $field_name === $field ) {
 					return $value;
 				}
 			}
@@ -226,7 +225,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		
 		foreach ( $this->posts as $i => $post ) {
 			foreach ( $post->fields as $field => $value ) {
-				if ( $post_id === $post->id && $field_name === $field ) {
+				if ( $post_id === $post->id() && $field_name === $field ) {
 					return $value;
 				}
 			}
@@ -357,7 +356,7 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	private function get_form_id_from_current_message( $post_id ) {
 		
 		foreach ( $this->posts as $i => $post ) {
-			if ( (int) $post->id === (int) $post_id ) {
+			if ( (int) $post->id() === (int) $post_id ) {
 				
 				return isset( $post->meta['form_id'] ) ? $post->meta['form_id'] : false;
 			}

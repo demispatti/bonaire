@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Bonaire\Admin\Partials as AdminPartials;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Bonaire\Admin\Includes as AdminIncludes;
@@ -86,7 +85,7 @@ final class Bonaire_Options {
 	);
 	
 	/**
-	 * The the option keys that are used to create
+	 * The option keys that are used to create
 	 * the IMAP hash key.
 	 *
 	 * @var      array $imap_hash_keys

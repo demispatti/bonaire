@@ -1,5 +1,4 @@
 <?php
-
 namespace Bonaire\Admin\Partials;
 
 /**
@@ -72,7 +71,7 @@ class Bonaire_Item_Display {
 	 */
 	public static function item_display( $post ) {
 		
-		$post_id        = $post->id;
+		$post_id        = $post->id();
 		$email          = $post->fields['your-email'];
 		$name           = $post->fields['your-name'];
 		$subject        = $post->fields['your-subject'];
@@ -122,7 +121,7 @@ class Bonaire_Item_Display {
                             title="<?php esc_html_e( ' Trash', self::$domain ) ?>"><?php esc_html_e( 'Trash', self::$domain ) ?></a>
 					</span>
                     <span class="mark-as-read-local"> |
-						<a onclick="return false;" data-nonce="<?php echo $read_nonce ?>" data-postid="<?php echo $post->id ?>"
+						<a onclick="return false;" data-nonce="<?php echo $read_nonce ?>" data-postid="<?php echo $post->id() ?>"
                             class="bonaire-mark-as-read-button vim-r hide-if-no-js" aria-label="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"
                             href="#"
                             title="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"><?php esc_html_e( 'Mark as read', self::$domain ) ?></a>

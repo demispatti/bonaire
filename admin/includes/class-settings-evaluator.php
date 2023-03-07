@@ -1,9 +1,8 @@
 <?php
-
 namespace Bonaire\Admin\Includes;
 
 use Exception;
-use PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 use Bonaire\Admin\Includes as AdminIncludes;
 use WP_Error;
 use WPCF7_ContactForm;
@@ -18,8 +17,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'PHPMailer' ) ) {
-	include ABSPATH . 'wp-includes/class-phpmailer.php';
+if ( ! class_exists( 'PHPMailer\PHPMailer\PHPMailer' ) ) {
+	include ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php';
 }
 if ( ! class_exists( 'WPCF7_ContactForm' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php' ) ) {
 	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/contact-form.php';
