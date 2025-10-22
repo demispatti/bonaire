@@ -1,0 +1,24 @@
+/**
+ * Base Reset
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+// Box sizing
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+// WordPress admin specific resets
+.bonaire {
+    &-settings-wrap,
+    &-dashboard-widget,
+    &-meta-box {
+        * {
+            box-sizing: border-box;
+        }
+    }
+}

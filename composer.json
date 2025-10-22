@@ -1,0 +1,46 @@
+{
+    "name": "demispatti/bonaire",
+    "description": "WordPress plugin to send email replies to messages received through Contact Form 7 and stored in Flamingo",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Demis Patti",
+            "email": "demispatti@gmail.com",
+            "homepage": "https://demispatti.ch"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr/container": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7",
+        "wp-coding-standards/wpcs": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bonaire\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bonaire\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "cs": "phpcs",
+        "cbf": "phpcbf"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

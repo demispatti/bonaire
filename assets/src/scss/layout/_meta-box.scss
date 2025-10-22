@@ -1,0 +1,81 @@
+/**
+ * Meta Box Layout
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+#bonaire_reply_meta_box {
+    .bonaire-reply-form {
+        padding: $spacing-md;
+
+        p {
+            margin: 0 0 $spacing-md;
+        }
+
+        label {
+            display: block;
+            margin-bottom: $spacing-xs;
+            font-weight: 600;
+            color: $color-text;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: $spacing-sm;
+            border: 1px solid $color-border;
+            @include border-radius($border-radius-sm);
+            @include transition(border-color $transition-fast);
+
+            &:focus {
+                border-color: $color-primary;
+                outline: none;
+                @include box-shadow(0 0 0 1px $color-primary);
+            }
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            font-family: $font-family-base;
+        }
+
+        .button-primary {
+            margin-top: $spacing-sm;
+        }
+    }
+}
+
+// Flamingo message display
+.bonaire-message-display {
+    padding: $spacing-md;
+    background-color: $color-background;
+    @include border-radius($border-radius-sm);
+    margin-bottom: $spacing-md;
+
+    &-header {
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(center);
+        margin-bottom: $spacing-md;
+        padding-bottom: $spacing-sm;
+        border-bottom: 1px solid $color-border;
+    }
+
+    &-from {
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    &-date {
+        font-size: $font-size-small;
+        color: $color-text-light;
+    }
+
+    &-body {
+        color: $color-text;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+}

@@ -1,0 +1,49 @@
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build artifacts
+/assets/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# WordPress
+wp-config.php
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/wp-cache-config.php
+wp-content/plugins/hello.php
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+/tests/coverage/
+.phpunit.result.cache
+
+# Composer
+composer.lock
+composer.phar
+
+# Package managers
+package-lock.json
+yarn.lock

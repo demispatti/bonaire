@@ -1,0 +1,98 @@
+/**
+ * Forms Component
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+.bonaire {
+    &-form {
+        &-group {
+            margin-bottom: $spacing-md;
+        }
+
+        &-label {
+            display: block;
+            margin-bottom: $spacing-xs;
+            font-weight: 600;
+            color: $color-text;
+        }
+
+        &-input,
+        &-textarea,
+        &-select {
+            width: 100%;
+            padding: $spacing-sm;
+            border: 1px solid $color-border;
+            @include border-radius($border-radius-sm);
+            @include transition(border-color $transition-fast);
+
+            &:focus {
+                border-color: $color-primary;
+                outline: none;
+                @include box-shadow(0 0 0 1px $color-primary);
+            }
+
+            &.error {
+                border-color: $color-error;
+
+                &:focus {
+                    @include box-shadow(0 0 0 1px $color-error);
+                }
+            }
+        }
+
+        &-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        &-help {
+            display: block;
+            margin-top: $spacing-xs;
+            font-size: $font-size-small;
+            color: $color-text-light;
+        }
+
+        &-error {
+            display: block;
+            margin-top: $spacing-xs;
+            font-size: $font-size-small;
+            color: $color-error;
+        }
+    }
+}
+
+// Status indicators
+.bonaire-status {
+    &-indicator {
+        @include flexbox;
+        @include align-items(center);
+        margin: $spacing-sm 0;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: $spacing-sm;
+        }
+
+        &.green::before {
+            background-color: $status-green;
+        }
+
+        &.orange::before {
+            background-color: $status-orange;
+        }
+
+        &.red::before {
+            background-color: $status-red;
+        }
+
+        &.inactive::before {
+            background-color: $status-inactive;
+        }
+    }
+}

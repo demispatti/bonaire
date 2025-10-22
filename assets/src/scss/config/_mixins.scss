@@ -1,0 +1,98 @@
+/**
+ * SCSS Mixins
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+// Clearfix
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// Box shadow
+@mixin box-shadow($shadow) {
+    box-shadow: $shadow;
+}
+
+// Transition
+@mixin transition($transition...) {
+    transition: $transition;
+}
+
+// Transform
+@mixin transform($transforms) {
+    transform: $transforms;
+}
+
+// Border radius
+@mixin border-radius($radius) {
+    border-radius: $radius;
+}
+
+// Flexbox
+@mixin flexbox {
+    display: flex;
+}
+
+@mixin flex-direction($direction) {
+    flex-direction: $direction;
+}
+
+@mixin justify-content($justify) {
+    justify-content: $justify;
+}
+
+@mixin align-items($align) {
+    align-items: $align;
+}
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == "phone" {
+        @media (max-width: 599px) { @content; }
+    }
+    @else if $breakpoint == "tablet" {
+        @media (min-width: 600px) and (max-width: 899px) { @content; }
+    }
+    @else if $breakpoint == "desktop" {
+        @media (min-width: 900px) { @content; }
+    }
+}
+
+// Status indicator
+@mixin status-indicator($color) {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $color;
+    margin-right: $spacing-sm;
+}
+
+// Button base
+@mixin button-base {
+    display: inline-block;
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    @include border-radius($border-radius-sm);
+    @include transition(all $transition-fast);
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:disabled,
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

@@ -1,0 +1,71 @@
+/**
+ * Settings Page Layout
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+.bonaire-settings {
+    &-wrap {
+        max-width: 1200px;
+        margin: $spacing-lg 0;
+    }
+
+    &-container {
+        background-color: $color-white;
+        border: 1px solid $color-border;
+        @include border-radius($border-radius-md);
+        @include box-shadow($shadow-sm);
+        padding: $spacing-lg;
+        margin: $spacing-md 0;
+
+        h2 {
+            margin-top: 0;
+            padding-bottom: $spacing-md;
+            border-bottom: 1px solid $color-border;
+        }
+
+        .form-table {
+            margin-top: $spacing-md;
+
+            th {
+                padding: $spacing-md $spacing-sm $spacing-md 0;
+                font-weight: 600;
+            }
+
+            td {
+                padding: $spacing-md 0;
+
+                input[type="text"],
+                input[type="email"],
+                input[type="password"],
+                input[type="number"],
+                select,
+                textarea {
+                    @include transition(border-color $transition-fast);
+
+                    &:focus {
+                        border-color: $color-primary;
+                        @include box-shadow(0 0 0 1px $color-primary);
+                    }
+                }
+
+                .description {
+                    margin-top: $spacing-xs;
+                    font-size: $font-size-small;
+                    color: $color-text-light;
+                }
+            }
+        }
+    }
+
+    &-actions {
+        margin-top: $spacing-lg;
+        padding-top: $spacing-md;
+        border-top: 1px solid $color-border;
+
+        .button {
+            margin-right: $spacing-sm;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+/**
+ * Tabs Component
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+.bonaire-tabs {
+    margin: $spacing-lg 0;
+
+    .ui-tabs-nav {
+        background: none;
+        border: none;
+        border-bottom: 1px solid $color-border;
+        padding: 0;
+        margin: 0 0 $spacing-md;
+
+        li {
+            background: none;
+            border: none;
+            margin: 0 $spacing-sm 0 0;
+
+            a {
+                padding: $spacing-sm $spacing-md;
+                color: $color-text-light;
+                @include transition(color $transition-fast);
+
+                &:hover {
+                    color: $color-text;
+                }
+            }
+
+            &.ui-tabs-active {
+                a {
+                    color: $color-primary;
+                    border-bottom: 2px solid $color-primary;
+                }
+            }
+        }
+    }
+
+    .ui-tabs-panel {
+        padding: $spacing-md 0;
+    }
+}

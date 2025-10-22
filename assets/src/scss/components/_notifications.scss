@@ -1,0 +1,73 @@
+/**
+ * Notifications Component
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+// Alertify overrides
+.alertify {
+    .ajs-dialog {
+        @include border-radius($border-radius-md);
+        @include box-shadow($shadow-lg);
+    }
+
+    .ajs-header {
+        border-bottom: 1px solid $color-border;
+        padding: $spacing-md;
+        font-weight: 600;
+    }
+
+    .ajs-body {
+        padding: $spacing-md;
+    }
+
+    .ajs-footer {
+        border-top: 1px solid $color-border;
+        padding: $spacing-md;
+        text-align: right;
+
+        .ajs-buttons {
+            .ajs-button {
+                @include button-base;
+                margin-left: $spacing-sm;
+
+                &.ajs-ok {
+                    background-color: $color-primary;
+                    color: $color-white;
+                }
+
+                &.ajs-cancel {
+                    background-color: $color-white;
+                    color: $color-text;
+                    border-color: $color-border;
+                }
+            }
+        }
+    }
+}
+
+// WordPress notices
+.bonaire-notice {
+    padding: $spacing-md;
+    margin: $spacing-md 0;
+    border-left: 4px solid $color-primary;
+    background-color: $color-white;
+    @include box-shadow($shadow-sm);
+
+    &.notice-success {
+        border-left-color: $color-success;
+    }
+
+    &.notice-error {
+        border-left-color: $color-error;
+    }
+
+    &.notice-warning {
+        border-left-color: $color-warning;
+    }
+
+    &.notice-info {
+        border-left-color: $color-info;
+    }
+}

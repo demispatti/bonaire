@@ -1,0 +1,64 @@
+/**
+ * SCSS Variables
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+// Colors
+$color-primary: #0073aa;
+$color-success: #46b450;
+$color-warning: #ffb900;
+$color-error: #dc3232;
+$color-info: #00a0d2;
+
+$color-text: #32373c;
+$color-text-light: #72777c;
+$color-border: #ccd0d4;
+$color-background: #f1f1f1;
+$color-white: #ffffff;
+
+// Status colors
+$status-green: #46b450;
+$status-orange: #ffb900;
+$status-red: #dc3232;
+$status-inactive: #a0a5aa;
+
+// Typography
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$font-size-base: 13px;
+$font-size-small: 12px;
+$font-size-large: 14px;
+$line-height-base: 1.4em;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Border radius
+$border-radius-sm: 2px;
+$border-radius-md: 4px;
+$border-radius-lg: 6px;
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+$shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.19);
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-loader: 999999;

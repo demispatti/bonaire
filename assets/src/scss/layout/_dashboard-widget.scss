@@ -1,0 +1,82 @@
+/**
+ * Dashboard Widget Layout
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+#bonaire_dashboard_widget {
+    .bonaire-messages-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            padding: $spacing-sm 0;
+            border-bottom: 1px solid $color-border;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            a {
+                text-decoration: none;
+                color: $color-text;
+                @include transition(color $transition-fast);
+
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+
+    .bonaire-message-item {
+        padding: $spacing-md;
+        border-bottom: 1px solid $color-border;
+        @include transition(background-color $transition-fast);
+
+        &:hover {
+            background-color: $color-background;
+        }
+
+        &-header {
+            @include flexbox;
+            @include justify-content(space-between);
+            @include align-items(center);
+            margin-bottom: $spacing-sm;
+        }
+
+        &-title {
+            font-weight: 600;
+            color: $color-text;
+        }
+
+        &-date {
+            font-size: $font-size-small;
+            color: $color-text-light;
+        }
+
+        &-excerpt {
+            font-size: $font-size-small;
+            color: $color-text;
+            margin: $spacing-sm 0;
+        }
+
+        &-actions {
+            margin-top: $spacing-sm;
+
+            .button {
+                font-size: $font-size-small;
+                padding: $spacing-xs $spacing-sm;
+                margin-right: $spacing-xs;
+            }
+        }
+    }
+
+    .no-messages {
+        padding: $spacing-lg;
+        text-align: center;
+        color: $color-text-light;
+    }
+}

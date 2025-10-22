@@ -1,0 +1,45 @@
+/**
+ * Typography
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+.bonaire {
+    &-title {
+        font-size: 23px;
+        font-weight: 400;
+        margin: 0 0 $spacing-md;
+        line-height: 1.3;
+        color: $color-text;
+    }
+
+    &-subtitle {
+        font-size: 18px;
+        font-weight: 600;
+        margin: $spacing-lg 0 $spacing-md;
+        color: $color-text;
+    }
+
+    &-description {
+        font-size: $font-size-small;
+        color: $color-text-light;
+        margin: $spacing-xs 0;
+    }
+
+    &-help-text {
+        font-size: $font-size-small;
+        font-style: italic;
+        color: $color-text-light;
+    }
+
+    &-error-text {
+        color: $color-error;
+        font-size: $font-size-small;
+    }
+
+    &-success-text {
+        color: $color-success;
+        font-size: $font-size-small;
+    }
+}

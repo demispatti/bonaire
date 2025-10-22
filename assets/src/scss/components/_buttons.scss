@@ -1,0 +1,72 @@
+/**
+ * Buttons Component
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+.bonaire {
+    &-btn {
+        @include button-base;
+
+        &-primary {
+            background-color: $color-primary;
+            color: $color-white;
+            border-color: $color-primary;
+
+            &:hover {
+                background-color: darken($color-primary, 10%);
+                border-color: darken($color-primary, 10%);
+            }
+        }
+
+        &-success {
+            background-color: $color-success;
+            color: $color-white;
+            border-color: $color-success;
+
+            &:hover {
+                background-color: darken($color-success, 10%);
+                border-color: darken($color-success, 10%);
+            }
+        }
+
+        &-danger {
+            background-color: $color-error;
+            color: $color-white;
+            border-color: $color-error;
+
+            &:hover {
+                background-color: darken($color-error, 10%);
+                border-color: darken($color-error, 10%);
+            }
+        }
+
+        &-secondary {
+            background-color: $color-white;
+            color: $color-text;
+            border-color: $color-border;
+
+            &:hover {
+                background-color: $color-background;
+            }
+        }
+
+        &-small {
+            padding: $spacing-xs $spacing-sm;
+            font-size: $font-size-small;
+        }
+
+        &-large {
+            padding: $spacing-md $spacing-lg;
+            font-size: $font-size-large;
+        }
+    }
+}
+
+// WordPress admin button overrides
+.bonaire-settings-wrap {
+    .button {
+        margin-right: $spacing-sm;
+    }
+}

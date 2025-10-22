@@ -1,0 +1,36 @@
+/*!
+ * Bonaire Admin Styles
+ *
+ * @package Bonaire
+ * @since 1.0.0
+ */
+
+// Vendor imports
+@import '~alertifyjs/build/css/alertify.css';
+@import '~alertifyjs/build/css/themes/bootstrap.css';
+@import '~tooltipster/dist/css/tooltipster.bundle.css';
+@import '~tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.css';
+@import '~jquery-ui-dist/jquery-ui.css';
+
+// Configuration
+@import 'config/variables';
+@import 'config/mixins';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+
+// Components
+@import 'components/loader';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/tabs';
+@import 'components/notifications';
+
+// Layout
+@import 'layout/settings-page';
+@import 'layout/dashboard-widget';
+@import 'layout/meta-box';
+
+// Utilities
+@import 'utilities/helpers';
