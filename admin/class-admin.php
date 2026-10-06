@@ -299,7 +299,7 @@ class Bonaire_Admin {
 			wp_enqueue_style( 'jquery-ui-smoothness',
 				BONAIRE_ROOT_URL . "vendor/jquery-ui/jquery-ui.min.css",
 				array(),
-				'all',
+				'1.14.2',
 				'all'
 			);
 			
@@ -307,19 +307,19 @@ class Bonaire_Admin {
 			wp_enqueue_style( 'bonaire-inc-tooltipster-core-css',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.core' . $prefix . '.css',
 				array(),
-				'all',
+				'4.2.8',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-bundle-css',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.bundle' . $prefix . '.css',
 				array(),
-				'all',
+				'4.2.8',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-theme-shadow-css',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
 				array(),
-				'all',
+				'4.2.8',
 				'all'
 			);
 			
@@ -327,13 +327,13 @@ class Bonaire_Admin {
 			wp_enqueue_style( 'bonaire-inc-alertify-min-css',
 				BONAIRE_ROOT_URL . 'vendor/alertify/css/alertify' . $prefix . '.css',
 				array(),
-				'all',
+				'1.14.0',
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-alertify-theme-bootstrap-min-css',
 				BONAIRE_ROOT_URL . 'vendor/alertify/css/themes/bootstrap' . $prefix . '.css',
 				array(),
-				'all',
+				'1.14.0',
 				'all'
 			);
 		}
@@ -365,19 +365,19 @@ class Bonaire_Admin {
 			wp_enqueue_script( 'bonaire-inc-tooltipster-core-min-js',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.core' . $prefix . '.js',
 				array( 'jquery' ),
-				'all',
+				'4.2.8',
 				true
 			);
 			wp_enqueue_script( 'bonaire-inc-tooltipster-svg-min-js',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/plugins/tooltipster/SVG/tooltipster-SVG' . $prefix . '.js',
 				array( 'jquery', 'bonaire-inc-tooltipster-core-min-js' ),
-				'all',
+				'4.2.8',
 				true
 			);
 			wp_enqueue_script( 'bonaire-inc-tooltipster-bundle-min-js',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.bundle' . $prefix . '.js',
 				array( 'jquery', 'bonaire-inc-tooltipster-svg-min-js' ),
-				'all',
+				'4.2.8',
 				true
 			);
 			
@@ -393,7 +393,7 @@ class Bonaire_Admin {
 			wp_enqueue_script( 'bonaire-inc-alertify-min-js',
 				BONAIRE_ROOT_URL . 'vendor/alertify/alertify' . $prefix . '.js',
 				array( 'jquery' ),
-				'all',
+				'1.14.0',
 				true
 			);
 			

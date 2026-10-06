@@ -1,170 +1,133 @@
-(function ( root, factory ){
-    if (typeof define === 'function' && define.amd){
-        // AMD. Register as an anonymous module unless amdModuleId is set
-        define(["tooltipster"], function ( a0 ){
-            return (factory(a0));
-        });
-    } else if (typeof exports === 'object'){
-        // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like environments that support module.exports,
-        // like Node.
-        module.exports = factory(require("tooltipster"));
-    } else{
-        factory(jQuery);
-    }
-}(this, function ( $ ){
+var pluginName = 'tooltipster.SVG';
 
-    (function ( root, factory ){
-        if (typeof define === 'function' && define.amd){
-            // AMD. Register as an anonymous module unless amdModuleId is set
-            define(["jquery"], function ( a0 ){
-                return (factory(a0));
-            });
-        } else if (typeof exports === 'object'){
-            // Node. Does not work with strict CommonJS, but
-            // only CommonJS-like environments that support module.exports,
-            // like Node.
-            module.exports = factory(require("jquery"));
-        } else{
-            factory(jQuery);
-        }
-    }(this, function ( $ ){
+$.tooltipster._plugin({
+	name: pluginName,
+	core: {
+		__init: function() {
 
-        var pluginName = 'tooltipster.SVG';
+			$.tooltipster._on('init', function(event) {
 
-        $.tooltipster._plugin({
-            name: pluginName,
-            core: {
-                __init: function (){
+				var win = $.tooltipster._env.window;
 
-                    $.tooltipster._on('init', function ( event ){
+				if (	win.SVGElement
+					&&	event.origin instanceof win.SVGElement
+				) {
 
-                        var win = $.tooltipster._env.window;
+					// auto-activation of the plugin on the instance
+					event.instance._plug(pluginName);
+				}
+			});
+		}
+	},
+	instance: {
+		__init: function(instance) {
 
-                        if (win.SVGElement
-                            && event.origin instanceof win.SVGElement
-                        ){
+			var self = this;
 
-                            // auto-activation of the plugin on the instance
-                            event.instance._plug(pluginName);
-                        }
-                    });
-                }
-            },
-            instance: {
-                __init: function ( instance ){
+			//list of instance variables
+			self.__hadTitleTag = false;
+			self.__instance = instance;
 
-                    var self = this;
+			// jQuery < v3.0's addClass and hasClass do not work on SVG elements.
+			// However, $('.tooltipstered') does find elements having the class.
+			if (!self.__instance._$origin.hasClass('tooltipstered')) {
 
-                    //list of instance variables
-                    self.__hadTitleTag = false;
-                    self.__instance = instance;
+				var c = self.__instance._$origin.attr('class') || '';
 
-                    // jQuery < v3.0's addClass and hasClass do not work on SVG elements.
-                    // However, $('.tooltipstered') does find elements having the class.
-                    if (!self.__instance._$origin.hasClass('tooltipstered')){
+				if (c.indexOf('tooltipstered') == -1) {
+					self.__instance._$origin.attr('class', c + ' tooltipstered');
+				}
+			}
 
-                        var c = self.__instance._$origin.attr('class') || '';
+			// if there is no content yet, let's look for a <title> child element
+			if (self.__instance.content() === null) {
 
-                        if (c.indexOf('tooltipstered') == -1){
-                            self.__instance._$origin.attr('class', c + ' tooltipstered');
-                        }
-                    }
+				// TODO: when there are several <title> tags (not supported in
+				// today's browsers yet though, still an RFC draft), pick the right
+				// one based on its "lang" attribute
+				var $title = self.__instance._$origin.find('>title');
 
-                    // if there is no content yet, let's look for a <title> child element
-                    if (self.__instance.content() === null){
+				if ($title[0]) {
 
-                        // TODO: when there are several <title> tags (not supported in
-                        // today's browsers yet though, still an RFC draft), pick the right
-                        // one based on its "lang" attribute
-                        var $title = self.__instance._$origin.find('>title');
+					var title = $title.text();
 
-                        if ($title[0]){
+					self.__hadTitleTag = true;
+					self.__instance._$origin.data('tooltipster-initialTitle', title);
+					self.__instance.content(title);
 
-                            var title = $title.text();
+					$title.remove();
+				}
+			}
 
-                            self.__hadTitleTag = true;
-                            self.__instance._$origin.data('tooltipster-initialTitle', title);
-                            self.__instance.content(title);
+			// rectify the geometry if SVG.js and its screenBBox plugin have been included
+			self.__instance
+				._on('geometry.'+ self.namespace, function(event) {
 
-                            $title.remove();
-                        }
-                    }
+					var win = $.tooltipster._env.window;
 
-                    // rectify the geometry if SVG.js and its screenBBox plugin have been included
-                    self.__instance
-                        ._on('geometry.' + self.namespace, function ( event ){
+					// SVG coordinates may need fixing but we need svg.screenbox.js
+					// to provide it. SVGElement is IE8+
+					if (win.SVG.svgjs) {
 
-                            var win = $.tooltipster._env.window;
+						if (!win.SVG.parser) {
+							win.SVG.prepare();
+						}
 
-                            // SVG coordinates may need fixing but we need svg.screenbox.js
-                            // to provide it. SVGElement is IE8+
-                            if (win.SVG.svgjs){
+						var svgEl = win.SVG.adopt(event.origin);
 
-                                if (!win.SVG.parser){
-                                    win.SVG.prepare();
-                                }
+						// not all figures need (and have) screenBBox
+						if (svgEl && svgEl.screenBBox) {
 
-                                var svgEl = win.SVG.adopt(event.origin);
+							var bbox = svgEl.screenBBox();
 
-                                // not all figures need (and have) screenBBox
-                                if (svgEl && svgEl.screenBBox){
+							event.edit({
+								height: bbox.height,
+								left: bbox.x,
+								top: bbox.y,
+								width: bbox.width
+							});
+						}
+					}
+				})
+				// if jQuery < v3.0, we have to remove the class ourselves
+				._on('destroy.'+ self.namespace, function() {
+					self.__destroy();
+				});
+		},
 
-                                    var bbox = svgEl.screenBBox();
+		__destroy: function() {
 
-                                    event.edit({
-                                        height: bbox.height,
-                                        left: bbox.x,
-                                        top: bbox.y,
-                                        width: bbox.width
-                                    });
-                                }
-                            }
-                        })
-                        // if jQuery < v3.0, we have to remove the class ourselves
-                        ._on('destroy.' + self.namespace, function (){
-                            self.__destroy();
-                        });
-                },
+			var self = this;
 
-                __destroy: function (){
+			if (!self.__instance._$origin.hasClass('tooltipstered')) {
+				var c = self.__instance._$origin.attr('class').replace('tooltipstered', '');
+				self.__instance._$origin.attr('class', c);
+			}
 
-                    var self = this;
+			self.__instance._off('.'+ self.namespace);
 
-                    if (!self.__instance._$origin.hasClass('tooltipstered')){
-                        var c = self.__instance._$origin.attr('class').replace('tooltipstered', '');
-                        self.__instance._$origin.attr('class', c);
-                    }
+			// if the content was provided as a title tag, we may need to restore it
+			if (self.__hadTitleTag) {
 
-                    self.__instance._off('.' + self.namespace);
+				// this must happen after Tooltipster restored (or not) the title attr
+				self.__instance.one('destroyed', function() {
 
-                    // if the content was provided as a title tag, we may need to restore it
-                    if (self.__hadTitleTag){
+					// if a title attribute was restored, we just need to replace it with a tag
+					var title = self.__instance._$origin.attr('title');
 
-                        // this must happen after Tooltipster restored (or not) the title attr
-                        self.__instance.one('destroyed', function (){
+					if (title) {
 
-                            // if a title attribute was restored, we just need to replace it with a tag
-                            var title = self.__instance._$origin.attr('title');
+						// must be namespaced to work
+						$(document.createElementNS('http://www.w3.org/2000/svg', 'title'))
+							.text(title)
+							.appendTo(self.__instance._$origin);
 
-                            if (title){
+						self.__instance._$origin.removeAttr('title');
+					}
+				});
+			}
+		}
+	}
+});
 
-                                // must be namespaced to work
-                                $(document.createElementNS('http://www.w3.org/2000/svg', 'title'))
-                                    .text(title)
-                                    .appendTo(self.__instance._$origin);
-
-                                self.__instance._$origin.removeAttr('title');
-                            }
-                        });
-                    }
-                }
-            }
-        });
-
-        /* a build task will add "return $;" here */
-        return $;
-
-    }));
-
-}));
+/* a build task will add "return $;" here */
