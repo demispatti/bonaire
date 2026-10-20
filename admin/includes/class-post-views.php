@@ -86,10 +86,10 @@ class Bonaire_Post_Views {
 			delete_post_meta( $post_id, $count_key );
 			add_post_meta( $post_id, $count_key, 0 );
 			
-			return 0 . __( 'Views', $this->domain );
+			return 0 . __( 'Views', "bonaire" );
 		}
 		
-		return $count . __( 'Views', $this->domain );
+		return $count . __( 'Views', "bonaire" );
 	}
 	
 	/**

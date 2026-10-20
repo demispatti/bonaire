@@ -34,9 +34,9 @@ class Bonaire_Help_Sidebar_Display {
 		ob_start();
 		?>
 
-        <p><?php esc_html_e( 'For more information on SALT-Keys, please read', $domain ) ?>
+        <p><?php esc_html_e( 'For more information on SALT-Keys, please read', "bonaire" ) ?>
             <a target="_blank"
-                href="https://www.elegantthemes.com/blog/tips-tricks/what-are-wordpress-salt-keys-and-how-can-you-change-them"><?php esc_html_e( 'What are wordpress salt keys and how can you change them', $domain ) ?></a>&nbsp;<?php esc_html_e( '(english)', $domain ) ?>
+                href="https://www.elegantthemes.com/blog/tips-tricks/what-are-wordpress-salt-keys-and-how-can-you-change-them"><?php esc_html_e( 'What are wordpress salt keys and how can you change them', "bonaire" ) ?></a>&nbsp;<?php esc_html_e( '(english)', "bonaire" ) ?>
             .
         </p>
 		

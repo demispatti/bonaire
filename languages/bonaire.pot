@@ -1134,3 +1134,11 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Demis Patti"
 msgstr ""
+
+#: admin/partials/class-settings-page-display.php
+msgid "Messages, connected"
+msgstr ""
+
+#: admin/partials/class-settings-page-display.php
+msgid "Keep contact-form messages, replies and mail connections in one calm workspace."
+msgstr ""

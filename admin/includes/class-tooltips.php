@@ -106,9 +106,9 @@ class Bonaire_Tooltips {
 		$arguments           = $this->options_meta;
 		$args['option_key']  = $option_key;
 		$args['image']       = $arguments->{$option_key}['tt_image'];
-		$args['example']     = translate( $arguments->{$option_key}['example'], $this->domain );
-		$args['heading']     = translate( $arguments->{$option_key}['name'], $this->domain );
-		$args['description'] = translate( $arguments->{$option_key}['tt_description'], $this->domain );
+		$args['example']     = $arguments->{$option_key}['example'];
+		$args['heading']     = $arguments->{$option_key}['name'];
+		$args['description'] = $arguments->{$option_key}['tt_description'];
 		
 		return $args;
 	}
@@ -164,7 +164,7 @@ class Bonaire_Tooltips {
 		
 		if ( $args['example'] !== '' ) {
 			
-			return '<div class="bonaire-tooltip-example"><h6>' . __( 'Example for Gmail', $this->domain ) . ':</h6><p>' . $args['example'] . '</p></div>';
+			return '<div class="bonaire-tooltip-example"><h6>' . __( 'Example for Gmail', "bonaire" ) . ':</h6><p>' . $args['example'] . '</p></div>';
 		}
 		
 		return '';
@@ -200,7 +200,7 @@ class Bonaire_Tooltips {
 		
 		if ( $args['description'] !== '' ) {
 			
-			return "<p class='bonaire-tooltip-description'>" . translate( $args['description'], $this->domain ) . '</p>';
+			return "<p class='bonaire-tooltip-description'>" . esc_html( $args['description'] ) . '</p>';
 		}
 		
 		return '';
@@ -217,10 +217,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'save_options',
 			'option_key' => 'save_options',
-			'heading' => __( 'Save Settings', $this->domain ),
+			'heading' => __( 'Save Settings', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Stores your settings in the database.', $this->domain )
+			'description' => __( 'Stores your settings in the database.', "bonaire" )
 		);
 	}
 	
@@ -235,10 +235,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'reset_options',
 			'option_key' => 'reset_options',
-			'heading' => __( 'Reset Settings', $this->domain ),
+			'heading' => __( 'Reset Settings', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Reset the settings.', $this->domain )
+			'description' => __( 'Reset the settings.', "bonaire" )
 		);
 	}
 	
@@ -248,10 +248,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'test_contact_form',
 			'option_key' => 'test_contact_form',
-			'heading' => __( 'Test Contact Form Tags', $this->domain ),
+			'heading' => __( 'Test Contact Form Tags', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Check the contact form for the required form tags.', $this->domain )
+			'description' => __( 'Check the contact form for the required form tags.', "bonaire" )
 		);
 	}
 	
@@ -266,10 +266,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'test_smtp_settings',
 			'option_key' => 'test_smtp_settings',
-			'heading' => __( 'Test SMTP Settings', $this->domain ),
+			'heading' => __( 'Test SMTP Settings', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Check the SMTP settings after saving your changes.', $this->domain )
+			'description' => __( 'Check the SMTP settings after saving your changes.', "bonaire" )
 		);
 	}
 	
@@ -284,10 +284,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'test_imap_settings',
 			'option_key' => 'test_imap_settings',
-			'heading' => __( 'Test IMAP Settings', $this->domain ),
+			'heading' => __( 'Test IMAP Settings', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Check the IMAP settings after saving your changes.', $this->domain )
+			'description' => __( 'Check the IMAP settings after saving your changes.', "bonaire" )
 		);
 	}
 	
@@ -302,10 +302,10 @@ class Bonaire_Tooltips {
 		return array(
 			'id' => 'send_testmail',
 			'option_key' => 'send_testmail',
-			'heading' => __( 'Send Testmail', $this->domain ),
+			'heading' => __( 'Send Testmail', "bonaire" ),
 			'image' => '',
 			'example' => '',
-			'description' => __( 'Send a test message to this email account.', $this->domain )
+			'description' => __( 'Send a test message to this email account.', "bonaire" )
 		);
 	}
 	

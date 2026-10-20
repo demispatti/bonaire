@@ -155,15 +155,25 @@ final class Bonaire_Options {
 	private function stored_options() {
 		
 		$stored_options = get_option( 'bonaire_options' );
-		
-		if ( false === $stored_options || ! isset( $stored_options[1] ) ) {
+		if ( is_object( $stored_options ) ) {
+			$stored_options = get_object_vars( $stored_options );
+		}
+
+		if ( ! is_array( $stored_options ) || ! isset( $stored_options[0], $stored_options[1] ) ) {
 			
+			return $this->default_options;
+		}
+
+		$account = is_object( $stored_options[0] ) ? get_object_vars( $stored_options[0] ) : $stored_options[0];
+		$status  = is_object( $stored_options[1] ) ? get_object_vars( $stored_options[1] ) : $stored_options[1];
+
+		if ( ! is_array( $account ) || ! is_array( $status ) ) {
 			return $this->default_options;
 		}
 		
 		$options      = (object) array();
-		$options->{0} = (object) $stored_options[0];
-		$options->{1} = (object) $stored_options[1];
+		$options->{0} = (object) wp_parse_args( $account, get_object_vars( $this->default_options->{0} ) );
+		$options->{1} = (object) wp_parse_args( $status, get_object_vars( $this->default_options->{1} ) );
 		
 		return $options;
 	}
@@ -178,7 +188,7 @@ final class Bonaire_Options {
 	 */
 	private function account_settings( $stored_options ) {
 		
-		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new stdClass();
+		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new \stdClass();
 		
 		/**
 		 * @var object $account_settings
@@ -202,7 +212,7 @@ final class Bonaire_Options {
 		return (object) array(
 			'form_id' => array(
 				'id' => 'form_id',
-				'name' => __( 'Form Id', $this->domain ),
+				'name' => __( 'Form Id', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'none',
@@ -213,86 +223,86 @@ final class Bonaire_Options {
 			),
 			'channel' => array(
 				'id' => 'channel',
-				'name' => __( 'Contact Form', $this->domain ),
+				'name' => __( 'Contact Form', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
-				'default_value' => __( 'none', $this->domain ),
-				'example' => __( 'Contact form 1', $this->domain ),
-				'values' => array( 'none' => __( 'none', $this->domain ) ),
+				'default_value' => __( 'none', "bonaire" ),
+				'example' => __( 'Contact form 1', "bonaire" ),
+				'values' => array( 'none' => __( 'none', "bonaire" ) ),
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg',
-				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', $this->domain )
+				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', "bonaire" )
 			),
 			'number_posts' => array(
 				'id' => 'number_posts',
-				'name' => __( 'Number Of Messages', $this->domain ),
+				'name' => __( 'Number Of Messages', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
 				'default_value' => '5',
-				'example' => __( '5', $this->domain ),
+				'example' => __( '5', "bonaire" ),
 				'values' => array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ),
 				'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg'*/,
-				'tt_description' => __( 'Max. number of unread messages to display on the dashboard widget.', $this->domain )
+				'tt_description' => __( 'Max. number of unread messages to display on the dashboard widget.', "bonaire" )
 			),
 			'username' => array(
 				'id' => 'username',
-				'name' => __( 'Username', $this->domain ),
+				'name' => __( 'Username', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => 'yourname@gmail.com',
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg',
-				'tt_description' => __( 'The username you authenticate to the email account with. This is most likely the email address or your name.', $this->domain )
+				'tt_description' => __( 'The username you authenticate to the email account with. This is most likely the email address or your name.', "bonaire" )
 			),
 			'password' => array(
 				'id' => 'password',
-				'name' => __( 'Password', $this->domain ),
+				'name' => __( 'Password', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
-				'example' => __( 'No example', $this->domain ),
+				'example' => __( 'No example', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'Your password. It will be stored encrypted in the database, and replaced by ***** in the user interface after saving it. Please make sure you have generated your SALT-Keys.', $this->domain )
+				'tt_description' => __( 'Your password. It will be stored encrypted in the database, and replaced by ***** in the user interface after saving it. Please make sure you have generated your SALT-Keys.', "bonaire" )
 			),
 			'smtpauth' => array(
 				'id' => 'smtpauth',
-				'name' => __( 'SMTPAuth', $this->domain ),
+				'name' => __( 'SMTPAuth', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'general',
 				'default_value' => 'true',
-				'example' => __( 'No example', $this->domain ),
+				'example' => __( 'No example', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'You must authenticate with your username and password.', $this->domain )
+				'tt_description' => __( 'You must authenticate with your username and password.', "bonaire" )
 			),
 			'smtp_host' => array(
 				'id' => 'smtp_host',
-				'name' => __( 'SMTP Host', $this->domain ),
+				'name' => __( 'SMTP Host', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => 'smtp.gmail.com',
 				'tt_image' => '',
-				'tt_description' => __( 'The address of the SMTP host.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'The address of the SMTP host.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'smtp_port' => array(
 				'id' => 'smtp_port',
-				'name' => __( 'SMTP Port', $this->domain ),
+				'name' => __( 'SMTP Port', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => '465 for SSL or 587 for TLS',
 				'tt_image' => '',
-				'tt_description' => __( 'The SMTP port number.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'The SMTP port number.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'smtpsecure' => array(
 				'id' => 'smtpsecure',
-				'name' => __( 'SMTPSecure', $this->domain ),
+				'name' => __( 'SMTPSecure', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'smtp',
@@ -300,45 +310,45 @@ final class Bonaire_Options {
 				'example' => 'SSL',
 				'values' => array( 'tls' => 'TLS', 'ssl' => 'SSL' ),
 				'tt_image' => '',
-				'tt_description' => __( 'SSL or TLS is required.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'SSL or TLS is required.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'fromname' => array(
 				'id' => 'fromname',
-				'name' => __( 'From Name', $this->domain ),
+				'name' => __( 'From Name', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'account',
 				'default_value' => '',
 				'example' => 'Your Name',
 				'tt_image' => '',
-				'tt_description' => __( 'Your name or website name or company name or...', $this->domain )
+				'tt_description' => __( 'Your name or website name or company name or...', "bonaire" )
 			),
 			'from' => array(
 				'id' => 'from',
-				'name' => __( 'From E-Mail Address', $this->domain ),
+				'name' => __( 'From E-Mail Address', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'account',
 				'default_value' => '',
 				'example' => 'yourname@gmail.com',
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg',
-				'tt_description' => __( 'The account\'s email address.', $this->domain )
+				'tt_description' => __( 'The account\'s email address.', "bonaire" )
 			),
 			'save_reply' => array(
 				'id' => 'save_reply',
-				'name' => __( 'Save Reply', $this->domain ),
+				'name' => __( 'Save Reply', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
-				'default_value' => __( 'No', $this->domain ),
-				'example' => __( 'Yes', $this->domain ),
-				'values' => array( 'no' => __( 'No', $this->domain ), 'yes' => __( 'Yes', $this->domain ) ),
+				'default_value' => __( 'No', "bonaire" ),
+				'example' => __( 'Yes', "bonaire" ),
+				'values' => array( 'no' => __( 'No', "bonaire" ), 'yes' => __( 'Yes', "bonaire" ) ),
 				'tt_image' => '',
-				'tt_description' => __( 'Store replies on your mail server inside the default folder for sent items.', $this->domain )
+				'tt_description' => __( 'Store replies on your mail server inside the default folder for sent items.', "bonaire" )
 			),
 			'imapsecure' => array(
 				'id' => 'imapsecure',
-				'name' => __( 'IMAPSecure', $this->domain ),
+				'name' => __( 'IMAPSecure', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
@@ -346,65 +356,65 @@ final class Bonaire_Options {
 				'example' => 'SSL',
 				'values' => array( 'tls' => 'TLS', 'ssl' => 'SSL' ),
 				'tt_image' => '',
-				'tt_description' => __( 'SSL or TLS is required.', $this->domain )
+				'tt_description' => __( 'SSL or TLS is required.', "bonaire" )
 			),
 			'imap_host' => array(
 				'id' => 'imap_host',
-				'name' => __( 'IMAP Host', $this->domain ),
+				'name' => __( 'IMAP Host', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => 'imap.gmail.com',
 				'tt_image' => '',
-				'tt_description' => __( 'The address of the IMAP host.', $this->domain )
+				'tt_description' => __( 'The address of the IMAP host.', "bonaire" )
 			),
 			'imap_port' => array(
 				'id' => 'imap_port',
-				'name' => __( 'IMAP Port', $this->domain ),
+				'name' => __( 'IMAP Port', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => '993 for SSL',
 				'tt_image' => '',
-				'tt_description' => __( 'The IMAP port number.', $this->domain )
+				'tt_description' => __( 'The IMAP port number.', "bonaire" )
 			),
 			'inbox_folder_name' => array(
 				'id' => 'inbox_folder_name',
-				'name' => __( 'Sent Items Folder', $this->domain ),
+				'name' => __( 'Sent Items Folder', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
-				'example' => __( 'Sent', $this->domain ),
+				'example' => __( 'Sent', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'Case sensitive, Gmail only.', $this->domain ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __( 'Case sensitive, Gmail only.', "bonaire" ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', "bonaire" ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', "bonaire" )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
-				'name' => __( 'Sent Items Path', $this->domain ),
+				'name' => __( 'Sent Items Path', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
-				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
+				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __('(if Gmail - optional or leave blank)', $this->domain) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
+				'tt_description' => __('(if Gmail - optional or leave blank)', "bonaire") . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', "bonaire" ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', "bonaire" )
 			),
 			'ssl_certification_validation' => array(
 				'id' => 'ssl_certification_validation',
-				'name' => __( 'SSL Certification Validation', $this->domain ),
+				'name' => __( 'SSL Certification Validation', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => 'Yes',
-				'example' => __( 'Yes', $this->domain ),
-				'values' => array( 'nocert' => __( 'No', $this->domain ), 'cert' => __( 'Yes', $this->domain ) ),
+				'example' => __( 'Yes', "bonaire" ),
+				'values' => array( 'nocert' => __( 'No', "bonaire" ), 'cert' => __( 'Yes', "bonaire" ) ),
 				'tt_image' => '',
-				'tt_description' => __( '"No" skips ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ) . " " .
-				                    __( 'Otherwise, you\'re a potential subject of man in the middle attacks', $this->domain ) . " " .
-				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", $this->domain ) . "</a>)."
+				'tt_description' => __( '"No" skips ssl certificate validation. This setting is not secure and you should avoid using it.', "bonaire" ) . " " .
+				                    __( 'Otherwise, you\'re a potential subject of man in the middle attacks', "bonaire" ) . " " .
+				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", "bonaire" ) . "</a>)."
 			)
 		);
 	}
@@ -483,7 +493,13 @@ final class Bonaire_Options {
 	private function update_localized_data() {
 		
 		global $wp_scripts;
-		
+		if ( ! $wp_scripts instanceof \WP_Scripts ) {
+			wp_scripts();
+		}
+		if ( ! $wp_scripts instanceof \WP_Scripts || ! wp_script_is( 'bonaire-admin-js', 'registered' ) ) {
+			return false;
+		}
+
 		return $wp_scripts->localize( 'bonaire-admin-js', 'BonaireOptions', $this->get_script_data() );
 	}
 	
@@ -530,38 +546,48 @@ final class Bonaire_Options {
 	 */
 	public function bonaire_save_options( $input ) {
 		
-		// Copy the currently stored options for later use
-		$old_stored_options = get_option( 'bonaire_options' );
+		// Work with the normalized representation so legacy object-shaped options
+		// cannot trigger object-as-array errors while saving.
+		$old_stored_options = array(
+			(array) $this->stored_options->{0},
+			(array) $this->stored_options->{1},
+		);
 		
 		// Validate
 		$output = $this->validate_options( $input );
 		
 		// Re-add the stored password if there were no changes and there is one stored already
-		if ( ( '*****' === $input['password'] ) ) {
+		if ( '*****' === ( $input['password'] ?? '' ) ) {
 			$output['password'] = $this->account_settings->password;
+			if ( \Bonaire\Includes\Bonaire_Crypto::needs_migration( (string) $output['password'] ) ) {
+				$plaintext = $this->crypt( $output['password'], 'd' );
+				if ( '' !== $plaintext ) {
+					$output['password'] = $this->crypt( $plaintext, 'e' );
+				}
+			}
 		} else {
-			$output['password'] = sanitize_text_field( $input['password'] );
+			$output['password'] = sanitize_text_field( $input['password'] ?? '' );
 		}
 		
 		// Crypt password if needed
-		if ( '' !== $input['password'] && '*****' !== $input['password'] ) {
+		if ( '' !== ( $input['password'] ?? '' ) && '*****' !== $input['password'] ) {
 			$output['password'] = $this->crypt( $input['password'], 'e' );
 		}
 		
-		$stored_options     = get_option( 'bonaire_options' );
-		$stored_options[0]  = $output;
+		$stored_options    = $old_stored_options;
+		$stored_options[0] = $output;
 		
 		// Update options
-		$result = update_option( 'bonaire_options', $stored_options, true );
+		$result = update_option( 'bonaire_options', $stored_options, false );
 		
 		if ( false === $result ) {
 			
 			if ( false === $this->have_settings_changed( $output, $old_stored_options ) ) {
 				
-				return new WP_Error( - 1, __( 'There\'s nothing to save.', $this->domain ) );
+				return new WP_Error( - 1, __( 'There\'s nothing to save.', "bonaire" ) );
 			}
 			
-			return new WP_Error( - 2, __( 'Can\'t save settings right now.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . ' (-2)' );
+			return new WP_Error( - 2, __( 'Can\'t save settings right now.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . ' (-2)' );
 		}
 		
 		$this->update_localized_data();
@@ -594,8 +620,8 @@ final class Bonaire_Options {
 		$have_imap_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'imap' );
 		if ( $have_imap_settings_changed || false === $have_imap_settings_changed && 'green' !== $imap_status ) {
 			if ( 'no' === $output['save_reply'] ) {
-				$status = 'inactive';
-				$Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+				$imap_status = 'inactive';
+				$Bonaire_Account_Settings_Status->set_settings_status( 'imap', $imap_status );
 			} else {
 				$imap_result = $Bonaire_Account_Evaluator->bonaire_test_imap_settings();
 			}
@@ -612,9 +638,9 @@ final class Bonaire_Options {
 			
 			return array(
 				'success' => true,
-				'cf7_status' => $cf7_result['status'],
-				'smtp_status' => $smtp_result['status'],
-				'imap_status' => $imap_result['status'],
+				'cf7_status' => is_array( $cf7_result ) ? ( $cf7_result['status'] ?? $cf7_status ) : $cf7_status,
+				'smtp_status' => is_array( $smtp_result ) ? ( $smtp_result['status'] ?? $smtp_status ) : $smtp_status,
+				'imap_status' => is_array( $imap_result ) ? ( $imap_result['status'] ?? $imap_status ) : $imap_status,
 				'message' => false,
 				'messages' => false,
 				'error_code' => 0
@@ -623,12 +649,12 @@ final class Bonaire_Options {
 		
 		return new WP_Error(
 			21,
-			__( 'Settings Saved.', $this->domain ),
+			__( 'Settings Saved.', "bonaire" ),
 			array(
 				'success' => false,
-				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : 'green',
-				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : 'green',
-				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : 'green',
+				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : $cf7_status,
+				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : $smtp_status,
+				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : $imap_status,
 				'message' => false,
 				'messages' => false,
 				'error_code' => 0
@@ -678,13 +704,13 @@ final class Bonaire_Options {
 		$input_array_to_check          = array();
 		$stored_options_array_to_check = array();
 		foreach ( $keys as $key => $value ) {
-			$input_array_to_check[ $key ]          = $input[ $key ];
-			$stored_options_array_to_check[ $key ] = $old_stored_options[0][ $key ];
+			$input_array_to_check[ $key ]          = $input[ $key ] ?? '';
+			$stored_options_array_to_check[ $key ] = $old_stored_options[0][ $key ] ?? '';
 		}
 		
 		// Decrypt the password for the check, if it got changed
-		if ( '*****' !== $input['password'] && $input['password'] !== $old_stored_options[0]['password'] ) {
-			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'], $action = 'd' );
+		if ( '*****' !== ( $input['password'] ?? '' ) && ( $input['password'] ?? '' ) !== ( $old_stored_options[0]['password'] ?? '' ) ) {
+			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'] ?? '', 'd' );
 		}
 		
 		$result = array_diff_assoc( $input_array_to_check, $stored_options_array_to_check );
@@ -714,7 +740,7 @@ final class Bonaire_Options {
 		$default_settings = $this->default_options();
 		$settings[0]      = (array) $default_settings->{0};
 		$settings[1]      = (array) $default_settings->{1};
-		$result           = update_option( 'bonaire_options', $settings, true );
+		$result           = update_option( 'bonaire_options', $settings, false );
 		
 		if ( false !== $result ) {
 			
@@ -735,7 +761,7 @@ final class Bonaire_Options {
 		
 		return new WP_Error(
 			21,
-			__( 'Failed to reset settings. Please refresh the page and try again.', $this->domain ),
+			__( 'Failed to reset settings. Please refresh the page and try again.', "bonaire" ),
 			array(
 				'success' => false,
 				'smtp_status' => 'orange',
@@ -757,22 +783,36 @@ final class Bonaire_Options {
 	 */
 	public function validate_options( $input ) {
 		
-		$output = null;
+		$output = array();
 		foreach ( $input as $key => $value ) {
+			if ( 'password' === $key ) {
+				$output[ $key ] = (string) $value;
+				continue;
+			}
+
+			$value = sanitize_text_field( (string) $value );
 			
-			// Sanitize value
-			$value = strip_tags( stripslashes( $value ) );
-			
-			if ( 'form_id' === $key || 'number_posts' === $key ) {
-				$output[ $key ] = is_int( (int) $value ) ? (string) $value : '';
+			if ( 'form_id' === $key ) {
+				$output[ $key ] = ctype_digit( $value ) && 0 < (int) $value ? (string) absint( $value ) : '';
+			} elseif ( 'number_posts' === $key ) {
+				$output[ $key ] = ctype_digit( $value ) && 10 >= (int) $value ? (string) (int) $value : '';
 			} elseif ( 'smtp_host' === $key || 'imap_host' === $key ) {
 				$result         = preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			} elseif ( 'smtpauth' === $key ) {
 				$output[ $key ] = true;
 			} elseif ( 'smtp_port' === $key || 'imap_port' === $key ) {
-				$result         = filter_var( $value, FILTER_VALIDATE_INT );
-				$output[ $key ] = is_int( $result ) && 0 !== $result && 1 !== $result ? (int) $value : '';
+				$result = filter_var(
+					$value,
+					FILTER_VALIDATE_INT,
+					array(
+						'options' => array(
+							'min_range' => 1,
+							'max_range' => 65535,
+						),
+					)
+				);
+				$output[ $key ] = false !== $result ? (int) $result : '';
 			} elseif ( 'username' === $key ) {
 				if ( strpos( $value, '@' ) !== false && strpos( $value, '.' ) !== false ) {
 					$result         = filter_var( $value, FILTER_VALIDATE_EMAIL );
@@ -781,8 +821,6 @@ final class Bonaire_Options {
 					$result         = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 					$output[ $key ] = 1 === $result ? $value : '';
 				}
-			} elseif ( 'password' === $key ) {
-				$output[ $key ] = $value;
 			} elseif ( 'channel' === $key ) {
 				$output[ $key ] = (string) $value;
 			} elseif ( 'smtpsecure' === $key || 'imapsecure' === $key ) {
@@ -792,11 +830,7 @@ final class Bonaire_Options {
 					$output[ $key ] = $value;
 				}
 			} elseif ( 'save_reply' === $key ) {
-				if ( 'no' !== $value ) {
-					$output[ $key ] = 'yes';
-				} else {
-					$output[ $key ] = 'no';
-				}
+				$output[ $key ] = 'yes' === $value ? 'yes' : 'no';
 			} elseif ( 'inbox_folder_name' === $key || 'inbox_folder_path' === $key ) {
 				$output[ $key ] = $value;
 			} elseif ( 'ssl_certification_validation' === $key ) {
@@ -817,7 +851,7 @@ final class Bonaire_Options {
 			}
 		}
 		
-		return apply_filters( array( $this, 'validate_options' ), $output, $input );
+		return apply_filters( 'bonaire_validate_options', $output, $input );
 	}
 	
 	/**
@@ -831,26 +865,9 @@ final class Bonaire_Options {
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
 	private function crypt( $string, $action = 'e' ) {
-		
-		$secret_key = defined(AUTH_KEY) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined(AUTH_SALT) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$output         = false;
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		if ( $action === 'e' ) {
-			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
-		} elseif ( $action === 'd' ) {
-			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		}
-		
-		return $output;
+		return 'd' === $action
+			? \Bonaire\Includes\Bonaire_Crypto::decrypt( (string) $string )
+			: \Bonaire\Includes\Bonaire_Crypto::encrypt( (string) $string );
 	}
 	
 	/**
@@ -863,21 +880,9 @@ final class Bonaire_Options {
 	 * @since 0.9.6
 	 */
 	public function get_stored_options( $settings_group = 0 ) {
-		
-		$stored_options = get_option( 'bonaire_options' );
-		
-		if ( false === $stored_options && $settings_group === 0 ) {
-			return $this->default_options()->{0};
-		} elseif ( false === $stored_options && $settings_group === 1 ) {
-			return $this->default_options()->{1};
-		}
-		
-		if ( 1 === $settings_group ) {
-			
-			return (object) $stored_options[1];
-		}
-		
-		return (object) $stored_options[0];
+		return 1 === (int) $settings_group
+			? $this->stored_options->{1}
+			: $this->stored_options->{0};
 	}
 	
 	/**

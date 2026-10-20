@@ -736,10 +736,7 @@
 
     };
 
-    $(document).one('ready', function (){
-
-        var bonaireAdmin = new BonaireAdmin();
-        bonaireAdmin.init();
-    });
+    var bonaireAdmin = new BonaireAdmin();
+    bonaireAdmin.init();
 
 })(jQuery, alertify);

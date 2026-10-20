@@ -317,31 +317,17 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 		
 		$channel = $this->get_form_id_from_current_message( $post_id );
 		
-		$args = array(
-			'id' => $channel,
-			'post_status' => 'any',
-			'posts_per_page' => -1,
-			'offset' => 0,
-			'orderby' => 'name',
-			'order' => 'ASC',
-		);
-		
-		$contact_form_by_channel = WPCF7_ContactForm::find( $args );
-		if(empty($contact_form_by_channel)) {
+		$contact_form = WPCF7_ContactForm::get_instance( absint( $channel ) );
+		if ( ! $contact_form instanceof WPCF7_ContactForm ) {
 			
 			return false;
 		}
-		/**
-		 * @var WPCF7_ContactForm $contact_form
-		 */
-		$contact_form = $contact_form_by_channel[0];
-		$properties   = $contact_form->get_properties();
-		if ( is_a( $contact_form, 'WPCF7_ContactForm' ) ) {
-			
-			return isset( $properties['mail']['recipient'] ) && '' !== $properties['mail']['recipient'] ? $properties['mail']['recipient'] : false;
-		}
-		
-		return false;
+
+		$properties = $contact_form->get_properties();
+
+		return isset( $properties['mail']['recipient'] ) && '' !== $properties['mail']['recipient']
+			? $properties['mail']['recipient']
+			: false;
 	}
 	
 	/**
@@ -402,26 +388,21 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 */
 	public function mark_as_spam( $post_id ) {
-		
-		$args = array(
-			'fields' => array(),
-			'meta' => array(),
-			'akismet' => array(),
-			'spam' => true,
-			'consent' => array(),
-			'id' => (int) $post_id,
-		);
-		
+		$message = $this->find_message( $post_id );
+		if ( ! $message ) {
+			return new WP_Error( 1, __( 'Message not found.', "bonaire" ) );
+		}
+
 		try {
-			$result = Flamingo_Inbound_Message::add( $args );
-		} catch( Exception $e ) {
+			$result = $message->spam();
+		} catch ( \Throwable $e ) {
 			
-			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(1)' );
 		}
 		
-		if ( false === $result ) {
+		if ( false === $result || ! $message->spam ) {
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(2)' );
 		}
 		
 		return true;
@@ -436,30 +417,41 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @since 0.9.6
 	 */
 	public function move_to_trash( $post_id ) {
-		
-		$args = array(
-			'fields' => array(),
-			'meta' => array(),
-			'akismet' => array(),
-			'spam' => true,
-			'consent' => array(),
-			'id' => (int) $post_id,
-			'post_status' => 'trash'
-		);
-		
+		$message = $this->find_message( $post_id );
+		if ( ! $message ) {
+			return new WP_Error( 1, __( 'Message not found.', "bonaire" ) );
+		}
+
 		try {
-			$result = Flamingo_Inbound_Message::add( $args );
-		} catch( Exception $e ) {
+			$result = $message->trash();
+		} catch ( \Throwable $e ) {
 			
-			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to move message to trash.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(1)' );
 		}
 		
 		if ( false === $result ) {
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to move message to trash.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(2)' );
 		}
 		
 		return true;
+	}
+
+	/**
+	 * Returns the already loaded Flamingo message matching a post ID.
+	 *
+	 * @param int $post_id Message post ID.
+	 * @return Flamingo_Inbound_Message|null
+	 */
+	private function find_message( $post_id ) {
+		$post_id = absint( $post_id );
+		foreach ( $this->posts as $message ) {
+			if ( $message instanceof Flamingo_Inbound_Message && $post_id === (int) $message->id() ) {
+				return $message;
+			}
+		}
+
+		return null;
 	}
 	
 	/**
@@ -473,26 +465,9 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
 	private function crypt( $string, $action = 'd' ) {
-		
-		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$output         = false;
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		if ( $action === 'e' ) {
-			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
-		} elseif ( $action === 'd' ) {
-			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		}
-		
-		return $output;
+		return 'e' === $action
+			? \Bonaire\Includes\Bonaire_Crypto::encrypt( (string) $string )
+			: \Bonaire\Includes\Bonaire_Crypto::decrypt( (string) $string );
 	}
 	
 }

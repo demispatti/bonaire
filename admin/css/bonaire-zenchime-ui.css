@@ -1,0 +1,557 @@
+/*
+ * Warm, calm admin treatment for Bonaire.
+ * This is deliberately layered over the legacy stylesheet and scoped to plugin UI.
+ */
+:root {
+  --bon-canvas: #f6f4ee;
+  --bon-surface: #fffdf9;
+  --bon-surface-soft: #efede5;
+  --bon-surface-moss: #e1eadf;
+  --bon-text: #28312c;
+  --bon-text-soft: #69736d;
+  --bon-primary: #365b42;
+  --bon-primary-strong: #294634;
+  --bon-teal: #356c69;
+  --bon-border: #d8d5cc;
+  --bon-warning: #aa742f;
+  --bon-danger: #a1443e;
+  --bon-success: #3f7650;
+  --bon-shadow: 0 20px 52px rgba(53, 67, 57, .09), 0 2px 8px rgba(53, 67, 57, .05);
+}
+
+/* Undo the legacy root scaling on the small set of screens where Bonaire is loaded. */
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+body.bonaire-settings-page {
+  background: var(--bon-canvas);
+  color: var(--bon-text);
+}
+
+.bonaire-settings-page #wpcontent {
+  background: radial-gradient(circle at 88% 7%, rgba(205, 222, 201, 0.48), transparent 31rem), var(--bon-canvas);
+}
+
+.bonaire-settings-shell {
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin: 28px 32px 56px 12px;
+}
+
+.bonaire-page-heading {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 92px;
+  margin-bottom: 22px;
+}
+
+.bonaire-page-mark {
+  position: relative;
+  display: block;
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  border: 1px solid rgba(54, 91, 66, 0.12);
+  border-radius: 22px;
+  background: linear-gradient(145deg, #edf2e8, #d5e3d3);
+  box-shadow: 0 12px 30px rgba(54, 91, 66, 0.12);
+}
+
+.bonaire-page-mark::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 32px;
+  height: 23px;
+  border: 3px solid var(--bon-primary);
+  border-radius: 5px 5px 12px 12px;
+}
+
+.bonaire-page-mark::after,
+.bonaire-page-mark span {
+  content: "";
+  position: absolute;
+  left: 21px;
+  width: 27px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--bon-primary);
+  transform-origin: left center;
+}
+
+.bonaire-page-mark::after {
+  top: 23px;
+  transform: rotate(33deg);
+}
+
+.bonaire-page-mark span {
+  right: 21px;
+  top: 23px;
+  left: auto;
+  transform: rotate(147deg);
+  transform-origin: right center;
+}
+
+.bonaire-page-eyebrow {
+  margin: 0 0 4px;
+  color: var(--bon-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.bonaire-settings-page .settings-page-title {
+  display: block;
+  margin: 0;
+  padding: 0 !important;
+  color: var(--bon-text);
+  font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: clamp(30px, 4vw, 40px) !important;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.08 !important;
+}
+
+.bonaire-page-description {
+  max-width: 650px;
+  margin: 8px 0 0;
+  color: var(--bon-text-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.bonaire-settings-page #connection_details {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border: 1px solid rgba(54, 91, 66, 0.1);
+  border-radius: 24px;
+  background: var(--bon-surface);
+  box-shadow: var(--bon-shadow);
+  color: var(--bon-text);
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  overflow: hidden;
+}
+
+.bonaire-settings-page #connection_details .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--bon-border);
+  background: linear-gradient(135deg, #faf9f3, #edf1e8);
+}
+
+.bonaire-settings-page #connection_details .header.settings-form-title h3 {
+  float: none;
+  margin: 0;
+  padding: 0;
+  color: var(--bon-text);
+  font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: 21px !important;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3 !important;
+}
+
+.bonaire-settings-page #connection_details .header a.information {
+  float: none;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(54, 91, 66, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, 0.7);
+  color: var(--bon-primary);
+  font-weight: 600;
+  line-height: 34px;
+  text-decoration: none;
+}
+
+.bonaire-settings-page #connection_details .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 18px;
+  padding: 22px;
+  background: var(--bon-surface);
+  overflow: visible;
+}
+
+.bonaire-settings-page #connection_details .cf7,
+.bonaire-settings-page #connection_details .dashboard,
+.bonaire-settings-page #connection_details .smtp,
+.bonaire-settings-page #connection_details .imap,
+.bonaire-settings-page #connection_details .contactform {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 22px;
+  border: 1px solid rgba(54, 91, 66, 0.1);
+  border-radius: 18px;
+  background: #faf9f4;
+}
+
+.bonaire-settings-page #connection_details .content-section-title {
+  margin: 0 0 16px;
+  padding: 0;
+  color: var(--bon-text);
+  font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: 18px !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35 !important;
+}
+
+.bonaire-settings-page #connection_details .cf7 > div,
+.bonaire-settings-page #connection_details .dashboard > div,
+.bonaire-settings-page #connection_details .smtp > div,
+.bonaire-settings-page #connection_details .imap > div,
+.bonaire-settings-page #connection_details .contactform > div {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) minmax(160px, 1.2fr);
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.bonaire-settings-page #connection_details label {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0;
+  color: var(--bon-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  pointer-events: auto;
+}
+
+.bonaire-settings-page #connection_details input:not([type=submit]),
+.bonaire-settings-page #connection_details select,
+.bonaire-settings-page #connection_details textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--bon-border);
+  border-radius: 11px;
+  background: #fff !important;
+  box-shadow: 0 1px 2px rgba(53, 67, 57, 0.04);
+  color: var(--bon-text);
+}
+
+.bonaire-settings-page #connection_details input:not([type=submit]):focus,
+.bonaire-settings-page #connection_details select:focus,
+.bonaire-settings-page #connection_details textarea:focus {
+  border-color: var(--bon-primary);
+  box-shadow: 0 0 0 3px rgba(54, 91, 66, 0.15);
+  outline: 0;
+}
+
+.bonaire-settings-page #connection_details input[type=checkbox] {
+  width: 22px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0;
+  border-radius: 7px;
+  accent-color: var(--bon-primary);
+}
+
+.bonaire-settings-page #connection_details input:disabled,
+.bonaire-settings-page #connection_details select:disabled {
+  border-color: #e5e2da;
+  background: #efede7 !important;
+  color: #858b86;
+  opacity: 1;
+}
+
+.bonaire-settings-page #connection_details .status-indicator {
+  top: 0;
+  margin-left: 7px;
+  vertical-align: middle;
+}
+
+.bonaire-settings-page #connection_details .status-indicator i {
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--bon-surface);
+  box-shadow: 0 0 0 1px rgba(53, 67, 57, 0.12), 0 3px 8px rgba(53, 67, 57, 0.12);
+}
+
+.bonaire-settings-page #connection_details .status-indicator.green i {
+  background: var(--bon-success);
+}
+
+.bonaire-settings-page #connection_details .status-indicator.orange i {
+  background: var(--bon-warning);
+}
+
+.bonaire-settings-page #connection_details .status-indicator.red i {
+  background: var(--bon-danger);
+}
+
+.bonaire-settings-page #connection_details .status-indicator.inactive i {
+  background: #9b9e99;
+}
+
+.bonaire-settings-page #connection_details .buttons-container {
+  grid-column: 1/-1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.bonaire-settings-page #connection_details .buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid rgba(54, 91, 66, 0.1);
+  border-radius: 18px;
+  background: var(--bon-surface-moss);
+}
+
+.bonaire-settings-page #connection_details .buttons h5 {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.bonaire-settings-page #connection_details .buttons .reset-button-container,
+.bonaire-settings-page #connection_details .buttons .submit-button-container {
+  padding: 0;
+}
+
+.bonaire-settings-page #connection_details .footer {
+  margin: 0;
+  padding: 24px 28px 28px;
+  border-top: 1px solid var(--bon-border);
+  background: #f5f3ec;
+}
+
+.bonaire-settings-page #connection_details .footer h5 {
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.bonaire-settings-page #connection_details .footer > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  background: transparent;
+}
+
+.bonaire-settings-page #connection_details .footer > div .button-container {
+  padding: 0;
+}
+
+.bonaire-settings-page #connection_details .button,
+.bonaire-settings-page #connection_details input[type=submit] {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  line-height: 40px;
+  transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.bonaire-settings-page #connection_details .button-primary {
+  border-color: var(--bon-primary);
+  background: var(--bon-primary);
+  color: #fff;
+}
+
+.bonaire-settings-page #connection_details .button-primary:hover {
+  border-color: var(--bon-primary-strong);
+  background: var(--bon-primary-strong);
+  transform: translateY(-1px);
+}
+
+.bonaire-settings-page #connection_details .button-secondary {
+  border-color: var(--bon-border);
+  background: var(--bon-surface);
+  color: var(--bon-text);
+}
+
+.bonaire-settings-page #connection_details .bonaire-tooltip-symbol i::before {
+  color: #86a59a;
+}
+
+.bonaire-settings-page #connection_details .bonaire-tooltip-symbol i:hover::before {
+  color: var(--bon-primary);
+}
+
+/* Secondary plugin surfaces: messages, replies, dashboard and contextual help. */
+.bonaire-reply-form-container,
+.bonaire-message-container,
+#dashboard-widgets #bonaire_dashboard_widget .inside,
+.contextual-help-tabs-wrap .ui-tabs-panel {
+  border-color: var(--bon-border);
+  border-radius: 14px;
+  background: var(--bon-surface);
+  box-shadow: 0 8px 24px rgba(53, 67, 57, 0.055);
+}
+
+#bonaire_reply_form input:not(.bonaire-submit-reply-button),
+#bonaire_message input:not(.bonaire-submit-reply-button),
+#bonaire_reply_form textarea,
+#bonaire_message textarea {
+  border-color: var(--bon-border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+#bonaire_reply_form input:focus,
+#bonaire_message input:focus,
+#bonaire_reply_form textarea:focus,
+#bonaire_message textarea:focus {
+  border-color: var(--bon-primary);
+  box-shadow: 0 0 0 3px rgba(54, 91, 66, 0.15);
+  outline: 0;
+}
+
+#dashboard-widgets #bonaire_dashboard_widget .inside li.message {
+  border-bottom-color: var(--bon-border);
+  background: #faf9f4;
+}
+
+#dashboard-widgets #bonaire_dashboard_widget .inside li.message:nth-child(even) {
+  background: var(--bon-surface);
+}
+
+#dashboard-widgets #bonaire_dashboard_widget .inside li.message a.message-icon span {
+  border-color: var(--bon-border);
+  border-radius: 12px;
+  background: var(--bon-surface-moss);
+}
+
+#dashboard-widgets #bonaire_dashboard_widget .inside .no-activity .email,
+#dashboard-widgets #bonaire_dashboard_widget .inside .no-activity a.message-text {
+  color: var(--bon-primary);
+}
+
+.tooltipster-base .tooltipster-box {
+  border-radius: 14px;
+  box-shadow: 0 18px 42px rgba(53, 67, 57, 0.18);
+  overflow: hidden;
+}
+
+.tooltipster-base .tooltipster-box .tooltipster-content .bonaire-tooltip-heading {
+  background: var(--bon-primary);
+}
+
+.alertify .ajs-dialog {
+  border-radius: 16px;
+  box-shadow: var(--bon-shadow);
+  overflow: hidden;
+}
+
+.contextual-help-tabs-wrap #bonaire-help-tabs ul.nav {
+  gap: 6px;
+  border-bottom-color: var(--bon-border);
+}
+
+.contextual-help-tabs-wrap #bonaire-help-tabs ul.nav li.ui-state-default,
+.contextual-help-tabs-wrap #bonaire-help-tabs ul.nav li.ui-state-default.ui-state-active {
+  border-radius: 999px;
+  background: var(--bon-surface-soft);
+}
+
+.contextual-help-tabs-wrap #bonaire-help-tabs ul.nav li.ui-state-active {
+  background: var(--bon-surface-moss);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bonaire-settings-page *,
+  .bonaire-settings-page *::before,
+  .bonaire-settings-page *::after,
+  .bonaire-reply-form-container *,
+  .bonaire-message-container * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+@media (max-width: 960px) {
+  .bonaire-settings-page #connection_details .content {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 782px) {
+  .bonaire-settings-shell {
+    margin: 20px 12px 40px 2px;
+  }
+  .bonaire-page-heading {
+    align-items: flex-start;
+  }
+  .bonaire-page-mark {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+    border-radius: 18px;
+  }
+  .bonaire-page-mark::before {
+    left: 14px;
+    top: 16px;
+    width: 28px;
+    height: 20px;
+  }
+  .bonaire-page-mark::after,
+  .bonaire-page-mark span {
+    top: 19px;
+    width: 23px;
+  }
+  .bonaire-page-mark::after {
+    left: 17px;
+  }
+  .bonaire-page-mark span {
+    right: 17px;
+  }
+  .bonaire-settings-page #connection_details {
+    border-radius: 18px;
+  }
+  .bonaire-settings-page #connection_details .header,
+  .bonaire-settings-page #connection_details .content,
+  .bonaire-settings-page #connection_details .footer {
+    padding: 18px;
+  }
+  .bonaire-settings-page #connection_details .content {
+    display: block;
+  }
+  .bonaire-settings-page #connection_details .cf7,
+  .bonaire-settings-page #connection_details .dashboard,
+  .bonaire-settings-page #connection_details .smtp,
+  .bonaire-settings-page #connection_details .imap,
+  .bonaire-settings-page #connection_details .contactform,
+  .bonaire-settings-page #connection_details .buttons-container {
+    margin-bottom: 16px;
+  }
+  .bonaire-settings-page #connection_details .cf7 > div,
+  .bonaire-settings-page #connection_details .dashboard > div,
+  .bonaire-settings-page #connection_details .smtp > div,
+  .bonaire-settings-page #connection_details .imap > div,
+  .bonaire-settings-page #connection_details .contactform > div {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .bonaire-settings-page #connection_details .footer > div,
+  .bonaire-settings-page #connection_details .footer .button-container,
+  .bonaire-settings-page #connection_details .footer input[type=submit] {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=bonaire-zenchime-ui.css.map */
