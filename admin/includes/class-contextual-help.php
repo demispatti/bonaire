@@ -92,7 +92,7 @@ class Bonaire_Contextual_Help {
 		
 		$current_screen->add_help_tab( array(
 			'id' => 'bonaire-help-tab',
-			'title' => __( 'Bonaire Help', $this->domain ),
+			'title' => __( 'Bonaire Help', "bonaire" ),
 			'content' => AdminPartials\Bonaire_Help_Tab_Display::help_tab_display( $this->domain )
 		) );
 		

@@ -212,7 +212,7 @@ final class Bonaire_Options {
 		return (object) array(
 			'form_id' => array(
 				'id' => 'form_id',
-				'name' => __( 'Form Id', $this->domain ),
+				'name' => __( 'Form Id', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'none',
@@ -223,86 +223,86 @@ final class Bonaire_Options {
 			),
 			'channel' => array(
 				'id' => 'channel',
-				'name' => __( 'Contact Form', $this->domain ),
+				'name' => __( 'Contact Form', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
-				'default_value' => __( 'none', $this->domain ),
-				'example' => __( 'Contact form 1', $this->domain ),
-				'values' => array( 'none' => __( 'none', $this->domain ) ),
+				'default_value' => __( 'none', "bonaire" ),
+				'example' => __( 'Contact form 1', "bonaire" ),
+				'values' => array( 'none' => __( 'none', "bonaire" ) ),
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg',
-				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', $this->domain )
+				'tt_description' => __( 'The Title of the contactform you want to use this plugin with. Usually it is the form that\'s displayed on the contact page of your website.', "bonaire" )
 			),
 			'number_posts' => array(
 				'id' => 'number_posts',
-				'name' => __( 'Number Of Messages', $this->domain ),
+				'name' => __( 'Number Of Messages', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
 				'default_value' => '5',
-				'example' => __( '5', $this->domain ),
+				'example' => __( '5', "bonaire" ),
 				'values' => array( '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ),
 				'tt_image' => ''/*BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-channel.jpg'*/,
-				'tt_description' => __( 'Max. number of unread messages to display on the dashboard widget.', $this->domain )
+				'tt_description' => __( 'Max. number of unread messages to display on the dashboard widget.', "bonaire" )
 			),
 			'username' => array(
 				'id' => 'username',
-				'name' => __( 'Username', $this->domain ),
+				'name' => __( 'Username', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => 'yourname@gmail.com',
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg',
-				'tt_description' => __( 'The username you authenticate to the email account with. This is most likely the email address or your name.', $this->domain )
+				'tt_description' => __( 'The username you authenticate to the email account with. This is most likely the email address or your name.', "bonaire" )
 			),
 			'password' => array(
 				'id' => 'password',
-				'name' => __( 'Password', $this->domain ),
+				'name' => __( 'Password', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
-				'example' => __( 'No example', $this->domain ),
+				'example' => __( 'No example', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'Your password. It will be stored encrypted in the database, and replaced by ***** in the user interface after saving it. Please make sure you have generated your SALT-Keys.', $this->domain )
+				'tt_description' => __( 'Your password. It will be stored encrypted in the database, and replaced by ***** in the user interface after saving it. Please make sure you have generated your SALT-Keys.', "bonaire" )
 			),
 			'smtpauth' => array(
 				'id' => 'smtpauth',
-				'name' => __( 'SMTPAuth', $this->domain ),
+				'name' => __( 'SMTPAuth', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'general',
 				'default_value' => 'true',
-				'example' => __( 'No example', $this->domain ),
+				'example' => __( 'No example', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'You must authenticate with your username and password.', $this->domain )
+				'tt_description' => __( 'You must authenticate with your username and password.', "bonaire" )
 			),
 			'smtp_host' => array(
 				'id' => 'smtp_host',
-				'name' => __( 'SMTP Host', $this->domain ),
+				'name' => __( 'SMTP Host', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => 'smtp.gmail.com',
 				'tt_image' => '',
-				'tt_description' => __( 'The address of the SMTP host.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'The address of the SMTP host.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'smtp_port' => array(
 				'id' => 'smtp_port',
-				'name' => __( 'SMTP Port', $this->domain ),
+				'name' => __( 'SMTP Port', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'smtp',
 				'default_value' => '',
 				'example' => '465 for SSL or 587 for TLS',
 				'tt_image' => '',
-				'tt_description' => __( 'The SMTP port number.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'The SMTP port number.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'smtpsecure' => array(
 				'id' => 'smtpsecure',
-				'name' => __( 'SMTPSecure', $this->domain ),
+				'name' => __( 'SMTPSecure', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'smtp',
@@ -310,45 +310,45 @@ final class Bonaire_Options {
 				'example' => 'SSL',
 				'values' => array( 'tls' => 'TLS', 'ssl' => 'SSL' ),
 				'tt_image' => '',
-				'tt_description' => __( 'SSL or TLS is required.', $this->domain ) . '<br>' . __( 'Get this from your hosting or email provider.', $this->domain )
+				'tt_description' => __( 'SSL or TLS is required.', "bonaire" ) . '<br>' . __( 'Get this from your hosting or email provider.', "bonaire" )
 			),
 			'fromname' => array(
 				'id' => 'fromname',
-				'name' => __( 'From Name', $this->domain ),
+				'name' => __( 'From Name', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'account',
 				'default_value' => '',
 				'example' => 'Your Name',
 				'tt_image' => '',
-				'tt_description' => __( 'Your name or website name or company name or...', $this->domain )
+				'tt_description' => __( 'Your name or website name or company name or...', "bonaire" )
 			),
 			'from' => array(
 				'id' => 'from',
-				'name' => __( 'From E-Mail Address', $this->domain ),
+				'name' => __( 'From E-Mail Address', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'account',
 				'default_value' => '',
 				'example' => 'yourname@gmail.com',
 				'tt_image' => BONAIRE_ROOT_URL . 'admin/images/tooltips/tt-your-email.jpg',
-				'tt_description' => __( 'The account\'s email address.', $this->domain )
+				'tt_description' => __( 'The account\'s email address.', "bonaire" )
 			),
 			'save_reply' => array(
 				'id' => 'save_reply',
-				'name' => __( 'Save Reply', $this->domain ),
+				'name' => __( 'Save Reply', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'none',
-				'default_value' => __( 'No', $this->domain ),
-				'example' => __( 'Yes', $this->domain ),
-				'values' => array( 'no' => __( 'No', $this->domain ), 'yes' => __( 'Yes', $this->domain ) ),
+				'default_value' => __( 'No', "bonaire" ),
+				'example' => __( 'Yes', "bonaire" ),
+				'values' => array( 'no' => __( 'No', "bonaire" ), 'yes' => __( 'Yes', "bonaire" ) ),
 				'tt_image' => '',
-				'tt_description' => __( 'Store replies on your mail server inside the default folder for sent items.', $this->domain )
+				'tt_description' => __( 'Store replies on your mail server inside the default folder for sent items.', "bonaire" )
 			),
 			'imapsecure' => array(
 				'id' => 'imapsecure',
-				'name' => __( 'IMAPSecure', $this->domain ),
+				'name' => __( 'IMAPSecure', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
@@ -356,65 +356,65 @@ final class Bonaire_Options {
 				'example' => 'SSL',
 				'values' => array( 'tls' => 'TLS', 'ssl' => 'SSL' ),
 				'tt_image' => '',
-				'tt_description' => __( 'SSL or TLS is required.', $this->domain )
+				'tt_description' => __( 'SSL or TLS is required.', "bonaire" )
 			),
 			'imap_host' => array(
 				'id' => 'imap_host',
-				'name' => __( 'IMAP Host', $this->domain ),
+				'name' => __( 'IMAP Host', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => 'imap.gmail.com',
 				'tt_image' => '',
-				'tt_description' => __( 'The address of the IMAP host.', $this->domain )
+				'tt_description' => __( 'The address of the IMAP host.', "bonaire" )
 			),
 			'imap_port' => array(
 				'id' => 'imap_port',
-				'name' => __( 'IMAP Port', $this->domain ),
+				'name' => __( 'IMAP Port', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
 				'example' => '993 for SSL',
 				'tt_image' => '',
-				'tt_description' => __( 'The IMAP port number.', $this->domain )
+				'tt_description' => __( 'The IMAP port number.', "bonaire" )
 			),
 			'inbox_folder_name' => array(
 				'id' => 'inbox_folder_name',
-				'name' => __( 'Sent Items Folder', $this->domain ),
+				'name' => __( 'Sent Items Folder', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
-				'example' => __( 'Sent', $this->domain ),
+				'example' => __( 'Sent', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __( 'Case sensitive, Gmail only.', $this->domain ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', $this->domain )
+				'tt_description' => __( 'Case sensitive, Gmail only.', "bonaire" ) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', "bonaire" ) . ' ' . __( 'The name of the folder your replies will be stored into on the web server. E.g. Sent, Gesendet, Envoyé, etc.', "bonaire" )
 			),
 			'inbox_folder_path' => array(
 				'id' => 'inbox_folder_path',
-				'name' => __( 'Sent Items Path', $this->domain ),
+				'name' => __( 'Sent Items Path', "bonaire" ),
 				'type' => 'text',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => '',
-				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', $this->domain ),
+				'example' => '{imap.gmail.com}[Gmail]/' . __( 'Sent', "bonaire" ),
 				'tt_image' => '',
-				'tt_description' => __('(if Gmail - optional or leave blank)', $this->domain) . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', $this->domain ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', $this->domain )
+				'tt_description' => __('(if Gmail - optional or leave blank)', "bonaire") . ' ' . __( 'Use "Sent" in the language you use the mail account with or as it is named in Outlook, Thunderbird etc., respectively).', "bonaire" ) . ' ' . __( 'This is an option to provide an inbox path similar to the one in the example. Use this approach, if the option above should fail (Error BON1704-0001). <br>Otherwise, leave blank.', "bonaire" )
 			),
 			'ssl_certification_validation' => array(
 				'id' => 'ssl_certification_validation',
-				'name' => __( 'SSL Certification Validation', $this->domain ),
+				'name' => __( 'SSL Certification Validation', "bonaire" ),
 				'type' => 'dropdown',
 				'setting' => true,
 				'group' => 'imap',
 				'default_value' => 'Yes',
-				'example' => __( 'Yes', $this->domain ),
-				'values' => array( 'nocert' => __( 'No', $this->domain ), 'cert' => __( 'Yes', $this->domain ) ),
+				'example' => __( 'Yes', "bonaire" ),
+				'values' => array( 'nocert' => __( 'No', "bonaire" ), 'cert' => __( 'Yes', "bonaire" ) ),
 				'tt_image' => '',
-				'tt_description' => __( '"No" skips ssl certificate validation. This setting is not secure and you should avoid using it.', $this->domain ) . " " .
-				                    __( 'Otherwise, you\'re a potential subject of man in the middle attacks', $this->domain ) . " " .
-				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", $this->domain ) . "</a>)."
+				'tt_description' => __( '"No" skips ssl certificate validation. This setting is not secure and you should avoid using it.', "bonaire" ) . " " .
+				                    __( 'Otherwise, you\'re a potential subject of man in the middle attacks', "bonaire" ) . " " .
+				                    "(<a href='https://stackoverflow.com/questions/7891729/certificate-error-using-imap-in-php' target='_blank'>" . __( "Read more", "bonaire" ) . "</a>)."
 			)
 		);
 	}
@@ -584,10 +584,10 @@ final class Bonaire_Options {
 			
 			if ( false === $this->have_settings_changed( $output, $old_stored_options ) ) {
 				
-				return new WP_Error( - 1, __( 'There\'s nothing to save.', $this->domain ) );
+				return new WP_Error( - 1, __( 'There\'s nothing to save.', "bonaire" ) );
 			}
 			
-			return new WP_Error( - 2, __( 'Can\'t save settings right now.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . ' (-2)' );
+			return new WP_Error( - 2, __( 'Can\'t save settings right now.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . ' (-2)' );
 		}
 		
 		$this->update_localized_data();
@@ -649,7 +649,7 @@ final class Bonaire_Options {
 		
 		return new WP_Error(
 			21,
-			__( 'Settings Saved.', $this->domain ),
+			__( 'Settings Saved.', "bonaire" ),
 			array(
 				'success' => false,
 				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : $cf7_status,
@@ -761,7 +761,7 @@ final class Bonaire_Options {
 		
 		return new WP_Error(
 			21,
-			__( 'Failed to reset settings. Please refresh the page and try again.', $this->domain ),
+			__( 'Failed to reset settings. Please refresh the page and try again.', "bonaire" ),
 			array(
 				'success' => false,
 				'smtp_status' => 'orange',

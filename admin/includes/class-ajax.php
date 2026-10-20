@@ -114,7 +114,7 @@ class Bonaire_Ajax {
 		$this->Bonaire_Account_Settings_Evaluator = $Bonaire_Account_Evaluator;
 		$this->Bonaire_Account_Settings_Status    = $Bonaire_Account_Settings_Status;
 		$this->stored_options                     = $Bonaire_Options->get_stored_options( 0 );
-		$this->nonce_error_text                   = __( 'That won\'t do.', $this->domain );
+		$this->nonce_error_text                   = __( 'That won\'t do.', "bonaire" );
 	}
 	
 	/**
@@ -164,7 +164,7 @@ class Bonaire_Ajax {
 	public function authorize_ajax_request() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'You do not have permission to perform this action.', $this->domain ) ),
+				array( 'message' => __( 'You do not have permission to perform this action.', "bonaire" ) ),
 				403
 			);
 		}
@@ -202,14 +202,14 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Message marked as read.', $this->domain )
+				'message' => __( 'Message marked as read.', "bonaire" )
 			);
 			wp_send_json_success( $response );
 		} else {
 			
 			$response = array(
 				'success' => false,
-				'message' => __( 'Failed to mark message as read.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain )
+				'message' => __( 'Failed to mark message as read.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" )
 			);
 			wp_send_json_error( $response );
 		}
@@ -241,7 +241,7 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Message marked as spam.', $this->domain )
+				'message' => __( 'Message marked as spam.', "bonaire" )
 			);
 			wp_send_json_success( $response );
 		} else {
@@ -284,7 +284,7 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Message moved to trash.', $this->domain )
+				'message' => __( 'Message moved to trash.', "bonaire" )
 			);
 			wp_send_json_success( $response );
 		} else {
@@ -364,7 +364,7 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Settings saved.', $this->domain ),
+				'message' => __( 'Settings saved.', "bonaire" ),
 				'cf7_status' => isset( $result['cf7_status'] ) ? $result['cf7_status'] : '',
 				'smtp_status' => isset( $result['smtp_status'] ) ? $result['smtp_status'] : '',
 				'imap_status' => isset( $result['imap_status'] ) ? $result['imap_status'] : ''
@@ -397,13 +397,13 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => false,
-				'message' => $message . ' ' . __( 'Please try again later.', $this->domain ) . '(' . $error_code . ')'
+				'message' => $message . ' ' . __( 'Please try again later.', "bonaire" ) . '(' . $error_code . ')'
 			);
 			wp_send_json_error( $response );
 		} else {
 			$response = array(
 				'success' => true,
-				'message' => __( 'Settings restored to default.', $this->domain ),
+				'message' => __( 'Settings restored to default.', "bonaire" ),
 				'smtp_status' => $result['smtp_status'],
 				'imap_status' => $result['imap_status']
 			);
@@ -572,7 +572,7 @@ class Bonaire_Ajax {
 		if ( ! is_email( $recipient_email_address ) ) {
 			$response = array(
 				'success' => false,
-				'message' => __( 'Please review the email address you entered.', $this->domain ),
+				'message' => __( 'Please review the email address you entered.', "bonaire" ),
 				'error' => 'email_not_valid'
 			);
 			wp_send_json_error( $response );
@@ -595,14 +595,14 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => false,
-				'message' => $msg . ' (' . __( 'Error code', $this->domain ) . ': ' . $code . ')'
+				'message' => $msg . ' (' . __( 'Error code', "bonaire" ) . ': ' . $code . ')'
 			);
 			wp_send_json_error( $response );
 		} else {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Test message sent successfully!', $this->domain )
+				'message' => __( 'Test message sent successfully!', "bonaire" )
 			);
 			wp_send_json_success( $response );
 		}
@@ -635,7 +635,7 @@ class Bonaire_Ajax {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => __( 'Please provide a valid recipient, subject, and message.', $this->domain ),
+					'message' => __( 'Please provide a valid recipient, subject, and message.', "bonaire" ),
 				),
 				400
 			);
@@ -649,7 +649,7 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => false,
-				'message' => $msg . ' (' . __( 'Error code', $this->domain ) . ': ' . $code . ')'
+				'message' => $msg . ' (' . __( 'Error code', "bonaire" ) . ': ' . $code . ')'
 			);
 			
 			wp_send_json_error( $response );
@@ -657,7 +657,7 @@ class Bonaire_Ajax {
 			
 			$response = array(
 				'success' => true,
-				'message' => __( 'Message sent!', $this->domain )
+				'message' => __( 'Message sent!', "bonaire" )
 			);
 			
 			wp_send_json_success( $response );

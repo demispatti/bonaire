@@ -128,36 +128,36 @@ class Bonaire_Settings_Page {
 		
 		return array(
 			'settings_page_notifications' => array(
-				'save_options_title' => __( 'Save Options', $this->domain ),
-				'save_options_notice' => __( 'Nothing to save.', $this->domain ),
-				'reset_options_title' => __( 'Reset Options', $this->domain ),
-				'reset_options_notice' => __( 'Nothing to reset.', $this->domain ),
-				'send_test_mail_title' => __( 'Send Test Mail.', $this->domain ),
-				'send_test_mail_notice' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', $this->domain ),
-				'send_test_mail_prompt_title' => __( 'Send Test Message', $this->domain ),
-				'send_test_mail_prompt_review_email_title' => __( 'Please correct the email address', $this->domain ),
-				'working' => __( 'working', $this->domain ),
+				'save_options_title' => __( 'Save Options', "bonaire" ),
+				'save_options_notice' => __( 'Nothing to save.', "bonaire" ),
+				'reset_options_title' => __( 'Reset Options', "bonaire" ),
+				'reset_options_notice' => __( 'Nothing to reset.', "bonaire" ),
+				'send_test_mail_title' => __( 'Send Test Mail.', "bonaire" ),
+				'send_test_mail_notice' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', "bonaire" ),
+				'send_test_mail_prompt_title' => __( 'Send Test Message', "bonaire" ),
+				'send_test_mail_prompt_review_email_title' => __( 'Please correct the email address', "bonaire" ),
+				'working' => __( 'working', "bonaire" ),
 			),
 			'alertify_notifications' => array(
-				'ok' => __( 'ok', $this->domain ),
-				'cancel' => __( 'cancel', $this->domain )
+				'ok' => __( 'ok', "bonaire" ),
+				'cancel' => __( 'cancel', "bonaire" )
 			),
 			'alertify_error' => array(
-				'title' => __( 'Please fix following errors:', $this->domain )
+				'title' => __( 'Please fix following errors:', "bonaire" )
 			),
 			'reply_error' => array(
-				'title' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', $this->domain ),
-				'text' => __( 'Go to settings page:', $this->domain ),
+				'title' => __( 'Please fill in your email account details, then test the Form Tags, the SMTP and IMAP Settings, and try again.', "bonaire" ),
+				'text' => __( 'Go to settings page:', "bonaire" ),
 				'link' => '/wp-admin/options-general.php?page=bonaire.php',
-				'link_text' => __( 'Go!', $this->domain )
+				'link_text' => __( 'Go!', "bonaire" )
 			),
 			'empty_message_error' => array(
-				'title' => __( 'Attention', $this->domain ),
-				'text' => __( 'Please type your message first.', $this->domain )
+				'title' => __( 'Attention', "bonaire" ),
+				'text' => __( 'Please type your message first.', "bonaire" )
 			),
 			'reset_options_confirmation' => array(
-				'title' => __( 'Reset Options', $this->domain ),
-				'text' => __( 'Are you sure?', $this->domain )
+				'title' => __( 'Reset Options', "bonaire" ),
+				'text' => __( 'Are you sure?', "bonaire" )
 			),
 		);
 	}
@@ -170,7 +170,7 @@ class Bonaire_Settings_Page {
 	 */
 	public function add_settings_page() {
 		
-		add_options_page( __( 'Bonaire Settings Page', $this->domain ),
+		add_options_page( __( 'Bonaire Settings Page', "bonaire" ),
 			'Bonaire',
 			'manage_options',
 			'bonaire.php',
@@ -186,6 +186,7 @@ class Bonaire_Settings_Page {
 	 */
 	public function settings_page_display() {
 		
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The display class escapes dynamic values while assembling the complete settings form.
 		echo $this->Bonaire_Settings_Page_Display->settings_page_display();
 	}
 	

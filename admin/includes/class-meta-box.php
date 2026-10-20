@@ -173,7 +173,7 @@ class Bonaire_Meta_Box {
 		
 		add_meta_box(
 			'bonaire-message-meta-box',
-			__( 'Message', $this->domain ),
+			__( 'Message', "bonaire" ),
 			array( $this, 'display_message_meta_box' ),
 			'flamingo_page_flamingo_inbound'
 		);
@@ -189,7 +189,7 @@ class Bonaire_Meta_Box {
 		
 		add_meta_box(
 			'bonaire-form-meta-box',
-			__( 'Reply', $this->domain ),
+			__( 'Reply', "bonaire" ),
 			array( $this, 'display_reply_form_meta_box' ),
 			'flamingo_page_flamingo_inbound'
 		);
@@ -221,7 +221,7 @@ class Bonaire_Meta_Box {
 		}
 
 		$post_meta      = get_post_meta( $post_id );
-		$your_message   = isset($post_meta['_field_your-message'][0]) ? $post_meta['_field_your-message'][0] : __('*no content*', $this->domain);
+		$your_message   = isset($post_meta['_field_your-message'][0]) ? $post_meta['_field_your-message'][0] : __('*no content*', "bonaire");
 
 		/**
 		 * Display reply form.
@@ -254,8 +254,8 @@ class Bonaire_Meta_Box {
 		$imap_status                     = $Bonaire_Account_Settings_Status->get_settings_status( 'imap', true );
 		$save_reply                      = isset( $stored_options->save_reply ) ? $stored_options->save_reply : 'no';
 		$recipient_email_address         = $this->Bonaire_Adapter->get_recipient_email_address( $post_id );
-		$settings_page_link              = '<a href="' . esc_url( admin_url( 'options-general.php?page=bonaire.php' ) ) . '">' . esc_html__( 'Plugin Settings Page', $this->domain ) . '</a>';
-		$contactforms_page_link          = '<a href="' . esc_url( admin_url( 'admin.php?page=wpcf7' ) ) . '">' . esc_html__( 'Contact Forms Page', $this->domain ) . '</a>';
+		$settings_page_link              = '<a href="' . esc_url( admin_url( 'options-general.php?page=bonaire.php' ) ) . '">' . esc_html__( 'Plugin Settings Page', "bonaire" ) . '</a>';
+		$contactforms_page_link          = '<a href="' . esc_url( admin_url( 'admin.php?page=wpcf7' ) ) . '">' . esc_html__( 'Contact Forms Page', "bonaire" ) . '</a>';
 		$uniqid                          = $this->Bonaire_Adapter->get_meta_field( $post_id, 'posted_data_uniqid' );
 		
 		/**
@@ -263,7 +263,8 @@ class Bonaire_Meta_Box {
 		 * If not, a reply is not possible since we don't know the recipient's email address.
 		 */
 		if ( false === $uniqid || false === $recipient_email_address ) {
-			echo wp_kses_post( __( 'Please Note: This function is available for messages you received <i>after</i> installation and configuration of Bonaire Plugin with the respective contact form.', $this->domain ) . ' ' . __( 'The reason is that Contact Form 7 has no need to store the email address the message was recieved by.', $this->domain ) . ' ' . __( 'In order to send replies from the original email address, Bonaire post-processes recieved messages and tags the message with that email address to be able to associate the message with the configured email account.', $this->domain ) . ' ' . sprintf( __( 'Simply put, once you\'ve set up the contact form (%1$s) and configured the email account settings (%2$s), you\'ll be able to reply to any message you recieve trough the respective contact form.', $this->domain ), $contactforms_page_link, $settings_page_link ) );
+			/* translators: 1: Contact Forms admin page link, 2: Bonaire settings page link. */
+			echo wp_kses_post( __( 'Please Note: This function is available for messages you received <i>after</i> installation and configuration of Bonaire Plugin with the respective contact form.', "bonaire" ) . ' ' . __( 'The reason is that Contact Form 7 has no need to store the email address the message was recieved by.', "bonaire" ) . ' ' . __( 'In order to send replies from the original email address, Bonaire post-processes recieved messages and tags the message with that email address to be able to associate the message with the configured email account.', "bonaire" ) . ' ' . sprintf( __( 'Simply put, once you\'ve set up the contact form (%1$s) and configured the email account settings (%2$s), you\'ll be able to reply to any message you recieve trough the respective contact form.', "bonaire" ), $contactforms_page_link, $settings_page_link ) );
 			
 			return;
 		}
@@ -272,7 +273,8 @@ class Bonaire_Meta_Box {
 		 * Checks if the necessary account settings are marked as valid.
 		 */
 		if ( 'yes' === $save_reply && false === $imap_status || 'no' === $save_reply && false === $smtp_status || false === $cf7_status ) {
-			echo wp_kses_post( sprintf( __( 'There seems to be a problem with your email settings (%s) or the contact form (%s).', $this->domain ), $settings_page_link, $contactforms_page_link ) );
+			/* translators: 1: Bonaire settings page link, 2: Contact Forms admin page link. */
+			echo wp_kses_post( sprintf( __( 'There seems to be a problem with your email settings (%1$s) or the contact form (%2$s).', 'bonaire' ), $settings_page_link, $contactforms_page_link ) );
 
 			return;
 		}
@@ -281,7 +283,8 @@ class Bonaire_Meta_Box {
 		 * Checks if the recipient email address matches the one that is configured on the plugin settings page.
 		 */
 		if ( $stored_options->from !== $recipient_email_address ) {
-			echo wp_kses_post( sprintf( __( 'This message was received through the following email account: <strong>%s</strong>. Bonaire is set to send answers via <strong>%s</strong>. Go to %s.', $this->domain ), esc_html( $recipient_email_address ), esc_html( $stored_options->from ), $settings_page_link ) );
+			/* translators: 1: receiving account, 2: configured sender account, 3: Bonaire settings page link. */
+			echo wp_kses_post( sprintf( __( 'This message was received through the following email account: <strong>%1$s</strong>. Bonaire is set to send answers via <strong>%2$s</strong>. Go to %3$s.', 'bonaire' ), esc_html( $recipient_email_address ), esc_html( $stored_options->from ), $settings_page_link ) );
 			
 			return;
 		}

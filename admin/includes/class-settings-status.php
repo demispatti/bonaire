@@ -122,7 +122,7 @@ final class Bonaire_Settings_Status {
 			update_option( 'bonaire_options', $stored_options, false );
 		} catch( \Throwable $e ) {
 			
-			return new WP_Error( 1, __( 'Internal Error: Unable to set settings status.', $this->domain ) );
+			return new WP_Error( 1, __( 'Internal Error: Unable to set settings status.', "bonaire" ) );
 		}
 		
 		return true;

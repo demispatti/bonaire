@@ -604,9 +604,9 @@ class Bonaire_Admin {
 		$plugin = plugin_basename( 'bonaire/bonaire.php' );
 		
 		if ( $file === $plugin ) {
-			$meta[] = '<a href="https://wordpress.org/support/plugin/bonaire" target="_blank">' . __( 'Plugin Support', $this->domain ) . '</a>';
-			$meta[] = '<a href="https://wordpress.org/support/view/plugin-reviews/bonaire" target="_blank">' . __( 'Rate Plugin', $this->domain ) . '</a>';
-			$meta[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q" target="_blank">' . __( 'Donate', $this->domain ) . '</a>';
+			$meta[] = '<a href="https://wordpress.org/support/plugin/bonaire" target="_blank">' . __( 'Plugin Support', "bonaire" ) . '</a>';
+			$meta[] = '<a href="https://wordpress.org/support/view/plugin-reviews/bonaire" target="_blank">' . __( 'Rate Plugin', "bonaire" ) . '</a>';
+			$meta[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q" target="_blank">' . __( 'Donate', "bonaire" ) . '</a>';
 		}
 		
 		return $meta;

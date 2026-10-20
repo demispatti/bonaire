@@ -63,24 +63,24 @@ class Bonaire_Reply_Form_Display {
         <div class="bonaire-reply-form-container">
             <form id="bonaire_reply_form" method="post" data-nonce="<?php echo esc_attr( $nonce ); ?>">
                 <div>
-                    <label for="name"><?php esc_html_e( 'Your Name', self::$domain ) ?></label>
+                    <label for="name"><?php esc_html_e( 'Your Name', "bonaire" ) ?></label>
                     <input type="text" name="name" data-key="name" data-form-input="bonaire" value="<?php echo esc_attr( $name ); ?>">
                 </div>
                 <div>
-                    <label for="email"><?php esc_html_e( 'Recipient', self::$domain ) ?></label>
+                    <label for="email"><?php esc_html_e( 'Recipient', "bonaire" ) ?></label>
                     <input type="email" name="email" data-key="email" data-form-input="bonaire" value="<?php echo esc_attr( sanitize_email( $your_email ) ); ?>" disabled>
                 </div>
                 <div>
-                    <label for="subject"><?php esc_html_e( 'Subject', self::$domain ) ?></label>
+                    <label for="subject"><?php esc_html_e( 'Subject', "bonaire" ) ?></label>
                     <input type="text" name="subject" data-key="subject" data-form-input="bonaire" value="<?php echo esc_attr( $subject ); ?>">
                 </div>
                 <div>
-                    <label for="textarea"><?php esc_html_e( 'Message', self::$domain ) ?></label>
+                    <label for="textarea"><?php esc_html_e( 'Message', "bonaire" ) ?></label>
                     <textarea name="textarea" id="" data-key="message" data-form-input="bonaire" cols="30" rows="10"></textarea>
                 </div>
 
                 <input class="button button-primary button-large bonaire-submit-reply-button" type="submit"
-                    value="<?php esc_html_e( 'Submit', self::$domain ) ?>">
+                    value="<?php esc_html_e( 'Submit', "bonaire" ) ?>">
             </form>
         </div>
 		

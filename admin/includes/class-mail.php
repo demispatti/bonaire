@@ -137,8 +137,8 @@ final class Bonaire_Mail extends PHPMailer {
 		$mail = $this->phpmailer( $exceptions );
 		$mail->AddAddress( $data->to );
 		$mail->AddReplyTo( $this->stored_options->from );
-		$mail->Subject  = strip_tags( $data->subject );
-		$mail->Body     = strip_tags( $data->message );
+		$mail->Subject  = wp_strip_all_tags( $data->subject );
+		$mail->Body     = wp_strip_all_tags( $data->message );
 		$mail->From     = $this->stored_options->from;
 		$mail->FromName = $data->fromname;
 		$mail->isSMTP();
@@ -169,7 +169,7 @@ final class Bonaire_Mail extends PHPMailer {
 		// If sending the message failed
 		if ( false === $result ) {
 			
-			return new WP_Error( - 2, __( 'Sending message failed.', $this->domain ) );
+			return new WP_Error( - 2, __( 'Sending message failed.', "bonaire" ) );
 		}
 		
 		// Maybe save message in "Sent" folder
@@ -204,26 +204,26 @@ final class Bonaire_Mail extends PHPMailer {
 			
 			$message = $mail->MIMEHeader . $mail->MIMEBody;
 			if ( ! function_exists( 'imap_open' ) ) {
-				return new WP_Error( 0, __( 'The PHP IMAP extension is not available.', $this->domain ) );
+				return new WP_Error( 0, __( 'The PHP IMAP extension is not available.', "bonaire" ) );
 			}
 
 			$imapStream = @imap_open( $mailbox, $mail->Username, $mail->Password );
 			if ( false === $imapStream ) {
 				
-				return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', $this->domain ) );
+				return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', "bonaire" ) );
 			}
 
 			$result = imap_append( $imapStream, $sent_items_folder, $message );
 			imap_close( $imapStream );
 			if ( false === $result ) {
 				
-				return new WP_Error( 0, __( 'Message sent, but failed to save it in your mail server\'s default folder for sent items. Please review your settings and try again.', $this->domain ) );
+				return new WP_Error( 0, __( 'Message sent, but failed to save it in your mail server\'s default folder for sent items. Please review your settings and try again.', "bonaire" ) );
 			}
 			
 			return true;
 		} catch( Exception $ex ) {
 			
-			return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', $this->domain ) );
+			return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', "bonaire" ) );
 		}
 	}
 	

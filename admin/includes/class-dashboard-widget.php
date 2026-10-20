@@ -94,7 +94,7 @@ class Bonaire_Dashboard_Widget {
 	 */
 	private function set_no_messages_message() {
 		
-		$this->no_messages_message = '<div class="no-activity"><p class="smiley" aria-hidden="true"></p><p class="message-text">' . __( "No new messages.", $this->domain ) . '</p></div>';
+		$this->no_messages_message = '<div class="no-activity"><p class="smiley" aria-hidden="true"></p><p class="message-text">' . __( "No new messages.", "bonaire" ) . '</p></div>';
 	}
 	
 	/**
@@ -105,7 +105,7 @@ class Bonaire_Dashboard_Widget {
 	 */
 	private function set_configure_account_message() {
 		
-		$this->configure_account_message = '<div class="no-activity"><span class="email"><a title="' . __( 'Go to settings page', $this->domain ) . '" href="/wp-admin/options-general.php?page=bonaire.php" aria-hidden="true"></a></span><a class="message-text" href="/wp-admin/options-general.php?page=bonaire.php">' . __( "Configure email account.", $this->domain ) . '</a></div>';
+		$this->configure_account_message = '<div class="no-activity"><span class="email"><a title="' . __( 'Go to settings page', "bonaire" ) . '" href="/wp-admin/options-general.php?page=bonaire.php" aria-hidden="true"></a></span><a class="message-text" href="/wp-admin/options-general.php?page=bonaire.php">' . __( "Configure email account.", "bonaire" ) . '</a></div>';
 	}
 	
 	/**
@@ -161,7 +161,7 @@ class Bonaire_Dashboard_Widget {
 		
 		wp_add_dashboard_widget(
 			'bonaire_dashboard_widget',
-			__( 'Messages', $this->domain ),
+			__( 'Messages', "bonaire" ),
 			array( $this, 'dashboard_widget_display' )
 		);
 	}
@@ -193,15 +193,15 @@ class Bonaire_Dashboard_Widget {
 		// If there are no posts to show
 		if ( empty( $posts ) ) {
 			
-			echo '<p class="message no-message">' . $this->no_messages_message . '</p>';
-			echo $this->get_widget_footer();
+			echo '<p class="message no-message">' . wp_kses_post( $this->no_messages_message ) . '</p>';
+			echo wp_kses_post( $this->get_widget_footer() );
 		} // if there is no propperly configured account
 		elseif ( true !== $Bonaire_Account_Settings_Status->get_settings_status( 'smtp', true ) ) {
 			
-			echo '<p class="message no-account">' . $this->configure_account_message . '</p>';
+			echo '<p class="message no-account">' . wp_kses_post( $this->configure_account_message ) . '</p>';
 		} else {
 			
-			echo $this->display_widget_content( $posts );
+			echo wp_kses_post( $this->display_widget_content( $posts ) );
 		}
 	}
 	
@@ -265,9 +265,9 @@ class Bonaire_Dashboard_Widget {
 		$all_count   = isset( $count_posts->publish ) ? (int) $count_posts->publish : 0;
 		$spam_count  = isset( $count_posts->{'flamingo-spam'} ) ? (int) $count_posts->{'flamingo-spam'} : 0;
 		$trash_count = isset( $count_posts->trash ) ? (int) $count_posts->trash : 0;
-		$all         = 0 !== $all_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound">' . __( 'Inbox', $this->domain ) . '</a>' : '<span class="empty-link">' . __( 'All', $this->domain ) . '</span>';
-		$spam        = 0 !== $spam_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound&post_status=spam">' . __( 'Spam', $this->domain ) . '</a>' : '<span class="empty-link">' . __( 'Spam', $this->domain ) . '</span>';
-		$trash       = 0 !== $trash_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound&post_status=trash">' . __( 'Trash', $this->domain ) . '</a>' : '<span class="empty-link">' . __( 'Trash', $this->domain ) . '</span>';
+		$all         = 0 !== $all_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound">' . __( 'Inbox', "bonaire" ) . '</a>' : '<span class="empty-link">' . __( 'All', "bonaire" ) . '</span>';
+		$spam        = 0 !== $spam_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound&post_status=spam">' . __( 'Spam', "bonaire" ) . '</a>' : '<span class="empty-link">' . __( 'Spam', "bonaire" ) . '</span>';
+		$trash       = 0 !== $trash_count ? '<a href="/wp-admin/admin.php?page=flamingo_inbound&post_status=trash">' . __( 'Trash', "bonaire" ) . '</a>' : '<span class="empty-link">' . __( 'Trash', "bonaire" ) . '</span>';
 		
 		return '
 			<ul class="subsub">

@@ -107,15 +107,15 @@ class Bonaire_Settings_Page_Display {
 			<header class="bonaire-page-heading">
 				<span class="bonaire-page-mark" aria-hidden="true"><span></span></span>
 				<div>
-					<p class="bonaire-page-eyebrow"><?php esc_html_e( 'Messages, connected', $this->domain ) ?></p>
-					<h1 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', $this->domain ) ?></h1>
-					<p class="bonaire-page-description"><?php esc_html_e( 'Keep contact-form messages, replies and mail connections in one calm workspace.', $this->domain ) ?></p>
+					<p class="bonaire-page-eyebrow"><?php esc_html_e( 'Messages, connected', "bonaire" ) ?></p>
+					<h1 class="settings-page-title"><?php esc_html_e( 'Bonaire Settings', "bonaire" ) ?></h1>
+					<p class="bonaire-page-description"><?php esc_html_e( 'Keep contact-form messages, replies and mail connections in one calm workspace.', "bonaire" ) ?></p>
 				</div>
 			</header>
         <div id="connection_details">
-            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account and further Settings', $this->domain ) ?></h3><a
+            <div class="header settings-form-title"><h3><?php esc_html_e( 'Email Account and further Settings', "bonaire" ) ?></h3><a
                     class="information show-settings"
-                    href="#"><?php esc_html_e( 'Information', $this->domain ) ?></a></div>
+                    href="#"><?php esc_html_e( 'Information', "bonaire" ) ?></a></div>
             <!-- Options Form -->
             <form id="bonaire_settings_form" data-nonce="<?php echo esc_attr( $form_nonce ); ?>" method="post">
                 <div class="content">
@@ -129,10 +129,10 @@ class Bonaire_Settings_Page_Display {
 							$string .= '<input type="hidden" value="' . esc_attr( $value ) . '" data-form-input="bonaire" data-key="form_id" name="bonaire_options[form_id]"/>';
 						} else {
 							// Settings Section Titles
-							$string .= 'channel' === $key ? '<div class="cf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'cf7' ) : '';
-							$string .= 'number_posts' === $key ? '<div class="dashboard"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', $this->domain ) . '</h5>' : '';
-							$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
-							$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', $this->domain ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
+							$string .= 'channel' === $key ? '<div class="cf7"><h5 class="content-section-title">' . __( 'Contact Form 7 Settings', "bonaire" ) . '</h5>' . $this->get_status_display( 'cf7' ) : '';
+							$string .= 'number_posts' === $key ? '<div class="dashboard"><h5 class="content-section-title">' . __( 'Dashboard Widget Settings', "bonaire" ) . '</h5>' : '';
+							$string .= 'username' === $key ? '<div class="smtp"><h5 class="content-section-title">' . __( 'SMTP Settings', "bonaire" ) . '</h5>' . $this->get_status_display( 'smtp' ) : '';
+							$string .= 'save_reply' === $key ? '<div class="imap"><h5 class="content-section-title">' . __( 'IMAP Settings', "bonaire" ) . '</h5>' . $this->get_status_display( 'imap' ) : '';
 							
 							// Settings
 							$string .= $this->get_settings_field( $key, $value, $this->options_meta );
@@ -140,59 +140,60 @@ class Bonaire_Settings_Page_Display {
 							$string .= 'channel' === $key || 'your_message' === $key || 'number_posts' === $key || 'from' === $key || 'ssl_certification_validation' === $key ? '</div>' : '';
 						}
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The field builders escape dynamic values while assembling the settings form.
 					echo $string;
 					?>
                     <div class="buttons-container">
                         <div class="buttons">
-	                        <h5 class="content-section-title"><?php esc_html_e( 'Reset And Save Settings', $this->domain ) ?></h5>
+	                        <h5 class="content-section-title"><?php esc_html_e( 'Reset And Save Settings', "bonaire" ) ?></h5>
                             <!-- Reset Button -->
                             <div class="button-container reset-button-container">
                                 <label for="bonaire_options[reset_options]"></label>
                                 <input class="button button-secondary bonaire-reset-options-button" type="submit"
-                                    value="<?php esc_html_e( 'Reset Settings', $this->domain ) ?>" name="bonaire_options[reset_options]"
-                                    data-nonce="<?php echo $reset_options_nonce ?>"/>
+                                    value="<?php esc_html_e( 'Reset Settings', "bonaire" ) ?>" name="bonaire_options[reset_options]"
+                                    data-nonce="<?php echo esc_attr( $reset_options_nonce ) ?>"/>
                             </div>
                             <!-- Submit Button -->
                             <div class="button-container submit-button-container">
                                 <label for="bonaire_options[save_options]"></label>
                                 <input class="button button-primary bonaire-save-options-button" type="submit"
-                                    value="<?php esc_html_e( 'Save Settings', $this->domain ) ?>" name="bonaire_options[save_options]"/>
+                                    value="<?php esc_html_e( 'Save Settings', "bonaire" ) ?>" name="bonaire_options[save_options]"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="footer">
-                <h5 class="content-section-title"><?php esc_html_e( 'Test Settings', $this->domain ) ?></h5>
+                <h5 class="content-section-title"><?php esc_html_e( 'Test Settings', "bonaire" ) ?></h5>
                 <div>
                     <!-- Test Contact Form Button -->
                     <div class="button-container test-contact-form-button-container">
                         <label for="bonaire_options[test_contact_form]"></label>
                         <input class="button button-secondary bonaire-test-contact-form-button" type="submit"
-                            value="<?php esc_html_e( 'Test Contact Form Tags', $this->domain ) ?>" name="bonaire_options[test_contact_form]"
-                            data-nonce="<?php echo $test_contact_form_nonce ?>"/>
+                            value="<?php esc_html_e( 'Test Contact Form Tags', "bonaire" ) ?>" name="bonaire_options[test_contact_form]"
+                            data-nonce="<?php echo esc_attr( $test_contact_form_nonce ) ?>"/>
                     </div>
                     <!-- Test SMTP Settings Button -->
                     <div class="button-container test-smtp-settings-button-container">
                         <label for="bonaire_options[test_smtp_settings]"></label>
                         <input class="button button-secondary bonaire-test-smtp-settings-button" type="submit"
-                            value="<?php esc_html_e( 'Test SMTP Settings', $this->domain ) ?>" name="bonaire_options[test_smtp_settings]"
-                            data-nonce="<?php echo $test_smtp_settings_nonce ?>"/>
+                            value="<?php esc_html_e( 'Test SMTP Settings', "bonaire" ) ?>" name="bonaire_options[test_smtp_settings]"
+                            data-nonce="<?php echo esc_attr( $test_smtp_settings_nonce ) ?>"/>
                     </div>
                     <!-- Test IMAP Settings Button -->
                     <div class="button-container test-imap-settings-button-container">
                         <label for="bonaire_options[test_imap_settings]"></label>
                         <input id="bonaire_options[test_imap_settings]" class="button button-secondary bonaire-test-imap-settings-button"
                             type="submit"
-                            value="<?php esc_html_e( 'Test IMAP Settings', $this->domain ) ?>" name="bonaire_options[test_imap_settings]"
-                            data-nonce="<?php echo $test_imap_settings_nonce ?>"/>
+                            value="<?php esc_html_e( 'Test IMAP Settings', "bonaire" ) ?>" name="bonaire_options[test_imap_settings]"
+                            data-nonce="<?php echo esc_attr( $test_imap_settings_nonce ) ?>"/>
                     </div>
                     <!-- Send Testmail Button -->
                     <div class="button-container send-testmail-button-container">
                         <label for="bonaire_options[send_testmail]"></label>
                         <input id="bonaire_options[send_testmail]" class="button button-secondary bonaire-send-testmail-button" type="submit"
-                            value="<?php esc_html_e( 'Send Testmail', $this->domain ) ?>" name="bonaire_options[send_testmail]"
-                            data-nonce="<?php echo $send_test_message_nonce ?>"/>
+                            value="<?php esc_html_e( 'Send Testmail', "bonaire" ) ?>" name="bonaire_options[send_testmail]"
+                            data-nonce="<?php echo esc_attr( $send_test_message_nonce ) ?>"/>
                     </div>
                 </div>
             </div>
@@ -216,19 +217,19 @@ class Bonaire_Settings_Page_Display {
 		
 		return array(
 			'cf7' => array(
-				'orange' => __( 'Settings check not successful.', $this->domain ),
-				'green' => __( 'Settings check successful (since last changes).', $this->domain ),
-				'inactive' => __( 'Inactive.', $this->domain )
+				'orange' => __( 'Settings check not successful.', "bonaire" ),
+				'green' => __( 'Settings check successful (since last changes).', "bonaire" ),
+				'inactive' => __( 'Inactive.', "bonaire" )
 			),
 			'smtp' => array(
-				'orange' => __( 'Settings check not successful.', $this->domain ),
-				'green' => __( 'Settings check successful (since last changes).', $this->domain ),
-				'inactive' => __( 'Inactive.', $this->domain )
+				'orange' => __( 'Settings check not successful.', "bonaire" ),
+				'green' => __( 'Settings check successful (since last changes).', "bonaire" ),
+				'inactive' => __( 'Inactive.', "bonaire" )
 			),
 			'imap' => array(
-				'orange' => __( 'Settings check not successful (since last changes).', $this->domain ),
-				'green' => __( 'Settings check successful.', $this->domain ),
-				'inactive' => __( 'Inactive.', $this->domain )
+				'orange' => __( 'Settings check not successful (since last changes).', "bonaire" ),
+				'green' => __( 'Settings check successful.', "bonaire" ),
+				'inactive' => __( 'Inactive.', "bonaire" )
 			)
 		);
 	}
@@ -303,9 +304,9 @@ class Bonaire_Settings_Page_Display {
 			$data_form_input = '';
 		}
 		
-		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$label         = $options_meta->{$key}['name'];
 		$name          = 'bonaire_options[' . $key . ']';
-		$default_value = translate( $options_meta->{$key}['default_value'], $this->domain );
+		$default_value = $options_meta->{$key}['default_value'];
 		
 		ob_start();
 		?>
@@ -335,7 +336,7 @@ class Bonaire_Settings_Page_Display {
 	private function get_settings_field_for_dropdown( $key, $value, $options_meta ) {
 		
 		
-		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$label         = $options_meta->{$key}['name'];
 		$name          = 'bonaire_options[' . $key . ']';
 		$default_value = $options_meta->{$key}['default_value'];
 		
@@ -358,7 +359,7 @@ class Bonaire_Settings_Page_Display {
 					$value = (string) $value;
 					?>
                     <option
-                        value="<?php echo esc_attr( $key ); ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo esc_html( translate( $select_value, $this->domain ) ); ?></option>
+                        value="<?php echo esc_attr( $key ); ?>" <?php echo selected( $value, $key, false ); ?> ><?php echo esc_html( $select_value ); ?></option>
 					<?php
 				} ?>
             </select>
@@ -382,9 +383,9 @@ class Bonaire_Settings_Page_Display {
 	 */
 	private function get_settings_field_for_checkbox( $key, $value, $options_meta ) {
 		
-		$label         = translate( $options_meta->{$key}['name'], $this->domain );
+		$label         = $options_meta->{$key}['name'];
 		$name          = 'bonaire_options[' . $key . ']';
-		$default_value = translate( $options_meta->{$key}['default_value'], $this->domain );
+		$default_value = $options_meta->{$key}['default_value'];
 		
 		$data_form_input = 'bonaire';
 		

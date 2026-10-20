@@ -390,19 +390,19 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	public function mark_as_spam( $post_id ) {
 		$message = $this->find_message( $post_id );
 		if ( ! $message ) {
-			return new WP_Error( 1, __( 'Message not found.', $this->domain ) );
+			return new WP_Error( 1, __( 'Message not found.', "bonaire" ) );
 		}
 
 		try {
 			$result = $message->spam();
 		} catch ( \Throwable $e ) {
 			
-			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to mark message as spam.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(1)' );
 		}
 		
 		if ( false === $result || ! $message->spam ) {
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to mark message as spam.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(2)' );
 		}
 		
 		return true;
@@ -419,19 +419,19 @@ class Bonaire_Adapter extends Flamingo_Inbound_Message {
 	public function move_to_trash( $post_id ) {
 		$message = $this->find_message( $post_id );
 		if ( ! $message ) {
-			return new WP_Error( 1, __( 'Message not found.', $this->domain ) );
+			return new WP_Error( 1, __( 'Message not found.', "bonaire" ) );
 		}
 
 		try {
 			$result = $message->trash();
 		} catch ( \Throwable $e ) {
 			
-			return new WP_Error( 1, __( 'Internal Error: Unable to move message to trash.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(1)' );
+			return new WP_Error( 1, __( 'Internal Error: Unable to move message to trash.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(1)' );
 		}
 		
 		if ( false === $result ) {
 			
-			return new WP_Error( 2, __( 'Internal Error: Unable to move message to trash.', $this->domain ) . ' ' . __( 'Please try again later.', $this->domain ) . '(2)' );
+			return new WP_Error( 2, __( 'Internal Error: Unable to move message to trash.', "bonaire" ) . ' ' . __( 'Please try again later.', "bonaire" ) . '(2)' );
 		}
 		
 		return true;
