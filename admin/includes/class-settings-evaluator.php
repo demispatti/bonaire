@@ -440,9 +440,9 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 			$string = $result[0];
 		}
 		
-		/* translators: %1$s: comma-separated list of missing settings fields. */
 		$result = array(
 			'success' => false,
+			/* translators: %1$s: comma-separated list of missing settings fields. */
 			'message' => wp_sprintf( __( 'Please enter the account information for the following settings fields: %1$s.', "bonaire" ), $string ),
 			'messages' => false,
 			'error_code' => 1
