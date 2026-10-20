@@ -343,12 +343,15 @@ class Bonaire_Admin {
 				$this->version
 			);
 
+			$visual_stylesheet = BONAIRE_ROOT_DIR . 'admin/css/bonaire-zenchime-ui' . $prefix . '.css';
+			$visual_version    = file_exists( $visual_stylesheet ) ? (string) filemtime( $visual_stylesheet ) : $this->version;
+
 			// Warm visual layer, loaded last so legacy plugin screens stay maintainable.
 			wp_enqueue_style(
 				'bonaire-zenchime-ui-css',
 				BONAIRE_ROOT_URL . 'admin/css/bonaire-zenchime-ui' . $prefix . '.css',
 				array( 'bonaire-admin-css' ),
-				$this->version
+				$visual_version
 			);
 		}
 	}

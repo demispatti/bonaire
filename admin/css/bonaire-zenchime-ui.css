@@ -19,16 +19,7 @@
   --bon-shadow: 0 20px 52px rgba(53, 67, 57, .09), 0 2px 8px rgba(53, 67, 57, .05);
 }
 
-/* Undo the legacy root scaling on the small set of screens where Bonaire is loaded. */
-html {
-  font-size: 100%;
-}
-
-body {
-  font-size: 13px !important;
-  line-height: 1.5 !important;
-}
-
+/* Settings screen foundation. */
 body.bonaire-settings-page {
   background: var(--bon-canvas);
   color: var(--bon-text);
