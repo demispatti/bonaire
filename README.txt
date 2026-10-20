@@ -1,12 +1,15 @@
 === Bonaire ===
 Author: Demis Patti
-Tags: Contact Form 7, Flamingo, Message, Reply, Email, E-Mail, Send, Send Mail, Send E-Mail
-Requires at least: 5.6
-Tested up to: 6.5.2
-Stable tag: 1.0.0
+Tags: contact form 7, flamingo, message, reply, email
+Requires at least: 6.7
+Tested up to: 7.1
+Requires PHP: 8.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XLMMS7C62S76Q
+
+Reply to Contact Form 7 messages stored by Flamingo directly from your WordPress dashboard.
 
 == Description ==
 
@@ -24,9 +27,7 @@ Send replies to messages you received trough a default [Contact Form 7](https://
 - [Contact Form 7](https://wordpress.org/plugins/contact-form-7/) installed and activated
 - [Flamingo](https://wordpress.org/plugins/flamingo/) installed and activated
 - PHP IMAP extension installed and enabled on your web server
-- PHP 5.6+
-
-PHP version 5.6 or above.
+- PHP 8.0 or newer with OpenSSL
 
 == Installation ==
 
@@ -64,6 +65,10 @@ Yes. I have a look at the plugin's support page once or twice a month and I prov
 
 No.
 
+== Privacy ==
+
+Bonaire processes and displays personal data stored by Flamingo, including sender names, email addresses, subjects, and message bodies. Account credentials are stored locally in the WordPress database using authenticated encryption. Sending a reply transmits its content and recipient address to the configured SMTP and, when enabled, IMAP servers.
+
 == Screenshots ==
 
 1. Settings Page
@@ -71,6 +76,26 @@ No.
 3. Reply Form
 
 == Changelog ==
+
+= 1.1.1 =
+* Security: Removed the publicly shared legacy credential key from the plugin package.
+* Compatibility: Credentials saved by releases up to 1.0.0 with the shared fallback key must be entered once again; installation-specific legacy values still migrate automatically.
+* Updated: Added automated PHP 8.0/8.2/8.5, JavaScript syntax, and WordPress Plugin Check validation.
+
+= 1.1.0 =
+* Security: Added administrator capability checks to every AJAX action.
+* Security: Escaped message, subject, sender, form, and settings output to prevent stored XSS.
+* Security: Replaced the hard-coded credential key fallback with authenticated AES-256-GCM encryption based on WordPress salts.
+* Security: Kept read support for legacy encrypted values and migrates them when settings are saved.
+* Security: Removed a fatal IMAP error path and restored automatic SMTP TLS negotiation.
+* Fixed: Activation hooks now target the actual plugin entry file.
+* Fixed: Consistent version and compatibility metadata across the plugin.
+* Fixed: Legacy object-shaped settings are normalized safely and password characters are preserved.
+* Fixed: Settings can be saved safely even when the admin script registry is not initialized.
+* Fixed: Contact Form 7 6.1.7 and Flamingo 2.6.4 integration uses their current object APIs.
+* Improved: Declared Contact Form 7 and Flamingo as required plugins.
+* Updated: AlertifyJS to 1.14.0 and Tooltipster to 4.2.8.
+* Updated: Requires WordPress 6.7 and PHP 8.0; tested with WordPress 7.1.
 
 = Version 1.0.0 =
 1. First commit

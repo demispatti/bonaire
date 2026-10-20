@@ -13,10 +13,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! trait_exists( 'WPCF7_SWV_SchemaHolder' ) ) {
-	include BONAIRE_PLUGINS_ROOT_DIR . 'contact-form-7/includes/swv/schema-holder.php';
-}
-
 /**
  * Include dependencies.
  */
@@ -109,19 +105,7 @@ final class Bonaire_Mail extends PHPMailer {
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Options crypt()
 	 */
 	private function decrypt( $string ) {
-		
-		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		return openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+		return \Bonaire\Includes\Bonaire_Crypto::decrypt( (string) $string );
 	}
 	
 	/**
@@ -219,14 +203,18 @@ final class Bonaire_Mail extends PHPMailer {
 			$sent_items_folder            = $this->get_sent_items_folder_for_send_mail( $mail );
 			
 			$message = $mail->MIMEHeader . $mail->MIMEBody;
-			$imapStream = imap_open( $mailbox, $mail->Username, $mail->Password ) or die( 'Cannot connect to web server: ' . imap_last_error() );
-			$result = imap_append( $imapStream, $sent_items_folder, $message );
-			imap_close( $imapStream );
-			
+			if ( ! function_exists( 'imap_open' ) ) {
+				return new WP_Error( 0, __( 'The PHP IMAP extension is not available.', $this->domain ) );
+			}
+
+			$imapStream = @imap_open( $mailbox, $mail->Username, $mail->Password );
 			if ( false === $imapStream ) {
 				
 				return new WP_Error( 0, __( 'Failed to connect to host. Please review your settings and try again.', $this->domain ) );
 			}
+
+			$result = imap_append( $imapStream, $sent_items_folder, $message );
+			imap_close( $imapStream );
 			if ( false === $result ) {
 				
 				return new WP_Error( 0, __( 'Message sent, but failed to save it in your mail server\'s default folder for sent items. Please review your settings and try again.', $this->domain ) );

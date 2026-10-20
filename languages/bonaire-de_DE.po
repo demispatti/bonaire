@@ -1822,3 +1822,11 @@ msgstr "Demis Patti"
 #, fuzzy
 #~ msgid "Mark as read (Local)"
 #~ msgstr "Markieren Sie als gelesen (lokal)"
+
+#: admin/partials/class-settings-page-display.php
+msgid "Messages, connected"
+msgstr "Nachrichten, verbunden"
+
+#: admin/partials/class-settings-page-display.php
+msgid "Keep contact-form messages, replies and mail connections in one calm workspace."
+msgstr "Behalte Kontaktformular-Nachrichten, Antworten und Mail-Verbindungen in einem ruhigen Arbeitsbereich im Blick."

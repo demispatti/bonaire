@@ -55,22 +55,35 @@ final class Bonaire_Settings_Status {
 	public function get_settings_status( $protocol = false, $bool = false ) {
 		
 		$stored_options = get_option( 'bonaire_options' );
+		if ( is_object( $stored_options ) ) {
+			$stored_options = get_object_vars( $stored_options );
+		}
+		if ( ! is_array( $stored_options ) ) {
+			$stored_options = array();
+		}
+		$status_options = $stored_options[1] ?? array();
+		if ( is_object( $status_options ) ) {
+			$status_options = get_object_vars( $status_options );
+		}
+		if ( ! is_array( $status_options ) ) {
+			$status_options = array();
+		}
 		
 		if ( false !== $protocol ) {
 			
 			if ( $bool ) {
 				
-				return isset( $stored_options[1][ $protocol . '_status' ]) && 'green' === $stored_options[1][ $protocol . '_status' ];
+				return isset( $status_options[ $protocol . '_status' ] ) && 'green' === $status_options[ $protocol . '_status' ];
 			} else {
 				
-				return isset( $stored_options[1][ $protocol . '_status' ] ) ? $stored_options[1][ $protocol . '_status' ] : 'orange';
+				return isset( $status_options[ $protocol . '_status' ] ) ? $status_options[ $protocol . '_status' ] : 'orange';
 			}
 		} else {
 			
 			return array(
-				'cf7' => isset( $stored_options[1]['cf7_status'] ) ? $stored_options[1]['cf7_status'] : 'orange',
-				'smtp' => isset( $stored_options[1]['smtp_status'] ) ? $stored_options[1]['smtp_status'] : 'orange',
-				'imap' => isset( $stored_options[1]['imap_status'] ) ? $stored_options[1]['imap_status'] : 'orange'
+				'cf7' => isset( $status_options['cf7_status'] ) ? $status_options['cf7_status'] : 'orange',
+				'smtp' => isset( $status_options['smtp_status'] ) ? $status_options['smtp_status'] : 'orange',
+				'imap' => isset( $status_options['imap_status'] ) ? $status_options['imap_status'] : 'orange'
 			);
 		}
 	}
@@ -91,12 +104,23 @@ final class Bonaire_Settings_Status {
 	 */
 	public function set_settings_status( $protocol, $status ) {
 		
-		$stored_options                             = get_option( 'bonaire_options' );
+		$stored_options = get_option( 'bonaire_options' );
+		if ( is_object( $stored_options ) ) {
+			$stored_options = get_object_vars( $stored_options );
+		}
+		if ( ! is_array( $stored_options ) ) {
+			$stored_options = array( array(), array() );
+		}
+		if ( ! isset( $stored_options[1] ) || ! is_array( $stored_options[1] ) ) {
+			$stored_options[1] = is_object( $stored_options[1] ?? null )
+				? get_object_vars( $stored_options[1] )
+				: array();
+		}
 		$stored_options[1][ $protocol . '_status' ] = $status;
 		
 		try {
-			update_option( 'bonaire_options', $stored_options, true );
-		} catch( Exception $e ) {
+			update_option( 'bonaire_options', $stored_options, false );
+		} catch( \Throwable $e ) {
 			
 			return new WP_Error( 1, __( 'Internal Error: Unable to set settings status.', $this->domain ) );
 		}

@@ -101,7 +101,6 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$mail->Username   = $this->stored_options->username;
 		$mail->Password   = $this->decrypt( $this->stored_options->password );
 		$mail->SMTPSecure = $this->stored_options->smtpsecure;
-		$mail->SMTPAutoTLS = false;
 		$mail->isSMTP();
 		
 		// Debug
@@ -128,19 +127,7 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Options crypt()
 	 */
 	private function decrypt( $string ) {
-		
-		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		return openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+		return \Bonaire\Includes\Bonaire_Crypto::decrypt( (string) $string );
 	}
 	
 	/**
@@ -205,7 +192,6 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 		$mail->From     = $this->stored_options->from;
 		$mail->FromName = $data->fromname;
 		$mail->isSMTP();
-		$mail->SMTPAutoTLS = false;
 		
 		return $mail;
 	}
@@ -797,25 +783,14 @@ final class Bonaire_Settings_Evaluator extends PHPMailer {
 			
 			return new WP_Error( 1, $error_message );
 		}
-		// Add the channel to the args array
-		$args = array(
-			'id' => $channel,
-			'post_status' => 'any',
-			'posts_per_page' => -1,
-			'orderby' => 'name',
-			'order' => 'ASC',
-		);
-		// Get the contact form
-		$contact_forms_by_channel = WPCF7_ContactForm::find( $args );
-		/**
-		 * @var WPCF7_ContactForm $contact_form
-		 */
-		$contact_form = null;
-		foreach( $contact_forms_by_channel as $i => $cform){
-			if($channel === $cform->id){
-				$contact_form = $cform;
-			}
+		$contact_form = WPCF7_ContactForm::get_instance( $channel );
+		if ( ! $contact_form instanceof WPCF7_ContactForm ) {
+			return new WP_Error(
+				2,
+				'<strong>' . __( 'The selected contact form could not be found.', $this->domain ) . '</strong>'
+			);
 		}
+
 		// Extract the form tags
 		$scanned_form_tags = $contact_form->scan_form_tags();
 		$scanned_tags = array();

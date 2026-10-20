@@ -84,6 +84,24 @@ class Bonaire_Settings_Page {
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'localize_script' ), 20 );
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ), 10 );
+		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
+	}
+
+	/**
+	 * Adds a settings-page class without changing any other WordPress screen.
+	 *
+	 * @param string $classes Existing admin body classes.
+	 *
+	 * @return string
+	 */
+	public function add_body_class( $classes ) {
+		$screen = get_current_screen();
+
+		if ( $screen && 'settings_page_bonaire' === $screen->id ) {
+			$classes .= ' bonaire-settings-page';
+		}
+
+		return $classes;
 	}
 	
 	/**

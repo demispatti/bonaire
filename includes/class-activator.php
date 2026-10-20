@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'AdminIncludes\Bonaire_Options' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Options' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 }
 
@@ -48,7 +48,7 @@ class Bonaire_Activator {
 				$options[0] = (array) $Bonaire_Options->default_options->{0};
 				$options[1] = (array) $Bonaire_Options->default_options->{1};
 				
-				add_option( 'bonaire_options', $options, '', true );
+				add_option( 'bonaire_options', $options, '', false );
 				delete_transient( 'bonaire_reset_settings' );
 			}
 		}

@@ -46,13 +46,14 @@ class Bonaire_Public {
 	 */
 	public function filter_wpcf7_posted_data( $posted_data ) {
 		
-		$uniqid = uniqid();
+		$uniqid = wp_generate_uuid4();
 		
 		$current_mails   = get_transient( 'bonaire_wpcf7_incoming' );
-		$data            = array( 'form_id' => $posted_data['_wpcf7'], 'posted_data_uniqid' => $uniqid );
+		$current_mails   = is_array( $current_mails ) ? $current_mails : array();
+		$data            = array( 'form_id' => absint( $posted_data['_wpcf7'] ?? 0 ), 'posted_data_uniqid' => $uniqid );
 		$current_mails[] = $data;
 		// Store the data temporarily for usage by 'wpcf7_after_mail_sent()'
-		set_transient( 'bonaire_wpcf7_incoming', $current_mails );
+		set_transient( 'bonaire_wpcf7_incoming', $current_mails, 5 * MINUTE_IN_SECONDS );
 		
 		$posted_data['posted_data_uniqid'] = $uniqid;
 		
@@ -86,7 +87,7 @@ class Bonaire_Public {
 		}
 		
 		// Add the updated data to a transient for postprocessing by class '$Bonaire_Adapter'
-		set_transient( 'bonaire_wpcf7_queue', $current_mails );
+		set_transient( 'bonaire_wpcf7_queue', $current_mails, 5 * MINUTE_IN_SECONDS );
 	}
 	
 	/**
@@ -101,18 +102,7 @@ class Bonaire_Public {
 	 */
 	private function crypt( $string ) {
 		
-		$secret_key = defined( AUTH_KEY ) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined( AUTH_SALT ) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-
-		return base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+		return \Bonaire\Includes\Bonaire_Crypto::encrypt( (string) $string );
 	}
 	
 }

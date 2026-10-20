@@ -12,27 +12,25 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The plugin bootstrap file
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
- * @link              https://demispatti.ch
- * Version:           0.1.1
- * Stable tag:        0.1.1
- * Requires at least: 5.5
- * Tested up to:      6.1.1
- * Requires PHP:      5.6
- * Max. PHP version:  7.4.21
- * @package           Bonaire
  * @wordpress-plugin
+ * @package:          Bonaire
+ * @since             0.1.0
+ * @package           bonaire
+ * @author            Demis Patti
+ * @link:             https://wordpress.org/plugins/bonaire/
+ * Plugin URI:        https://wordpress.org/plugins/bonaire/
  * Plugin Name:       Bonaire
- * Description:       Bonaire.
- * Author:            Demis Patti
+ * Description:       A very simple email client for Contact Form 7 in combination with Flamingo.
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bonaire
  * Domain Path:       /languages
+ * Version:           1.1.1
+ * Stable tag:        1.1.1
+ * Requires at least: 6.7
+ * Tested up to:      7.1
+ * Requires PHP:      8.0
  */
 
 /**
@@ -41,13 +39,15 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! defined( 'BONAIRE_ROOT_DIR' ) ) {
 	define( 'BONAIRE_ROOT_DIR', plugin_dir_path( __FILE__ ) );
 }
+if ( ! defined( 'BONAIRE_VERSION' ) ) {
+	define( 'BONAIRE_VERSION', '1.1.1' );
+}
 if ( ! defined( 'BONAIRE_ROOT_URL' ) ) {
 	define( 'BONAIRE_ROOT_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'BONAIRE_PLUGINS_ROOT_DIR' ) ) {
 	if('src' === basename( __DIR__ )){
 		define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../../' );
-		define( 'BONAIRE_SCRIPT_DEBUG', true );
 	} else {
 		define( 'BONAIRE_PLUGINS_ROOT_DIR', plugin_dir_path( __FILE__ ) . '../' );
 	}
@@ -56,14 +56,17 @@ if ( ! defined( 'BONAIRE_PLUGINS_ROOT_DIR' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'Includes\Bonaire' ) ) {
+if ( ! class_exists( 'Bonaire\Includes\Bonaire' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'includes/class-bonaire.php';
 }
-if ( ! class_exists( 'Includes\Bonaire_Activator' ) ) {
+if ( ! class_exists( 'Bonaire\Includes\Bonaire_Activator' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'includes/class-activator.php';
 }
-if ( ! class_exists( 'Includes\Bonaire_Deactivator' ) ) {
+if ( ! class_exists( 'Bonaire\Includes\Bonaire_Deactivator' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'includes/class-deactivator.php';
+}
+if ( ! class_exists( 'Bonaire\Includes\Bonaire_Crypto' ) ) {
+	require_once BONAIRE_ROOT_DIR . 'includes/class-crypto.php';
 }
 
 /**
@@ -101,7 +104,7 @@ class Bonaire_Launcher {
 	 * @since   0.9.6
 	 * @access   public
 	 */
-	public $version = '1.0.0';
+	public $version = BONAIRE_VERSION;
 	
 	/**
 	 * Registers the methods that need to be hooked with WordPress.
@@ -111,8 +114,9 @@ class Bonaire_Launcher {
 	 */
 	public function add_hooks() {
 		
-		register_activation_hook( __FILE__, array( $this, 'activate_bonaire' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'deactivate_bonaire' ) );
+		$plugin_file = defined( 'BONAIRE_PLUGIN_FILE' ) ? BONAIRE_PLUGIN_FILE : __FILE__;
+		register_activation_hook( $plugin_file, array( $this, 'activate_bonaire' ) );
+		register_deactivation_hook( $plugin_file, array( $this, 'deactivate_bonaire' ) );
 	}
 	
 	/**

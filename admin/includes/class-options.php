@@ -155,15 +155,25 @@ final class Bonaire_Options {
 	private function stored_options() {
 		
 		$stored_options = get_option( 'bonaire_options' );
-		
-		if ( false === $stored_options || ! isset( $stored_options[1] ) ) {
+		if ( is_object( $stored_options ) ) {
+			$stored_options = get_object_vars( $stored_options );
+		}
+
+		if ( ! is_array( $stored_options ) || ! isset( $stored_options[0], $stored_options[1] ) ) {
 			
+			return $this->default_options;
+		}
+
+		$account = is_object( $stored_options[0] ) ? get_object_vars( $stored_options[0] ) : $stored_options[0];
+		$status  = is_object( $stored_options[1] ) ? get_object_vars( $stored_options[1] ) : $stored_options[1];
+
+		if ( ! is_array( $account ) || ! is_array( $status ) ) {
 			return $this->default_options;
 		}
 		
 		$options      = (object) array();
-		$options->{0} = (object) $stored_options[0];
-		$options->{1} = (object) $stored_options[1];
+		$options->{0} = (object) wp_parse_args( $account, get_object_vars( $this->default_options->{0} ) );
+		$options->{1} = (object) wp_parse_args( $status, get_object_vars( $this->default_options->{1} ) );
 		
 		return $options;
 	}
@@ -178,7 +188,7 @@ final class Bonaire_Options {
 	 */
 	private function account_settings( $stored_options ) {
 		
-		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new stdClass();
+		$account_settings = isset( $stored_options->{0} ) ? $stored_options->{0} : new \stdClass();
 		
 		/**
 		 * @var object $account_settings
@@ -483,7 +493,13 @@ final class Bonaire_Options {
 	private function update_localized_data() {
 		
 		global $wp_scripts;
-		
+		if ( ! $wp_scripts instanceof \WP_Scripts ) {
+			wp_scripts();
+		}
+		if ( ! $wp_scripts instanceof \WP_Scripts || ! wp_script_is( 'bonaire-admin-js', 'registered' ) ) {
+			return false;
+		}
+
 		return $wp_scripts->localize( 'bonaire-admin-js', 'BonaireOptions', $this->get_script_data() );
 	}
 	
@@ -530,29 +546,39 @@ final class Bonaire_Options {
 	 */
 	public function bonaire_save_options( $input ) {
 		
-		// Copy the currently stored options for later use
-		$old_stored_options = get_option( 'bonaire_options' );
+		// Work with the normalized representation so legacy object-shaped options
+		// cannot trigger object-as-array errors while saving.
+		$old_stored_options = array(
+			(array) $this->stored_options->{0},
+			(array) $this->stored_options->{1},
+		);
 		
 		// Validate
 		$output = $this->validate_options( $input );
 		
 		// Re-add the stored password if there were no changes and there is one stored already
-		if ( ( '*****' === $input['password'] ) ) {
+		if ( '*****' === ( $input['password'] ?? '' ) ) {
 			$output['password'] = $this->account_settings->password;
+			if ( \Bonaire\Includes\Bonaire_Crypto::needs_migration( (string) $output['password'] ) ) {
+				$plaintext = $this->crypt( $output['password'], 'd' );
+				if ( '' !== $plaintext ) {
+					$output['password'] = $this->crypt( $plaintext, 'e' );
+				}
+			}
 		} else {
-			$output['password'] = sanitize_text_field( $input['password'] );
+			$output['password'] = sanitize_text_field( $input['password'] ?? '' );
 		}
 		
 		// Crypt password if needed
-		if ( '' !== $input['password'] && '*****' !== $input['password'] ) {
+		if ( '' !== ( $input['password'] ?? '' ) && '*****' !== $input['password'] ) {
 			$output['password'] = $this->crypt( $input['password'], 'e' );
 		}
 		
-		$stored_options     = get_option( 'bonaire_options' );
-		$stored_options[0]  = $output;
+		$stored_options    = $old_stored_options;
+		$stored_options[0] = $output;
 		
 		// Update options
-		$result = update_option( 'bonaire_options', $stored_options, true );
+		$result = update_option( 'bonaire_options', $stored_options, false );
 		
 		if ( false === $result ) {
 			
@@ -594,8 +620,8 @@ final class Bonaire_Options {
 		$have_imap_settings_changed = $this->have_settings_changed( $output, $old_stored_options, 'imap' );
 		if ( $have_imap_settings_changed || false === $have_imap_settings_changed && 'green' !== $imap_status ) {
 			if ( 'no' === $output['save_reply'] ) {
-				$status = 'inactive';
-				$Bonaire_Account_Settings_Status->set_settings_status( 'imap', $status );
+				$imap_status = 'inactive';
+				$Bonaire_Account_Settings_Status->set_settings_status( 'imap', $imap_status );
 			} else {
 				$imap_result = $Bonaire_Account_Evaluator->bonaire_test_imap_settings();
 			}
@@ -612,9 +638,9 @@ final class Bonaire_Options {
 			
 			return array(
 				'success' => true,
-				'cf7_status' => $cf7_result['status'],
-				'smtp_status' => $smtp_result['status'],
-				'imap_status' => $imap_result['status'],
+				'cf7_status' => is_array( $cf7_result ) ? ( $cf7_result['status'] ?? $cf7_status ) : $cf7_status,
+				'smtp_status' => is_array( $smtp_result ) ? ( $smtp_result['status'] ?? $smtp_status ) : $smtp_status,
+				'imap_status' => is_array( $imap_result ) ? ( $imap_result['status'] ?? $imap_status ) : $imap_status,
 				'message' => false,
 				'messages' => false,
 				'error_code' => 0
@@ -626,9 +652,9 @@ final class Bonaire_Options {
 			__( 'Settings Saved.', $this->domain ),
 			array(
 				'success' => false,
-				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : 'green',
-				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : 'green',
-				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : 'green',
+				'cf7_status' => is_wp_error( $cf7_result ) ? 'orange' : $cf7_status,
+				'smtp_status' => is_wp_error( $smtp_result ) ? 'orange' : $smtp_status,
+				'imap_status' => is_wp_error( $imap_result ) ? 'orange' : $imap_status,
 				'message' => false,
 				'messages' => false,
 				'error_code' => 0
@@ -678,13 +704,13 @@ final class Bonaire_Options {
 		$input_array_to_check          = array();
 		$stored_options_array_to_check = array();
 		foreach ( $keys as $key => $value ) {
-			$input_array_to_check[ $key ]          = $input[ $key ];
-			$stored_options_array_to_check[ $key ] = $old_stored_options[0][ $key ];
+			$input_array_to_check[ $key ]          = $input[ $key ] ?? '';
+			$stored_options_array_to_check[ $key ] = $old_stored_options[0][ $key ] ?? '';
 		}
 		
 		// Decrypt the password for the check, if it got changed
-		if ( '*****' !== $input['password'] && $input['password'] !== $old_stored_options[0]['password'] ) {
-			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'], $action = 'd' );
+		if ( '*****' !== ( $input['password'] ?? '' ) && ( $input['password'] ?? '' ) !== ( $old_stored_options[0]['password'] ?? '' ) ) {
+			$stored_options_array_to_check['password'] = $this->crypt( $old_stored_options[0]['password'] ?? '', 'd' );
 		}
 		
 		$result = array_diff_assoc( $input_array_to_check, $stored_options_array_to_check );
@@ -714,7 +740,7 @@ final class Bonaire_Options {
 		$default_settings = $this->default_options();
 		$settings[0]      = (array) $default_settings->{0};
 		$settings[1]      = (array) $default_settings->{1};
-		$result           = update_option( 'bonaire_options', $settings, true );
+		$result           = update_option( 'bonaire_options', $settings, false );
 		
 		if ( false !== $result ) {
 			
@@ -757,22 +783,36 @@ final class Bonaire_Options {
 	 */
 	public function validate_options( $input ) {
 		
-		$output = null;
+		$output = array();
 		foreach ( $input as $key => $value ) {
+			if ( 'password' === $key ) {
+				$output[ $key ] = (string) $value;
+				continue;
+			}
+
+			$value = sanitize_text_field( (string) $value );
 			
-			// Sanitize value
-			$value = strip_tags( stripslashes( $value ) );
-			
-			if ( 'form_id' === $key || 'number_posts' === $key ) {
-				$output[ $key ] = is_int( (int) $value ) ? (string) $value : '';
+			if ( 'form_id' === $key ) {
+				$output[ $key ] = ctype_digit( $value ) && 0 < (int) $value ? (string) absint( $value ) : '';
+			} elseif ( 'number_posts' === $key ) {
+				$output[ $key ] = ctype_digit( $value ) && 10 >= (int) $value ? (string) (int) $value : '';
 			} elseif ( 'smtp_host' === $key || 'imap_host' === $key ) {
 				$result         = preg_match( '/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i', $value );
 				$output[ $key ] = 1 === $result ? $value : '';
 			} elseif ( 'smtpauth' === $key ) {
 				$output[ $key ] = true;
 			} elseif ( 'smtp_port' === $key || 'imap_port' === $key ) {
-				$result         = filter_var( $value, FILTER_VALIDATE_INT );
-				$output[ $key ] = is_int( $result ) && 0 !== $result && 1 !== $result ? (int) $value : '';
+				$result = filter_var(
+					$value,
+					FILTER_VALIDATE_INT,
+					array(
+						'options' => array(
+							'min_range' => 1,
+							'max_range' => 65535,
+						),
+					)
+				);
+				$output[ $key ] = false !== $result ? (int) $result : '';
 			} elseif ( 'username' === $key ) {
 				if ( strpos( $value, '@' ) !== false && strpos( $value, '.' ) !== false ) {
 					$result         = filter_var( $value, FILTER_VALIDATE_EMAIL );
@@ -781,8 +821,6 @@ final class Bonaire_Options {
 					$result         = preg_match( '/^[A-Za-z0-9 _.-]+$/', $value );
 					$output[ $key ] = 1 === $result ? $value : '';
 				}
-			} elseif ( 'password' === $key ) {
-				$output[ $key ] = $value;
 			} elseif ( 'channel' === $key ) {
 				$output[ $key ] = (string) $value;
 			} elseif ( 'smtpsecure' === $key || 'imapsecure' === $key ) {
@@ -792,11 +830,7 @@ final class Bonaire_Options {
 					$output[ $key ] = $value;
 				}
 			} elseif ( 'save_reply' === $key ) {
-				if ( 'no' !== $value ) {
-					$output[ $key ] = 'yes';
-				} else {
-					$output[ $key ] = 'no';
-				}
+				$output[ $key ] = 'yes' === $value ? 'yes' : 'no';
 			} elseif ( 'inbox_folder_name' === $key || 'inbox_folder_path' === $key ) {
 				$output[ $key ] = $value;
 			} elseif ( 'ssl_certification_validation' === $key ) {
@@ -817,7 +851,7 @@ final class Bonaire_Options {
 			}
 		}
 		
-		return apply_filters( array( $this, 'validate_options' ), $output, $input );
+		return apply_filters( 'bonaire_validate_options', $output, $input );
 	}
 	
 	/**
@@ -831,26 +865,9 @@ final class Bonaire_Options {
 	 * @see   \Bonaire\Admin\Includes\Bonaire_Mail decrypt()
 	 */
 	private function crypt( $string, $action = 'e' ) {
-		
-		$secret_key = defined(AUTH_KEY) ? AUTH_KEY : 'r4RWH*ynn!AS.|A-j<qph!#))@!Gde5i,0&Z[R=i.]78f[Ine)aChIMwRpqZN$6~';
-		$secret_iv  = defined(AUTH_SALT) ? AUTH_SALT : '=;.6h~xr5v/BZuKP-|GR B*Kb`K-Q@PH6r>My6=-gz$qTt+X!0Rc_6>N:&g5&1>R';
-		
-		if ( '' === $secret_key || '' === $secret_iv ) {
-			return $string;
-		}
-		
-		$output         = false;
-		$encrypt_method = 'AES-256-CBC';
-		$key            = hash( 'sha256', $secret_key );
-		$iv             = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-		
-		if ( $action === 'e' ) {
-			$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
-		} elseif ( $action === 'd' ) {
-			$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
-		}
-		
-		return $output;
+		return 'd' === $action
+			? \Bonaire\Includes\Bonaire_Crypto::decrypt( (string) $string )
+			: \Bonaire\Includes\Bonaire_Crypto::encrypt( (string) $string );
 	}
 	
 	/**
@@ -863,21 +880,9 @@ final class Bonaire_Options {
 	 * @since 0.9.6
 	 */
 	public function get_stored_options( $settings_group = 0 ) {
-		
-		$stored_options = get_option( 'bonaire_options' );
-		
-		if ( false === $stored_options && $settings_group === 0 ) {
-			return $this->default_options()->{0};
-		} elseif ( false === $stored_options && $settings_group === 1 ) {
-			return $this->default_options()->{1};
-		}
-		
-		if ( 1 === $settings_group ) {
-			
-			return (object) $stored_options[1];
-		}
-		
-		return (object) $stored_options[0];
+		return 1 === (int) $settings_group
+			? $this->stored_options->{1}
+			: $this->stored_options->{0};
 	}
 	
 	/**

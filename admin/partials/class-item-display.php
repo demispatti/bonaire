@@ -51,14 +51,7 @@ class Bonaire_Item_Display {
 	 */
 	public static function get_excerpt( $message, $charlength = 54 ) {
 		
-		$html = $message;
-		$html = preg_replace( " ([.*?])", '', $html );
-		$html = strip_shortcodes( $html );
-		$html = strip_tags( $html );
-		$html = substr( $html, 0, $charlength );
-		$html = substr( $html, 0, strripos( $html, " " ) );
-		
-		return $html . '...';
+		return wp_html_excerpt( wp_strip_all_tags( strip_shortcodes( (string) $message ) ), $charlength, '…' );
 	}
 	
 	/**
@@ -72,12 +65,16 @@ class Bonaire_Item_Display {
 	public static function item_display( $post ) {
 		
 		$post_id        = $post->id();
-		$email          = $post->fields['your-email'];
-		$name           = $post->fields['your-name'];
-		$subject        = $post->fields['your-subject'];
-		$message        = $post->fields['your-message'];
+		$email          = sanitize_email( $post->fields['your-email'] ?? '' );
+		$name           = sanitize_text_field( $post->fields['your-name'] ?? '' );
+		$subject        = sanitize_text_field( $post->fields['your-subject'] ?? '' );
+		$message        = sanitize_textarea_field( $post->fields['your-message'] ?? '' );
 		$excerpt        = self::get_excerpt( $message );
-		$edit_post_link = site_url() . '/wp-admin/admin.php?page=flamingo_inbound&post=' . $post_id . '&action=edit';
+		$edit_post_link = add_query_arg(
+			array( 'page' => 'flamingo_inbound', 'post' => absint( $post_id ), 'action' => 'edit' ),
+			admin_url( 'admin.php' )
+		);
+		$search_link = add_query_arg( array( 'page' => 'flamingo', 's' => $email ), admin_url( 'admin.php' ) );
 		
 		$read_nonce  = wp_create_nonce( 'bonaire_mark_as_read_nonce_' . $post_id );
 		$spam_nonce  = wp_create_nonce( 'bonaire_mark_as_spam_nonce_' . $post_id );
@@ -86,7 +83,7 @@ class Bonaire_Item_Display {
 		ob_start();
 		?>
 
-        <li id="message_<?php echo $post_id ?>" class="message comment-item">
+        <li id="message_<?php echo esc_attr( absint( $post_id ) ); ?>" class="message comment-item">
 
             <a class="message-icon" href="<?php echo esc_url( $edit_post_link ) ?>" style="font-style=normal;"
                 title="<?php esc_html_e( ' View Message', self::$domain ) ?>"><span class="dashicons dashicons-email"></span></a>
@@ -96,32 +93,32 @@ class Bonaire_Item_Display {
                     <cite class="comment-author">
                         <span class="meta"><?php esc_html_e( 'From', self::$domain ) ?>
                             <a target="_blank"
-                                href="/wp-admin/admin.php?page=flamingo&s=<?php echo $email ?>"><?php echo $name ?></a> <?php esc_html_e( 'regarding', self::$domain ) ?>
+                                href="<?php echo esc_url( $search_link ); ?>"><?php echo esc_html( $name ); ?></a> <?php esc_html_e( 'regarding', self::$domain ) ?>
                             <a
-                                href="<?php echo esc_url( $edit_post_link ) ?>" style="font-style=normal;"><?php echo $subject ?></a>
+                                href="<?php echo esc_url( $edit_post_link ) ?>" style="font-style=normal;"><?php echo esc_html( $subject ); ?></a>
                         </span>
                     </cite>
                 </p>
-                <blockquote><?php echo $excerpt ?></blockquote>
+                <blockquote><?php echo esc_html( $excerpt ); ?></blockquote>
                 <p class="row-actions">
 					<span class="reply">
 						<a class="bonaire-dashboard-reply-button vim-r hide-if-no-js"
                             aria-label="<?php esc_html_e( 'Reply to this message', self::$domain ) ?>"
-                            href="<?php echo $edit_post_link ?>#bonaire-form-meta-box"
+                            href="<?php echo esc_url( $edit_post_link . '#bonaire-form-meta-box' ); ?>"
                             title="<?php esc_html_e( ' Reply', self::$domain ) ?>"><?php esc_html_e( 'Reply', self::$domain ) ?></a>
 					</span>
                     <span class="spam"> |
-					<a onclick="return false;" data-nonce="<?php echo $spam_nonce ?>" class="bonaire-mark-as-spam-button vim-r hide-if-no-js"
-                        aria-label="<?php esc_html_e( 'Mark as spam', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
+					<a onclick="return false;" data-nonce="<?php echo esc_attr( $spam_nonce ); ?>" class="bonaire-mark-as-spam-button vim-r hide-if-no-js"
+                        aria-label="<?php esc_html_e( 'Mark as spam', self::$domain ) ?>" data-postid="<?php echo esc_attr( absint( $post_id ) ); ?>" href="#"
                         title="<?php esc_html_e( ' Spam', self::$domain ) ?>"><?php esc_html_e( 'Spam', self::$domain ) ?></a>
 					</span>
                     <span class="trash"> |
-						<a onclick="return false;" data-nonce="<?php echo $trash_nonce ?>" class="bonaire-move-to-trash-button vim-r hide-if-no-js"
-                            aria-label="<?php esc_html_e( 'Move to trash', self::$domain ) ?>" data-postid="<?php echo $post_id ?>" href="#"
+						<a onclick="return false;" data-nonce="<?php echo esc_attr( $trash_nonce ); ?>" class="bonaire-move-to-trash-button vim-r hide-if-no-js"
+                            aria-label="<?php esc_html_e( 'Move to trash', self::$domain ) ?>" data-postid="<?php echo esc_attr( absint( $post_id ) ); ?>" href="#"
                             title="<?php esc_html_e( ' Trash', self::$domain ) ?>"><?php esc_html_e( 'Trash', self::$domain ) ?></a>
 					</span>
                     <span class="mark-as-read-local"> |
-						<a onclick="return false;" data-nonce="<?php echo $read_nonce ?>" data-postid="<?php echo $post->id() ?>"
+						<a onclick="return false;" data-nonce="<?php echo esc_attr( $read_nonce ); ?>" data-postid="<?php echo esc_attr( absint( $post_id ) ); ?>"
                             class="bonaire-mark-as-read-button vim-r hide-if-no-js" aria-label="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"
                             href="#"
                             title="<?php esc_html_e( 'Mark as read', self::$domain ) ?>"><?php esc_html_e( 'Mark as read', self::$domain ) ?></a>
@@ -129,7 +126,7 @@ class Bonaire_Item_Display {
                     <span class="view"> |
 						<a class="bonaire-view-button vim-r hide-if-no-js"
                             aria-label="<?php esc_html_e( 'View message', self::$domain ) ?>"
-                            href="<?php echo $edit_post_link ?>"
+                            href="<?php echo esc_url( $edit_post_link ); ?>"
                             title="<?php esc_html_e( ' View', self::$domain ) ?>"><?php esc_html_e( 'View', self::$domain ) ?></a>
 					</span>
                 </p>

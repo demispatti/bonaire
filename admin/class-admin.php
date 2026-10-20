@@ -13,40 +13,40 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Include dependencies.
  */
-if ( ! class_exists( 'AdminIncludes\Bonaire_Settings_Page' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Settings_Page' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-page.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Dashboard_Widget' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Dashboard_Widget' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-dashboard-widget.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Post_Views' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Post_Views' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-post-views.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Contextual_Help' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Contextual_Help' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-contextual-help.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Meta_Box' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Meta_Box' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-meta-box.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Mail' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Mail' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-mail.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Account_Evaluator' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Settings_Evaluator' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-evaluator.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Settings_Status' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Settings_Status' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-settings-status.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Ajax' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Ajax' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-ajax.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Tooltips' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Tooltips' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-tooltips.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Options' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Options' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-options.php';
 }
-if ( ! class_exists( 'AdminIncludes\Bonaire_Adapter' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
+if ( ! class_exists( 'Bonaire\Admin\Includes\Bonaire_Adapter' ) && file_exists( BONAIRE_PLUGINS_ROOT_DIR . 'flamingo/includes/class-inbound-message.php' ) ) {
 	require_once BONAIRE_ROOT_DIR . 'admin/includes/class-adapter.php';
 }
 
@@ -252,7 +252,7 @@ class Bonaire_Admin {
 	 */
 	public function init_dependencies() {
 		
-		if ( defined( 'FLAMINGO_PLUGIN' ) && defined( 'WPCF7_PLUGIN' ) && current_user_can( 'administrator' ) ) {
+		if ( defined( 'FLAMINGO_PLUGIN' ) && defined( 'WPCF7_PLUGIN' ) && current_user_can( 'manage_options' ) ) {
 			
 			// Display on Dashboard, Message Edit Screen or on the Plugin Settings Page
 			if ( is_admin() ) {
@@ -273,7 +273,11 @@ class Bonaire_Admin {
 			}
 			
 			// Flamingo Inbound
-			if ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'edit' ) && ( isset( $_REQUEST['page'] ) && self::$plugin_pages['flamingo_inbound'] === $_REQUEST['page'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only screen routing.
+			$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only screen routing.
+			$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+			if ( 'edit' === $action && self::$plugin_pages['flamingo_inbound'] === $page ) {
 				$this->include_required_plugins_adapter();
 				$this->include_meta_box();
 			}
@@ -290,7 +294,7 @@ class Bonaire_Admin {
 	 */
 	public function enqueue_styles( $hook_suffix ) {
 		
-		$prefix = ( defined( 'BONAIRE_SCRIPT_DEBUG' ) ) ? '' : '.min';
+		$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		
 		if ( in_array( $hook_suffix, self::$plugin_hook_suffixes, true ) ) {
 			
@@ -299,27 +303,21 @@ class Bonaire_Admin {
 			wp_enqueue_style( 'jquery-ui-smoothness',
 				BONAIRE_ROOT_URL . "vendor/jquery-ui/jquery-ui.min.css",
 				array(),
-				'all',
+				$this->version,
 				'all'
 			);
 			
 			// Tooltipster
-			wp_enqueue_style( 'bonaire-inc-tooltipster-core-css',
-				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.core' . $prefix . '.css',
-				array(),
-				'all',
-				'all'
-			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-bundle-css',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/tooltipster.bundle' . $prefix . '.css',
 				array(),
-				'all',
+				$this->version,
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-tooltipster-theme-shadow-css',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
 				array(),
-				'all',
+				$this->version,
 				'all'
 			);
 			
@@ -327,24 +325,32 @@ class Bonaire_Admin {
 			wp_enqueue_style( 'bonaire-inc-alertify-min-css',
 				BONAIRE_ROOT_URL . 'vendor/alertify/css/alertify' . $prefix . '.css',
 				array(),
-				'all',
+				$this->version,
 				'all'
 			);
 			wp_enqueue_style( 'bonaire-inc-alertify-theme-bootstrap-min-css',
 				BONAIRE_ROOT_URL . 'vendor/alertify/css/themes/bootstrap' . $prefix . '.css',
 				array(),
-				'all',
+				$this->version,
 				'all'
 			);
+
+			// Admin.
+			wp_enqueue_style(
+				'bonaire-admin-css',
+				BONAIRE_ROOT_URL . 'admin/css/bonaire-admin' . $prefix . '.css',
+				array(),
+				$this->version
+			);
+
+			// Warm visual layer, loaded last so legacy plugin screens stay maintainable.
+			wp_enqueue_style(
+				'bonaire-zenchime-ui-css',
+				BONAIRE_ROOT_URL . 'admin/css/bonaire-zenchime-ui' . $prefix . '.css',
+				array( 'bonaire-admin-css' ),
+				$this->version
+			);
 		}
-		
-		// Admin
-		wp_enqueue_style( 'bonaire-admin-css',
-			BONAIRE_ROOT_URL . 'admin/css/bonaire-admin' . $prefix . '.css',
-			array(),
-			'all',
-			'all'
-		);
 	}
 	
 	/**
@@ -357,27 +363,15 @@ class Bonaire_Admin {
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 		
-		$prefix = ( defined( 'BONAIRE_SCRIPT_DEBUG' ) ) ? '' : '.min';
+		$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		
 		if ( in_array( $hook_suffix, self::$plugin_hook_suffixes, true ) ) {
 			
 			// Tooltipster
-			wp_enqueue_script( 'bonaire-inc-tooltipster-core-min-js',
-				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.core' . $prefix . '.js',
-				array( 'jquery' ),
-				'all',
-				true
-			);
-			wp_enqueue_script( 'bonaire-inc-tooltipster-svg-min-js',
-				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/plugins/tooltipster/SVG/tooltipster-SVG' . $prefix . '.js',
-				array( 'jquery', 'bonaire-inc-tooltipster-core-min-js' ),
-				'all',
-				true
-			);
 			wp_enqueue_script( 'bonaire-inc-tooltipster-bundle-min-js',
 				BONAIRE_ROOT_URL . 'vendor/tooltipster/js/tooltipster.bundle' . $prefix . '.js',
-				array( 'jquery', 'bonaire-inc-tooltipster-svg-min-js' ),
-				'all',
+				array( 'jquery' ),
+				$this->version,
 				true
 			);
 			
@@ -385,7 +379,7 @@ class Bonaire_Admin {
 			wp_enqueue_script( 'bonaire-tooltips-js',
 				BONAIRE_ROOT_URL . 'admin/js/tooltips' . $prefix . '.js',
 				array( 'jquery', 'bonaire-inc-tooltipster-bundle-min-js' ),
-				'all',
+				$this->version,
 				true
 			);
 			
@@ -393,7 +387,7 @@ class Bonaire_Admin {
 			wp_enqueue_script( 'bonaire-inc-alertify-min-js',
 				BONAIRE_ROOT_URL . 'vendor/alertify/alertify' . $prefix . '.js',
 				array( 'jquery' ),
-				'all',
+				$this->version,
 				true
 			);
 			
@@ -416,7 +410,7 @@ class Bonaire_Admin {
 					'jquery-effects-core',
 					'bonaire-inc-alertify-min-js'
 				),
-				'all',
+				$this->version,
 				true
 			);
 		}

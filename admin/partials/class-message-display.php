@@ -57,7 +57,7 @@ class Bonaire_Message_Display {
         <div class="bonaire-message-container">
             <div id="bonaire_message">
                 <div>
-                    <textarea disabled name="textarea" data-key="message" data-form-input="bonaire" cols="30" rows="10"><?php echo $your_message ?></textarea>
+                    <textarea disabled name="textarea" data-key="message" data-form-input="bonaire" cols="30" rows="10"><?php echo esc_textarea( $your_message ); ?></textarea>
                 </div>
             </div>
         </div>

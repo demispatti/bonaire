@@ -61,10 +61,7 @@ jQuery(function ( $ ){
         }
     };
 
-    $(document).one('ready', function (){
-
-        var bonaireTooltips = new BonaireTooltips();
-        bonaireTooltips.init();
-    });
+    var bonaireTooltips = new BonaireTooltips();
+    bonaireTooltips.init();
 
 });
