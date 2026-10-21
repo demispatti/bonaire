@@ -42,9 +42,9 @@ jobs:
       - uses: actions/checkout@v7
       - name: Build the distributable plugin
         run: |
-          mkdir -p "${RUNNER_TEMP}/plugin"
-          rsync -rc --exclude-from=.distignore ./ "${RUNNER_TEMP}/plugin/"
+          mkdir -p "${RUNNER_TEMP}/bonaire"
+          rsync -rc --exclude-from=.distignore ./ "${RUNNER_TEMP}/bonaire/"
       - name: Run the official WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: ${{ runner.temp }}/plugin
+          build-dir: ${{ runner.temp }}/bonaire
