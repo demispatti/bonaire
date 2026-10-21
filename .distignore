@@ -1,0 +1,12 @@
+/.git
+/.github
+/.wordpress-org
+/tests
+/.distignore
+/.gitignore
+/CHANGELOG.md
+/CODE_OF_CONDUCT.md
+/CONTRIBUTING.md
+/README.md
+/readme.md
+/SECURITY.md

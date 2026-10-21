@@ -80,6 +80,8 @@ Bonaire processes and displays personal data stored by Flamingo, including sende
 = 1.1.1 =
 * Security: Removed the publicly shared legacy credential key from the plugin package.
 * Compatibility: Credentials saved by releases up to 1.0.0 with the shared fallback key must be entered once again; installation-specific legacy values still migrate automatically.
+* Improved: Scoped the visual layer to the Bonaire settings screen and removed global WordPress admin typography overrides.
+* Improved: Added file-based cache busting for the maintained settings stylesheet.
 * Updated: Added automated PHP 8.0/8.2/8.5, JavaScript syntax, and WordPress Plugin Check validation.
 
 = 1.1.0 =

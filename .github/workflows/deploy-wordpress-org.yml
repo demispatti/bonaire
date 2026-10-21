@@ -1,0 +1,57 @@
+name: WordPress.org release
+
+on:
+  pull_request:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  package-dry-run:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the plugin
+        uses: actions/checkout@v7
+
+      - name: Validate release metadata
+        id: release
+        run: .github/scripts/validate-release.sh bonaire.php
+
+      - name: Build the WordPress.org package without publishing
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # v2.3.0
+        with:
+          dry-run: true
+          generate-zip: true
+        env:
+          SLUG: bonaire
+          VERSION: ${{ steps.release.outputs.version }}
+          SVN_USERNAME: dry-run
+          SVN_PASSWORD: dry-run
+
+      - name: Show package contents
+        run: unzip -l "${{ steps.deploy.outputs.zip-path }}"
+
+  deploy:
+    if: github.event_name == 'release' && github.event.release.prerelease == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the release
+        uses: actions/checkout@v7
+
+      - name: Validate release tag and metadata
+        run: .github/scripts/validate-release.sh bonaire.php "${{ github.event.release.tag_name }}"
+
+      - name: Publish to WordPress.org
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # v2.3.0
+        env:
+          SLUG: bonaire
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
