@@ -40,5 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Build the distributable plugin
+        run: |
+          mkdir -p "${RUNNER_TEMP}/plugin"
+          rsync -rc --exclude-from=.distignore ./ "${RUNNER_TEMP}/plugin/"
       - name: Run the official WordPress Plugin Check
         uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: ${{ runner.temp }}/plugin
